@@ -5,7 +5,7 @@ frappe.ui.form.on('Salary Structure Assignment', {
     //     }, __("Actions"));
 	// },
 	custom_net_salary: function(frm) {
-        frm.trigger("custom_marital_status")
+        // frm.trigger("custom_marital_status")
         const family_allowance = frm.doc.custom_family_allowance 
         const housing_allowance = frm.doc.custom_housing_allowance
 
@@ -20,21 +20,53 @@ frappe.ui.form.on('Salary Structure Assignment', {
             else{
                 TT = 150
             }
-            var total_net = frm.doc.custom_net_salary + family_allowance + housing_allowance
+            console.log(TT)
+            var supervisory = frm.doc.custom_net_salary * frm.doc.custom_supervisory
+            var leadership = frm.doc.custom_net_salary * frm.doc.custom_leadership
+            // var performance = (frm.doc.custom_net_salary +  housing_allowance + family_allowance + frm.doc.custom_transport +  supervisory + leadership ) * frm.doc.custom_performance_factor
+            var performance = (frm.doc.custom_net_salary +  housing_allowance + family_allowance +  supervisory + leadership ) * frm.doc.custom_performance_factor
+            var reward = frm.doc.custom_reward
+            var total_net = frm.doc.custom_net_salary + family_allowance + housing_allowance + supervisory + leadership + performance + reward 
+
             // توزيع حد الاعفاء بين مكونات الراتب الأساسية الداخلة في عملية الترفيع
             // Tb ==> T base ,  Th ==> T housing  , Tf ==> T Family
+
             var Tb =  (frm.doc.custom_net_salary / total_net) * TT 
             var Th =  (housing_allowance / total_net) * TT 
             var Tf =  (family_allowance / total_net) * TT 
-            var increased_base = (frm.doc.custom_net_salary - 0.1 * Tb - 50 ) / 0.8167125
-            var increased_housing_allowance = (housing_allowance  - 0.1 * Th) / 0.8167125
-            var increased_family_allowance = (family_allowance - 0.1 * Tf ) / 0.8613
+            var TR =  (reward / total_net) * TT 
+
+            var b50 = (frm.doc.custom_net_salary / total_net) * 50
+            var H50 = (housing_allowance / total_net) * 50
+            var F50 = (family_allowance / total_net) * 50
+            var R50 = (reward / total_net) * 50
+
+            // if (total_net > 1000){
+            //     var increased_base = (frm.doc.custom_net_salary - 0.1 * Tb - b50 ) / 0.8167125
+            //     var increased_housing_allowance = (housing_allowance  - 0.1 * Th - H50) / 0.8167125
+            //     var increased_family_allowance = (family_allowance - 0.1 * Tf - F50 ) / 0.8613
+            //     var increased_reward = (reward - 0.1 * TR - R50 ) / 0.8167125
+            // }
+            // else{
+            //     var increased_base = (frm.doc.custom_net_salary - 0.05 * Tb ) / 0.8167125
+            //     var increased_housing_allowance = (housing_allowance  - 0.05 * Th ) / 0.8167125
+            //     var increased_family_allowance = (family_allowance - 0.05 * Tf ) / 0.8613
+            //     var increased_reward = (reward - 0.05 * TR) / 0.8167125
+            // }
+
+            var increased_base = (frm.doc.custom_net_salary - 0.1 * Tb - b50 ) / 0.8167125
+            var increased_housing_allowance = (housing_allowance  - 0.1 * Th - H50) / 0.8167125
+            var increased_family_allowance = (family_allowance - 0.1 * Tf - F50 ) / 0.8613
+            var increased_reward = (reward - 0.1 * TR - R50 ) / 0.8167125
+
             frm.set_value('base' , increased_base)
             frm.set_value('custom_increased_housing_allowance' , increased_housing_allowance)
             frm.set_value('custom_increased_family_allowance' , increased_family_allowance)
+            frm.set_value('custom_increased_reward' , increased_reward)
             frm.refresh_field("base")
             frm.refresh_field("custom_increased_housing_allowance")
             frm.refresh_field("custom_increased_family_allowance")
+            frm.refresh_field("frm.doc.custom_increased_reward")
 
             // // frappe.msgprint("Setting")
             // frappe.call({
