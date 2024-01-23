@@ -216,3 +216,15 @@ doctype_js = {"Salary Structure" : "public/js/salary_structure.js",
 # auth_hooks = [
 # 	"bounya.auth.validate"
 # ]
+
+
+fixtures = [
+    {"dt": "Salary Component"},
+    {"dt": "Salary Structure", "filters": [
+        [
+            "name", "in", [
+                "Salary Structure 2024"
+            ]
+        ]
+    ]}
+]
