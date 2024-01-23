@@ -218,13 +218,13 @@ doctype_js = {"Salary Structure" : "public/js/salary_structure.js",
 # ]
 
 
-fixtures = [
-    {"dt": "Salary Component"},
-    {"dt": "Salary Structure", "filters": [
-        [
-            "name", "in", [
-                "Salary Structure 2024"
-            ]
-        ]
-    ]}
-]
+# fixtures = [
+#     {"dt": "Salary Component"},
+#     {"dt": "Salary Structure", "filters": [
+#         [
+#             "name", "in", [
+#                 "Salary Structure 2024"
+#             ]
+#         ]
+#     ]}
+# ]
