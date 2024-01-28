@@ -258,5 +258,18 @@
   "name": "2b2f99cd9a",
   "source_text": "Salary To Bank",
   "translated_text": "\u062d\u0648\u0627\u0641\u0638"
+ },
+ {
+  "context": null,
+  "contributed": 0,
+  "contribution_docname": null,
+  "contribution_status": "",
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "ar",
+  "modified": "2024-01-28 11:55:40.471523",
+  "name": "9e1bf033f6",
+  "source_text": "Dependent",
+  "translated_text": "\u0645\u0631\u0628\u0648\u0637"
  }
 ]
