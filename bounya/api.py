@@ -138,11 +138,6 @@ def calculate_interpolate_value(doc , employee_no , salary_structure , custom_ne
 
 @frappe.whitelist()
 def fetch_bank_branch_list(doctype, txt, searchfield, start, page_len, filters):
-    """
-    Filter users on Cash Model based on the following criteria:
-        - If the creator user is of أخصائي مشتريات محلية - Internal Purchasing Specialist, Then filter on Local Purchases Custodian users.
-        - If the creator user is of أخصائي تخليص جمركي - Customs Clearance Specialist, Then filter on Customs Clearance Custodian users.
-    """
 
     bank_name = filters.get("bank_name")
 
@@ -154,6 +149,12 @@ def fetch_bank_branch_list(doctype, txt, searchfield, start, page_len, filters):
 
     return frappe.db.sql(query)
 
+@frappe.whitelist()
+def fetch_base_from_slip(grade , marbot):
+	grade = frappe.get_doc("Employee Grade", grade)
+	print("hhhhhhhhhhiiiiiiiiiiiiiiiiiii" , type(marbot))
+	return (grade.default_base_pay + (grade.custom_dependent_value * (cint(marbot) - 1)))
+	
 # @frappe.whitelist()
 # def money_in_words(number):
 #     result = money_in_words(number)
@@ -224,3 +225,5 @@ def money_in_words(number, main_currency = None, fraction_currency=None):
     out = re.sub(r'(\b\w*ئتان)(\w+\b)', r'\1 و \2', out)
     # return out + " " + _("only.")
     return out 
+
+

@@ -140,4 +140,22 @@ frappe.ui.form.on('Salary Structure Assignment', {
         frm.refresh_field("custom_family_allowance")
         frm.refresh_field("custom_housing_allowance")
     },
+    grade: function(frm){
+        if (frm.doc.grade){
+            frappe.call({
+                method: "bounya.api.fetch_base_from_slip",
+                args: {
+                    "grade": frm.doc.grade,
+                    "marbot": frm.doc.custom_dependent
+                },
+                callback: function (r) {
+                    if (r.message){
+                        frm.set_value("custom_net_salary" , r.message)
+                        frm.refresh_field("custom_net_salary")
+                    }
+                }
+            })
+        }
+
+    }
 });
