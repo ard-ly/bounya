@@ -10,8 +10,8 @@ from frappe.utils import cint, cstr, flt
 from frappe.utils.data import money_in_words
 
 import erpnext
-from scipy import interpolate
-from scipy.interpolate import CubicSpline
+# from scipy import interpolate
+# from scipy.interpolate import CubicSpline
 
 @frappe.whitelist()
 def make_demo_data(doc ,salary_structure ,marital_status, number_of_children , base , evaluation , performance_factor):
@@ -152,7 +152,6 @@ def fetch_bank_branch_list(doctype, txt, searchfield, start, page_len, filters):
 @frappe.whitelist()
 def fetch_base_from_slip(grade , marbot):
 	grade = frappe.get_doc("Employee Grade", grade)
-	print("hhhhhhhhhhiiiiiiiiiiiiiiiiiii" , type(marbot))
 	return (grade.default_base_pay + (grade.custom_dependent_value * (cint(marbot) - 1)))
 	
 # @frappe.whitelist()
