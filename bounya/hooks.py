@@ -29,7 +29,8 @@ app_license = "MIT"
 # include js in doctype views
 
 doctype_js = {"Salary Structure" : "public/js/salary_structure.js",
-              "Salary Structure Assignment" : "public/js/salary_structure_assignment.js"
+              "Salary Structure Assignment" : "public/js/salary_structure_assignment.js",
+              "Employee" : "public/js/employee.js"
               }
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
@@ -228,3 +229,13 @@ doctype_js = {"Salary Structure" : "public/js/salary_structure.js",
 #         ]
 #     ]}
 # ]
+fixtures = [
+    {"dt": "Print Format", "filters": [
+        [
+            "name", "in", [
+                "قسيمة راتب"
+            ]
+        ]
+    ]},
+    {"dt": "Translation"}
+]

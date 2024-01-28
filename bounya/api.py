@@ -7,6 +7,7 @@ from frappe import _
 from frappe.model.document import Document
 from frappe.model.mapper import get_mapped_doc
 from frappe.utils import cint, cstr, flt
+from frappe.utils.data import money_in_words
 
 import erpnext
 from scipy import interpolate
@@ -134,3 +135,92 @@ def calculate_interpolate_value(doc , employee_no , salary_structure , custom_ne
 	estimated_x = interp_func(desired_y)
 	print(f"The estimated x for y={desired_y} is approximately {estimated_x}")
 	return float(estimated_x)
+
+@frappe.whitelist()
+def fetch_bank_branch_list(doctype, txt, searchfield, start, page_len, filters):
+    """
+    Filter users on Cash Model based on the following criteria:
+        - If the creator user is of أخصائي مشتريات محلية - Internal Purchasing Specialist, Then filter on Local Purchases Custodian users.
+        - If the creator user is of أخصائي تخليص جمركي - Customs Clearance Specialist, Then filter on Customs Clearance Custodian users.
+    """
+
+    bank_name = filters.get("bank_name")
+
+    query = f"""
+        SELECT branch_name
+        FROM `tabEmployee Bank Branch`
+        WHERE parent = '{bank_name}'
+        """
+
+    return frappe.db.sql(query)
+
+# @frappe.whitelist()
+# def money_in_words(number):
+#     result = money_in_words(number)
+
+#     return _(result)
+
+
+@frappe.whitelist()
+
+def money_in_words(number, main_currency = None, fraction_currency=None):
+    """
+    Returns string in words with currency and fraction currency.
+    """
+    from frappe.utils import get_defaults, in_words, get_number_format_info
+    _ = frappe._
+    # delete the word 'واحد' from the number words if start with 1
+    start_in_one_word = str(number).startswith("1")
+    try:
+        # note: `flt` returns 0 for invalid input and we don't want that
+        number = float(number)
+    except ValueError:
+        return ""
+
+    number = flt(number)
+    if number < 0:
+        return ""
+
+    d = get_defaults()
+    if not main_currency:
+        main_currency = d.get("currency", "USD")
+    if not fraction_currency:
+        fraction_currency = frappe.db.get_value("Currency", main_currency, "fraction", cache=True) or _("Cent")
+
+    number_format = frappe.db.get_value("Currency", main_currency, "number_format", cache=True) or \
+        frappe.db.get_default("number_format") or "#,###.##"
+
+    fraction_length = get_number_format_info(number_format)[2]
+
+    n = "%.{0}f".format(fraction_length) % number
+
+    numbers = n.split(".")
+    main, fraction =  numbers if len(numbers) > 1 else [n, "00"]
+
+    if len(fraction) < fraction_length:
+        zeros = "0" * (fraction_length - len(fraction))
+        fraction += zeros
+
+    in_million = True
+    if number_format == "#,##,###.##": in_million = False
+
+    fraction_currency = _(fraction_currency)
+    main_currency = _(main_currency)
+    # 0.00
+    if main == "0" and fraction in ["00", "000"]:
+        out = "{0} {1}".format(main_currency, _("Zero"))
+    # 0.XX
+    elif main == "0":
+        out = _(in_words(fraction, in_million).title()) + " " + fraction_currency
+    else:
+        out = _(in_words(main, in_million).title()) + " " + main_currency
+        if cint(fraction):
+            out = out + " " + _("and") + " " + _(in_words(fraction, in_million).title()) + " " + fraction_currency
+
+    if start_in_one_word and out[:4] == 'واحد':
+        out = out[5:]
+
+    out = re.sub(r'(\b\w*ائة)(\w+\b)', r'\1 و \2', out)
+    out = re.sub(r'(\b\w*ئتان)(\w+\b)', r'\1 و \2', out)
+    # return out + " " + _("only.")
+    return out 
