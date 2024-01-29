@@ -152,6 +152,7 @@ frappe.ui.form.on('Salary Structure Assignment', {
                     if (r.message){
                         frm.set_value("custom_net_salary" , r.message)
                         frm.refresh_field("custom_net_salary")
+
                     }
                 }
             })

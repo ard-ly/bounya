@@ -70,7 +70,7 @@ def make_demo_data(doc ,salary_structure ,marital_status, number_of_children , b
 		return base , net_pay
 	except Exception as e:
 		msg = _(e)
-		frappe.throw(msg, title=_("Payment Unlink Error"))
+		frappe.throw(msg, title=_("Error"))
 		frappe.msgprint(e)
 	
 @frappe.whitelist()
@@ -152,8 +152,11 @@ def fetch_bank_branch_list(doctype, txt, searchfield, start, page_len, filters):
 @frappe.whitelist()
 def fetch_base_from_slip(grade , marbot):
 	grade = frappe.get_doc("Employee Grade", grade)
-	return (grade.default_base_pay + (grade.custom_dependent_value * (cint(marbot) - 1)))
-	
+	if(cint(marbot) > 0):
+		return (grade.default_base_pay + (grade.custom_dependent_value * (cint(marbot) - 1)))
+	else:
+		return (grade.default_base_pay )
+
 # @frappe.whitelist()
 # def money_in_words(number):
 #     result = money_in_words(number)
