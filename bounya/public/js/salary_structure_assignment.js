@@ -26,7 +26,7 @@ frappe.ui.form.on('Salary Structure Assignment', {
             // var performance = (frm.doc.custom_net_salary +  housing_allowance + family_allowance + frm.doc.custom_transport +  supervisory + leadership ) * frm.doc.custom_performance_factor
             var performance = (frm.doc.custom_net_salary +  housing_allowance + family_allowance +  supervisory + leadership ) * frm.doc.custom_performance_factor
             var reward = frm.doc.custom_reward
-            var risk = frm.doc.custom_net_salary * custom_risk
+            var risk = frm.doc.custom_net_salary * frm.doc.custom_risk
             var total_net = frm.doc.custom_net_salary + family_allowance + housing_allowance + supervisory + leadership + performance + reward + risk
 
             // توزيع حد الاعفاء بين مكونات الراتب الأساسية الداخلة في عملية الترفيع
