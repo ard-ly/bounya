@@ -26,7 +26,8 @@ frappe.ui.form.on('Salary Structure Assignment', {
             // var performance = (frm.doc.custom_net_salary +  housing_allowance + family_allowance + frm.doc.custom_transport +  supervisory + leadership ) * frm.doc.custom_performance_factor
             var performance = (frm.doc.custom_net_salary +  housing_allowance + family_allowance +  supervisory + leadership ) * frm.doc.custom_performance_factor
             var reward = frm.doc.custom_reward
-            var total_net = frm.doc.custom_net_salary + family_allowance + housing_allowance + supervisory + leadership + performance + reward 
+            var risk = frm.doc.custom_net_salary * custom_risk
+            var total_net = frm.doc.custom_net_salary + family_allowance + housing_allowance + supervisory + leadership + performance + reward + risk
 
             // توزيع حد الاعفاء بين مكونات الراتب الأساسية الداخلة في عملية الترفيع
             // Tb ==> T base ,  Th ==> T housing  , Tf ==> T Family
@@ -122,22 +123,22 @@ frappe.ui.form.on('Salary Structure Assignment', {
     },
     custom_marital_status: function(frm) {
         if (frm.doc.custom_marital_status=='Single'){
-            frm.set_value("custom_family_allowance" , 0)
+            // frm.set_value("custom_family_allowance" , 0)
             frm.set_value("custom_housing_allowance" , 100)
         }
         else if (frm.doc.custom_marital_status=='Married' && frm.doc.custom_number_of_children == 0 ){
-            frm.set_value("custom_family_allowance" , 100)
+            // frm.set_value("custom_family_allowance" , 100)
             frm.set_value("custom_housing_allowance" , 150)
         }
         else if (frm.doc.custom_marital_status=='Married' && frm.doc.custom_number_of_children != 0 ){
-            frm.set_value("custom_family_allowance" , 200)
+            // frm.set_value("custom_family_allowance" , 200)
             frm.set_value("custom_housing_allowance" , 200)
         }
         else{
-            frm.set_value("custom_family_allowance" , 0)
+            // frm.set_value("custom_family_allowance" , 0)
             frm.set_value("custom_housing_allowance" , 0)
         }
-        frm.refresh_field("custom_family_allowance")
+        // frm.refresh_field("custom_family_allowance")
         frm.refresh_field("custom_housing_allowance")
     },
     grade: function(frm){
