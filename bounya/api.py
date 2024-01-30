@@ -156,6 +156,16 @@ def fetch_base_from_slip(grade , marbot):
 		return (grade.default_base_pay + (grade.custom_dependent_value * (cint(marbot) - 1)))
 	else:
 		return (grade.default_base_pay )
+	
+@frappe.whitelist()
+def update_base_from_slip(doc ,method):
+	frappe.msgprint("hi")
+	grade = frappe.get_doc("Employee Grade", doc.grade)
+	if(cint(doc.custom_dependent) > 0):
+		doc.custom_net_salary = grade.default_base_pay + (grade.custom_dependent_value * (cint(doc.custom_dependent) - 1))
+	else:
+		doc.custom_net_salary = grade.default_base_pay 
+	frappe.db.commit()
 
 # @frappe.whitelist()
 # def money_in_words(number):
