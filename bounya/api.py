@@ -159,7 +159,7 @@ def fetch_base_from_slip(grade , marbot):
 	
 @frappe.whitelist()
 def update_base_from_slip(doc ,method):
-	frappe.msgprint("hi")
+	# frappe.msgprint("hi")
 	grade = frappe.get_doc("Employee Grade", doc.grade)
 	if(cint(doc.custom_dependent) > 0):
 		doc.custom_net_salary = grade.default_base_pay + (grade.custom_dependent_value * (cint(doc.custom_dependent) - 1))
