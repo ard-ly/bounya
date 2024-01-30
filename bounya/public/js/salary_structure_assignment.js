@@ -5,7 +5,96 @@ frappe.ui.form.on('Salary Structure Assignment', {
     //     }, __("Actions"));
 	// },
 	custom_net_salary: function(frm) {
-        // frm.trigger("custom_marital_status")
+
+        frm.trigger("calculate_incremment_value")
+    },    
+
+    custom_supervisory:function(frm) {
+
+        frm.trigger("calculate_incremment_value")
+
+    },
+    custom_reward:function(frm) {
+
+        frm.trigger("calculate_incremment_value")
+
+    },
+    custom_leadership:function(frm) {
+
+        frm.trigger("calculate_incremment_value")
+
+    },
+    custom_risk:function(frm) {
+
+        frm.trigger("calculate_incremment_value")
+
+    },
+    custom_performance_factor:function(frm) {
+
+        frm.trigger("calculate_incremment_value")
+
+    },
+    
+    custom_housing_allowance:function(frm) {
+
+        frm.trigger("calculate_incremment_value")
+
+    },
+    
+    // 90:00
+    custom_evaluation : function(frm) {
+        frm.set_value('custom_performance_factor' , 0.0)
+        if (frm.doc.custom_evaluation == 'Good') {
+            frm.set_value('custom_performance_factor' , 0.1)
+        }
+        if (frm.doc.custom_evaluation == 'Hassan') {
+            frm.set_value('custom_performance_factor' , 0.2)
+        }
+        if (frm.doc.custom_evaluation == 'high') {
+            frm.set_value('custom_performance_factor' , 0.3)
+        }
+    },
+    custom_marital_status: function(frm) {
+        if (frm.doc.custom_marital_status=='Single'){
+            // frm.set_value("custom_family_allowance" , 0)
+            frm.set_value("custom_housing_allowance" , 100)
+        }
+        else if (frm.doc.custom_marital_status=='Married' && frm.doc.custom_number_of_children == 0 ){
+            // frm.set_value("custom_family_allowance" , 100)
+            frm.set_value("custom_housing_allowance" , 150)
+        }
+        else if (frm.doc.custom_marital_status=='Married' && frm.doc.custom_number_of_children != 0 ){
+            // frm.set_value("custom_family_allowance" , 200)
+            frm.set_value("custom_housing_allowance" , 200)
+        }
+        else{
+            // frm.set_value("custom_family_allowance" , 0)
+            frm.set_value("custom_housing_allowance" , 0)
+        }
+        // frm.refresh_field("custom_family_allowance")
+        frm.refresh_field("custom_housing_allowance")
+        frm.trigger("calculate_incremment_value")
+    },
+    grade: function(frm){
+        if (frm.doc.grade){
+            frappe.call({
+                method: "bounya.api.fetch_base_from_slip",
+                args: {
+                    "grade": frm.doc.grade,
+                    "marbot": frm.doc.custom_dependent
+                },
+                callback: function (r) {
+                    if (r.message){
+                        frm.set_value("custom_net_salary" , r.message)
+                        frm.refresh_field("custom_net_salary")
+
+                    }
+                }
+            })
+        }
+
+    },
+    calculate_incremment_value(frm){
         const family_allowance = frm.doc.custom_family_allowance 
         const housing_allowance = frm.doc.custom_housing_allowance
 
@@ -42,19 +131,6 @@ frappe.ui.form.on('Salary Structure Assignment', {
             var F50 = (family_allowance / total_net) * 50
             var R50 = (reward / total_net) * 50
 
-            // if (total_net > 1000){
-            //     var increased_base = (frm.doc.custom_net_salary - 0.1 * Tb - b50 ) / 0.8167125
-            //     var increased_housing_allowance = (housing_allowance  - 0.1 * Th - H50) / 0.8167125
-            //     var increased_family_allowance = (family_allowance - 0.1 * Tf - F50 ) / 0.8613
-            //     var increased_reward = (reward - 0.1 * TR - R50 ) / 0.8167125
-            // }
-            // else{
-            //     var increased_base = (frm.doc.custom_net_salary - 0.05 * Tb ) / 0.8167125
-            //     var increased_housing_allowance = (housing_allowance  - 0.05 * Th ) / 0.8167125
-            //     var increased_family_allowance = (family_allowance - 0.05 * Tf ) / 0.8613
-            //     var increased_reward = (reward - 0.05 * TR) / 0.8167125
-            // }
-
             var increased_base = (frm.doc.custom_net_salary - 0.1 * Tb - b50 ) / 0.8167125
             var increased_housing_allowance = (housing_allowance  - 0.1 * Th - H50) / 0.8167125
             var increased_family_allowance = (family_allowance - 0.1 * Tf - F50 ) / 0.8613
@@ -68,96 +144,7 @@ frappe.ui.form.on('Salary Structure Assignment', {
             frm.refresh_field("custom_increased_housing_allowance")
             frm.refresh_field("custom_increased_family_allowance")
             frm.refresh_field("frm.doc.custom_increased_reward")
-
-            // // frappe.msgprint("Setting")
-            // frappe.call({
-            //     method: 'bounya.api.calculate_interpolate_value',
-            //     args: {
-            //         doc : frm.doc , 
-            //         employee_no : frm.doc.employee ,
-            //         salary_structure : frm.doc.salary_structure,
-            //         custom_net_salary : (frm.doc.custom_net_salary + frm.doc.custom_family_allowance + frm.doc.custom_housing_allowance + frm.doc.custom_transport + (frm.doc.custom_net_salary * frm.doc.custom_performance_factor)) , 
-            //         evaluation : frm.doc.custom_evaluation
-            //     },
-            //     callback: function(r) {
-            //         // code snippet
-            //         // var base = r.message - frm.doc.custom_transport - frm.doc.custom_card_allowance - frm.doc.custom_subsistence_allowance - frm.doc.custom_fuel_allowance
-
-            //         var base = r.message 
-            //         // console.log(r.message)
-            //         var custom_net_salary = frm.doc.custom_net_salary
-            //         var total_net = (frm.doc.custom_net_salary + frm.doc.custom_family_allowance +  frm.doc.custom_housing_allowance)
-            //         if (total_net > 0 && base > frm.doc.custom_net_salary ) {
-            //             var upgrade_presentation_for_base = frm.doc.custom_net_salary / total_net
-            //             var upgrade_presentation_for_family = frm.doc.custom_family_allowance / total_net
-            //             var upgrade_presentation_for_housing = frm.doc.custom_housing_allowance / total_net
-            //             // var upgraded_value = Math.abs(base - custom_net_salary)
-            //             var upgraded_value = base - custom_net_salary
-            //             base = frm.doc.custom_net_salary + (upgraded_value * upgrade_presentation_for_base)
-            //             var new_family_allowance = frm.doc.custom_family_allowance + (upgraded_value * upgrade_presentation_for_family)
-            //             var new_housing_allowance = frm.doc.custom_housing_allowance + (upgraded_value * upgrade_presentation_for_housing)
-            //         //     console.log("base_test" , base)
-            //         //     console.log("family_allowance" , family_allowance)
-            //         //     console.log("housing_allowance" , housing_allowance)
-            //             frm.set_value('custom_family_allowance' , new_family_allowance)
-            //             frm.set_value('custom_housing_allowance' , new_housing_allowance)
-            //             frm.refresh_field("custom_family_allowance")
-            //             frm.refresh_field("custom_housing_allowance")
-            //     }
-
-            //         frm.set_value('base' , base)
-            //         frm.refresh_field("base")
-            //     },
-            // });	
         }
-    },         
-    // 90:00
-    custom_evaluation : function(frm) {
-        frm.set_value('custom_performance_factor' , 0.0)
-    if (frm.doc.custom_evaluation == 'Hassan') {
-        frm.set_value('custom_performance_factor' , 0.2)
-    }
-    if (frm.doc.custom_evaluation == 'high') {
-        frm.set_value('custom_performance_factor' , 0.3)
-    }
-    },
-    custom_marital_status: function(frm) {
-        if (frm.doc.custom_marital_status=='Single'){
-            // frm.set_value("custom_family_allowance" , 0)
-            frm.set_value("custom_housing_allowance" , 100)
-        }
-        else if (frm.doc.custom_marital_status=='Married' && frm.doc.custom_number_of_children == 0 ){
-            // frm.set_value("custom_family_allowance" , 100)
-            frm.set_value("custom_housing_allowance" , 150)
-        }
-        else if (frm.doc.custom_marital_status=='Married' && frm.doc.custom_number_of_children != 0 ){
-            // frm.set_value("custom_family_allowance" , 200)
-            frm.set_value("custom_housing_allowance" , 200)
-        }
-        else{
-            // frm.set_value("custom_family_allowance" , 0)
-            frm.set_value("custom_housing_allowance" , 0)
-        }
-        // frm.refresh_field("custom_family_allowance")
-        frm.refresh_field("custom_housing_allowance")
-    },
-    grade: function(frm){
-        if (frm.doc.grade){
-            frappe.call({
-                method: "bounya.api.fetch_base_from_slip",
-                args: {
-                    "grade": frm.doc.grade,
-                    "marbot": frm.doc.custom_dependent
-                },
-                callback: function (r) {
-                    if (r.message){
-                        frm.set_value("custom_net_salary" , r.message)
-                        frm.refresh_field("custom_net_salary")
-
-                    }
-                }
-            })
-        }
-
+        
     }
 });
