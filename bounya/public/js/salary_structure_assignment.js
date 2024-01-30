@@ -45,7 +45,7 @@ frappe.ui.form.on('Salary Structure Assignment', {
     custom_evaluation : function(frm) {
         frm.set_value('custom_performance_factor' , 0.0)
         if (frm.doc.custom_evaluation == 'Good') {
-            frm.set_value('custom_performance_factor' , 0.1)
+            frm.set_value('custom_performance_factor' , 0.15)
         }
         if (frm.doc.custom_evaluation == 'Hassan') {
             frm.set_value('custom_performance_factor' , 0.2)
@@ -93,6 +93,9 @@ frappe.ui.form.on('Salary Structure Assignment', {
             })
         }
 
+    },
+    salary_structure:function(frm){
+        frm.trigger("grade")
     },
     calculate_incremment_value(frm){
         const family_allowance = frm.doc.custom_family_allowance 
