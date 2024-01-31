@@ -128,11 +128,11 @@ doctype_js = {"Salary Structure" : "public/js/salary_structure.js",
 # 	}
 # }
 
-doc_events = {
-	"Salary Structure Assignment": {
-		"on_update": "bounya.api.update_base_from_slip",
-	}
-}
+# doc_events = {
+# 	"Salary Structure Assignment": {
+# 		"on_update": "bounya.api.update_base_from_slip",
+# 	}
+# }
 
 
 # Scheduled Tasks

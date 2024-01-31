@@ -13,7 +13,7 @@
    "columns": 0,
    "creation": "2024-01-07 13:22:20.120792",
    "default": null,
-   "depends_on": "eval:doc.salary_structure",
+   "depends_on": "",
    "description": null,
    "docstatus": 0,
    "dt": "Salary Structure Assignment",
