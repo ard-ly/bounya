@@ -71,7 +71,8 @@ frappe.ui.form.on('Salary Structure Assignment', {
             // frm.set_value("custom_family_allowance" , 0)
             frm.set_value("custom_housing_allowance" , 0)
         }
-        // frm.refresh_field("custom_family_allowance")
+        frm.set_value("custom_family_allowance" , 0)
+        frm.refresh_field("custom_family_allowance")
         frm.refresh_field("custom_housing_allowance")
         frm.trigger("calculate_incremment_value")
     },
@@ -133,11 +134,21 @@ frappe.ui.form.on('Salary Structure Assignment', {
             var H50 = (housing_allowance / total_net) * 50
             var F50 = (family_allowance / total_net) * 50
             var R50 = (reward / total_net) * 50
+            if (total_net > 1000){
+                
+                var increased_base = (frm.doc.custom_net_salary - 0.1 * Tb - b50 ) / 0.8167125
+                var increased_housing_allowance = (housing_allowance  - 0.1 * Th - H50) / 0.8167125
+                var increased_family_allowance = (family_allowance - 0.1 * Tf - F50 ) / 0.8613
+                var increased_reward = (reward - 0.1 * TR - R50 ) / 0.8167125
 
-            var increased_base = (frm.doc.custom_net_salary - 0.1 * Tb - b50 ) / 0.8167125
-            var increased_housing_allowance = (housing_allowance  - 0.1 * Th - H50) / 0.8167125
-            var increased_family_allowance = (family_allowance - 0.1 * Tf - F50 ) / 0.8613
-            var increased_reward = (reward - 0.1 * TR - R50 ) / 0.8167125
+            }
+            else{
+                var increased_base = (frm.doc.custom_net_salary - 0.05 * Tb  ) / 0.86365
+                var increased_housing_allowance = (housing_allowance  - 0.05 * Th ) / 0.86365
+                var increased_family_allowance = (family_allowance - 0.05 * Tf  ) / 0.86365
+                var increased_reward = (reward - 0.05 * TR  ) / 0.86365
+            }
+
 
             frm.set_value('base' , increased_base)
             frm.set_value('custom_increased_housing_allowance' , increased_housing_allowance)
@@ -149,5 +160,8 @@ frappe.ui.form.on('Salary Structure Assignment', {
             frm.refresh_field("frm.doc.custom_increased_reward")
         }
         
-    }
+    },
+    // validat: function(frm) {
+    //     frm.trigger("calculate_incremment_value")
+    // },
 });
