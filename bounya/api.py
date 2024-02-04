@@ -166,6 +166,7 @@ def update_base_from_slip(doc ,method):
 			doc.custom_net_salary = grade.default_base_pay + (grade.custom_dependent_value * (cint(doc.custom_dependent) - 1))
 		else:
 			doc.custom_net_salary = grade.default_base_pay 
+		# doc.save()
 		frappe.db.commit()
 
 # @frappe.whitelist()
@@ -238,5 +239,4 @@ def money_in_words(number, main_currency = None, fraction_currency=None):
     out = re.sub(r'(\b\w*ئتان)(\w+\b)', r'\1 و \2', out)
     # return out + " " + _("only.")
     return out 
-
 

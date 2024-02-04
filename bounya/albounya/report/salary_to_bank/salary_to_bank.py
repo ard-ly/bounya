@@ -27,6 +27,12 @@ def get_columns():
 			"width": 200,
 		},
 		{
+			"label": _("Branch"),
+			"fieldname": "branch",
+			"fieldtype": "Data",
+			"width": 100,
+		},
+		{
 			"label": _("Account Number"),
 			"fieldname": "bank_account_no",
 			"fieldtype": "Data",
@@ -62,7 +68,7 @@ def get_data(filters=None):
 	conditions = get_conditions(filters)
 
 	slips = frappe.db.sql("""
-				SELECT ss.employee , ss.employee_name, ss.bank_name, ss.bank_account_no , ss.custom__employee_bank_branch , ss.net_pay , emp.custom_national_number
+				SELECT ss.employee , ss.employee_name, ss.bank_name, ss.bank_account_no , ss.custom__employee_bank_branch , ss.net_pay , emp.custom_national_number, emp.branch
 		    	FROM `tabSalary Slip` ss
 				LEFT JOIN `tabEmployee` emp ON ss.employee=emp.name
 		       	{}
@@ -99,5 +105,8 @@ def get_conditions(filters):
 
 	if filters.get("employee_name"):
 		conditions.append("ss.employee_name LIKE '%{}%'".format(filters.get("employee_name")))
+
+	if filters.get("branch"):
+		conditions.append("emp.branch='{}'".format(filters.get("branch")))
 
 	return " WHERE " + " AND ".join(conditions)

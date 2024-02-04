@@ -12,6 +12,12 @@ frappe.query_reports["Salary To Bank"] = {
 			"default": frappe.defaults.get_user_default("Company"),
 		},
 		{
+			"fieldname": "branch",
+			"label": __("Branch"),
+			"fieldtype": "Link",
+			"options": "Branch",
+		},
+		{
 			"fieldname": "employee",
 			"label": __("Employee"),
 			"fieldtype": "Link",
