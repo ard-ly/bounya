@@ -68,7 +68,7 @@ def get_data(filters=None):
 	conditions = get_conditions(filters)
 
 	slips = frappe.db.sql("""
-				SELECT ss.employee , ss.employee_name, emp.bank_name, emp.bank_account_no , emp.custom__employee_bank_branch , ss.net_pay , emp.custom_national_number, emp.branch
+				SELECT ss.employee , ss.employee_name, emp.custom_bank_name, emp.bank_account_no , emp.custom_employee_bank_branch , ss.net_pay , emp.custom_national_number, emp.branch
 		    	FROM `tabSalary Slip` ss
 				LEFT JOIN `tabEmployee` emp ON ss.employee=emp.name
 		       	{}
