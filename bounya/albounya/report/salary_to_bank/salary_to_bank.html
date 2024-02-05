@@ -39,7 +39,7 @@
 %}
 
 {%
-	var date = new Date(filters.from_date);
+	var date = new Date(filters.to_date);
 	var month = date.toLocaleString('default', { month: 'long' });
 	var year = date.getFullYear();
 	var formattedDate = date.toLocaleDateString();
