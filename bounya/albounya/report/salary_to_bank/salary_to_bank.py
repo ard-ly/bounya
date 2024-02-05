@@ -26,12 +26,12 @@ def get_columns():
 			"fieldtype": "Data",
 			"width": 200,
 		},
-		{
-			"label": _("Branch"),
-			"fieldname": "branch",
-			"fieldtype": "Data",
-			"width": 100,
-		},
+		# {
+		# 	"label": _("Branch"),
+		# 	"fieldname": "branch",
+		# 	"fieldtype": "Data",
+		# 	"width": 100,
+		# },
 		{
 			"label": _("Account Number"),
 			"fieldname": "bank_ac_no",
