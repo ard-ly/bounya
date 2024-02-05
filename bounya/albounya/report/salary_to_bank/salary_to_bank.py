@@ -68,7 +68,7 @@ def get_data(filters=None):
 	conditions = get_conditions(filters)
 
 	slips = frappe.db.sql("""
-				SELECT ss.employee , ss.employee_name, ss.bank_name, ss.bank_account_no , ss.custom__employee_bank_branch , ss.net_pay , emp.custom_national_number, emp.branch
+				SELECT ss.employee , ss.employee_name, emp.bank_name, emp.bank_account_no , emp.custom__employee_bank_branch , ss.net_pay , emp.custom_national_number, emp.branch
 		    	FROM `tabSalary Slip` ss
 				LEFT JOIN `tabEmployee` emp ON ss.employee=emp.name
 		       	{}
@@ -92,10 +92,10 @@ def get_conditions(filters):
 		conditions.append("ss.employee='{}'".format(filters.get("employee")))
 
 	if filters.get("bank"):
-		conditions.append("ss.bank_name='{}'".format(filters.get("bank")))
+		conditions.append("emp.bank_name='{}'".format(filters.get("bank")))
 
 	if filters.get("bank_branch"):
-		conditions.append("ss.custom__employee_bank_branch='{}'".format(filters.get("bank_branch")))
+		conditions.append("emp.custom__employee_bank_branch='{}'".format(filters.get("bank_branch")))
 
 	if filters.get("from_date"):
 		conditions.append("ss.start_date >= '{}'".format(filters.get("from_date")))
