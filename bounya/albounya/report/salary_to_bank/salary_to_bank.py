@@ -92,10 +92,10 @@ def get_conditions(filters):
 		conditions.append("ss.employee='{}'".format(filters.get("employee")))
 
 	if filters.get("bank"):
-		conditions.append("emp.bank_name='{}'".format(filters.get("bank")))
+		conditions.append("emp.custom_bank_name='{}'".format(filters.get("bank")))
 
 	if filters.get("bank_branch"):
-		conditions.append("emp.custom__employee_bank_branch='{}'".format(filters.get("bank_branch")))
+		conditions.append("emp.custom_employee_bank_branch='{}'".format(filters.get("bank_branch")))
 
 	if filters.get("from_date"):
 		conditions.append("ss.start_date >= '{}'".format(filters.get("from_date")))
