@@ -260,11 +260,11 @@ def get_salary_slips(filters, company_currency):
 	if filters.get("docstatus"):
 		query = query.where(salary_slip.docstatus == doc_status[filters.get("docstatus")])
 
-	# if filters.get("from_date"):
-	# 	query = query.where(salary_slip.start_date >= filters.get("from_date"))
+	if filters.get("from_date"):
+		query = query.where(salary_slip.start_date >= filters.get("from_date"))
 
-	# if filters.get("to_date"):
-	# 	query = query.where(salary_slip.end_date <= filters.get("to_date"))
+	if filters.get("to_date"):
+		query = query.where(salary_slip.end_date <= filters.get("to_date"))
 
 	if filters.get("company"):
 		query = query.where(salary_slip.company == filters.get("company"))
@@ -278,8 +278,8 @@ def get_salary_slips(filters, company_currency):
 	if filters.get("branch"):
 		query = query.where(salary_slip.branch == filters.get("branch"))
 
-	if filters.get("month"):
-		query = query.where(Extract("month", salary_slip.start_date) == filters.month)
+	# if filters.get("month"):
+	# 	query = query.where(Extract("month", salary_slip.start_date) == filters.month)
 	salary_slips = query.run(as_dict=1)
 
 	return salary_slips or []
