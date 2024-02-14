@@ -55,50 +55,20 @@
 	<h1>
 
 	شركة البنية للاستثمار و الخدمات
+	{{(filters.branch) }}
 	<br>
-	حافظة ارفاق صك 
+	{{(filters.header) }}
 	<br>
 	</h1>
 	<h3>
 		شهر
-		{{__(month)}}
-		{{year}}
+		{{__(filters.month)}}
+		{{(filters.year) }}
 	</h3>
 
 </center>
 </section>
-{% if (filters.bank) { %}
-<div class="text-right">
-    <h4>الاخوة : مصرف {{filters.bank}} {% if (filters.bank_branch) { %} / {{filters.bank_branch}}{%}%}</h4>
-    <span style="min-height: 4px; min-width: 40%; border-bottom: 2px dotted #000; border-width: 30%;"></span>
-</div>
-<hr>
-{% } %}
-<br>
 
-<div class="text-right content-width" dir="rtl">
-    <p class="text-right" style="font-size: 18px; line-height: 1.8;">
-	
-		نرفق لكم الصك رقم _______________________________________________________________
-		بتاريخ 
-
-		{{__(formattedDate)}} 
-		بمبلغ
-		{% row = data[data.length -1 ] %}
-		({{__(filters.total_amount)}})	
-		<br>
-		<div class="border-dark">
-		فقط
-		({{__(filters.total_in_words)}}) لا غير
-		</div>
-		<br>
-	</p>
-</div>
-<div class="text-right" dir="rtl">
-    <p style="font-size: 18px; margin-top: 8px;"> 
-خاص بمرتبات الأخوة الآتية أسمائهم و أرقام حساباتهم و صافي المرتب لتحولها لحساباتهم طرفكم :-
-	</p>
-</div>
 
 <hr>
 <table class="table table-bordered" dir="rtl">
@@ -133,34 +103,9 @@
 			{% } %}
 			{% } %}
 
-		<tr>
-			<td class="total" colspan  = {{report_columns.length + 1}} style="text-align: center; font-weight: bold;">
-				مجموع المصرف : 
-				{% row = data[data.length -1 ] %}
-				{% const fieldname = report_columns[report_columns.length -1].fieldname %}
-				{%= frappe.format(row['net_pay'], report_columns[report_columns.length -1], {}, row) %}
-				<br>
-				فقط
-				({{__(filters.total_in_words)}}) لا غير
-			
 
-			 </td>
-		</tr>
 	</tbody>
 </table>
-<br>
-<br>
-<div class="row text-center" style="direction: rtl;">
-    <div class="col-xs-4">
-         إعداد :
-    </div>
-    <div class="col-xs-4">
-         مراجعة :
-    </div>
-    <div class="col-xs-4">
-         اعتماد :
-    </div>
-</div>
 <br>
 <br>
 <p class="text-right text-muted">
