@@ -30,7 +30,8 @@ app_license = "MIT"
 
 doctype_js = {"Salary Structure" : "public/js/salary_structure.js",
               "Salary Structure Assignment" : "public/js/salary_structure_assignment.js",
-              "Employee" : "public/js/employee.js"
+              "Employee" : "public/js/employee.js",
+              "Additional Salary" : "public/js/additional-salary.js"
               }
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
@@ -128,11 +129,11 @@ doctype_js = {"Salary Structure" : "public/js/salary_structure.js",
 # 	}
 # }
 
-doc_events = {
-	"Salary Structure Assignment": {
-		"on_update": "bounya.api.update_base_from_slip",
-	}
-}
+# doc_events = {
+# 	"Salary Structure Assignment": {
+# 		"on_update": "bounya.api.update_base_from_slip",
+# 	}
+# }
 
 
 # Scheduled Tasks
@@ -237,10 +238,10 @@ doc_events = {
 #     ]}
 # ]
 fixtures = [
-    {"dt": "Print Format", "filters": [
+    {"dt": "Custom Field", "filters": [
         [
-            "name", "in", [
-                "قسيمة راتب"
+            "module", "in", [
+                "Albounya"
             ]
         ]
     ]},
