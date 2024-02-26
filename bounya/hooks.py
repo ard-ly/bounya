@@ -37,6 +37,9 @@ doctype_js = {"Salary Structure" : "public/js/salary_structure.js",
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
 
+# standard_queries = {"Additional Salary": "bounya.queries.designation_query"}
+
+
 # Home Pages
 # ----------
 

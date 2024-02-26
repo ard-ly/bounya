@@ -75,4 +75,17 @@ frappe.ui.form.on('Additional Salary', {
             frm.refresh_field("amount")
         }
     },
+// change query to shoe the statistical componenet
+    set_component_query: function(frm) {
+        if (!frm.doc.company) return;
+        let filters = {company: frm.doc.company};
+        if (frm.doc.type) {
+            filters.type = "Erning";
+        }
+        frm.set_query("salary_component", function() {
+            return {
+                // filters: filters
+            };
+        });
+    },
 }); 
