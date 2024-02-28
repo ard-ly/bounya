@@ -31,7 +31,8 @@ app_license = "MIT"
 doctype_js = {"Salary Structure" : "public/js/salary_structure.js",
               "Salary Structure Assignment" : "public/js/salary_structure_assignment.js",
               "Employee" : "public/js/employee.js",
-              "Additional Salary" : "public/js/additional-salary.js"
+              "Additional Salary" : "public/js/additional-salary.js",
+              "Material Request" : "public/js/material_request.js",
               }
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
@@ -168,9 +169,9 @@ doctype_js = {"Salary Structure" : "public/js/salary_structure.js",
 # Overriding Methods
 # ------------------------------
 #
-# override_whitelisted_methods = {
-# 	"frappe.desk.doctype.event.event.get_events": "bounya.event.get_events"
-# }
+override_whitelisted_methods = {
+	"erpnext.stock.doctype.material_request.material_request.make_stock_entry": "bounya.events.make_stock_entry"
+}
 #
 # each overriding function accepts a `data` argument;
 # generated from the base implementation of the doctype dashboard,
