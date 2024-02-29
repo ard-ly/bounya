@@ -242,7 +242,7 @@ class StockBalanceReport(object):
 			.limit(1)
 		)
 
-		for fieldname in ["warehouse", "item_code", "item_group", "warehouse_type"]:
+		for fieldname in ["warehouse", "item_code", "item_group", "warehouse_type", 'custom_branch', 'custom_department']:
 			if self.filters.get(fieldname):
 				query = query.where(table[fieldname] == self.filters.get(fieldname))
 
@@ -346,6 +346,20 @@ class StockBalanceReport(object):
 				"fieldname": "item_code",
 				"fieldtype": "Link",
 				"options": "Item",
+				"width": 100,
+			},
+			{
+				"label": _("Branch"),
+				"fieldname": "custom_branch",
+				"fieldtype": "Link",
+				"options": "Branch",
+				"width": 100,
+			},
+			{
+				"label": _("Department"),
+				"fieldname": "custom_department",
+				"fieldtype": "Link",
+				"options": "Department",
 				"width": 100,
 			},
 			{"label": _("Item Name"), "fieldname": "item_name", "width": 150},
