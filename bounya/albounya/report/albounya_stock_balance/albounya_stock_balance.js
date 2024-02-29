@@ -103,13 +103,13 @@ frappe.query_reports["Albounya Stock Balance"] = {
 			"default": 1
 		},
 		{
-			"fieldname":"branch",
+			"fieldname":"custom_branch",
 			"label": __("Branch"),
 			"fieldtype": "Link",
 			"options": "Branch"
 		},
 		{
-			"fieldname":"department",
+			"fieldname":"custom_department",
 			"label": __("Department"),
 			"fieldtype": "Link",
 			"options": "Department"
