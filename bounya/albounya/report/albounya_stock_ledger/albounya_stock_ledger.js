@@ -93,13 +93,13 @@ frappe.query_reports["Albounya Stock Ledger"] = {
 			"default": "Currency"
 		},
 		{
-			"fieldname":"branch",
+			"fieldname":"custom_branch",
 			"label": __("Branch"),
 			"fieldtype": "Link",
 			"options": "Branch"
 		},
 		{
-			"fieldname":"department",
+			"fieldname":"custom_department",
 			"label": __("Department"),
 			"fieldtype": "Link",
 			"options": "Department"
