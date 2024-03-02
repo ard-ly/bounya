@@ -9,8 +9,8 @@ from frappe.model.mapper import get_mapped_doc
 from frappe.utils import cint, cstr, flt
 
 import erpnext
-from scipy import interpolate
-from scipy.interpolate import CubicSpline
+# from scipy import interpolate
+# from scipy.interpolate import CubicSpline
 
 @frappe.whitelist()
 def make_demo_data(doc ,salary_structure ,marital_status, number_of_children , base , evaluation , performance_factor):
@@ -134,3 +134,20 @@ def calculate_interpolate_value(doc , employee_no , salary_structure , custom_ne
 	estimated_x = interp_func(desired_y)
 	print(f"The estimated x for y={desired_y} is approximately {estimated_x}")
 	return float(estimated_x)
+
+def check_discount_percent(doc, method):
+	user = frappe.session.user
+
+	doctype = frappe.get_doc("Sales Invoice Discount Percentage")
+
+	percent = 0
+
+	for row in doctype.discount_percentage:
+		if row.user == user:
+			percent = row.discount_percent
+	
+	
+	if doc.additional_discount_percentage > percent:
+		frappe.throw(_("Additional Discount Percentage should be less or equal to " + str(percent)))
+
+

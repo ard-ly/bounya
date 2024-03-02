@@ -127,6 +127,12 @@ doctype_js = {"Salary Structure" : "public/js/salary_structure.js",
 # 	}
 # }
 
+doc_events = {
+    "Sales Invoice": {
+        "validate": "bounya.api.check_discount_percent",
+    },
+    }
+
 # Scheduled Tasks
 # ---------------
 
@@ -226,5 +232,7 @@ fixtures = [
                 "Salary Structure 2024"
             ]
         ]
-    ]}
+    ]},
+    {"dt": "Translation"}
+
 ]
