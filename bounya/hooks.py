@@ -127,11 +127,11 @@ doctype_js = {"Salary Structure" : "public/js/salary_structure.js",
 # 	}
 # }
 
-doc_events = {
-    "Sales Invoice": {
-        "validate": "bounya.api.check_discount_percent",
-    },
-    }
+# doc_events = {
+#     "Sales Invoice": {
+#         "validate": "bounya.api.check_discount_percent",
+#     },
+#     }
 
 # Scheduled Tasks
 # ---------------

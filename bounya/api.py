@@ -135,19 +135,5 @@ def calculate_interpolate_value(doc , employee_no , salary_structure , custom_ne
 	print(f"The estimated x for y={desired_y} is approximately {estimated_x}")
 	return float(estimated_x)
 
-def check_discount_percent(doc, method):
-	user = frappe.session.user
-
-	doctype = frappe.get_doc("Sales Invoice Discount Percentage")
-
-	percent = 0
-
-	for row in doctype.discount_percentage:
-		if row.user == user:
-			percent = row.discount_percent
-	
-	
-	if doc.additional_discount_percentage > percent:
-		frappe.throw(_("Additional Discount Percentage should be less or equal to " + str(percent)))
 
 
