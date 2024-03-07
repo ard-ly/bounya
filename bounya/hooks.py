@@ -28,12 +28,13 @@ app_license = "MIT"
 
 # include js in doctype views
 
-doctype_js = {"Salary Structure" : "public/js/salary_structure.js",
-              "Salary Structure Assignment" : "public/js/salary_structure_assignment.js",
-              "Employee" : "public/js/employee.js",
-              "Additional Salary" : "public/js/additional-salary.js",
-              "Material Request" : "public/js/material_request.js",
-              }
+doctype_js = {
+    "Salary Structure": "public/js/salary_structure.js",
+    "Salary Structure Assignment": "public/js/salary_structure_assignment.js",
+    "Employee": "public/js/employee.js",
+    "Additional Salary": "public/js/additional-salary.js",
+    "Material Request": "public/js/material_request.js",
+}
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
@@ -170,7 +171,8 @@ doctype_js = {"Salary Structure" : "public/js/salary_structure.js",
 # ------------------------------
 #
 override_whitelisted_methods = {
-	"erpnext.stock.doctype.material_request.material_request.make_stock_entry": "bounya.events.make_stock_entry"
+    "erpnext.stock.doctype.material_request.material_request.make_stock_entry": "bounya.events.make_stock_entry",
+    "erpnext.stock.doctype.material_request.material_request.make_purchase_order": "bounya.events.make_purchase_order",
 }
 #
 # each overriding function accepts a `data` argument;
@@ -242,12 +244,6 @@ override_whitelisted_methods = {
 #     ]}
 # ]
 fixtures = [
-    {"dt": "Custom Field", "filters": [
-        [
-            "module", "in", [
-                "Albounya"
-            ]
-        ]
-    ]},
-    {"dt": "Translation"}
+    {"dt": "Custom Field", "filters": [["module", "in", ["Albounya"]]]},
+    {"dt": "Translation"},
 ]
