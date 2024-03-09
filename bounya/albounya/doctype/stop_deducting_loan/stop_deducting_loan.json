@@ -1,4 +1,5 @@
 {
+ "_liked_by": "[\"Administrator\"]",
  "actions": [],
  "allow_rename": 1,
  "autoname": "field:doctype_name",
@@ -9,11 +10,15 @@
  "engine": "InnoDB",
  "field_order": [
   "doctype_name",
-  "for_single_loan",
-  "loan",
   "start_date",
   "end_date",
   "notes",
+  "employee_section",
+  "branch",
+  "column_break_buedz",
+  "department",
+  "employees_table_section",
+  "stop_deducting_employees",
   "amended_from"
  ],
  "fields": [
@@ -24,21 +29,6 @@
    "label": "Doctype Name",
    "reqd": 1,
    "unique": 1
-  },
-  {
-   "default": "0",
-   "fieldname": "for_single_loan",
-   "fieldtype": "Check",
-   "label": "For single loan"
-  },
-  {
-   "depends_on": "for_single_loan",
-   "fieldname": "loan",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "label": "Loan",
-   "mandatory_depends_on": "for_single_loan",
-   "options": "Loan"
   },
   {
    "fieldname": "start_date",
@@ -67,12 +57,45 @@
    "options": "Stop Deducting Loan",
    "print_hide": 1,
    "read_only": 1
+  },
+  {
+   "fieldname": "employee_section",
+   "fieldtype": "Tab Break",
+   "label": "Employee"
+  },
+  {
+   "fieldname": "branch",
+   "fieldtype": "Link",
+   "label": "Branch",
+   "options": "Branch"
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "Department"
+  },
+  {
+   "fieldname": "stop_deducting_employees",
+   "fieldtype": "Table",
+   "label": "Stop Deducting Employees",
+   "options": "Stop Deducting Employees",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_buedz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "employees_table_section",
+   "fieldtype": "Section Break",
+   "label": "Employees Table"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-03-03 09:23:09.466691",
+ "modified": "2024-03-07 14:10:21.324316",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Stop Deducting Loan",

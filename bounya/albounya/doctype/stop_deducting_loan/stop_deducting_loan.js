@@ -12,6 +12,20 @@ frappe.ui.form.on('Stop Deducting Loan', {
 			};
 		  });
 
+		//   if (frm.doc.docstatus == 1) {
+		// 	frm.add_custom_button(
+		// 	  __("Clarification Form"),
+		// 	  function () {
+		// 		frappe.model.open_mapped_doc({
+		// 		  method: "arc.api.make_clarification_form",
+		// 		  frm: frm,
+		// 		});
+		// 	  },
+		// 	  __("Create")
+		// 	);
+		//   }
+	  
+
 	}
 });
 

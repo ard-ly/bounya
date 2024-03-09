@@ -5,6 +5,7 @@ import frappe
 from frappe import _, msgprint,throw
 from frappe.utils import date_diff, month_diff, add_months
 from datetime import datetime,timedelta
+from frappe.desk.form.utils import add_comment
 from frappe.model.document import Document
 
 class StopDeductingLoan(Document):
@@ -44,6 +45,12 @@ class StopDeductingLoan(Document):
 							next_month = str(n.payment_date)
 							frappe.db.sql(f""" UPDATE `tabRepayment Schedule` SET total_payment = '0', balance_loan_amount = balance_loan_amount + '{d.principal_amount}' WHERE parent = '{self.loan}'AND idx = '{d.idx}' """,as_dict=1,)
 							frappe.db.sql(f""" UPDATE `tabRepayment Schedule` SET total_payment = total_payment + '{amount}' WHERE parent = '{self.loan}'AND idx = '{n.idx}' """,as_dict=1,)
+
+							loan_name = frappe.get_doc('Loan', d.parent)
+							the_date = d.payment_date
+							TE = f"<a href='/app/stop-deducting-loan/{self.name}' style='color: var(--text-on-blue)'>{self.name}</a>"
+
+							loan_name.add_comment("Comment",text=""" loan deducting were stoped for : {the_date} by {TE}.""".format(TE = TE, the_date =the_date ), )
 				
 					msgprint("Deducting were stoped on " + months + " and postponed to the next month" + next_month )
 
@@ -65,8 +72,16 @@ class StopDeductingLoan(Document):
 								frappe.db.sql(f""" UPDATE `tabRepayment Schedule` SET total_payment = '0', balance_loan_amount = balance_loan_amount + '{d.principal_amount}' WHERE parent = '{d.parent}'AND idx = '{d.idx}' """,as_dict=1,)
 								frappe.db.sql(f""" UPDATE `tabRepayment Schedule` SET total_payment = total_payment + '{amount}' WHERE parent = '{d.parent}'AND idx = '{n.idx}' """,as_dict=1,)
 								count += 1
+
+								loan_name = frappe.get_doc('Loan', d.parent)
+								the_date = d.payment_date
+								TE = f"<a href='/app/stop-deducting-loan/{self.name}' style='color: var(--text-on-blue)'>{self.name}</a>"
+
+								loan_name.add_comment("Comment",text=""" loan deducting were stoped for : {the_date} by {TE}.""".format(TE = TE, the_date =the_date ), )
+								
 			msgprint(_("Deducting were stoped for " + str(count))+" loans.")
 
+	# on cancel.
 	def return_deductions(self):
 		
 		if self.for_single_loan:
@@ -90,6 +105,12 @@ class StopDeductingLoan(Document):
 								if (n.idx - d.idx) == 1:
 									frappe.db.sql(f""" UPDATE `tabRepayment Schedule` SET total_payment =  {total}, balance_loan_amount = balance_loan_amount - '{total}' WHERE parent = '{d.parent}'AND idx = '{d.idx}' """,as_dict=1,)
 									frappe.db.sql(f""" UPDATE `tabRepayment Schedule` SET total_payment = total_payment - '{total}' WHERE parent = '{d.parent}'AND idx = '{n.idx}' """,as_dict=1,)
+
+									loan_name = frappe.get_doc('Loan', d.parent)
+									the_date = d.payment_date
+									TE = f"<a href='/app/stop-deducting-loan/{self.name}' style='color: var(--text-on-blue)'>{self.name}</a>"
+
+									loan_name.add_comment("Comment",text=""" Stop Deducting Loan were canceled for : {the_date} by {TE}.""".format(TE = TE, the_date =the_date ), )
 		
 		else:
 			repayment_schedule= frappe.db.sql(f""" SELECT *  FROM `tabRepayment Schedule` WHERE docstatus = 1 """,as_dict=1,)
@@ -109,4 +130,10 @@ class StopDeductingLoan(Document):
 								if (n.idx - d.idx) == 1:
 									frappe.db.sql(f""" UPDATE `tabRepayment Schedule` SET total_payment =  {total}, balance_loan_amount = balance_loan_amount - '{total}' WHERE parent = '{d.parent}'AND idx = '{d.idx}' """,as_dict=1,)
 									frappe.db.sql(f""" UPDATE `tabRepayment Schedule` SET total_payment = total_payment - '{total}' WHERE parent = '{d.parent}'AND idx = '{n.idx}' """,as_dict=1,)
+								
+								
+									loan_name = frappe.get_doc('Loan', d.parent)
+									the_date = d.payment_date
+									TE = f"<a href='/app/stop-deducting-loan/{self.name}' style='color: var(--text-on-blue)'>{self.name}</a>"
 
+									loan_name.add_comment("Comment",text=""" Stop Deducting Loan were canceled for : {the_date} by {TE}.""".format(TE = TE, the_date =the_date ), )

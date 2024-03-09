@@ -3,10 +3,12 @@
 import re
 
 import frappe
-from frappe import _
+from frappe import _, msgprint,throw
 from frappe.model.document import Document
 from frappe.model.mapper import get_mapped_doc
 from frappe.utils import cint, cstr, flt
+from frappe.utils import today
+from datetime import datetime
 
 import erpnext
 # from scipy import interpolate
@@ -136,4 +138,45 @@ def calculate_interpolate_value(doc , employee_no , salary_structure , custom_ne
 	return float(estimated_x)
 
 
+@frappe.whitelist()
+def loan_repayment_from_salary(doc, method):
+	# msgprint("I'm here")
+	#  if frappe.utils.date_diff(str(today()), str()) < 0:
+	if doc.start_date > today():
+		# msgprint("truuuuuuuuueeeeeeeeee")
+		# SELECT *  FROM `tabLoan` WHERE docstatus = 1 AND applicant = 'HR-EMP-00002' AND repay_from_salary = 1;
+		the_loan = frappe.db.sql(f""" SELECT *  FROM `tabLoan` WHERE docstatus = 1 AND applicant = '{doc.employee}' AND repay_from_salary = 1""",as_dict=1,)
+		loan_name = the_loan[0].name
 
+		repayment_schedule= frappe.db.sql(f""" SELECT *  FROM `tabRepayment Schedule` WHERE parent = '{loan_name}'""",as_dict=1,)
+		# msgprint(str(repayment_schedule))
+
+		for d in repayment_schedule:
+			# check if d.payment_date is between self.start_date and self.end_date
+			s = datetime.strptime(doc.start_date, '%Y-%m-%d').date()
+			e = datetime.strptime(doc.end_date , '%Y-%m-%d').date()
+			# msgprint("test1111")
+
+			amount = 0
+			if s <= d.payment_date <= e:
+				amount = d.total_payment
+				# msgprint("test2")
+				# frappe.db.set_value('Salary Slip', doc.name, 'total_loan_repayment', amount)
+				# frappe.db.commit()
+				
+				salary_slip_loan = frappe.new_doc("Salary Slip Loan")
+				salary_slip_loan.loan =  the_loan[0].name
+				salary_slip_loan.loan_type =  the_loan[0].loan_type
+				salary_slip_loan.principal_amount =  d.principal_amount
+				salary_slip_loan.interest_amount =  d.interest_amount
+				salary_slip_loan.total_payment =  d.total_payment
+				# salary_slip_loan.loan_repayment_entry =  
+
+				salary_slip_loan.parent =  doc.name
+				salary_slip_loan.parenttype =  'Salary Slip'
+
+				salary_slip_loan.insert(ignore_permissions=True)
+				frappe.db.commit()
+				msgprint("done")
+
+				# frappe.db.sql(f""" UPDATE `tabSalary Slip` SET total_loan_repayment = '{amount}' WHERE name = '{doc.name}' """,as_dict=1,)
