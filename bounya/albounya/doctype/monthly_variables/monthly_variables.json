@@ -1,17 +1,19 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "naming_series:",
  "creation": "2024-03-09 11:06:53.586584",
  "default_view": "List",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "naming_series",
   "month",
-  "from",
-  "to",
+  "from_date",
+  "to_date",
   "salary_component",
-  "get_employees",
+  "salary_component_type",
   "employee_section",
   "monthly_variables_settings",
   "section_break_wygyu",
@@ -26,16 +28,6 @@
    "label": "Month",
    "options": "\n1\n2\n3\n4\n5\n6\n7\n8\n9\n10\n11\n12",
    "reqd": 1
-  },
-  {
-   "fieldname": "from",
-   "fieldtype": "Date",
-   "label": "From"
-  },
-  {
-   "fieldname": "to",
-   "fieldtype": "Date",
-   "label": "To"
   },
   {
    "depends_on": "salary_component",
@@ -76,19 +68,37 @@
    "label": "Employee"
   },
   {
-   "depends_on": "salary_component",
-   "fieldname": "get_employees",
-   "fieldtype": "Button",
-   "label": "Get Employees"
+   "fieldname": "from_date",
+   "fieldtype": "Date",
+   "label": "From"
+  },
+  {
+   "fieldname": "to_date",
+   "fieldtype": "Date",
+   "label": "To"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "MO-VAR-.YY.-.MM.-",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "salary_component.type",
+   "fieldname": "salary_component_type",
+   "fieldtype": "Data",
+   "label": "Salary Component Type"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-03-10 11:11:53.548651",
+ "modified": "2024-03-11 10:13:27.967001",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Monthly Variables",
+ "naming_rule": "By \"Naming Series\" field",
  "owner": "Administrator",
  "permissions": [
   {

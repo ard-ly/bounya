@@ -4,12 +4,13 @@ let employee_list = [];
 
 frappe.ui.form.on('Monthly Variables', {
 	
-	refresh: function (frm) {
-		const today = new Date();
-		let month = today.getMonth(); // returns from 0 to 11
-		frm.doc.month = month+1;
-		frm.refresh_fields();
-
+	setup: function (frm) {
+		if (frm.is_new()) {
+			const today = new Date();
+			let month = today.getMonth(); // returns from 0 to 11
+			frm.doc.month = month+1;
+			frm.refresh_fields();
+	}
 	},
 
 	onload: function(frm){
@@ -49,9 +50,9 @@ frappe.ui.form.on('Monthly Variables', {
 			var dateString = '' + year + '-' + month + '-' + '25';
 			var combined = new Date(dateString);
 			
-			frm.doc.to = new Date(combined);
+			frm.doc.to_date = new Date(dateString);
 			let from_date =  frappe.datetime.add_months(combined, -1);
-			frm.doc.from = new Date(from_date);
+			frm.doc.from_date = new Date(from_date);
 			frm.refresh_fields();
 		}
 	},
