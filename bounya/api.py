@@ -1,5 +1,4 @@
 import re
-
 import frappe
 from frappe import _, msgprint,throw
 from frappe.model.document import Document

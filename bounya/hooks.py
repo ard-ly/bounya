@@ -233,6 +233,4 @@ fixtures = [
             ]
         ]
     ]},
-    {"dt": "Translation"}
-
 ]
