@@ -56,3 +56,4 @@ class MonthlyVariables(Document):
 			except Exception as e:
 				frappe.log_error("Error while creating Additional Salary for", str(e.employee))
 				return
+

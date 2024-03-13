@@ -15,6 +15,7 @@
   "notes",
   "employee_section",
   "branch",
+  "get_employees",
   "column_break_buedz",
   "department",
   "employees_table_section",
@@ -90,12 +91,17 @@
    "fieldname": "employees_table_section",
    "fieldtype": "Section Break",
    "label": "Employees Table"
+  },
+  {
+   "fieldname": "get_employees",
+   "fieldtype": "Button",
+   "label": "Get Employees"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-03-07 14:10:21.324316",
+ "modified": "2024-03-12 10:31:09.707770",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Stop Deducting Loan",
