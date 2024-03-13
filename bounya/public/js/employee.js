@@ -8,4 +8,3 @@ frappe.ui.form.on("Employee", "onload", function(frm){
           };
     });
 });    
-
