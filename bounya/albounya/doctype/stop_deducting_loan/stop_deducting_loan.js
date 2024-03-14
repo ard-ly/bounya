@@ -31,10 +31,31 @@ frappe.ui.form.on('Stop Deducting Loan', {
 		frappe.call({
 			method :"get_employees",
 			doc:frm.doc,
+			args: {
+				start_date : frm.doc.start_date,
+				end_date: frm.doc.end_date,
+			},
 			callback:function(r){
 				if(r.message){
 					console.log("aaaaaaaaaaaaaaaaaaaaaaaaa");
-					console.log(r.message);
+					console.log(r.message.loans_dict);
+					for (const [key, value] in r.message.loans_dict) {
+						console.log(key, value);
+						console.log((r.message.loans_dict).get(key));
+					  }
+					// r.message.forEach(function (element) {
+					// 	console.log("a");
+					// 	console.log(element);
+						
+					// })
+					// console.log(r.message.object);
+					// for (let i = 1; i <= (r.message).length; i++) {
+					// 	console.log(r.message[i][3]);
+					// };
+					
+					// for (let i = 1; i <= 3; i++){
+					// 	console.log("a")
+					// }
 					
 				}
 			}

@@ -140,10 +140,32 @@ class StopDeductingLoan(Document):
 
 	# ajax call.
 	@frappe.whitelist()
-	def get_employees(self):
-		repayment_schedule= frappe.db.sql(f""" SELECT *  FROM `tabRepayment Schedule` WHERE docstatus = 1 """,as_dict=1,)
-		for d in repayment_schedule:
-			if self.start_date <= d.payment_date <= self.end_date :
-				pass
+	def get_employees(self,start_date,end_date):
+		# return start_date
+		employees={}
+		if self.department and self.branch:
+			employees =  frappe.db.sql(f""" SELECT *  FROM `tabEmployee` WHERE department = '{self.department}' And branch = '{self.branch}' """,as_dict=1,)
 			
-		return '1111111'
+		elif self.department:
+			employees =  frappe.db.sql(f""" SELECT *  FROM `tabEmployee` WHERE department = '{self.department}'""",as_dict=1,)
+		
+		elif self.branch:
+			employees =  frappe.db.sql(f""" SELECT *  FROM `tabEmployee` WHERE branch = '{self.branch}'""",as_dict=1,)
+		
+		else:
+			employees =  frappe.db.sql(f""" SELECT *  FROM `tabEmployee`""",as_dict=1,)
+
+		loans_dict = {}
+		i = 0
+		for e in employees:
+			loans = frappe.db.sql(f""" SELECT *  FROM `tabLoan` WHERE docstatus = 1 AND applicant = '{e.name}'""",as_dict=1,)
+			if loans:
+				for l in loans:
+					repayment_schedule= frappe.db.sql(f""" SELECT *  FROM `tabRepayment Schedule` WHERE docstatus = 1 AND parent = '{l.name}' """,as_dict=1,)
+					# return repayment_schedule
+					for d in repayment_schedule:
+						i += 1
+						loans_dict.update({ i : [e.name, d.parent,d.name,d.payment_date]})	
+
+		return {"loans_dict": loans_dict}
+		
