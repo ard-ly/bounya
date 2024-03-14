@@ -1,0 +1,113 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal&display=swap" rel="stylesheet">
+
+<style>
+	.bg-aqua{
+		background-color: lightblue !important;
+	}
+	tbody tr:last-child td:nth-child(2):after{
+		content: "المجموع";
+		font-size: 14px;
+		border-width: 0;
+	}
+	.text-right{
+		text-align: right !important;
+	}
+	.print-format{
+		font-family: Tajawal, sans-serif;
+	}
+	.total{
+		font-weight: bold;
+		font-size: 14px;
+		background-color: rgba(128, 128, 128, 0.411);
+	}
+	h1{
+		font-weight: bold;
+	}
+	.border-dark{
+		border:solid 2px black !important;
+		padding: 05px;
+	}
+	.content-width{
+		width: 85%;
+	}
+	tr th {
+		background-color: slategray !important;
+}
+</style>
+{%
+	var letterhead = filters.letter_head || (frappe.get_doc(":Company", filters.company) && frappe.get_doc(":Company", filters.company).default_letter_head) || frappe.defaults.get_default("letter_head");
+	var report_columns = report.get_columns_for_print();
+%}
+
+{%
+	var date = new Date(filters.to_date);
+	var month = date.toLocaleString('default', { month: 'long' });
+	var year = date.getFullYear();
+	var formattedDate = date.toLocaleDateString();
+
+
+%}
+
+<section  >
+<center>
+	<h1>
+
+	شركة البنية للاستثمار و الخدمات
+	{{(filters.branch) }}
+	<br>
+	{{(filters.header) }}
+	<br>
+	</h1>
+	<h3>
+		شهر
+		{{__(filters.month)}}
+		{{(filters.year) }}
+	</h3>
+
+</center>
+</section>
+
+
+<hr>
+<table class="table table-bordered" dir="rtl">
+	<thead>
+		<tr>
+            <th class="text-center" style="background: transparent !important">م</th>
+			{% for (let i=0, l=report_columns.length; i<l; i++) { %}
+				<th class="text-center" style="background: transparent !important" >{%= __(report_columns[i].label) %}
+                </th>
+			{% } %}
+		</tr>
+	</thead>
+	<tbody>
+		
+		{% for(let j=0, k=data.length; j<k; j++) { %}
+			{%
+				var row = data[j];
+				 if (!row.is_total_row)  { 
+			%}
+			<tr>
+                <td class="{%= j == data.length -1 ? 'bg-aqua' : '' %}">{{ j +1 }}</td>
+				{% for(let i=0, l=report_columns.length; i<l; i++) { %}
+					<td class="{%= j == data.length -1 ? 'bg-aqua' : '' %} {%= row.is_total_row ? 'totalRow' : ''%}">
+						{% const fieldname = report_columns[i].fieldname; %}
+						{% if (!is_null(row[fieldname]) && !row.is_total_row) { %}
+							{%= frappe.format(row[fieldname], report_columns[i], {}, row) %}
+						{% } %}
+					</td>
+
+				{% } %}
+			</tr>
+			{% } %}
+			{% } %}
+
+
+	</tbody>
+</table>
+<br>
+<br>
+<p class="text-right text-muted">
+	Printed On {%= frappe.datetime.str_to_user(frappe.datetime.get_datetime_as_string()) %}
+</p>
