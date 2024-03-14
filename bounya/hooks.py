@@ -233,4 +233,16 @@ fixtures = [
             ]
         ]
     ]},
+
+    {
+        "dt": "Custom Field",
+        "filters": [
+            [
+                "name", "in",[
+                 "Payroll Settings-salary_component_settings",
+                ]
+            ]
+        ]
+    },
+    {"dt": "Translation"},
 ]
