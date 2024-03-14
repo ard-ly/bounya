@@ -4,8 +4,7 @@ from frappe import _, msgprint,throw
 from frappe.model.document import Document
 from frappe.model.mapper import get_mapped_doc
 from frappe.utils import cint, cstr, flt
-from frappe.utils import today
-from datetime import datetime
+from frappe.utils.data import money_in_words
 
 import erpnext
 # from scipy import interpolate
@@ -68,7 +67,7 @@ def make_demo_data(doc ,salary_structure ,marital_status, number_of_children , b
 		return base , net_pay
 	except Exception as e:
 		msg = _(e)
-		frappe.throw(msg, title=_("Payment Unlink Error"))
+		frappe.throw(msg, title=_("Error"))
 		frappe.msgprint(e)
 	
 @frappe.whitelist()
@@ -134,46 +133,107 @@ def calculate_interpolate_value(doc , employee_no , salary_structure , custom_ne
 	print(f"The estimated x for y={desired_y} is approximately {estimated_x}")
 	return float(estimated_x)
 
+@frappe.whitelist()
+def fetch_bank_branch_list(doctype, txt, searchfield, start, page_len, filters):
+
+    bank_name = filters.get("bank_name")
+
+    query = f"""
+        SELECT branch_name
+        FROM `tabEmployee Bank Branch`
+        WHERE parent = '{bank_name}'
+        """
+
+    return frappe.db.sql(query)
 
 @frappe.whitelist()
-def loan_repayment_from_salary(doc, method):
-	# msgprint("I'm here")
-	#  if frappe.utils.date_diff(str(today()), str()) < 0:
-	if doc.start_date > today():
-		# msgprint("truuuuuuuuueeeeeeeeee")
-		# SELECT *  FROM `tabLoan` WHERE docstatus = 1 AND applicant = 'HR-EMP-00002' AND repay_from_salary = 1;
-		the_loan = frappe.db.sql(f""" SELECT *  FROM `tabLoan` WHERE docstatus = 1 AND applicant = '{doc.employee}' AND repay_from_salary = 1""",as_dict=1,)
-		loan_name = the_loan[0].name
+def fetch_base_from_slip(grade , marbot):
+	grade = frappe.get_doc("Employee Grade", grade)
+	if(cint(marbot) > 0):
+		return (grade.default_base_pay + (grade.custom_dependent_value * (cint(marbot) - 1)))
+	else:
+		return (grade.default_base_pay )
+	
+@frappe.whitelist()
+def update_base_from_slip(doc ,method):
+	# frappe.msgprint("hi")
+	if (doc.grade):
+		grade = frappe.get_doc("Employee Grade", doc.grade)
+		if(cint(doc.custom_dependent) > 0):
+			doc.custom_net_salary = grade.default_base_pay + (grade.custom_dependent_value * (cint(doc.custom_dependent) - 1))
+		else:
+			doc.custom_net_salary = grade.default_base_pay 
+		# doc.save()
+		frappe.db.commit()
 
-		repayment_schedule= frappe.db.sql(f""" SELECT *  FROM `tabRepayment Schedule` WHERE parent = '{loan_name}'""",as_dict=1,)
-		# msgprint(str(repayment_schedule))
+# @frappe.whitelist()
+# def money_in_words(number):
+#     result = money_in_words(number)
 
-		for d in repayment_schedule:
-			# check if d.payment_date is between self.start_date and self.end_date
-			s = datetime.strptime(doc.start_date, '%Y-%m-%d').date()
-			e = datetime.strptime(doc.end_date , '%Y-%m-%d').date()
-			# msgprint("test1111")
+#     return _(result)
 
-			amount = 0
-			if s <= d.payment_date <= e:
-				amount = d.total_payment
-				# msgprint("test2")
-				# frappe.db.set_value('Salary Slip', doc.name, 'total_loan_repayment', amount)
-				# frappe.db.commit()
-				
-				salary_slip_loan = frappe.new_doc("Salary Slip Loan")
-				salary_slip_loan.loan =  the_loan[0].name
-				salary_slip_loan.loan_type =  the_loan[0].loan_type
-				salary_slip_loan.principal_amount =  d.principal_amount
-				salary_slip_loan.interest_amount =  d.interest_amount
-				salary_slip_loan.total_payment =  d.total_payment
-				# salary_slip_loan.loan_repayment_entry =  
 
-				salary_slip_loan.parent =  doc.name
-				salary_slip_loan.parenttype =  'Salary Slip'
+@frappe.whitelist()
 
-				salary_slip_loan.insert(ignore_permissions=True)
-				frappe.db.commit()
-				msgprint("done")
+def money_in_words(number, main_currency = None, fraction_currency=None):
+    """
+    Returns string in words with currency and fraction currency.
+    """
+    from frappe.utils import get_defaults, in_words, get_number_format_info
+    _ = frappe._
+    # delete the word 'واحد' from the number words if start with 1
+    start_in_one_word = str(number).startswith("1")
+    try:
+        # note: `flt` returns 0 for invalid input and we don't want that
+        number = float(number)
+    except ValueError:
+        return ""
 
-				# frappe.db.sql(f""" UPDATE `tabSalary Slip` SET total_loan_repayment = '{amount}' WHERE name = '{doc.name}' """,as_dict=1,)
+    number = flt(number)
+    if number < 0:
+        return ""
+
+    d = get_defaults()
+    if not main_currency:
+        main_currency = d.get("currency", "USD")
+    if not fraction_currency:
+        fraction_currency = frappe.db.get_value("Currency", main_currency, "fraction", cache=True) or _("Cent")
+
+    number_format = frappe.db.get_value("Currency", main_currency, "number_format", cache=True) or \
+        frappe.db.get_default("number_format") or "#,###.##"
+
+    fraction_length = get_number_format_info(number_format)[2]
+
+    n = "%.{0}f".format(fraction_length) % number
+
+    numbers = n.split(".")
+    main, fraction =  numbers if len(numbers) > 1 else [n, "00"]
+
+    if len(fraction) < fraction_length:
+        zeros = "0" * (fraction_length - len(fraction))
+        fraction += zeros
+
+    in_million = True
+    if number_format == "#,##,###.##": in_million = False
+
+    fraction_currency = _(fraction_currency)
+    main_currency = _(main_currency)
+    # 0.00
+    if main == "0" and fraction in ["00", "000"]:
+        out = "{0} {1}".format(main_currency, _("Zero"))
+    # 0.XX
+    elif main == "0":
+        out = _(in_words(fraction, in_million).title()) + " " + fraction_currency
+    else:
+        out = _(in_words(main, in_million).title()) + " " + main_currency
+        if cint(fraction):
+            out = out + " " + _("and") + " " + _(in_words(fraction, in_million).title()) + " " + fraction_currency
+
+    if start_in_one_word and out[:4] == 'واحد':
+        out = out[5:]
+
+    out = re.sub(r'(\b\w*ائة)(\w+\b)', r'\1 و \2', out)
+    out = re.sub(r'(\b\w*ئتان)(\w+\b)', r'\1 و \2', out)
+    # return out + " " + _("only.")
+    return out 
+

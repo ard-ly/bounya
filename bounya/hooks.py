@@ -28,12 +28,19 @@ app_license = "MIT"
 
 # include js in doctype views
 
-doctype_js = {"Salary Structure" : "public/js/salary_structure.js",
-              "Salary Structure Assignment" : "public/js/salary_structure_assignment.js"
-              }
+doctype_js = {
+    "Salary Structure": "public/js/salary_structure.js",
+    "Salary Structure Assignment": "public/js/salary_structure_assignment.js",
+    "Employee": "public/js/employee.js",
+    "Additional Salary": "public/js/additional-salary.js",
+    "Material Request": "public/js/material_request.js",
+}
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
+
+# standard_queries = {"Additional Salary": "bounya.queries.designation_query"}
+
 
 # Home Pages
 # ----------
@@ -127,11 +134,12 @@ doctype_js = {"Salary Structure" : "public/js/salary_structure.js",
 # 	}
 # }
 
-doc_events = {
-    "Salary Slip": {
-        "validate": "bounya.api.loan_repayment_from_salary",
-    },
-    }
+# doc_events = {
+# 	"Salary Structure Assignment": {
+# 		"on_update": "bounya.api.update_base_from_slip",
+# 	}
+# }
+
 
 # Scheduled Tasks
 # ---------------
@@ -162,9 +170,10 @@ doc_events = {
 # Overriding Methods
 # ------------------------------
 #
-# override_whitelisted_methods = {
-# 	"frappe.desk.doctype.event.event.get_events": "bounya.event.get_events"
-# }
+override_whitelisted_methods = {
+    "erpnext.stock.doctype.material_request.material_request.make_stock_entry": "bounya.events.make_stock_entry",
+    "erpnext.stock.doctype.material_request.material_request.make_purchase_order": "bounya.events.make_purchase_order",
+}
 #
 # each overriding function accepts a `data` argument;
 # generated from the base implementation of the doctype dashboard,
@@ -224,15 +233,19 @@ doc_events = {
 # ]
 
 
+# fixtures = [
+#     {"dt": "Salary Component"},
+#     {"dt": "Salary Structure", "filters": [
+#         [
+#             "name", "in", [
+#                 "Salary Structure 2024"
+#             ]
+#         ]
+#     ]}
+# ]
 fixtures = [
-    {"dt": "Salary Component"},
-    {"dt": "Salary Structure", "filters": [
-        [
-            "name", "in", [
-                "Salary Structure 2024"
-            ]
-        ]
-    ]},
+    {"dt": "Custom Field", "filters": [["module", "in", ["Albounya"]]]},
+    {"dt": "Translation"},
 
     {
         "dt": "Custom Field",
