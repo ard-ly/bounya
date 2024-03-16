@@ -88,13 +88,14 @@
    "fetch_from": "salary_component.type",
    "fieldname": "salary_component_type",
    "fieldtype": "Data",
-   "label": "Salary Component Type"
+   "label": "Salary Component Type",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-03-14 10:58:49.919201",
+ "modified": "2024-03-16 09:25:41.010708",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Monthly Variables",
