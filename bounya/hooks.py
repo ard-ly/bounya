@@ -246,4 +246,16 @@ override_whitelisted_methods = {
 fixtures = [
     {"dt": "Custom Field", "filters": [["module", "in", ["Albounya"]]]},
     {"dt": "Translation"},
+
+    {
+        "dt": "Custom Field",
+        "filters": [
+            [
+                "name", "in",[
+                 "Payroll Settings-salary_component_settings",
+                ]
+            ]
+        ]
+    },
+    {"dt": "Translation"},
 ]

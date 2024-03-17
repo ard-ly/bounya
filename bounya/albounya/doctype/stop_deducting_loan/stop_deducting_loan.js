@@ -3,38 +3,32 @@
 
 frappe.ui.form.on('Stop Deducting Loan', {
 	refresh: function(frm) {
-		frm.set_query("loan", function () {
-			return {
-			  filters: [
-				["Loan", 'docstatus', '=', 1 ],
+		if (frm.doc.docstatus == 1){
+			frm.set_df_property("get_employees", "hidden", 1);
+		}
+		// frm.set_query("loan", function () {
+		// 	return {
+		// 	  filters: [
+		// 		["Loan", 'docstatus', '=', 1 ],
 				
-			  ],
-			};
-		  });
-
-		//   if (frm.doc.docstatus != 1) {
-		// 	frm.add_custom_button(
-		// 	  __("Get Employess"),
-		// 	  function () {
-		// 		frappe.model.open_mapped_doc({
-		// 		  method: "",
-		// 		  frm: frm,
-		// 		});
-		// 	  },
-		// 	);
-		//   }
-	  
-
+		// 	  ],
+		// 	};
+		//   });
 	},
 
 	get_employees(frm) {
 		frappe.call({
 			method :"get_employees",
 			doc:frm.doc,
+			args: {
+				start_date : frm.doc.start_date,
+				end_date: frm.doc.end_date,
+			},
 			callback:function(r){
 				if(r.message){
 					console.log("aaaaaaaaaaaaaaaaaaaaaaaaa");
 					console.log(r.message);
+					frm.refresh_fields();
 					
 				}
 			}
