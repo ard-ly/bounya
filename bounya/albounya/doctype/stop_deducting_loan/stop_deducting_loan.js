@@ -26,9 +26,10 @@ frappe.ui.form.on('Stop Deducting Loan', {
 			},
 			callback:function(r){
 				if(r.message){
-					console.log("aaaaaaaaaaaaaaaaaaaaaaaaa");
 					console.log(r.message);
+					frm.refresh_field("stop_deducting_employees");
 					frm.refresh_fields();
+					frm.refresh();
 					
 				}
 			}
