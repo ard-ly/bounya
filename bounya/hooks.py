@@ -258,4 +258,14 @@ fixtures = [
         ]
     },
     {"dt": "Translation"},
+    {
+        "dt": "Letter Head",
+        "filters": [
+            [
+                "name","in",[
+                    "bounya"
+                    ],
+            ]
+        ],
+    },
 ]
