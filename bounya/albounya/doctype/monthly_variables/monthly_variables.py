@@ -48,10 +48,16 @@ class MonthlyVariables(Document):
 				additional.salary_component = self.salary_component
 				additional.amount = e.amount
 				additional.save()
+
+				# add comment to the Additional Salary.
+				TE = f"<a href='/app/monthly-variables/{self.name}' style='color: var(--text-on-blue)'>{self.name}</a>"
+				additional.add_comment("Comment",text=""" This Additional Salary was created by Monthly Variable {TE}.""".format(TE = TE), )
+				
 				additional.submit()
 				frappe.db.commit()
 				additional_link = f"<a href='/app/additional-salary/{additional.name}' style='color: var(--text-on-blue)'>{additional.name}</a>"
 				msgprint(additional_link + " is created.")
+
 
 			except Exception as e:
 				frappe.log_error("Error while creating Additional Salary for", str(e.employee))
