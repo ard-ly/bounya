@@ -17,7 +17,7 @@ class MonthlyVariables(Document):
 	@frappe.whitelist()
 	def get_salary_components(self):
 		components = []
-		component_list = frappe.db.get_list('Salary Component Settings', fields=['salary_component'],)
+		component_list = frappe.db.get_all('Salary Component Settings', fields=['salary_component'],)
 
 		for c in component_list:
 			components.append(str(c.salary_component))
