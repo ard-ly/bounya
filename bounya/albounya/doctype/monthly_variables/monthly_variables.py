@@ -2,6 +2,7 @@
 # For license information, please see license.txt
 
 import frappe
+import json
 from frappe import _, msgprint,throw
 from datetime import datetime
 from frappe.model.document import Document
@@ -60,7 +61,7 @@ class MonthlyVariables(Document):
 				additional.submit()
 				frappe.db.commit()
 				additional_link = f"<a href='/app/additional-salary/{additional.name}' style='color: var(--text-on-blue)'>{additional.name}</a>"
-				msgprint(additional_link + " is created.")
+				# msgprint(additional_link + " is created.")
 
 
 			except Exception as e:
