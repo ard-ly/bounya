@@ -1,4 +1,5 @@
 {
+ "_liked_by": "[\"Administrator\"]",
  "add_total_row": 0,
  "columns": [],
  "creation": "2024-03-26 10:43:40.311054",
@@ -11,13 +12,13 @@
  "is_standard": "Yes",
  "json": "{}",
  "letter_head": "bounya",
- "modified": "2024-03-26 10:43:48.108240",
+ "modified": "2024-03-31 14:37:30.606210",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Monthly Variables Report",
  "owner": "Administrator",
  "prepared_report": 0,
- "ref_doctype": "Monthly Variables",
+ "ref_doctype": "Additional Salary",
  "report_name": "Monthly Variables Report",
  "report_type": "Script Report",
  "roles": [
