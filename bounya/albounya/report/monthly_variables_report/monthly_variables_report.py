@@ -45,7 +45,7 @@ def get_columns():
 		"label": _("Employee Name"),
 		"fieldname": "employee_name",
 		"fieldtype": "Data",
-		"width": "200"
+		"width": "250"
 		},
 		{
     	"label": "Amount",
