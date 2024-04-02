@@ -3,6 +3,7 @@
 
 import frappe
 from frappe import _
+from datetime import datetime
 
 
 def execute(filters=None):
@@ -41,6 +42,12 @@ def get_columns():
 		"width": "150"
 		},
 		{
+		"label": _("Employee Name"),
+		"fieldname": "employee_name",
+		"fieldtype": "Data",
+		"width": "200"
+		},
+		{
     	"label": "Amount",
 		"fieldname": "amount",
 		"fieldtype": "Float",
@@ -56,7 +63,7 @@ def get_columns():
 
 def get_data(conditions):
 	data = frappe.db.sql(f"""
-			select payroll_date, salary_component, type, employee, amount, name 
+			select payroll_date, salary_component, type, employee, employee_name, amount, name 
 					  from `tabAdditional Salary`
 					  where {conditions}
 	""", as_dict=True)
@@ -69,11 +76,16 @@ def get_data(conditions):
 
 def get_conditions(filters):
 	conditions = "docstatus=1"
-	from_date = filters.get("from_date")
-	to_date = filters.get("to_date")
+	if filters.get("from_date"):
+		from_date = filters.get("from_date")
+		formated_from_date= datetime.strptime(from_date, '%Y-%m-%d')
+		
+	if filters.get("to_date"):
+		to_date = filters.get("to_date")
+		formated_to_date= datetime.strptime(to_date, '%Y-%m-%d')
 
-	if from_date and to_date:
-		conditions += " AND payroll_date BETWEEN '{0}' AND '{1}'".format(from_date, to_date)
+	if filters.get("from_date") and filters.get("to_date"):
+		conditions += " AND payroll_date BETWEEN '{0}' AND '{1}'".format(formated_from_date, formated_to_date)
 	
 	if filters.get("salary_component"):
 		conditions += f""" AND salary_component = '{filters.get("salary_component")}'"""
