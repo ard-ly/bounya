@@ -2,15 +2,6 @@
 // For license information, please see license.txt
 /* eslint-disable */
 
-// const d = new Date();
-// var cur_year = d.getFullYear();
-// var pre_month = d.getMonth() ;
-// cur_month = pre_month +1
-// var to_d = '' + cur_year + '-' + cur_month + '-' + '25';
-// var from_d = '' + cur_year + '-' + pre_month + '-' + '25';
-// console.log(new Date(from_d));
-// console.log(new Date(to_d));
-
 frappe.query_reports["Monthly Variables Report"] = {
 	"filters": [
 
@@ -18,17 +9,34 @@ frappe.query_reports["Monthly Variables Report"] = {
 			label: __("Month"),
 			fieldname: "month",
 			fieldtype: "Select",
-			options: "\nJanuary\nFebruary\nMarch\nApril\nMay\nJune\nJuly\nAugust\nSeptember\nOctober\nNovember\nDecember",
+			options:[
+				"\n",
+				{ "value": 1, "label": __("January") },
+				{ "value": 2, "label": __("February") },
+				{ "value": 3, "label": __("March") },
+				{ "value": 4, "label": __("April") },
+				{ "value": 5, "label": __("May") },
+				{ "value": 6, "label": __("June") },
+				{ "value": 7, "label": __("July") },
+				{ "value": 8, "label": __("August") },
+				{ "value": 9, "label": __("September") },
+				{ "value": 10, "label": __("October") },
+				{ "value": 11, "label": __("November") },
+				{ "value": 12, "label": __("December") },
+			],
+			default: frappe.datetime.str_to_obj(frappe.datetime.get_today()).getMonth() + 1
 		   },
 		   {
 			label: __("From"),
 			fieldname: "from_date",
 			fieldtype: "Date",
+			default:frappe.datetime.add_days(frappe.datetime.month_start(frappe.query_report.get_filter('month')),-6),
 		   },
 		   {
 			label: __("To"),
 			fieldname: "to_date",
 			fieldtype: "Date",
+			default: frappe.datetime.add_days(frappe.datetime.month_start(frappe.query_report.get_filter('month')),24),
 		   },
 		   {
 			label: __("Salary Component"),
@@ -49,5 +57,27 @@ frappe.query_reports["Monthly Variables Report"] = {
 			options: "Employee",
 		   },
 		  
-	]
-};
+	],
+	"onload": function (report){ 
+		report.page.fields_dict['month'].$input.on('change', function () {
+			var cur_year = frappe.datetime.str_to_obj(frappe.datetime.get_today()).getFullYear();
+			var cur_month = frappe.query_report.get_filter_value('month')
+			var pre_month = frappe.query_report.get_filter_value('month') -1
+			var from_d = '' + cur_year + '-' + pre_month + '-' + '25';
+			var to_d = '' + cur_year + '-' + cur_month + '-' + '25';
+			
+			frappe.query_report.set_filter_value('to_date', new Date(to_d));
+			frappe.query_report.set_filter_value('from_date', new Date(from_d));			
+			report.refresh();
+		});
+
+		report.page.fields_dict['from_date'].$input.on('change', function () {
+			report.refresh();
+		});
+
+		report.page.fields_dict['to_date'].$input.on('change', function () {
+			report.refresh();
+		});
+	},
+	
+}
