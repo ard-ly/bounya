@@ -2,7 +2,6 @@
 // For license information, please see license.txt
 /* eslint-disable */
 
-
 frappe.query_reports["Monthly Variables Report"] = {
 	"filters": [
 
@@ -31,7 +30,7 @@ frappe.query_reports["Monthly Variables Report"] = {
 			label: __("From"),
 			fieldname: "from_date",
 			fieldtype: "Date",
-			default: frappe.datetime.add_days(frappe.datetime.month_start(frappe.query_report.get_filter('month')),-6),
+			default:frappe.datetime.add_days(frappe.datetime.month_start(frappe.query_report.get_filter('month')),-6),
 		   },
 		   {
 			label: __("To"),
@@ -58,5 +57,27 @@ frappe.query_reports["Monthly Variables Report"] = {
 			options: "Employee",
 		   },
 		  
-	]
-};
+	],
+	"onload": function (report){ 
+		report.page.fields_dict['month'].$input.on('change', function () {
+			var cur_year = frappe.datetime.str_to_obj(frappe.datetime.get_today()).getFullYear();
+			var cur_month = frappe.query_report.get_filter_value('month')
+			var pre_month = frappe.query_report.get_filter_value('month') -1
+			var from_d = '' + cur_year + '-' + pre_month + '-' + '25';
+			var to_d = '' + cur_year + '-' + cur_month + '-' + '25';
+			
+			frappe.query_report.set_filter_value('to_date', new Date(to_d));
+			frappe.query_report.set_filter_value('from_date', new Date(from_d));			
+			report.refresh();
+		});
+
+		report.page.fields_dict['from_date'].$input.on('change', function () {
+			report.refresh();
+		});
+
+		report.page.fields_dict['to_date'].$input.on('change', function () {
+			report.refresh();
+		});
+	},
+	
+}
