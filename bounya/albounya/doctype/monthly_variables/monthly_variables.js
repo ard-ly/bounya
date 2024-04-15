@@ -57,4 +57,23 @@ frappe.ui.form.on('Monthly Variables', {
 		}
 	},
 
+	get_employees(frm) {
+		frappe.call({
+			method :"get_employees",
+			doc:frm.doc,
+			args: {
+				from_date : frm.doc.from_date,
+				to_date: frm.doc.to_date,
+			},
+			callback:function(r){
+				if(r.message){
+					console.log(r.message);
+					frm.refresh_field("monthly_variables_settings");
+					frm.refresh_fields();
+					frm.refresh();
+				}
+			}
+		});
+	},
+
 });
