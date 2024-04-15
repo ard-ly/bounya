@@ -4,7 +4,7 @@
 import frappe
 from frappe import _, msgprint,throw
 from datetime import datetime
-from frappe.utils import date_diff, month_diff, add_months
+from frappe.utils import date_diff
 from frappe.model.document import Document
 
 class LeaveApplicationGroup(Document):
@@ -63,7 +63,16 @@ class LeaveApplicationGroup(Document):
 
 
 	def validate_employees(self):
-		pass
+		if len(self.employees_table) > 0:
+			for row in self.employees_table:
+				try:
+					leave_allocations = frappe.db.sql(f"""  SELECT *  FROM `tabLeave Allocation` WHERE docstatus = 1 AND employee = '{row.employee}' AND new_leaves_allocated >= '{self.total_leave_days}'AND leave_type = '{self.leave_type}'AND from_date <= '{self.from_date}' AND to_date >= '{self.to_date}' """,as_dict=1,)
+					if len(leave_allocations) <= 0:
+						throw(_("Employee \""+ row.employee_name + "\" does not have Leave Allocation in this date or this leave type."  ))
+
+				
+				except Exception as e:
+					return
 
 	def create_leave_apps(self):
 		if len(self.employees_table) > 0:
