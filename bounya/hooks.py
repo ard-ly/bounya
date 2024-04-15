@@ -253,6 +253,7 @@ fixtures = [
             [
                 "name", "in",[
                  "Payroll Settings-salary_component_settings",
+                 "Leave Application-custom_leave_application_group",
                 ]
             ]
         ]
