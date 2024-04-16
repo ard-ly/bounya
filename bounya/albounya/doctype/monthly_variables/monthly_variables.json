@@ -41,8 +41,7 @@
    "fieldname": "monthly_variables_settings",
    "fieldtype": "Table",
    "label": "Monthly Variables Settings",
-   "options": "Monthly Variables Settings",
-   "reqd": 1
+   "options": "Monthly Variables Settings"
   },
   {
    "fieldname": "amended_from",
@@ -137,7 +136,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-04-15 11:14:16.732946",
+ "modified": "2024-04-16 11:03:36.098313",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Monthly Variables",

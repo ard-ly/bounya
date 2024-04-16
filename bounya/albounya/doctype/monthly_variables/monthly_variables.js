@@ -23,6 +23,7 @@ frappe.ui.form.on('Monthly Variables', {
 					// console.log("aaaaaaaaaaaaaaaaaaaaaaaaa");
 					// console.log(r.message);
 					employee_list = r.message;
+					console.log("components:");
 					console.log(employee_list);
 				}
 			}
@@ -44,7 +45,6 @@ frappe.ui.form.on('Monthly Variables', {
 
 			const d = new Date();
 			let year = d.getFullYear();
-			// console.log(`${year}`);
 
 			let month = frm.doc.month
 			var dateString = '' + year + '-' + month + '-' + '25';
@@ -61,16 +61,11 @@ frappe.ui.form.on('Monthly Variables', {
 		frappe.call({
 			method :"get_employees",
 			doc:frm.doc,
-			args: {
-				from_date : frm.doc.from_date,
-				to_date: frm.doc.to_date,
-			},
+			args: {},
 			callback:function(r){
 				if(r.message){
 					console.log(r.message);
 					frm.refresh_field("monthly_variables_settings");
-					frm.refresh_fields();
-					frm.refresh();
 				}
 			}
 		});
