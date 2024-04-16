@@ -134,17 +134,20 @@ def calculate_interpolate_value(doc , employee_no , salary_structure , custom_ne
 	return float(estimated_x)
 
 @frappe.whitelist()
+
 def fetch_bank_branch_list(doctype, txt, searchfield, start, page_len, filters):
 
-    bank_name = filters.get("bank_name")
-
-    query = f"""
+	return frappe.db.sql(
+		"""
         SELECT branch_name
         FROM `tabEmployee Bank Branch`
-        WHERE parent = '{bank_name}'
-        """
-
-    return frappe.db.sql(query)
+        WHERE parent = %(bank_name)s
+		and `branch_name` LIKE %(txt)s
+        """.format(
+			key=searchfield
+		),
+		{"txt": "%%%s%%" % txt, "start": start, "page_len": page_len , "bank_name": filters.get("bank_name")},
+	)
 
 @frappe.whitelist()
 def fetch_base_from_slip(grade , marbot):
