@@ -1,4 +1,5 @@
 {
+ "_liked_by": "[\"Administrator\"]",
  "actions": [],
  "allow_rename": 1,
  "autoname": "naming_series:",
@@ -11,13 +12,20 @@
   "naming_series",
   "month",
   "from_date",
-  "to_date",
+  "column_break_s1gwu",
   "salary_component",
   "salary_component_type",
-  "employee_section",
-  "monthly_variables_settings",
+  "to_date",
   "section_break_wygyu",
   "note",
+  "employee_tab",
+  "branch",
+  "amount",
+  "column_break_b0npo",
+  "department",
+  "get_employees",
+  "section_break_7spnj",
+  "monthly_variables_settings",
   "amended_from"
  ],
  "fields": [
@@ -30,7 +38,6 @@
    "reqd": 1
   },
   {
-   "depends_on": "salary_component",
    "fieldname": "monthly_variables_settings",
    "fieldtype": "Table",
    "label": "Monthly Variables Settings",
@@ -63,11 +70,6 @@
    "label": "Note"
   },
   {
-   "fieldname": "employee_section",
-   "fieldtype": "Section Break",
-   "label": "Employee"
-  },
-  {
    "fieldname": "from_date",
    "fieldtype": "Date",
    "label": "From"
@@ -90,12 +92,52 @@
    "fieldtype": "Data",
    "label": "Salary Component Type",
    "read_only": 1
+  },
+  {
+   "depends_on": "salary_component",
+   "fieldname": "employee_tab",
+   "fieldtype": "Tab Break",
+   "label": "Employee"
+  },
+  {
+   "fieldname": "column_break_s1gwu",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "branch",
+   "fieldtype": "Link",
+   "label": "Branch",
+   "options": "Branch"
+  },
+  {
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "Department"
+  },
+  {
+   "fieldname": "column_break_b0npo",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_7spnj",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amount",
+   "fieldtype": "Float",
+   "label": "Amount"
+  },
+  {
+   "fieldname": "get_employees",
+   "fieldtype": "Button",
+   "label": "Get Employees"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-03-26 10:51:32.320370",
+ "modified": "2024-04-15 11:14:16.732946",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Monthly Variables",
@@ -123,7 +165,6 @@
    "read": 1,
    "report": 1,
    "role": "HR Manager",
-   "select": 1,
    "share": 1,
    "write": 1
   },
@@ -136,7 +177,6 @@
    "read": 1,
    "report": 1,
    "role": "HR User",
-   "select": 1,
    "share": 1,
    "write": 1
   }
