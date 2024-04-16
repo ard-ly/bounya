@@ -14,7 +14,7 @@ frappe.ui.form.on('Leave Application Group', {
 			doc:frm.doc,
 			args: {
 				from_date : frm.doc.from_date,
-				end_dato_datete: frm.doc.to_date,
+				to_date: frm.doc.to_date,
 			},
 			callback:function(r){
 				if(r.message){
