@@ -20,8 +20,6 @@ frappe.ui.form.on('Leave Application Group', {
 				if(r.message){
 					console.log(r.message);
 					frm.refresh_field("employees_table");
-					frm.refresh_fields();
-					frm.refresh();
 				}
 			}
 		});

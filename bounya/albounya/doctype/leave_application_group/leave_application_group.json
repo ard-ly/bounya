@@ -21,8 +21,8 @@
   "notes",
   "employees_tab",
   "branch",
-  "department",
   "column_break_hql5w",
+  "department",
   "employment_type",
   "total_number_of_employees",
   "section_break_ruqgi",
@@ -79,6 +79,7 @@
   {
    "fieldname": "employment_type",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Employment Type",
    "options": "Employment Type"
   },
@@ -150,7 +151,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-04-14 13:25:33.271034",
+ "modified": "2024-04-16 11:22:48.907993",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Leave Application Group",

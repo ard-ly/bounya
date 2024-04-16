@@ -18,7 +18,6 @@ class LeaveApplicationGroup(Document):
 	def on_cancel(self):
 		self.cancel_leave_apps()
 
-
 	@frappe.whitelist()
 	def get_employees(self):
 		employees={}
@@ -35,22 +34,21 @@ class LeaveApplicationGroup(Document):
 			employees =  frappe.db.sql(f""" SELECT *  FROM `tabEmployee` WHERE status = 'Active'""",as_dict=1,)
 
 		if len(employees) > 0:
-			self.save()
 			for e in employees:
-				new_settings = frappe.new_doc("Leave Application Group Settings")
-				new_settings.employee = e.name
-				new_settings.parent = self.name
-				new_settings.parentfield = 'employees_table'
-				new_settings.parenttype = 'Leave Application Group'
-				new_settings.insert(ignore_permissions=True)
-
-			la_settings =  frappe.db.sql(f""" SELECT *  FROM `tabLeave Application Group Settings` where parent = '{self.name}' """,as_dict=1,)
-			self.total_number_of_employees = len(la_settings)
+				self.append(
+						"employees_table",
+						{
+							"employee" :e.name,
+							"employee_name" : e.employee_name,
+							"department" : e.department,
+							
+						},
+					)
+				
+			self.total_number_of_employees = len(self.employees_table)
 
 		elif len(employees) == 0:
 			msgprint(_("There is no employess in this branch and this department"))
-
-		
 
 		return str(employees)
 
