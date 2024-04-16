@@ -16,8 +16,8 @@ class StopDeductingLoan(Document):
 	def on_submit(self):
 		self.stop_deducting()
 	
-	# def on_cancel(self):
-	# 	self.return_deductions()
+	def on_cancel(self):
+		self.return_deductions()
 
 	def checkdate(self):
 		if frappe.utils.date_diff(str(self.end_date), str(self.start_date)) < 0:
@@ -25,20 +25,27 @@ class StopDeductingLoan(Document):
 
 	def stop_deducting(self):
 			for row in self.stop_deducting_employees:
-				
 				total_payment = frappe.db.get_value('Repayment Schedule', row.repayment_schedule, 'total_payment')
 				principal_amount = frappe.db.get_value('Repayment Schedule', row.repayment_schedule, 'principal_amount')
-				frappe.db.sql(f""" UPDATE `tabRepayment Schedule` SET total_payment = '0', balance_loan_amount = balance_loan_amount + '{principal_amount}' WHERE name = '{row.repayment_schedule}' """,as_dict=1,)
+				
+				# update the stop ducting row in Repayment Schedule.
+				frappe.db.sql(f""" UPDATE `tabRepayment Schedule` SET total_payment = '0', balance_loan_amount = balance_loan_amount + '{principal_amount}', custom_row_status = 'Deducting Stop' WHERE name = '{row.repayment_schedule}' """,as_dict=1,)
+				cu_idx = frappe.db.get_value('Repayment Schedule', row.repayment_schedule, 'idx')
 				
 				repayment_schedule= frappe.db.sql(f""" SELECT *  FROM `tabRepayment Schedule` WHERE parent = '{row.loan}' """,as_dict=1,)
-
-				new_idx =len(repayment_schedule) + 1
+				new_idx =len(repayment_schedule)+1
 				payment_date = frappe.db.get_value('Repayment Schedule', {'parent': row.loan, 'idx' : len(repayment_schedule) }, ['payment_date'])
 				balance_loan_amount = frappe.db.get_value('Repayment Schedule',  {'parent': row.loan, 'idx' : len(repayment_schedule) }, ['balance_loan_amount'])
 				next_month = add_months(payment_date,1)
-				frappe.db.sql(f""" UPDATE `tabRepayment Schedule` SET balance_loan_amount = balance_loan_amount +'{total_payment}'  WHERE parent = '{row.loan}' AND idx = '{len(repayment_schedule)}' """,as_dict=1,)
+				
+				# update all rows in Repayment Schedule.
+				next_idx = cu_idx
+				for repay in repayment_schedule:
+					next_idx += 1
+					if next_idx <= len(repayment_schedule):
+						frappe.db.sql(f""" UPDATE `tabRepayment Schedule` SET balance_loan_amount = balance_loan_amount +'{total_payment}'  WHERE parent = '{row.loan}' AND idx = '{next_idx}' """,as_dict=1,)
 						
-				# new Repayment Schedule.
+				# new Repayment Schedule (last row).
 				new_repayment = frappe.new_doc("Repayment Schedule")
 				new_repayment.idx = new_idx
 				new_repayment.payment_date = next_month
@@ -49,6 +56,7 @@ class StopDeductingLoan(Document):
 				new_repayment.parent = row.loan
 				new_repayment.parentfield = 'repayment_schedule'
 				new_repayment.parenttype = 'Loan'
+				new_repayment.custom_row_status = "Deducting delay"
 				new_repayment.insert(ignore_permissions=True)
 
 				# add comment to the loan.
@@ -60,8 +68,7 @@ class StopDeductingLoan(Document):
 	# on cancel.
 	def return_deductions(self):
 		for row in self.stop_deducting_employees:
-			pass
-						
+			pass					
 	# 	loan_name = frappe.get_doc('Loan', d.parent)
 	# 	the_date = d.payment_date
 	# 	TE = f"<a href='/app/stop-deducting-loan/{self.name}' style='color: var(--text-on-blue)'>{self.name}</a>"
@@ -91,19 +98,22 @@ class StopDeductingLoan(Document):
 				for l in loans:
 					repayment_schedule= frappe.db.sql(f""" SELECT *  FROM `tabRepayment Schedule` WHERE docstatus = 1 AND parent = '{l.name}' """,as_dict=1,)
 					for d in repayment_schedule:
+						# msgprint("idx: "+str(d.idx))
+						# msgprint(str(date_diff(d.payment_date,start_date)))
+						# msgprint(str(date_diff(end_date,d.payment_date)))
+						# msgprint("----------------------------")
 						if date_diff(d.payment_date,start_date) < date_diff(end_date,d.payment_date):
-							loans_dict.append([e.name, d.parent,d.name,d.payment_date])
-							self.save()
-							employees_table = frappe.new_doc("Stop Deducting Employees")
-							employees_table.employee = e.name
-							employees_table.loan = d.parent
-							employees_table.employee_name = e.employee_name
-							employees_table.parent = self.doctype_name
-							employees_table.parentfield = 'stop_deducting_employees'
-							employees_table.parenttype = 'Stop Deducting Loan'
-							employees_table.repayment_schedule = d.name
-							# employees_table.save()
-							employees_table.insert(ignore_permissions=True)
+								self.save()
+								loans_dict.append([e.name, d.parent,d.name,d.payment_date])
+								employees_table = frappe.new_doc("Stop Deducting Employees")
+								employees_table.employee = e.name
+								employees_table.loan = d.parent
+								employees_table.employee_name = e.employee_name
+								employees_table.parent = self.doctype_name
+								employees_table.parentfield = 'stop_deducting_employees'
+								employees_table.parenttype = 'Stop Deducting Loan'
+								employees_table.repayment_schedule = d.name
+								employees_table.insert(ignore_permissions=True)
 
 		return loans_dict
 		

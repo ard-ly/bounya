@@ -25,7 +25,6 @@ class MonthlyVariables(Document):
 
 		for c in component_list:
 			components.append(str(c.salary_component))
-		# frappe.msgprint(str(components))
 		return components
 	
 	@frappe.whitelist()
@@ -44,24 +43,19 @@ class MonthlyVariables(Document):
 			employees =  frappe.db.sql(f""" SELECT *  FROM `tabEmployee` WHERE status = 'Active'""",as_dict=1,)
 
 		if len(employees) > 0:
-			self.save()
 			for e in employees:
-				new_settings = frappe.new_doc("Monthly Variables Settings")
-				new_settings.employee = e.name
-				new_settings.employee_name = e.employee_name
-				new_settings.parent = self.name
-				new_settings.parentfield = 'monthly_variables_settings'
-				new_settings.parenttype = 'Monthly Variables'
-				if self.amount:
-					new_settings.amount = self.amount
-				else:
-					new_settings.amount = 0
-				
-				new_settings.insert(ignore_permissions=True)
-				return str(employees)
-
+				self.append(
+					"monthly_variables_settings",
+					{
+						"employee" :e.name,
+						"employee_name" : e.employee_name,
+						"amount" :self.amount,
+					},
+				)
 		elif len(employees) == 0:
-			msgprint(_("There is no employess in this branch and this department"))
+			msgprint(_("There is no employess in this branch and this department."))
+
+		return str(employees)
 	
 	def validate_employess(self):
 		if len(self.monthly_variables_settings)>0:
