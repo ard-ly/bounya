@@ -70,71 +70,10 @@ def make_demo_data(doc ,salary_structure ,marital_status, number_of_children , b
 		frappe.throw(msg, title=_("Error"))
 		frappe.msgprint(e)
 	
+
+
+# this code work in employee fileds for bank branches
 @frappe.whitelist()
-def calculate_interpolate_value(doc , employee_no , salary_structure , custom_net_salary , evaluation):
-	salary_structure = frappe.get_doc("Salary Structure" ,salary_structure)
-	employee = frappe.get_doc("Employee" , employee_no)
-
-	# test_value = salary_structure.custom_samples_table.custom_samples_table[0].base_salary
-	# custom_samples_table = salary_structure.custom_samples_table
-	# if employee.marital_status == 'Married' and employee.custom_number_of_children > 0 :
-	# 	samples_table = salary_structure.custom_sample_table_married_with_child
-	# elif employee.marital_status =="Married" and employee.custom_number_of_children == 0:
-	# 	samples_table = salary_structure.custom_sample_table_married
-	# else:
-	# 	samples_table = salary_structure.custom_samples_table
-
-		# custom_samples_table = salary_structure.custom_samples_table
-	if employee.marital_status == 'Married' and employee.custom_number_of_children > 0 :
-		if evaluation == "Hassan":
-			samples_table = salary_structure.custom_sample_table_married_with_child_hassan
-		elif evaluation == "high":
-			samples_table = salary_structure.custom_sample_table_married_with_child_high
-		else:
-			samples_table = salary_structure.custom_sample_table_married_with_child
-	elif employee.marital_status =="Married" and employee.custom_number_of_children == 0:
-		if evaluation == "Hassan":
-			samples_table = salary_structure.custom_sample_table_married_hassan
-		elif evaluation == "high":
-			samples_table = salary_structure.custom_sample_table_married_high
-		else:
-			samples_table = salary_structure.custom_sample_table_married
-	else:
-		if evaluation == "Hassan":
-			samples_table = salary_structure.custom_sample_table_single_hassan
-		elif evaluation == "high":
-			samples_table = salary_structure.custom_sample_table_single_high
-		else:		
-			samples_table = salary_structure.custom_samples_table
-
-		# custom_samples_table = salary_structure.custom_samples_table
-	# samples_table = salary_structure.custom_sample_table_married_with_child_hassan
-# 
-
-	x = []
-	y = []
-	for v in samples_table :
-		print(v.base_salary)
-		x.append(v.base_salary)
-		y.append(v.net_salary)
-	# x.sort()
-	# y.sort()
-		
-	# print("jjjjjjjjjj" , x)
-	# print(y)
-		
-	# Create an interpolation function
-	# interp_func = CubicSpline(y, x)
-	interp_func = interpolate.interp1d(y, x, kind='linear')
-
-	# Define a y value for which you want to find the corresponding x
-	desired_y = custom_net_salary
-	estimated_x = interp_func(desired_y)
-	print(f"The estimated x for y={desired_y} is approximately {estimated_x}")
-	return float(estimated_x)
-
-@frappe.whitelist()
-
 def fetch_bank_branch_list(doctype, txt, searchfield, start, page_len, filters):
 
 	return frappe.db.sql(
@@ -148,6 +87,23 @@ def fetch_bank_branch_list(doctype, txt, searchfield, start, page_len, filters):
 		),
 		{"txt": "%%%s%%" % txt, "start": start, "page_len": page_len , "bank_name": filters.get("bank_name")},
 	)
+
+# this code work in employee fileds for office branches
+@frappe.whitelist()
+def fetch_branchs_office_list(doctype, txt, searchfield, start, page_len, filters):
+
+	return frappe.db.sql(
+		"""
+        SELECT office_name
+        FROM `tabBranches Offices`
+        WHERE parent = %(branch)s
+		and `office_name` LIKE %(txt)s
+        """.format(
+			key=searchfield
+		),
+		{"txt": "%%%s%%" % txt, "start": start, "page_len": page_len , "branch": filters.get("branch")},
+	)
+
 
 @frappe.whitelist()
 def fetch_base_from_slip(grade , marbot):

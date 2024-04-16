@@ -7,4 +7,16 @@ frappe.ui.form.on("Employee", "onload", function(frm){
             },
           };
     });
+
+    frm.set_query("custom_office", function(){
+      return {
+          query: "bounya.api.fetch_branchs_office_list",
+          filters: {
+          branch: frm.doc.branch,
+          },
+        };
+  });
+
 });    
+
+
