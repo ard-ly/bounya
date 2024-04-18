@@ -69,15 +69,22 @@ class StopDeductingLoan(Document):
 	def return_deductions(self):
 		for row in self.stop_deducting_employees:
 			pass					
-	# 	loan_name = frappe.get_doc('Loan', d.parent)
-	# 	the_date = d.payment_date
-	# 	TE = f"<a href='/app/stop-deducting-loan/{self.name}' style='color: var(--text-on-blue)'>{self.name}</a>"
-	# 	loan_name.add_comment("Comment",text=""" Stop Deducting Loan were canceled for : {the_date} by {TE}.""".format(TE = TE, the_date =the_date ), )
+		# 	loan_name = frappe.get_doc('Loan', d.parent)
+		# 	the_date = d.payment_date
+		# 	TE = f"<a href='/app/stop-deducting-loan/{self.name}' style='color: var(--text-on-blue)'>{self.name}</a>"
+		# 	loan_name.add_comment("Comment",text=""" Stop Deducting Loan were canceled for : {the_date} by {TE}.""".format(TE = TE, the_date =the_date ), )
 
 	# ajax call.
 	@frappe.whitelist()
-	def get_employees(self,start_date,end_date):
-		# return start_date
+	def get_employees(self):
+		self.checkdate()
+
+		# re format '%d-%m-%Y'
+		s_date = datetime.strptime(self.start_date, '%Y-%m-%d').date()
+		# s = datetime.(self.start_date)
+		# s_date = s.strftime('%d-%m-%Y')
+		e_date = s_date = datetime.strptime(self.end_date, '%Y-%m-%d').date()
+
 		employees={}
 		if self.department and self.branch:
 			employees =  frappe.db.sql(f""" SELECT *  FROM `tabEmployee` WHERE department = '{self.department}' And branch = '{self.branch}' """,as_dict=1,)
@@ -90,30 +97,29 @@ class StopDeductingLoan(Document):
 		
 		else:
 			employees =  frappe.db.sql(f""" SELECT *  FROM `tabEmployee`""",as_dict=1,)
+		
+		if len(employees) > 0:
+			for e in employees:
+				loans = frappe.db.sql(f""" SELECT *  FROM `tabLoan` WHERE docstatus = 1 AND applicant = '{e.name}'""",as_dict=1,)
+				if loans:
+					for l in loans:
+						repayment_schedule= frappe.db.sql(f"""SELECT *  FROM `tabRepayment Schedule` WHERE docstatus = 1 AND parent = '{l.name}' AND (payment_date BETWEEN '{s_date}' and '{e_date}')""",as_dict=1,)
+						for d in repayment_schedule:	   
+							self.append(
+									"stop_deducting_employees",
+									{
+										"employee" :e.name,
+										"employee_name":e.employee_name,
+										"loan":d.parent,
+										"repayment_schedule":d.name,
+									},
+								)						
+				else:
+					msgprint(_("Employee \""+ e.employee_name +"\" does not have loans."))
 
-		loans_dict = []
-		for e in employees:
-			loans = frappe.db.sql(f""" SELECT *  FROM `tabLoan` WHERE docstatus = 1 AND applicant = '{e.name}'""",as_dict=1,)
-			if loans:
-				for l in loans:
-					repayment_schedule= frappe.db.sql(f""" SELECT *  FROM `tabRepayment Schedule` WHERE docstatus = 1 AND parent = '{l.name}' """,as_dict=1,)
-					for d in repayment_schedule:
-						# msgprint("idx: "+str(d.idx))
-						# msgprint(str(date_diff(d.payment_date,start_date)))
-						# msgprint(str(date_diff(end_date,d.payment_date)))
-						# msgprint("----------------------------")
-						if date_diff(d.payment_date,start_date) < date_diff(end_date,d.payment_date):
-								self.save()
-								loans_dict.append([e.name, d.parent,d.name,d.payment_date])
-								employees_table = frappe.new_doc("Stop Deducting Employees")
-								employees_table.employee = e.name
-								employees_table.loan = d.parent
-								employees_table.employee_name = e.employee_name
-								employees_table.parent = self.doctype_name
-								employees_table.parentfield = 'stop_deducting_employees'
-								employees_table.parenttype = 'Stop Deducting Loan'
-								employees_table.repayment_schedule = d.name
-								employees_table.insert(ignore_permissions=True)
-
-		return loans_dict
+		elif len(employees) == 0:
+			msgprint(_("There is no employess in this branch and this department."))
+		
+		return employees
+		
 		
