@@ -27,7 +27,7 @@ class StopDeductingLoan(Document):
 			for row in self.stop_deducting_employees:
 				total_payment = frappe.db.get_value('Repayment Schedule', row.repayment_schedule, 'total_payment')
 				principal_amount = frappe.db.get_value('Repayment Schedule', row.repayment_schedule, 'principal_amount')
-				
+		
 				# update the stop ducting row in Repayment Schedule.
 				frappe.db.sql(f""" UPDATE `tabRepayment Schedule` SET total_payment = '0', balance_loan_amount = balance_loan_amount + '{principal_amount}', custom_row_status = 'Deducting Stop' WHERE name = '{row.repayment_schedule}' """,as_dict=1,)
 				cu_idx = frappe.db.get_value('Repayment Schedule', row.repayment_schedule, 'idx')
@@ -79,12 +79,14 @@ class StopDeductingLoan(Document):
 	def get_employees(self):
 		self.checkdate()
 
-		# re format '%d-%m-%Y'
 		s_date = datetime.strptime(self.start_date, '%Y-%m-%d').date()
-		# s = datetime.(self.start_date)
-		# s_date = s.strftime('%d-%m-%Y')
-		e_date = s_date = datetime.strptime(self.end_date, '%Y-%m-%d').date()
-
+		e_date  = datetime.strptime(self.end_date, '%Y-%m-%d').date()
+		# s_day = str(s_date.day)
+		# s_month = str(s_date.month)
+		# s_year = str(s_date.year)
+		# s_date_combined = ""+s_day+"-"+s_month+"-"+s_year
+		# s_date_formated = datetime.strptime(s_date_combined, '%d-%m-%Y').date()
+		
 		employees={}
 		if self.department and self.branch:
 			employees =  frappe.db.sql(f""" SELECT *  FROM `tabEmployee` WHERE department = '{self.department}' And branch = '{self.branch}' """,as_dict=1,)
@@ -120,6 +122,6 @@ class StopDeductingLoan(Document):
 		elif len(employees) == 0:
 			msgprint(_("There is no employess in this branch and this department."))
 		
-		return employees
+		return s_date
 		
 		
