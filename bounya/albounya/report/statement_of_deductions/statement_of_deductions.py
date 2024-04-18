@@ -268,8 +268,7 @@ def get_salary_slips(filters, company_currency):
 
 
 	# query = frappe.qb.from_(salary_slip).left_join(employee).on(employee.name == salary_slip.name).select(salary_slip.star)
-	query = (frappe.qb.from_(salary_slip).inner_join(SalaryDetail)
-			.on(SalarySlip.name == SalaryDetail.parent).select(salary_slip.star))
+	query = (frappe.qb.from_(salary_slip).select(salary_slip.star))
 
 	if filters.get("docstatus"):
 		query = query.where(salary_slip.docstatus == doc_status[filters.get("docstatus")])
