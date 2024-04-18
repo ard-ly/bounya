@@ -109,8 +109,25 @@
 
 				{% } %}
 			</tr>
+			
 			{% } %}
 			{% } %}
+			<tr>
+				<td></td>
+					{% row = data[data.length -1 ] %}
+					{% for(let i=1, l=report_columns.length; i<l; i++) { %}
+					<td>
+					{% const fieldname = report_columns[i].fieldname; %}
+					{% if (!is_null(row[fieldname])) { %}
+					{%= frappe.format(row[fieldname], report_columns[report_columns.length -1], {}, row) %}
+					{% } %}
+					</td>
+					{% } %}
+					
+					<br>
+	
+			</tr>
+
 
 
 	</tbody>
