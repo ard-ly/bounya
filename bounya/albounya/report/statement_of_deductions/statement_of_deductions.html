@@ -75,7 +75,7 @@
 	<thead>
 		<tr>
             <th class="text-center" style="background: transparent !important">م</th>
-			{% for (let i=0, l=report_columns.length; i<l; i++) { %}
+			{% for (let i=1, l=report_columns.length; i<l; i++) { %}
 				<th class="text-center" style="background: transparent !important" >{%= __(report_columns[i].label) %}
                 </th>
 			{% } %}
@@ -90,7 +90,7 @@
 			%}
 			<tr>
                 <td class="{%= j == data.length -1 ? 'bg-aqua' : '' %}">{{ j +1 }}</td>
-				{% for(let i=0, l=report_columns.length; i<l; i++) { %}
+				{% for(let i=1, l=report_columns.length; i<l; i++) { %}
 					<td class="{%= j == data.length -1 ? 'bg-aqua' : '' %} {%= row.is_total_row ? 'totalRow' : ''%}">
 						{% const fieldname = report_columns[i].fieldname; %}
 						{% if (!is_null(row[fieldname]) && !row.is_total_row) { %}

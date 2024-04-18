@@ -225,7 +225,17 @@ def get_columns(filters, earning_types, ded_types):
 			columns += [
 				{"label": _(component), "fieldname": frappe.scrub(component), "fieldtype": "Data", "width": 170},
 
-			]		
+			]	
+		columns +=[
+				{
+				"label": _("Gross Pay"),
+				"fieldname": "gross_pay",
+				"fieldtype": "Currency",
+				"options": "currency",
+				"width": 120,
+				},
+			]
+		
 	if filters.get("summetion_component"):
 		columns += [
 			{		
@@ -253,9 +263,13 @@ def get_salary_component_type(salary_component):
 
 def get_salary_slips(filters, company_currency):
 	doc_status = {"Draft": 0, "Submitted": 1, "Cancelled": 2}
+	SalarySlip = frappe.qb.DocType("Salary Slip")
+	SalaryDetail = frappe.qb.DocType("Salary Detail")
+
 
 	# query = frappe.qb.from_(salary_slip).left_join(employee).on(employee.name == salary_slip.name).select(salary_slip.star)
-	query = frappe.qb.from_(salary_slip).select(salary_slip.star)
+	query = (frappe.qb.from_(salary_slip).inner_join(SalaryDetail)
+			.on(SalarySlip.name == SalaryDetail.parent).select(salary_slip.star))
 
 	if filters.get("docstatus"):
 		query = query.where(salary_slip.docstatus == doc_status[filters.get("docstatus")])
@@ -277,6 +291,8 @@ def get_salary_slips(filters, company_currency):
 
 	if filters.get("branch"):
 		query = query.where(salary_slip.branch == filters.get("branch"))
+	
+
 
 	# if filters.get("month"):
 	# 	query = query.where(Extract("month", salary_slip.start_date) == filters.month)
@@ -300,7 +316,7 @@ def get_salary_slip_details(salary_slips, currency, company_currency, component_
 		frappe.qb.from_(salary_slip)
 		.join(salary_detail)
 		.on(salary_slip.name == salary_detail.parent)
-		.where((salary_detail.parent.isin(salary_slips)) & (salary_detail.parentfield == component_type))
+		.where((salary_detail.parent.isin(salary_slips)) & (salary_detail.parentfield == component_type) )
 		.select(
 			salary_detail.parent,
 			salary_detail.salary_component,
