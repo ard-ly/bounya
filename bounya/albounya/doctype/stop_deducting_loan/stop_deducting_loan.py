@@ -76,8 +76,14 @@ class StopDeductingLoan(Document):
 
 	# ajax call.
 	@frappe.whitelist()
-	def get_employees(self,start_date,end_date):
+	def get_employees(self):
 		self.checkdate()
+
+		# re format '%d-%m-%Y'
+		s_date = datetime.strptime(self.start_date, '%Y-%m-%d').date()
+		# s = datetime.(self.start_date)
+		# s_date = s.strftime('%d-%m-%Y')
+		e_date = s_date = datetime.strptime(self.end_date, '%Y-%m-%d').date()
 
 		employees={}
 		if self.department and self.branch:
@@ -97,14 +103,9 @@ class StopDeductingLoan(Document):
 				loans = frappe.db.sql(f""" SELECT *  FROM `tabLoan` WHERE docstatus = 1 AND applicant = '{e.name}'""",as_dict=1,)
 				if loans:
 					for l in loans:
-						repayment_schedule= frappe.db.sql(f""" SELECT *  FROM `tabRepayment Schedule` WHERE docstatus = 1 AND parent = '{l.name}' """,as_dict=1,)
-						for d in repayment_schedule:
-							msgprint(""+str(type(start_date)))
-							# msgprint(type(self.start_date))
-							# msgprint(type(d.payment_date))
-							# compare dates.	
-							if date_diff(d.payment_date,start_date) < date_diff(end_date,d.payment_date):
-									self.append(
+						repayment_schedule= frappe.db.sql(f"""SELECT *  FROM `tabRepayment Schedule` WHERE docstatus = 1 AND parent = '{l.name}' AND (payment_date BETWEEN '{s_date}' and '{e_date}')""",as_dict=1,)
+						for d in repayment_schedule:	   
+							self.append(
 									"stop_deducting_employees",
 									{
 										"employee" :e.name,
@@ -112,7 +113,7 @@ class StopDeductingLoan(Document):
 										"loan":d.parent,
 										"repayment_schedule":d.name,
 									},
-								)
+								)						
 				else:
 					msgprint(_("Employee \""+ e.employee_name +"\" does not have loans."))
 
@@ -120,4 +121,5 @@ class StopDeductingLoan(Document):
 			msgprint(_("There is no employess in this branch and this department."))
 		
 		return employees
+		
 		

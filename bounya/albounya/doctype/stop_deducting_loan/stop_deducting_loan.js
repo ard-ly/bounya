@@ -20,10 +20,7 @@ frappe.ui.form.on('Stop Deducting Loan', {
 		frappe.call({
 			method :"get_employees",
 			doc:frm.doc,
-			args: {
-				start_date : frm.doc.start_date,
-				end_date: frm.doc.end_date,
-			},
+			args: {},
 			callback:function(r){
 				if(r.message){
 					console.log(r.message);
