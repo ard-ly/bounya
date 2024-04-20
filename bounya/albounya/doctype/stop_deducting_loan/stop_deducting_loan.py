@@ -58,6 +58,7 @@ class StopDeductingLoan(Document):
 				new_repayment.parenttype = 'Loan'
 				new_repayment.custom_row_status = "Deducting delay"
 				new_repayment.insert(ignore_permissions=True)
+				frappe.db.set_value("Stop Deducting Employees", row.name, "new_repayment_schedule",new_repayment.name )
 
 				# add comment to the loan.
 				loan_name = frappe.get_doc('Loan', row.loan)
@@ -68,11 +69,30 @@ class StopDeductingLoan(Document):
 	# on cancel.
 	def return_deductions(self):
 		for row in self.stop_deducting_employees:
-			pass					
-		# 	loan_name = frappe.get_doc('Loan', d.parent)
-		# 	the_date = d.payment_date
-		# 	TE = f"<a href='/app/stop-deducting-loan/{self.name}' style='color: var(--text-on-blue)'>{self.name}</a>"
-		# 	loan_name.add_comment("Comment",text=""" Stop Deducting Loan were canceled for : {the_date} by {TE}.""".format(TE = TE, the_date =the_date ), )
+			# delay_row = frappe.db.sql(f""" SELECT *  FROM `tabRepayment Schedule` WHERE name = '{row.new_repayment_schedule}' """,as_dict=1)
+			delay_total = frappe.db.get_value('Repayment Schedule', row.new_repayment_schedule, 'total_payment')
+
+			# update stop deducting row (return to orignal).
+			frappe.db.sql(f""" UPDATE `tabRepayment Schedule` SET total_payment = '{delay_total}', balance_loan_amount = balance_loan_amount - '{delay_total}', custom_row_status = ' ' WHERE name = '{row.repayment_schedule}' """,as_dict=1,)
+			stop_idx = frappe.db.get_value('Repayment Schedule', row.new_repayment_schedule, 'idx')
+
+			# update balance_loan_amount for all rows in the loan.
+			rep_schedule = frappe.db.sql(f""" SELECT *  FROM `tabRepayment Schedule` WHERE parent = '{row.loan}' """,as_dict=1,)
+			nextrow_idx = stop_idx
+			for repay in rep_schedule:
+				nextrow_idx += 1
+				if nextrow_idx <= len(rep_schedule):
+					frappe.db.sql(f""" UPDATE `tabRepayment Schedule` SET balance_loan_amount = balance_loan_amount -'{delay_total}'  WHERE parent = '{row.loan}' AND idx = '{nextrow_idx}' """,as_dict=1,)
+
+			# delete the delay row.
+			frappe.db.sql(f""" DELETE FROM `tabRepayment Schedule` WHERE name = '{row.new_repayment_schedule}' """,as_dict=1,)
+			
+			msgprint(str(stop_idx))
+
+
+   			
+								
+		
 
 	# ajax call.
 	@frappe.whitelist()
