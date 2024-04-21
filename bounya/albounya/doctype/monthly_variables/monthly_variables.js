@@ -6,10 +6,12 @@ frappe.ui.form.on('Monthly Variables', {
 	
 	setup: function (frm) {
 		if (frm.is_new()) {
+			let monthes = ['January' , 'February' , 'March' , 'April' , 'May' , 'June' , 'July' , 'August' , 'September' , 'October' , 'November' , 'December']
 			const today = new Date();
 			let month = today.getMonth(); // returns from 0 to 11
-			frm.doc.month = month+1;
+			frm.doc.month = monthes[month];
 			frm.refresh_fields();
+			frm.trigger("month")
 	}
 	},
 
