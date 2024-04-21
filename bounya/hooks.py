@@ -33,6 +33,7 @@ doctype_js = {
     "Salary Structure Assignment": "public/js/salary_structure_assignment.js",
     "Employee": "public/js/employee.js",
     "Material Request": "public/js/material_request.js",
+    "Additional Salary": "public/js/additional-salary.js",
     "Appraisal" : "public/js/appraisal.js",
 }
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
