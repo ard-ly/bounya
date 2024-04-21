@@ -29,7 +29,7 @@ class StopDeductingLoan(Document):
 				principal_amount = frappe.db.get_value('Repayment Schedule', row.repayment_schedule, 'principal_amount')
 		
 				# update the stop ducting row in Repayment Schedule.
-				frappe.db.sql(f""" UPDATE `tabRepayment Schedule` SET total_payment = '0', balance_loan_amount = balance_loan_amount + '{principal_amount}', custom_row_status = 'Deducting Stop' WHERE name = '{row.repayment_schedule}' """,as_dict=1,)
+				frappe.db.sql(f""" UPDATE `tabRepayment Schedule` SET total_payment = '0', balance_loan_amount = balance_loan_amount + '{principal_amount}', custom_row_status = 'Deducting Stop', principal_amount = "0" WHERE name = '{row.repayment_schedule}' """,as_dict=1,)
 				cu_idx = frappe.db.get_value('Repayment Schedule', row.repayment_schedule, 'idx')
 				
 				repayment_schedule= frappe.db.sql(f""" SELECT *  FROM `tabRepayment Schedule` WHERE parent = '{row.loan}' """,as_dict=1,)
@@ -71,10 +71,14 @@ class StopDeductingLoan(Document):
 		for row in self.stop_deducting_employees:
 			# delay_row = frappe.db.sql(f""" SELECT *  FROM `tabRepayment Schedule` WHERE name = '{row.new_repayment_schedule}' """,as_dict=1)
 			delay_total = frappe.db.get_value('Repayment Schedule', row.new_repayment_schedule, 'total_payment')
+			delay_amount = frappe.db.get_value('Repayment Schedule', row.new_repayment_schedule, 'principal_amount')
 
 			# update stop deducting row (return to orignal).
-			frappe.db.sql(f""" UPDATE `tabRepayment Schedule` SET total_payment = '{delay_total}', balance_loan_amount = balance_loan_amount - '{delay_total}', custom_row_status = ' ' WHERE name = '{row.repayment_schedule}' """,as_dict=1,)
-			stop_idx = frappe.db.get_value('Repayment Schedule', row.new_repayment_schedule, 'idx')
+			frappe.db.sql(f""" UPDATE `tabRepayment Schedule` SET total_payment = '{delay_total}', balance_loan_amount = balance_loan_amount - '{delay_total}', custom_row_status = ' ', principal_amount = '{delay_amount}'  WHERE name = '{row.repayment_schedule}' """,as_dict=1,)
+			stop_idx = frappe.db.get_value('Repayment Schedule', row.repayment_schedule, 'idx')
+
+			# delete the delay row.
+			frappe.db.sql(f""" DELETE FROM `tabRepayment Schedule` WHERE name = '{row.new_repayment_schedule}' """,as_dict=1,)
 
 			# update balance_loan_amount for all rows in the loan.
 			rep_schedule = frappe.db.sql(f""" SELECT *  FROM `tabRepayment Schedule` WHERE parent = '{row.loan}' """,as_dict=1,)
@@ -82,17 +86,8 @@ class StopDeductingLoan(Document):
 			for repay in rep_schedule:
 				nextrow_idx += 1
 				if nextrow_idx <= len(rep_schedule):
-					frappe.db.sql(f""" UPDATE `tabRepayment Schedule` SET balance_loan_amount = balance_loan_amount -'{delay_total}'  WHERE parent = '{row.loan}' AND idx = '{nextrow_idx}' """,as_dict=1,)
-
-			# delete the delay row.
-			frappe.db.sql(f""" DELETE FROM `tabRepayment Schedule` WHERE name = '{row.new_repayment_schedule}' """,as_dict=1,)
-			
-			msgprint(str(stop_idx))
-
-
-   			
-								
-		
+					msgprint("I'm herer :)")
+					frappe.db.sql(f""" UPDATE `tabRepayment Schedule` SET balance_loan_amount = balance_loan_amount - '{delay_total}'  WHERE parent = '{row.loan}' AND idx = '{nextrow_idx}' """,as_dict=1,)
 
 	# ajax call.
 	@frappe.whitelist()
