@@ -86,7 +86,6 @@ class StopDeductingLoan(Document):
 			for repay in rep_schedule:
 				nextrow_idx += 1
 				if nextrow_idx <= len(rep_schedule):
-					msgprint("I'm herer :)")
 					frappe.db.sql(f""" UPDATE `tabRepayment Schedule` SET balance_loan_amount = balance_loan_amount - '{delay_total}'  WHERE parent = '{row.loan}' AND idx = '{nextrow_idx}' """,as_dict=1,)
 
 	# ajax call.
