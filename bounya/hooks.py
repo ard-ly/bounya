@@ -35,6 +35,7 @@ doctype_js = {
     "Material Request": "public/js/material_request.js",
     "Additional Salary": "public/js/additional-salary.js",
     "Appraisal" : "public/js/appraisal.js",
+    "Salary Slip" : "public/js/salary_slip.js",
 }
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
@@ -120,7 +121,8 @@ doctype_js = {
 # Override standard doctype classes
 
 override_doctype_class = {
-	"Appraisal": "bounya.override.py.override_appraisal"
+	"Appraisal": "bounya.override.py.override_appraisal",
+	"Salary Slip": "bounya.override.py.salary_slip"
 }
 
 # Document Events
