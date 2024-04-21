@@ -27,9 +27,9 @@ class StopDeductingLoan(Document):
 			for row in self.stop_deducting_employees:
 				total_payment = frappe.db.get_value('Repayment Schedule', row.repayment_schedule, 'total_payment')
 				principal_amount = frappe.db.get_value('Repayment Schedule', row.repayment_schedule, 'principal_amount')
-				
+		
 				# update the stop ducting row in Repayment Schedule.
-				frappe.db.sql(f""" UPDATE `tabRepayment Schedule` SET total_payment = '0', balance_loan_amount = balance_loan_amount + '{principal_amount}', custom_row_status = 'Deducting Stop' WHERE name = '{row.repayment_schedule}' """,as_dict=1,)
+				frappe.db.sql(f""" UPDATE `tabRepayment Schedule` SET total_payment = '0', balance_loan_amount = balance_loan_amount + '{principal_amount}', custom_row_status = 'Deducting Stop', principal_amount = "0" WHERE name = '{row.repayment_schedule}' """,as_dict=1,)
 				cu_idx = frappe.db.get_value('Repayment Schedule', row.repayment_schedule, 'idx')
 				
 				repayment_schedule= frappe.db.sql(f""" SELECT *  FROM `tabRepayment Schedule` WHERE parent = '{row.loan}' """,as_dict=1,)
@@ -58,6 +58,7 @@ class StopDeductingLoan(Document):
 				new_repayment.parenttype = 'Loan'
 				new_repayment.custom_row_status = "Deducting delay"
 				new_repayment.insert(ignore_permissions=True)
+				frappe.db.set_value("Stop Deducting Employees", row.name, "new_repayment_schedule",new_repayment.name )
 
 				# add comment to the loan.
 				loan_name = frappe.get_doc('Loan', row.loan)
@@ -68,23 +69,38 @@ class StopDeductingLoan(Document):
 	# on cancel.
 	def return_deductions(self):
 		for row in self.stop_deducting_employees:
-			pass					
-		# 	loan_name = frappe.get_doc('Loan', d.parent)
-		# 	the_date = d.payment_date
-		# 	TE = f"<a href='/app/stop-deducting-loan/{self.name}' style='color: var(--text-on-blue)'>{self.name}</a>"
-		# 	loan_name.add_comment("Comment",text=""" Stop Deducting Loan were canceled for : {the_date} by {TE}.""".format(TE = TE, the_date =the_date ), )
+			# delay_row = frappe.db.sql(f""" SELECT *  FROM `tabRepayment Schedule` WHERE name = '{row.new_repayment_schedule}' """,as_dict=1)
+			delay_total = frappe.db.get_value('Repayment Schedule', row.new_repayment_schedule, 'total_payment')
+			delay_amount = frappe.db.get_value('Repayment Schedule', row.new_repayment_schedule, 'principal_amount')
+
+			# update stop deducting row (return to orignal).
+			frappe.db.sql(f""" UPDATE `tabRepayment Schedule` SET total_payment = '{delay_total}', balance_loan_amount = balance_loan_amount - '{delay_total}', custom_row_status = ' ', principal_amount = '{delay_amount}'  WHERE name = '{row.repayment_schedule}' """,as_dict=1,)
+			stop_idx = frappe.db.get_value('Repayment Schedule', row.repayment_schedule, 'idx')
+
+			# delete the delay row.
+			frappe.db.sql(f""" DELETE FROM `tabRepayment Schedule` WHERE name = '{row.new_repayment_schedule}' """,as_dict=1,)
+
+			# update balance_loan_amount for all rows in the loan.
+			rep_schedule = frappe.db.sql(f""" SELECT *  FROM `tabRepayment Schedule` WHERE parent = '{row.loan}' """,as_dict=1,)
+			nextrow_idx = stop_idx
+			for repay in rep_schedule:
+				nextrow_idx += 1
+				if nextrow_idx <= len(rep_schedule):
+					frappe.db.sql(f""" UPDATE `tabRepayment Schedule` SET balance_loan_amount = balance_loan_amount - '{delay_total}'  WHERE parent = '{row.loan}' AND idx = '{nextrow_idx}' """,as_dict=1,)
 
 	# ajax call.
 	@frappe.whitelist()
 	def get_employees(self):
 		self.checkdate()
 
-		# re format '%d-%m-%Y'
 		s_date = datetime.strptime(self.start_date, '%Y-%m-%d').date()
-		# s = datetime.(self.start_date)
-		# s_date = s.strftime('%d-%m-%Y')
-		e_date = s_date = datetime.strptime(self.end_date, '%Y-%m-%d').date()
-
+		e_date  = datetime.strptime(self.end_date, '%Y-%m-%d').date()
+		# s_day = str(s_date.day)
+		# s_month = str(s_date.month)
+		# s_year = str(s_date.year)
+		# s_date_combined = ""+s_day+"-"+s_month+"-"+s_year
+		# s_date_formated = datetime.strptime(s_date_combined, '%d-%m-%Y').date()
+		
 		employees={}
 		if self.department and self.branch:
 			employees =  frappe.db.sql(f""" SELECT *  FROM `tabEmployee` WHERE department = '{self.department}' And branch = '{self.branch}' """,as_dict=1,)
@@ -120,6 +136,6 @@ class StopDeductingLoan(Document):
 		elif len(employees) == 0:
 			msgprint(_("There is no employess in this branch and this department."))
 		
-		return employees
+		return s_date
 		
 		
