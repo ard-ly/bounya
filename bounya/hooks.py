@@ -274,4 +274,16 @@ fixtures = [
             ]
         ],
     },
+    {
+        "dt": "Workflow",
+        "filters": [
+            [
+                "name",
+                "in",
+                [
+                    "MR Complete WF",
+                ],
+            ]
+        ],
+    },
 ]
