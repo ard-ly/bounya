@@ -70,8 +70,6 @@ def make_demo_data(doc ,salary_structure ,marital_status, number_of_children , b
 		frappe.throw(msg, title=_("Error"))
 		frappe.msgprint(e)
 	
-
-
 # this code work in employee fileds for bank branches
 @frappe.whitelist()
 def fetch_bank_branch_list(doctype, txt, searchfield, start, page_len, filters):
