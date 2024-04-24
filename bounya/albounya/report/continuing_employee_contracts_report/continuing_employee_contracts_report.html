@@ -6,13 +6,11 @@
 	.bg-aqua{
 		background-color: lightblue !important;
 	}
-	tbody tr:last-child td:nth-child(2):after{
-		content: "المجموع";
-		font-size: 14px;
-		border-width: 0;
-	}
+
+    
 	.text-right{
 		text-align: right !important;
+        direction: rtl;
 	}
 	.print-format{
 		font-family: Tajawal, sans-serif;
@@ -28,6 +26,7 @@
 	.border-dark{
 		border:solid 2px black !important;
 		padding: 05px;
+        background-color: lightblue !important;
 	}
 	.content-width{
 		width: 85%;
@@ -35,9 +34,10 @@
 	tr th {
 		border: #666666 2px solid!important;
    		padding: 5px!important;
+        background-color: lightblue !important;
     }
 	th{
-    background-color:#D9D9D9 ;
+    background-color:#D9D9D9 !important;
     color:black!important;
 	}
 	td{
@@ -51,15 +51,10 @@
 %}
 
 {%
-	var date = new Date(filters.to_date);
-	var month = date.toLocaleString('default', { month: 'long' });
-	var year = date.getFullYear();
-	var formattedDate = date.toLocaleDateString();
-
-
+	var date = new Date(frappe.datetime.get_datetime_as_string());
 %}
 
-<section  >
+<section>
 <center>
 	<h1>
 
@@ -69,10 +64,19 @@
 	{{(filters.header) }}
 	<br>
 	</h1>
-	<h3>
-		شهر
-		{{__(filters.month)}}
-		{{(filters.year) }}
+	<h3 class="right">
+        
+        <br>
+        كشف بأسماء موظفين العقود المستمرين والذين انتهت عقودهم عن مرتبات
+		<br>
+            {{__(date.toLocaleString('default', { month: 'long' }))}}
+            شهر
+
+  
+            لسنة
+            {{date.getFullYear()}}
+    
+ 
 	</h3>
 
 </center>
@@ -83,9 +87,9 @@
 <table class="table table-bordered" dir="rtl">
 	<thead>
 		<tr>
-            <th class="text-center" style="background: transparent !important">م</th>
+            <th class="text-center" >م</th>
 			{% for (let i=1, l=report_columns.length; i<l; i++) { %}
-				<th class="text-center" style="background: transparent !important" >{%= __(report_columns[i].label) %}
+				<th class="text-center" >{%= __(report_columns[i].label) %}
                 </th>
 			{% } %}
 		</tr>
@@ -98,9 +102,9 @@
 				 if (!row.is_total_row)  { 
 			%}
 			<tr>
-                <td class="{%= j == data.length -1 ? 'bg-aqua' : '' %}">{{ j +1 }}</td>
+                <td class="">{{ j +1 }}</td>
 				{% for(let i=1, l=report_columns.length; i<l; i++) { %}
-					<td class="{%= j == data.length -1 ? 'bg-aqua' : '' %} {%= row.is_total_row ? 'totalRow' : ''%}">
+					<td class="">
 						{% const fieldname = report_columns[i].fieldname; %}
 						{% if (!is_null(row[fieldname]) && !row.is_total_row) { %}
 							{%= frappe.format(row[fieldname], report_columns[i], {}, row) %}
@@ -112,21 +116,6 @@
 			
 			{% } %}
 			{% } %}
-			<tr>
-				<td></td>
-					{% row = data[data.length -1 ] %}
-					{% for(let i=1, l=report_columns.length; i<l; i++) { %}
-					<td>
-					{% const fieldname = report_columns[i].fieldname; %}
-					{% if (!is_null(row[fieldname])&& (row[fieldname] > 0)) { %}
-					{%= frappe.format(row[fieldname], report_columns[report_columns.length -1], {}, row) %}
-					{% } %}
-					</td>
-					{% } %}
-					
-					<br>
-	
-			</tr>
 
 
 
