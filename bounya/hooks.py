@@ -153,6 +153,10 @@ doc_events = {
         "validate": "bounya.api.check_custom_has_assets",
         # "on_cancel": "method",
         # "on_trash": "method"
+    },
+    "Employee Promotion":{
+        "on_submit": "bounya.api.create_external_work_history",
+        "on_cancel": "bounya.api.cancel_external_work_history",
     }
 }
 
@@ -300,6 +304,7 @@ fixtures = [
                 "in",
                 [
                     "MR Complete WF",
+                    "Monthly Promotion",
                 ],
             ]
         ],

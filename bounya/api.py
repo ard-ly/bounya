@@ -72,18 +72,17 @@ def make_demo_data(
         salary_slip.employee = employee.name
         salary_slip.save()
         net_pay = salary_slip.net_pay
-
-		# delete transection sample data
-		frappe.delete_doc("Salary Slip" , salary_slip.name)
-		salary_structure_assignment.cancel()
-		frappe.delete_doc("Salary Structure Assignment" , salary_structure_assignment.name)
-		frappe.delete_doc("Employee" , employee.name)
-		# print("Salary Net gross : " , salary_slip.net_pay)
-		return base , net_pay
-	except Exception as e:
-		msg = _(e)
-		frappe.throw(msg, title=_("Error"))
-		frappe.msgprint(e)
+        # delete transection sample data
+        frappe.delete_doc("Salary Slip" , salary_slip.name)
+        salary_structure_assignment.cancel()
+        frappe.delete_doc("Salary Structure Assignment" , salary_structure_assignment.name)
+        frappe.delete_doc("Employee" , employee.name)
+        # print("Salary Net gross : " , salary_slip.net_pay)
+        return base , net_pay
+    except Exception as e:
+        msg = _(e)
+        frappe.throw(msg, title=_("Error"))
+        frappe.msgprint(e)
 	
 # this code work in employee fileds for bank branches
 @frappe.whitelist()
@@ -241,3 +240,16 @@ def check_custom_has_assets(doc, method):
         if frappe.get_doc("Item", row.item_code).is_fixed_asset:
             doc.custom_has_assets = 1
             break
+
+
+# Employee Promotion on_submit event.
+@frappe.whitelist()
+def create_external_work_history(doc, method):
+    msgprint("on_submit test from api")
+    pass
+
+# Employee Promotion on_cancel event.
+@frappe.whitelist()
+def cancel_external_work_history(doc, method):
+    msgprint("on_cancel test from api")
+    pass
