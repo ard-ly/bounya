@@ -73,21 +73,18 @@ def make_demo_data(
         salary_slip.save()
         net_pay = salary_slip.net_pay
 
-        # delete transection sample data
-        frappe.delete_doc("Salary Slip", salary_slip.name)
-        salary_structure_assignment.cancel()
-        frappe.delete_doc(
-            "Salary Structure Assignment", salary_structure_assignment.name
-        )
-        frappe.delete_doc("Employee", employee.name)
-        # print("Salary Net gross : " , salary_slip.net_pay)
-        return base, net_pay
-    except Exception as e:
-        msg = _(e)
-        frappe.throw(msg, title=_("Error"))
-        frappe.msgprint(e)
-
-
+		# delete transection sample data
+		frappe.delete_doc("Salary Slip" , salary_slip.name)
+		salary_structure_assignment.cancel()
+		frappe.delete_doc("Salary Structure Assignment" , salary_structure_assignment.name)
+		frappe.delete_doc("Employee" , employee.name)
+		# print("Salary Net gross : " , salary_slip.net_pay)
+		return base , net_pay
+	except Exception as e:
+		msg = _(e)
+		frappe.throw(msg, title=_("Error"))
+		frappe.msgprint(e)
+	
 # this code work in employee fileds for bank branches
 @frappe.whitelist()
 def fetch_bank_branch_list(doctype, txt, searchfield, start, page_len, filters):

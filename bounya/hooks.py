@@ -71,6 +71,24 @@ doctype_js = {
 # 	"filters": "bounya.utils.jinja_filters"
 # }
 
+jinja = {
+	"methods": "bounya.utils.grad_in_words",
+}
+
+
+# jenv = {
+#     "methods": {
+#         "calculate_total": "custom_app.utils.calculate_total"
+#     }
+# }
+
+jenv = {
+    "methods": {
+        "grad_in_words": "bounya.utils.grad_in_words"
+    }
+}
+
+
 # Installation
 # ------------
 
