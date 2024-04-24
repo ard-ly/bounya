@@ -260,3 +260,28 @@ frappe.ui.form.on('Salary Structure', {
     // }
     
     });
+
+    // frappe.listview_settings['Salary Structure'] = {
+    //     add_fields: [],
+    //     onload: function(listview) {
+    //         frappe.route_options = {
+    //             "is_active": "Yes"
+    //         };      
+    //     }
+    // };
+
+
+    // frappe.listview_settings["Salary Structure"] = {
+    // 	hide_name_column: true,
+    // 	add_fields: ["company", "is_default"],
+
+              
+    // 	onload: function (me) {
+    // 		if (!frappe.route_options) {
+    // 			frappe.route_options = {
+    // 				is_active: "No",
+    // 			};
+    // 		}
+    // 	},
+
+    // };
