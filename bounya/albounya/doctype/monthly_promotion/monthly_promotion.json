@@ -51,8 +51,9 @@
   },
   {
    "fieldname": "month",
-   "fieldtype": "Data",
-   "label": "Month"
+   "fieldtype": "Select",
+   "label": "Month",
+   "options": "\nJanuary\nFebruary\nMarch\nApril\nMay\nJune\nJuly\nAugust\nSeptember\nOctober\nNovember\nDecember"
   },
   {
    "fieldname": "column_break_valzv",
@@ -71,13 +72,14 @@
    "fieldname": "status",
    "fieldtype": "Select",
    "label": "Status",
-   "options": "\nOpen\nApproved\nRejected"
+   "options": "\nOpen\nApproved\nRejected",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-04-23 14:06:56.605060",
+ "modified": "2024-04-24 13:59:36.078076",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Monthly Promotion",
