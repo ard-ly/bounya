@@ -34,9 +34,9 @@ doctype_js = {
     "Employee": "public/js/employee.js",
     "Material Request": "public/js/material_request.js",
     "Additional Salary": "public/js/additional-salary.js",
-    "Appraisal" : "public/js/appraisal.js",
-    "Salary Slip" : "public/js/salary_slip.js",
-    "Payroll Entry":"public/js/payroll_entry.js",
+    "Appraisal": "public/js/appraisal.js",
+    "Salary Slip": "public/js/salary_slip.js",
+    "Payroll Entry": "public/js/payroll_entry.js",
 }
 doctype_list_js = {
         "Salary Structure": "public/js/salary_structure.js",
@@ -73,6 +73,24 @@ doctype_list_js = {
 # 	"methods": "bounya.utils.jinja_methods",
 # 	"filters": "bounya.utils.jinja_filters"
 # }
+
+jinja = {
+	"methods": "bounya.utils.grad_in_words",
+}
+
+
+# jenv = {
+#     "methods": {
+#         "calculate_total": "custom_app.utils.calculate_total"
+#     }
+# }
+
+jenv = {
+    "methods": {
+        "grad_in_words": "bounya.utils.grad_in_words"
+    }
+}
+
 
 # Installation
 # ------------
@@ -125,21 +143,25 @@ doctype_list_js = {
 # Override standard doctype classes
 
 override_doctype_class = {
-	"Appraisal": "bounya.override.py.override_appraisal",
-	# "Salary Slip": "bounya.override.py.salary_slip"
+    "Appraisal": "bounya.override.py.override_appraisal",
+    # "Salary Slip": "bounya.override.py.salary_slip"
 }
 
 # Document Events
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
-# 	}
-# }
+doc_events = {
+    "Material Request": {
+        "validate": "bounya.api.check_custom_has_assets",
+        # "on_cancel": "method",
+        # "on_trash": "method"
+    },
+    "Employee Promotion":{
+        "on_submit": "bounya.api.create_external_work_history",
+        "on_cancel": "bounya.api.cancel_external_work_history",
+    }
+}
 
 # doc_events = {
 # 	"Salary Structure Assignment": {
@@ -253,26 +275,40 @@ override_whitelisted_methods = {
 fixtures = [
     {"dt": "Custom Field", "filters": [["module", "in", ["Albounya"]]]},
     {"dt": "Translation"},
-
     {
         "dt": "Custom Field",
         "filters": [
             [
-                "name", "in",[
-                 "Payroll Settings-salary_component_settings",
-                 "Leave Application-custom_leave_application_group",
-                ]
+                "name",
+                "in",
+                [
+                    "Payroll Settings-salary_component_settings",
+                    "Leave Application-custom_leave_application_group",
+                ],
             ]
-        ]
+        ],
     },
     {"dt": "Translation"},
     {
         "dt": "Letter Head",
         "filters": [
             [
-                "name","in",[
-                    "bounya"
-                    ],
+                "name",
+                "in",
+                ["bounya", "Bounya LH"],
+            ]
+        ],
+    },
+    {
+        "dt": "Workflow",
+        "filters": [
+            [
+                "name",
+                "in",
+                [
+                    "MR Complete WF",
+                    "Monthly Promotion",
+                ],
             ]
         ],
     },
