@@ -51,7 +51,8 @@ def make_demo_data(
             housing_allowance = 150
 
         # salary_structure = 'st1'
-        salary_structure_assignment = frappe.new_doc("Salary Structure Assignment")
+        salary_structure_assignment = frappe.new_doc(
+            "Salary Structure Assignment")
         salary_structure_assignment.employee = employee.name
         salary_structure_assignment.salary_structure = salary_structure
         salary_structure_assignment.from_date = "2023-01-01"
@@ -73,18 +74,21 @@ def make_demo_data(
         salary_slip.save()
         net_pay = salary_slip.net_pay
         # delete transection sample data
-        frappe.delete_doc("Salary Slip" , salary_slip.name)
+        frappe.delete_doc("Salary Slip", salary_slip.name)
         salary_structure_assignment.cancel()
-        frappe.delete_doc("Salary Structure Assignment" , salary_structure_assignment.name)
-        frappe.delete_doc("Employee" , employee.name)
+        frappe.delete_doc("Salary Structure Assignment",
+                          salary_structure_assignment.name)
+        frappe.delete_doc("Employee", employee.name)
         # print("Salary Net gross : " , salary_slip.net_pay)
-        return base , net_pay
+        return base, net_pay
     except Exception as e:
         msg = _(e)
         frappe.throw(msg, title=_("Error"))
         frappe.msgprint(e)
-	
+
 # this code work in employee fileds for bank branches
+
+
 @frappe.whitelist()
 def fetch_bank_branch_list(doctype, txt, searchfield, start, page_len, filters):
     return frappe.db.sql(
@@ -147,13 +151,10 @@ def update_base_from_slip(doc, method):
         # doc.save()
         frappe.db.commit()
 
-
 # @frappe.whitelist()
 # def money_in_words(number):
 #     result = money_in_words(number)
-
 #     return _(result)
-
 
 @frappe.whitelist()
 def money_in_words(number, main_currency=None, fraction_currency=None):
@@ -184,7 +185,8 @@ def money_in_words(number, main_currency=None, fraction_currency=None):
         ) or _("Cent")
 
     number_format = (
-        frappe.db.get_value("Currency", main_currency, "number_format", cache=True)
+        frappe.db.get_value("Currency", main_currency,
+                            "number_format", cache=True)
         or frappe.db.get_default("number_format")
         or "#,###.##"
     )
@@ -211,7 +213,8 @@ def money_in_words(number, main_currency=None, fraction_currency=None):
         out = "{0} {1}".format(main_currency, _("Zero"))
     # 0.XX
     elif main == "0":
-        out = _(in_words(fraction, in_million).title()) + " " + fraction_currency
+        out = _(in_words(fraction, in_million).title()) + \
+            " " + fraction_currency
     else:
         out = _(in_words(main, in_million).title()) + " " + main_currency
         if cint(fraction):
@@ -245,11 +248,43 @@ def check_custom_has_assets(doc, method):
 # Employee Promotion on_submit event.
 @frappe.whitelist()
 def create_external_work_history(doc, method):
-    msgprint("on_submit test from api")
-    pass
+    try:
+        if doc.custom_created_by_monthly_promotion == 1:           
+            work_history = frappe.new_doc("Employee External Work History")
+            work_history.parent = doc.employee
+            work_history.parentfield = 'external_work_history'
+            work_history.parenttype = 'Employee'
+            work_history.custom_employee_promotion = doc.name
+            for row in doc.promotion_details:
+                if row.property == 'Company':
+                    work_history.company_name = row.new
+                # else:
+                #     work_history.company_name = doc.company
+                if row.property == 'Grade':
+                    work_history.custom_grade = row.new
+                
+                if row.property == 'Designation':
+                    work_history.designation = row.new
+                
+                if row.property == 'Dependent':
+                    work_history.custom_dependent = row.new
+            
+            work_history.insert(ignore_permissions=True)
+            frappe.db.set_value("Employee Promotion", doc.name, "custom_external_work_history", work_history.name)
+            
+    except Exception as e:
+        frappe.log_error(
+            "Error while creating Employee External Work History")
+        return
 
 # Employee Promotion on_cancel event.
 @frappe.whitelist()
 def cancel_external_work_history(doc, method):
-    msgprint("on_cancel test from api")
-    pass
+    if doc.custom_external_work_history:
+        # work_history = frappe.get_doc("Employee External Work History", doc.custom_external_work_history)
+        # work_history.cancel()
+        # frappe.delete_doc("Employee External Work History", doc.custom_external_work_history)
+        frappe.db.sql(f""" DELETE FROM `tabEmployee External Work History` WHERE name='{doc.custom_external_work_history}' """,as_dict=True)
+        frappe.db.commit()
+
+    
