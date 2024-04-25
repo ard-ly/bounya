@@ -42,6 +42,7 @@ class MonthlyPromotion(Document):
 					prom.employee = e.employee
 					prom.promotion_date = date.today()
 					prom.custom_monthly_promotion = self.name
+					prom.custom_created_by_monthly_promotion = 1
 					if e.new_grade != 0:
 						prom.append(
 						"promotion_details",
@@ -62,7 +63,6 @@ class MonthlyPromotion(Document):
 						)
 					prom.save()
 					frappe.db.set_value("Monthly Promotion Table", e.name, "employee_promotion",prom.name )
-					# self.employee_promotion = prom.name
 					prom.submit()
 					frappe.db.commit()
 
@@ -76,11 +76,13 @@ class MonthlyPromotion(Document):
 		self.status = 'Rejected'
 		for e in self.employee_table:
 			try:
-				# e.employee_promotion
-				pass
+				if e.employee_promotion:
+					prom = frappe.get_doc("Employee Promotion", e.employee_promotion)
+					prom.cancel()
+					frappe.db.commit()
 
 			except Exception as e:
-				frappe.log_error("Error while creating Employee Promotion for", str(e.employee))
+				frappe.log_error("Error while cencelling Employee Promotion")
 				return
 
 	@frappe.whitelist()
