@@ -1,0 +1,37 @@
+{
+ "add_total_row": 0,
+ "columns": [],
+ "creation": "2024-04-24 14:06:43.051987",
+ "disable_prepared_report": 0,
+ "disabled": 0,
+ "docstatus": 0,
+ "doctype": "Report",
+ "filters": [],
+ "idx": 0,
+ "is_standard": "Yes",
+ "json": "{}",
+ "letter_head": "bounya",
+ "modified": "2024-04-24 14:08:19.071440",
+ "modified_by": "Administrator",
+ "module": "Albounya",
+ "name": "Continuing employee contracts report",
+ "owner": "Administrator",
+ "prepared_report": 0,
+ "ref_doctype": "Employee",
+ "report_name": "Continuing employee contracts report",
+ "report_type": "Script Report",
+ "roles": [
+  {
+   "role": "HR User"
+  },
+  {
+   "role": "HR Manager"
+  },
+  {
+   "role": "Employee"
+  },
+  {
+   "role": "Employee Self Service"
+  }
+ ]
+}

@@ -1,0 +1,111 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2024-04-24 13:12:54.041305",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "custodian",
+  "employee_number",
+  "column_break_ohi7f",
+  "posting_date",
+  "location",
+  "naming_series",
+  "section_break_hs76b",
+  "asset_receipt_and_responsibility_table",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "asset_receipt_and_responsibility_table",
+   "fieldtype": "Table",
+   "label": "Asset Receipt and Responsibility Table",
+   "options": "Asset Receipt and Responsibility Table",
+   "reqd": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Asset Receipt and Responsibility",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Series",
+   "options": "ARaRF-.YYYY.-"
+  },
+  {
+   "fieldname": "custodian",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Custodian",
+   "options": "Employee",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "custodian.employee_number",
+   "fieldname": "employee_number",
+   "fieldtype": "Data",
+   "label": "Employee Number",
+   "read_only": 1
+  },
+  {
+   "fieldname": "location",
+   "fieldtype": "Data",
+   "label": "Location"
+  },
+  {
+   "default": "Today",
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Posting Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_ohi7f",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_hs76b",
+   "fieldtype": "Section Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2024-04-24 14:32:32.964825",
+ "modified_by": "Administrator",
+ "module": "Albounya",
+ "name": "Asset Receipt and Responsibility",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1,
+ "track_seen": 1,
+ "track_views": 1
+}
