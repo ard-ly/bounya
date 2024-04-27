@@ -30,7 +30,7 @@ frappe.ui.form.on('Monthly Promotion', {
 		});
 	},
 	
-	refresh: function(frm) {
+	// refresh: function(frm) {
 
-	},
+	// },
 });

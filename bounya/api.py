@@ -281,9 +281,6 @@ def create_external_work_history(doc, method):
 @frappe.whitelist()
 def cancel_external_work_history(doc, method):
     if doc.custom_external_work_history:
-        # work_history = frappe.get_doc("Employee External Work History", doc.custom_external_work_history)
-        # work_history.cancel()
-        # frappe.delete_doc("Employee External Work History", doc.custom_external_work_history)
         frappe.db.sql(f""" DELETE FROM `tabEmployee External Work History` WHERE name='{doc.custom_external_work_history}' """,as_dict=True)
         frappe.db.commit()
 

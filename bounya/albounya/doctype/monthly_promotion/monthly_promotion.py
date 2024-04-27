@@ -67,7 +67,7 @@ class MonthlyPromotion(Document):
 					frappe.db.commit()
 
 				except Exception as e:
-					frappe.log_error("Error while creating Employee Promotion for", str(e.employee))
+					frappe.log_error("Error while creating Employee Promotion")
 					return
 		else:
 			throw(_("Employees table canot be empty."))
@@ -88,4 +88,5 @@ class MonthlyPromotion(Document):
 	@frappe.whitelist()
 	def get_employees(self):
 		employees={}
+
 		return str(employees)
