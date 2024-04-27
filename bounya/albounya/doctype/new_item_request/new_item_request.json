@@ -1,0 +1,173 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2024-04-27 12:24:09.163201",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "status",
+  "section_break_ez59e",
+  "branch",
+  "column_break_mbfnf",
+  "requesting_party",
+  "section_break_keskw",
+  "item_name",
+  "column_break_itod0",
+  "item_category",
+  "section_break_51yoo",
+  "item_description",
+  "section_break_8irbt",
+  "for_project",
+  "project",
+  "section_break_wpyzq",
+  "default_expense_account",
+  "column_break_gtot7",
+  "default_income_account"
+ ],
+ "fields": [
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "\nApproved\nRejected\nDuplicated\nCancelled"
+  },
+  {
+   "fieldname": "branch",
+   "fieldtype": "Link",
+   "label": "Branch",
+   "options": "Branch"
+  },
+  {
+   "fieldname": "requesting_party",
+   "fieldtype": "Link",
+   "label": "Requesting Party",
+   "options": "Department"
+  },
+  {
+   "fieldname": "item_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Item Name",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "item_description",
+   "fieldtype": "Small Text",
+   "label": "Item Description"
+  },
+  {
+   "fieldname": "item_category",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Item Category",
+   "options": "Item Group",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "for_project",
+   "fieldtype": "Check",
+   "label": "For Project?"
+  },
+  {
+   "depends_on": "eval:doc.for_project",
+   "fieldname": "project",
+   "fieldtype": "Link",
+   "label": "Project",
+   "mandatory_depends_on": "eval:doc.for_project",
+   "options": "Project"
+  },
+  {
+   "fieldname": "default_expense_account",
+   "fieldtype": "Link",
+   "label": "Default Expense Account",
+   "options": "Account",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "default_income_account",
+   "fieldtype": "Link",
+   "label": "Default Income Account",
+   "options": "Account",
+   "permlevel": 1
+  },
+  {
+   "fieldname": "section_break_ez59e",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_mbfnf",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_keskw",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_itod0",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_51yoo",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "section_break_8irbt",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "section_break_wpyzq",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_gtot7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Series",
+   "options": "IR-.YYYY.-"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [
+  {
+   "link_doctype": "Item",
+   "link_fieldname": "item_code"
+  }
+ ],
+ "modified": "2024-04-27 14:44:19.590098",
+ "modified_by": "Administrator",
+ "module": "Albounya",
+ "name": "New Item Request",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "item_name",
+ "track_changes": 1,
+ "track_seen": 1,
+ "track_views": 1
+}
