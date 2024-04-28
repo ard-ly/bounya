@@ -15,6 +15,7 @@
   "new_grade",
   "current_dependent",
   "new_dependent",
+  "promotion_date",
   "employee_promotion"
  ],
  "fields": [
@@ -93,12 +94,18 @@
    "in_list_view": 1,
    "label": "Current Dependent",
    "read_only": 1
+  },
+  {
+   "fieldname": "promotion_date",
+   "fieldtype": "Date",
+   "label": "Promotion Date",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-04-24 13:56:04.637967",
+ "modified": "2024-04-28 08:19:35.753231",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Monthly Promotion Table",

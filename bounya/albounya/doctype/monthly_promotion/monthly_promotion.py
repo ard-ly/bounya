@@ -31,6 +31,7 @@ class MonthlyPromotion(Document):
 			new_doc.document_type = "Monthly Promotion"
 			new_doc.document_name = self.name
 			new_doc.subject = f"""New Monthly Promotion Created: {self.name}"""
+			new_doc.email_content = "empty@empty.com"
 			new_doc.insert(ignore_permissions=True)
 		
 	def create_promotion(self):
@@ -40,7 +41,7 @@ class MonthlyPromotion(Document):
 				try:
 					prom = frappe.new_doc("Employee Promotion")
 					prom.employee = e.employee
-					prom.promotion_date = date.today()
+					prom.promotion_date = e.promotion_date
 					prom.custom_monthly_promotion = self.name
 					prom.custom_created_by_monthly_promotion = 1
 					if e.new_grade != 0:
