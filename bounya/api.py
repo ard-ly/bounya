@@ -270,6 +270,7 @@ def create_external_work_history(doc, method):
             
             work_history.insert(ignore_permissions=True)
             frappe.db.set_value("Employee Promotion", doc.name, "custom_internal_work_history", work_history.name)
+            frappe.db.set_value("Employee",doc.employee, "custom_last_promotion_date", doc.promotion_date)
             
     except Exception as e:
         frappe.log_error(
@@ -282,5 +283,11 @@ def cancel_external_work_history(doc, method):
     if doc.custom_internal_work_history:
         frappe.db.sql(f""" DELETE FROM `tabEmployee Internal Work History` WHERE name='{doc.custom_internal_work_history}' """,as_dict=True)
         frappe.db.commit()
+        last_pro_date = frappe.get_last_doc('Employee Promotion', filters={"employee": "HR-EMP-00002", "docstatus": 1})
+        # frappe.db.sql(f""" SELECT promotion_date  FROM `tabEmployee Promotion` WHERE employee = '{doc.employee}' AND docstatus =1 ORDER BY promotion_date DESC LIMIT 1 """,as_dict=True)
+        if last_pro_date :
+            frappe.db.set_value("Employee",doc.employee, "custom_last_promotion_date", last_pro_date.promotion_date)
+        else:
+             frappe.db.set_value("Employee",doc.employee, "custom_last_promotion_date", " ")
 
     

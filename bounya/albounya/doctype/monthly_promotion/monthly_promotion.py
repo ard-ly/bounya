@@ -89,5 +89,6 @@ class MonthlyPromotion(Document):
 	@frappe.whitelist()
 	def get_employees(self):
 		employees={}
+		employees =  frappe.db.sql(f""" SELECT *  FROM `tabEmployee` WHERE status = 'Active' """,as_dict=1,)
 
 		return str(employees)
