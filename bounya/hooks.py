@@ -39,8 +39,9 @@ doctype_js = {
     "Payroll Entry": "public/js/payroll_entry.js",
 }
 doctype_list_js = {
-        "Salary Structure": "public/js/salary_structure.js",
-
+        "Salary Slip": "public/js/salary_slip.js",
+        "Additional Salary" : "public/js/additional-salary.js",
+        "Salary Structure Assignment" : "public/js/salary_structure_assignment.js"
     }
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
