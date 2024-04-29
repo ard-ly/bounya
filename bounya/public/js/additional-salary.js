@@ -113,3 +113,54 @@ frappe.ui.form.on('Additional Salary', {
 	},
 
 }); 
+
+frappe.listview_settings["Additional Salary"] = {
+    // hide_name_column: true,
+    // add_fields: ["company", "is_default"],
+
+          
+    onload: function (me) {
+        console.log(frappe.defaults.get_user_default("Payroll Month"))
+        let month_defulte = frappe.defaults.get_user_default("Payroll Month")
+        console.log(month_defulte)
+        const monthNames = {
+            January: '01',
+            February: '02',
+            March: '03',
+            April: '04',
+            May: '05',
+            June: '06',
+            July: '07',
+            August: '08',
+            September: '09',
+            October: '10',
+            November: '11',
+            December: '12'
+          };
+        console.log(monthNames[month_defulte])
+
+        console.log(frappe.defaults.get_user_default("Payroll Month"))
+        
+        // let monthes = ['January' , 'February' , 'March' , 'April' , 'May' , 'June' , 'July' , 'August' , 'September' , 'October' , 'November' , 'December']
+        let monthes = ['01' , '02' , '03' , '04' , '05' , '06' , '07' , '08' , '09' , '10' , '11' , '12' , '13']
+        const today = new Date();
+        let month = today.getMonth(); // returns from 0 to 11
+        let month_str =  monthes[month];
+        // frm.doc.custom_month = monthes[month];
+        // frm.refresh_fields();
+        // frm.trigger("custom_month")
+        const d = new Date();
+        let year = d.getFullYear();
+        if(month_defulte){
+            month_str = monthNames[month_defulte]
+        }
+        let end_date = '' + year + '-' + month_str + '-' +  '25';
+        let payroll_date =  frappe.datetime.add_months(end_date, -1);
+        frappe.route_options = {
+            payroll_date:   payroll_date ,
+            docstatus : ["!=" , 2]
+        };
+        console.log("sjldfffffffffffffff")
+    },
+
+};
