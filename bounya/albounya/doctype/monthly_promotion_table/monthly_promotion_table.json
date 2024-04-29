@@ -51,7 +51,8 @@
    "in_list_view": 1,
    "label": "Current Grade",
    "options": "Employee Grade",
-   "read_only": 1
+   "read_only": 1,
+   "reqd": 1
   },
   {
    "columns": 1,
@@ -59,16 +60,14 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "New Grade",
-   "options": "Employee Grade",
-   "reqd": 1
+   "options": "Employee Grade"
   },
   {
    "columns": 1,
    "fieldname": "new_dependent",
    "fieldtype": "Int",
    "in_list_view": 1,
-   "label": "New Dependent",
-   "reqd": 1
+   "label": "New Dependent"
   },
   {
    "fetch_from": "employee.designation",
@@ -93,7 +92,8 @@
    "fieldtype": "Int",
    "in_list_view": 1,
    "label": "Current Dependent",
-   "read_only": 1
+   "read_only": 1,
+   "reqd": 1
   },
   {
    "fieldname": "promotion_date",
@@ -105,7 +105,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-04-28 08:19:35.753231",
+ "modified": "2024-04-29 10:36:01.280714",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Monthly Promotion Table",

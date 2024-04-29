@@ -14,6 +14,7 @@
   "column_break_valzv",
   "status",
   "year",
+  "get_employees",
   "section_break_02tmm",
   "employee_table",
   "notes",
@@ -53,7 +54,8 @@
    "fieldname": "month",
    "fieldtype": "Select",
    "label": "Month",
-   "options": "\nJanuary\nFebruary\nMarch\nApril\nMay\nJune\nJuly\nAugust\nSeptember\nOctober\nNovember\nDecember"
+   "options": "\nJanuary\nFebruary\nMarch\nApril\nMay\nJune\nJuly\nAugust\nSeptember\nOctober\nNovember\nDecember",
+   "read_only": 1
   },
   {
    "fieldname": "column_break_valzv",
@@ -62,7 +64,8 @@
   {
    "fieldname": "year",
    "fieldtype": "Data",
-   "label": "Year"
+   "label": "Year",
+   "read_only": 1
   },
   {
    "fieldname": "section_break_02tmm",
@@ -74,12 +77,17 @@
    "label": "Status",
    "options": "\nOpen\nApproved\nRejected",
    "read_only": 1
+  },
+  {
+   "fieldname": "get_employees",
+   "fieldtype": "Button",
+   "label": "Get Employees"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-04-24 13:59:36.078076",
+ "modified": "2024-04-29 13:01:30.284984",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Monthly Promotion",
