@@ -95,11 +95,9 @@ class MonthlyPromotion(Document):
 		
 		if len(employees) > 0:
 			for emp in employees: 
-				print(emp.name)
 				try:
 					if emp.custom_last_promotion_date:
 						if date_diff( date.today(),emp.custom_last_promotion_date) > 340:
-							# msgprint("يا لهويييييييييييييييييييي")
 							if emp.custom_dependent < 4 :
 								new_dep = emp.custom_dependent +1
 								self.append(
@@ -116,8 +114,16 @@ class MonthlyPromotion(Document):
 
 							elif emp.custom_dependent == 4:
 								if emp.grad:
-									new_grad = emp.grad
-									new_dep = 1
+									new_grad = 0
+									new_dep = 0
+									max_grad = frappe.db.get_value('Designation', emp.designation, 'custom_more_than_20_years')
+									if (emp.grad+1) <= max_grad:
+										new_grad = emp.grad+1
+										new_dep = 1
+									elif (emp.grad+1) > max_grad:
+										new_dep = emp.custom_dependent +1
+										msgprint("Employee "+emp.full_name+" Needs Designation promotion.")
+										
 									self.append(
 									"employee_table",
 										{
@@ -130,7 +136,7 @@ class MonthlyPromotion(Document):
 											"current_dependent": emp.custom_dependent,
 											"new_dependent":new_dep
 										},)
-
+									
 					elif emp.date_of_joining:
 						if date_diff(date.today(),emp.date_of_joining) > 340:
 							if emp.custom_dependent < 4 :
@@ -149,8 +155,16 @@ class MonthlyPromotion(Document):
 
 							elif emp.custom_dependent == 4:
 								if emp.grad:
-									new_grad = emp.grad
-									new_dep = 1
+									new_grad = 0
+									new_dep = 0
+									max_grad = frappe.db.get_value('Designation', emp.designation, 'custom_more_than_20_years')
+									if (emp.grad+1) <= max_grad:
+										new_grad = emp.grad+1
+										new_dep = 1
+									elif (emp.grad+1) > max_grad:
+										new_dep = emp.custom_dependent +1
+										msgprint("Employee "+emp.full_name+" Needs Designation promotion.")
+									
 									self.append(
 									"employee_table",
 										{

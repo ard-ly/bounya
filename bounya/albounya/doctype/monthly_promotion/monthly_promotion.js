@@ -20,6 +20,7 @@ frappe.ui.form.on('Monthly Promotion', {
 	},
 	
 	get_employees(frm) {
+		cur_frm.clear_table("employee_table");
 		frappe.call({
 			method :"get_employees",
 			doc:frm.doc,
@@ -27,7 +28,7 @@ frappe.ui.form.on('Monthly Promotion', {
 			callback:function(r){
 				if(r.message){
 					console.log(r.message);
-					frm.refresh_field("");
+					frm.refresh_field("employee_table");
 				}
 			}
 		});
