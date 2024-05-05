@@ -250,16 +250,15 @@ def check_custom_has_assets(doc, method):
 def create_external_work_history(doc, method):
     try:
         if doc.custom_created_by_monthly_promotion == 1:           
-            work_history = frappe.new_doc("Employee External Work History")
+            work_history = frappe.new_doc("Employee Internal Work History")
+            # branch
+            # department           
             work_history.parent = doc.employee
-            work_history.parentfield = 'external_work_history'
+            work_history.from_date = doc.promotion_date
+            work_history.department = doc.department
+            work_history.parentfield = 'internal_work_history'
             work_history.parenttype = 'Employee'
-            work_history.custom_employee_promotion = doc.name
             for row in doc.promotion_details:
-                if row.property == 'Company':
-                    work_history.company_name = row.new
-                # else:
-                #     work_history.company_name = doc.company
                 if row.property == 'Grade':
                     work_history.custom_grade = row.new
                 
@@ -270,21 +269,25 @@ def create_external_work_history(doc, method):
                     work_history.custom_dependent = row.new
             
             work_history.insert(ignore_permissions=True)
-            frappe.db.set_value("Employee Promotion", doc.name, "custom_external_work_history", work_history.name)
+            frappe.db.set_value("Employee Promotion", doc.name, "custom_internal_work_history", work_history.name)
+            frappe.db.set_value("Employee",doc.employee, "custom_last_promotion_date", doc.promotion_date)
             
     except Exception as e:
         frappe.log_error(
-            "Error while creating Employee External Work History")
+            "Error while creating Employee Internal Work History")
         return
 
 # Employee Promotion on_cancel event.
 @frappe.whitelist()
 def cancel_external_work_history(doc, method):
-    if doc.custom_external_work_history:
-        # work_history = frappe.get_doc("Employee External Work History", doc.custom_external_work_history)
-        # work_history.cancel()
-        # frappe.delete_doc("Employee External Work History", doc.custom_external_work_history)
-        frappe.db.sql(f""" DELETE FROM `tabEmployee External Work History` WHERE name='{doc.custom_external_work_history}' """,as_dict=True)
+    if doc.custom_internal_work_history:
+        frappe.db.sql(f""" DELETE FROM `tabEmployee Internal Work History` WHERE name='{doc.custom_internal_work_history}' """,as_dict=True)
         frappe.db.commit()
+        last_pro_date = frappe.get_last_doc('Employee Promotion', filters={"employee": "HR-EMP-00002", "docstatus": 1})
+        # frappe.db.sql(f""" SELECT promotion_date  FROM `tabEmployee Promotion` WHERE employee = '{doc.employee}' AND docstatus =1 ORDER BY promotion_date DESC LIMIT 1 """,as_dict=True)
+        if last_pro_date :
+            frappe.db.set_value("Employee",doc.employee, "custom_last_promotion_date", last_pro_date.promotion_date)
+        else:
+             frappe.db.set_value("Employee",doc.employee, "custom_last_promotion_date", " ")
 
     
