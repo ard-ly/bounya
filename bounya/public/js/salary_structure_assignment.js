@@ -81,32 +81,32 @@ frappe.ui.form.on('Salary Structure Assignment', {
     // hadeel
 
 
-    // grade: function(frm){
-    //     if (frm.doc.grade){
-    //         frappe.call({
-    //             method: "bounya.api.fetch_base_from_slip",
-    //             args: {
-    //                 "grade": frm.doc.grade,
-    //                 "marbot": frm.doc.custom_dependent
-    //             },
-    //             callback: function (r) {
-    //                 if (r.message){
-    //                     frm.set_value("base" , r.message)
-    //                     frm.refresh_field("base")
+    grade: function(frm){
+        if (frm.doc.grade){
+            frappe.call({
+                method: "bounya.api.fetch_base_from_slip",
+                args: {
+                    "grade": frm.doc.grade,
+                    "marbot": frm.doc.custom_dependent
+                },
+                callback: function (r) {
+                    if (r.message){
+                        frm.set_value("base" , r.message)
+                        frm.refresh_field("base")
 
-    //                 }
-    //             }
-    //         })
-    //     }
+                    }
+                }
+            })
+        }
 
-    // },
-
-
+    },
 
 
-//     salary_structure:function(frm){
-//         frm.trigger("grade")
-//     },
+
+
+    salary_structure:function(frm){
+        frm.trigger("grade")
+    },
 //     calculate_incremment_value(frm){
 //         pass
 //         // const family_allowance = frm.doc.custom_family_allowance 
