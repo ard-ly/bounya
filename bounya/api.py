@@ -287,6 +287,7 @@ def cancel_external_work_history(doc, method):
         # frappe.db.sql(f""" SELECT promotion_date  FROM `tabEmployee Promotion` WHERE employee = '{doc.employee}' AND docstatus =1 ORDER BY promotion_date DESC LIMIT 1 """,as_dict=True)
         if last_pro_date :
             frappe.db.set_value("Employee",doc.employee, "custom_last_promotion_date", last_pro_date.promotion_date)
+            
         else:
              frappe.db.set_value("Employee",doc.employee, "custom_last_promotion_date", " ")
 
