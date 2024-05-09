@@ -291,4 +291,52 @@ def cancel_external_work_history(doc, method):
         else:
              frappe.db.set_value("Employee",doc.employee, "custom_last_promotion_date", " ")
 
+
+# Ajax Call for "Loan Application".
+@frappe.whitelist()
+def get_last_loans(applicant_type,applicant):
+
+    # Employee Advance
+    if applicant_type == "Employee":
+        applicant_dependent = frappe.db.get_value("Employee", applicant, "custom_dependent")
+        last_ea = frappe.get_last_doc('Employee Advance', filters={"employee": applicant, "docstatus": 1})
+        # leave_balance
+        # to_date
+
+    #  Last Loan(not type Solidarity Fund or Treatment).
+    last_loan=""
+    last_loan_reasons=""
+    last_loan_sql = frappe.db.sql(
+        f"""SELECT name  FROM `tabLoan` WHERE applicant = '{applicant}' AND (loan_type Not LIKE '%التكافل%' AND loan_type NOT LIKE '%علاج%' AND loan_type NOT LIKE '%صح%ة%' ) ORDER BY posting_date DESC LIMIT 1""",as_dict=1,)
+    if last_loan_sql:
+        last_loan = frappe.get_doc("Loan", last_loan_sql[0].name)
+        last_loan_reasons  =frappe.db.get_value('Loan Application', last_loan.loan_application, 'description')
     
+    # Last Solidarity Fund Loan.
+    last_sf=""
+    last_sf_reasons=""
+    last_sf_sql = frappe.db.sql(
+        f"""SELECT name  FROM `tabLoan` WHERE applicant = '{applicant}' AND docstatus = 1 AND loan_type LIKE '%التكافل%' ORDER BY posting_date DESC LIMIT 1""",as_dict=1,)
+    if last_sf_sql:
+        last_sf = frappe.get_doc("Loan", last_sf_sql[0].name)
+        last_sf_reasons  =frappe.db.get_value('Loan Application', last_sf.loan_application, 'description')
+
+    # Last Treatment Loan.
+    last_treatment=""
+    last_treatment_reasons=""
+    last_treatment_sql = frappe.db.sql(
+        f"""SELECT name  FROM `tabLoan` WHERE applicant = '{applicant}' AND docstatus = 1 AND loan_type LIKE  '%علاج%' OR loan_type LIKE  '%صح%ة%'  ORDER BY posting_date DESC LIMIT 1""",as_dict=1,)
+    if last_treatment_sql:
+        last_treatment = frappe.get_doc("Loan", last_treatment_sql[0].name)
+        last_treatment_reasons  =frappe.db.get_value('Loan Application', last_treatment.loan_application, 'description')
+    
+    return {
+            "applicant_dependent":applicant_dependent,
+            "last_ea":last_ea,
+            "last_loan": last_loan,
+            "last_loan_reasons": last_loan_reasons,
+            "last_sf": last_sf,
+            "last_sf_reasons": last_sf_reasons,
+            "last_treatment": last_treatment,
+            "last_treatment_reasons": last_treatment_reasons,
+            }
