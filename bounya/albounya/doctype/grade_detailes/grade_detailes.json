@@ -1,0 +1,39 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-05-06 12:18:20.904261",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "from",
+  "to"
+ ],
+ "fields": [
+  {
+   "fieldname": "from",
+   "fieldtype": "Link",
+   "label": "From",
+   "options": "Employee Grade"
+  },
+  {
+   "fieldname": "to",
+   "fieldtype": "Link",
+   "label": "TO",
+   "options": "Employee Grade"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-05-06 12:18:27.987265",
+ "modified_by": "Administrator",
+ "module": "Albounya",
+ "name": "Grade Detailes",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

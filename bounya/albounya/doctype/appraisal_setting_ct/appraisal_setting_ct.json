@@ -1,0 +1,49 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-05-06 18:12:08.497501",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "appraisal_weightage",
+  "evaluation",
+  "performance_factor"
+ ],
+ "fields": [
+  {
+   "fieldname": "appraisal_weightage",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Appraisal Weightage",
+   "reqd": 1
+  },
+  {
+   "fieldname": "evaluation",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Evaluation",
+   "options": "\nWeak\nGood\nHassan\nhigh",
+   "reqd": 1
+  },
+  {
+   "fieldname": "performance_factor",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Performance Factor",
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-05-06 18:15:29.513750",
+ "modified_by": "Administrator",
+ "module": "Albounya",
+ "name": "Appraisal Setting CT",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
