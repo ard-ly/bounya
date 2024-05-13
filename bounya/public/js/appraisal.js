@@ -1,8 +1,8 @@
 
 frappe.ui.form.on("Appraisal", {
-    refresh(frm) {
-        frappe.msgprint(__(" 555555555555"));
-    },
+    // refresh(frm) {
+    //     frappe.msgprint(__(" 555555555555"));
+    // },
 	calculate_total(frm) {
 		let total = 0;
 
@@ -18,7 +18,7 @@ frappe.ui.form.on("Appraisal", {
 		let d = frappe.get_doc(cdt, cdn);
 
 		if (flt(d.score) > 5) {
-			frappe.msgprint(__("Score must be less than or equal to 555555555555"));
+			// frappe.msgprint(__("Score must be less than or equal to 555555555555"));
 			d.score = 0;
 			refresh_field("score", d.name, "goals");
 		} else {
