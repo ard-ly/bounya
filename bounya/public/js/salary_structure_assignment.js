@@ -42,18 +42,18 @@ frappe.ui.form.on('Salary Structure Assignment', {
     // },
     
     // // 90:00
-    // custom_evaluation : function(frm) {
-    //     frm.set_value('custom_performance_factor' , 0.0)
-    //     if (frm.doc.custom_evaluation == 'Good') {
-    //         frm.set_value('custom_performance_factor' , 0.15)
-    //     }
-    //     if (frm.doc.custom_evaluation == 'Hassan') {
-    //         frm.set_value('custom_performance_factor' , 0.2)
-    //     }
-    //     if (frm.doc.custom_evaluation == 'high') {
-    //         frm.set_value('custom_performance_factor' , 0.3)
-    //     }
-    // },
+    custom_evaluation : function(frm) {
+        frm.set_value('custom_performance_factor' , 0.0)
+        if (frm.doc.custom_evaluation == 'Good') {
+            frm.set_value('custom_performance_factor' , 0.15)
+        }
+        if (frm.doc.custom_evaluation == 'Hassan') {
+            frm.set_value('custom_performance_factor' , 0.2)
+        }
+        if (frm.doc.custom_evaluation == 'high') {
+            frm.set_value('custom_performance_factor' , 0.3)
+        }
+    },
     // custom_marital_status: function(frm) {
     //     if (frm.doc.custom_marital_status=='Single'){
     //         // frm.set_value("custom_family_allowance" , 0)
