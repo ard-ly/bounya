@@ -38,7 +38,7 @@ doctype_js = {
     "Appraisal Template": "override/js/appraisal_template.js",
     "Salary Slip": "public/js/salary_slip.js",
     "Payroll Entry": "public/js/payroll_entry.js",
-    "Loan Application":"public/js/loan_application.js",
+    # "Loan Application":"public/js/loan_application.js",
 }
 doctype_list_js = {
         "Salary Slip": "public/js/salary_slip.js",
