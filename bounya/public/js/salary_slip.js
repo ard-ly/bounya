@@ -21,7 +21,22 @@ frappe.ui.form.on('Salary Slip', {
 			frm.refresh_fields();
 		}
 	},
+    // employee:function (frm) {
+    //     frappe.call({
+    //         method: "bounya.override.py.salary_slip.check_sal_struct",
+    //         args: {
+    //             "grade": frm.doc.grade,
+    //             "marbot": frm.doc.custom_dependent
+    //         },
+    //         callback: function (r) {
+    //             if (r.message){
+    //                 frm.set_value("base" , r.message)
+    //                 frm.refresh_field("base")
 
+    //             }
+    //         }
+    //     })
+    // }
 });
 
 frappe.listview_settings["Salary Slip"] = {
