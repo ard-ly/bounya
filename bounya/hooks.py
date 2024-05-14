@@ -35,9 +35,10 @@ doctype_js = {
     "Material Request": "public/js/material_request.js",
     "Additional Salary": "public/js/additional-salary.js",
     "Appraisal": "public/js/appraisal.js",
+    "Appraisal Template": "override/js/appraisal_template.js",
     "Salary Slip": "public/js/salary_slip.js",
     "Payroll Entry": "public/js/payroll_entry.js",
-    "Loan Application":"public/js/loan_application.js",
+    # "Loan Application":"public/js/loan_application.js",
 }
 doctype_list_js = {
         "Salary Slip": "public/js/salary_slip.js",
