@@ -299,16 +299,19 @@ def get_last_loans(applicant_type,applicant):
     # Employee Advance
     if applicant_type == "Employee":
         applicant_dependent = frappe.db.get_value("Employee", applicant, "custom_dependent")
-        last_ea = frappe.get_last_doc('Employee Advance', filters={"employee": applicant, "docstatus": 1})
-        # leave_balance
-        # to_date
+        last_ea = ""
+        last_ea_sql = frappe.db.sql(f""" SELECT name  FROM `tabEmployee Advance` WHERE employee = '{applicant}'AND docstatus = 1 ORDER BY posting_date DESC LIMIT 1 """,as_dict=1,)
+        if last_ea_sql:
+            last_ea = frappe.get_doc("Employee Advance", last_ea_sql[0].name)
 
+
+    
     #  Last Loan(not type Solidarity Fund or Treatment).
     last_loan=""
     last_loan_reasons=""
     last_loan_sql = frappe.db.sql(
         f"""SELECT name  FROM `tabLoan` WHERE applicant = '{applicant}' AND (loan_type Not LIKE '%التكافل%' AND loan_type NOT LIKE '%علاج%' AND loan_type NOT LIKE '%صح%ة%' ) ORDER BY posting_date DESC LIMIT 1""",as_dict=1,)
-    if last_loan_sql:
+    if last_loan_sql :
         last_loan = frappe.get_doc("Loan", last_loan_sql[0].name)
         last_loan_reasons  =frappe.db.get_value('Loan Application', last_loan.loan_application, 'description')
     
