@@ -9,7 +9,7 @@
  "filters": [],
  "idx": 0,
  "is_standard": "Yes",
- "modified": "2024-02-13 10:29:54.348867",
+ "modified": "2024-05-16 10:34:16.976459",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Statement of deductions",
@@ -30,6 +30,12 @@
   },
   {
    "role": "Employee Self Service"
+  },
+  {
+   "role": "Payroll Manager"
+  },
+  {
+   "role": "Payroll Review"
   }
  ]
 }

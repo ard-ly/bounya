@@ -14,26 +14,7 @@ def execute(filters=None):
 
 
 def get_columns():
-	columns = [
-		{
-		"label": _("Payroll Date"),
-		"fieldname": "payroll_date",
-		"fieldtype": "Date",
-		"width": "100"
-		},
-		{
-		"label": _("Salary Component"),
-		"fieldname": "salary_component",
-		"fieldtype": "Link",
-		"options": "Salary Component",
-		
-		},
-		{
-		"label": _("Salary Component Type"),
-		"fieldname": "type",
-		"fieldtype": "Data",
-		"width": "80"
-		},
+	columns = [	
 		{
 		"label": _("Employee"),
 		"fieldname": "employee",
@@ -48,22 +29,37 @@ def get_columns():
 		"width": "250"
 		},
 		{
+		"label": _("Payroll Date"),
+		"fieldname": "payroll_date",
+		"fieldtype": "Date",
+		"width": "100"
+		},
+		{
+		"label": _("Salary Component"),
+		"fieldname": "salary_component",
+		"fieldtype": "Link",
+		"options": "Salary Component",
+		
+		},
+		{
     	"label": "Amount",
 		"fieldname": "amount",
 		"fieldtype": "Float",
-		},			
-		{
-    	"label": "Doctype",
-		"fieldname": "doctype",
-		"fieldtype": "HTML",
 		},
+		{
+    	"label": "Branch",
+		"fieldname": "custom_branch",
+		"fieldtype": "Link",
+		"options": "Branch",
+		},			
+
 	]
 
 	return columns
 
 def get_data(conditions):
 	data = frappe.db.sql(f"""
-			select payroll_date, salary_component, type, employee, employee_name, amount, name 
+			select payroll_date, salary_component, type, employee, employee_name, amount, name ,custom_branch
 					  from `tabAdditional Salary`
 					  where {conditions}
 	""", as_dict=True)
@@ -95,5 +91,8 @@ def get_conditions(filters):
 
 	if filters.get("employee"):
 		conditions += f""" AND employee = '{filters.get("employee")}'"""
+
+	if filters.get("branch"):
+		conditions += f""" AND custom_branch = '{filters.get("branch")}'"""
 
 	return conditions

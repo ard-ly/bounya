@@ -8,7 +8,7 @@ frappe.query_reports["Statement of deductions"] = {
 			"fieldname":"from_date",
 			"label": __("From"),
 			"fieldtype": "Date",
-			"default": frappe.datetime.add_months(frappe.datetime.get_today(),-1),
+			"default": frappe.datetime.add_days(frappe.datetime.month_start(frappe.query_report.get_filter('month')),-6),
 			"reqd": 1,
 			"width": "100px"
 		},
@@ -16,7 +16,7 @@ frappe.query_reports["Statement of deductions"] = {
 			"fieldname":"to_date",
 			"label": __("To"),
 			"fieldtype": "Date",
-			"default": frappe.datetime.get_today(),
+			"default":frappe.datetime.add_days(frappe.datetime.month_start(frappe.query_report.get_filter('month')),24),
 			"reqd": 1,
 			"width": "100px"
 		},
@@ -40,11 +40,6 @@ frappe.query_reports["Statement of deductions"] = {
 				{ "value": 12, "label": __("Dec") },
 			],
 			default: frappe.datetime.str_to_obj(frappe.datetime.get_today()).getMonth() + 1
-		},		{
-			fieldname:"year",
-			label: __("Year"),
-			fieldtype: "Select",
-			reqd: 1
 		},
 		{
 			"fieldname":"branch",
@@ -76,14 +71,6 @@ frappe.query_reports["Statement of deductions"] = {
 			"default": frappe.defaults.get_user_default("Company"),
 			"width": "100px",
 			"reqd": 1
-		},
-		{
-			"fieldname":"docstatus",
-			"label":__("Document Status"),
-			"fieldtype":"Select",
-			"options":["Draft", "Submitted", "Cancelled"],
-			"default": "Submitted",
-			"width": "100px"
 		},
 		{
 			"fieldname": "component",
@@ -118,18 +105,27 @@ frappe.query_reports["Statement of deductions"] = {
 			"width": "100px"
 		},
 	],
-	onload: function() {
-		return  frappe.call({
-			method: "hrms.payroll.report.provident_fund_deductions.provident_fund_deductions.get_years",
-			callback: function(r) {
-				var year_filter = frappe.query_report.get_filter('year');
-				year_filter.df.options = r.message;
-				year_filter.df.default = r.message.split("\n")[0];
-				year_filter.refresh();
-				year_filter.set_input(year_filter.df.default);
-			}
+	"onload": function (report){ 
+		report.page.fields_dict['month'].$input.on('change', function () {
+			var cur_year = frappe.datetime.str_to_obj(frappe.datetime.get_today()).getFullYear();
+			var cur_month = frappe.query_report.get_filter_value('month')
+			var pre_month = frappe.query_report.get_filter_value('month') -1
+			var from_d = '' + cur_year + '-' + pre_month + '-' + '25';
+			var to_d = '' + cur_year + '-' + cur_month + '-' + '24';
+			
+			frappe.query_report.set_filter_value('to_date', new Date(to_d));
+			frappe.query_report.set_filter_value('from_date', new Date(from_d));			
+			report.refresh();
 		});
-	}
+
+		report.page.fields_dict['from_date'].$input.on('change', function () {
+			report.refresh();
+		});
+
+		report.page.fields_dict['to_date'].$input.on('change', function () {
+			report.refresh();
+		});
+	},
 }
 
 
