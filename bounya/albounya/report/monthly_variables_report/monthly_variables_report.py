@@ -49,7 +49,7 @@ def get_columns():
 		{
     	"label": "Branch",
 		"fieldname": "custom_branch",
-		"fieldtype": "Linl",
+		"fieldtype": "Link",
 		"options": "Branch",
 		},			
 
