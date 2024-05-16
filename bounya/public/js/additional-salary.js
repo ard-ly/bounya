@@ -10,83 +10,39 @@ frappe.ui.form.on('Additional Salary', {
 	}
 	},
 
-	// custom_additional_salary_type: function(frm) {
-    //     if (frm.doc.custom_additional_salary_type){
-    //         frappe.call({
-    //             method: "bounya.override.additional_salary.fetch_addetionl_fraction",
-    //             args: {
-    //                 "additionl_type": frm.doc.custom_additional_salary_type,
-    //             },
-    //             callback: function (r) {
-    //                 if (r.message){
-    //                     frm.set_value("custom_additional_fraction" , r.message)
-    //                     frm.refresh_field("custom_additional_fraction")
+    // on_submit show dialog to view employee salary slip.
+    on_submit: function (frm) {
+        if(frm.doc.docstatus ==1){
+            if (frm.doc.custom_employee_salary_slip){
+                frappe.confirm('Do you want to view employee salary slip?',
+                () => {
+                    // action to perform if Yes is selected
+                    console.log("YES");
+                    frappe.open_in_new_tab = true; // This line in version 14
+                    frappe.set_route("Form", "Salary Slip", frm.doc.custom_employee_salary_slip);
+                }, () => {
+                    // action to perform if No is selected
+                    console.log("NO");
+                });
+         }
+        }
+    },
 
-    //                 }
-    //             }
-    //         })
-    //     }
-    //     if (frm.doc.custom_total_additional_hours && frm.doc.custom_base_amount && frm.doc.custom_additional_fraction ) {
-    //         frm.set_value("amount" , (frm.doc.custom_total_additional_hours * frm.doc.custom_additional_fraction * frm.doc.custom_base_amount))
-    //         frm.refresh_field("amount")
-    //     }    },  
-    // custom_calculate_from_work_hours:function (frm) {
-    //     if (frm.doc.custom_calculate_from_work_hours){
-    //         frappe.call({
-    //             method: "bounya.override.additional_salary.fetch_addetionl_component",
-    //             args: {
-    //             },
-    //             callback: function (r) {
-    //                 if (r.message){
-    //                     frm.set_value("salary_component" , r.message)
-    //                     frm.refresh_field("salary_component")
+    before_cancel: function (frm) {
+            frappe.call({
+                method :"bounya.api.cancel_salary_slip_overwrite",
+                args: {
+                    doc_name:frm.doc.name,
+                },
+                callback:function(r){
+                    if(r.message){
+                        console.log(r.message);
+                    }
+                }
+            });
+    },
 
-    //                 }
-    //             }
-    //         })
-    //     }      
-    // },
-
-    // payroll_date: function(frm) {
-    //     frm.trigger("fetch_hour_cost")
-    // },
-
-    // employee: function(frm) {
-    //     frm.trigger("fetch_hour_cost")
-    // },
-
-    // custom_total_additional_hours: function(frm) {
-    //     if (frm.doc.custom_total_additional_hours && frm.doc.custom_base_amount && frm.doc.custom_additional_fraction ) {
-    //         frm.set_value("amount" , (frm.doc.custom_total_additional_hours * frm.doc.custom_additional_fraction * frm.doc.custom_base_amount))
-    //         frm.refresh_field("amount")
-    //     }
-        
-    // },
-
-
-    // fetch_hour_cost : function(frm) {
-    //     if( frm.doc.employee && frm.doc.payroll_date){
-    //         frappe.call({
-    //             method: "bounya.override.additional_salary.check_sal_struct",
-    //             args: {
-    //                 "employee": frm.doc.employee,
-    //                 "date": frm.doc.payroll_date
-    //             },
-    //             callback: function (r) {
-    //                 if (r.message){
-    //                     frm.set_value("custom_base_amount" , r.message)
-    //                     frm.refresh_field("custom_base_amount")
-
-    //                 }
-    //             }
-    //         })
-    //     }
-    //     if (frm.doc.custom_total_additional_hours && frm.doc.custom_base_amount && frm.doc.custom_additional_fraction ) {
-    //         frm.set_value("amount" , (frm.doc.custom_total_additional_hours * frm.doc.custom_additional_fraction * frm.doc.custom_base_amount))
-    //         frm.refresh_field("amount")
-    //     }
-    // },
-// change query to shoe the statistical componenet
+    // change query to shoe the statistical componenet
     set_component_query: function(frm) {
         if (!frm.doc.company) return;
         let filters = {company: frm.doc.company};
@@ -99,6 +55,7 @@ frappe.ui.form.on('Additional Salary', {
             };
         });
     },
+
 	custom_month(frm) {
 		if (frm.doc.custom_month) {
 
@@ -118,7 +75,6 @@ frappe.listview_settings["Additional Salary"] = {
     // hide_name_column: true,
     // add_fields: ["company", "is_default"],
 
-          
     onload: function (me) {
         console.log(frappe.defaults.get_user_default("Payroll Month"))
         let month_defulte = frappe.defaults.get_user_default("Payroll Month")
