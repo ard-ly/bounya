@@ -45,12 +45,11 @@ def get_columns():
     	"label": "Amount",
 		"fieldname": "amount",
 		"fieldtype": "Float",
-		},			
-,
+		},
 		{
     	"label": "Branch",
 		"fieldname": "custom_branch",
-		"fieldtype": "data",
+		"fieldtype": "Data",
 		},			
 
 	]
@@ -59,7 +58,7 @@ def get_columns():
 
 def get_data(conditions):
 	data = frappe.db.sql(f"""
-			select payroll_date, salary_component, type, employee, employee_name, amount, name , custom_branch
+			select payroll_date, salary_component, type, employee, employee_name, amount, name ,custom_branch
 					  from `tabAdditional Salary`
 					  where {conditions}
 	""", as_dict=True)
