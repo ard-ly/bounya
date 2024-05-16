@@ -40,11 +40,6 @@ frappe.query_reports["Statement of deductions"] = {
 				{ "value": 12, "label": __("Dec") },
 			],
 			default: frappe.datetime.str_to_obj(frappe.datetime.get_today()).getMonth() + 1
-		},		{
-			fieldname:"year",
-			label: __("Year"),
-			fieldtype: "Select",
-			reqd: 1
 		},
 		{
 			"fieldname":"branch",
@@ -116,7 +111,7 @@ frappe.query_reports["Statement of deductions"] = {
 			var cur_month = frappe.query_report.get_filter_value('month')
 			var pre_month = frappe.query_report.get_filter_value('month') -1
 			var from_d = '' + cur_year + '-' + pre_month + '-' + '25';
-			var to_d = '' + cur_year + '-' + cur_month + '-' + '25';
+			var to_d = '' + cur_year + '-' + cur_month + '-' + '24';
 			
 			frappe.query_report.set_filter_value('to_date', new Date(to_d));
 			frappe.query_report.set_filter_value('from_date', new Date(from_d));			
