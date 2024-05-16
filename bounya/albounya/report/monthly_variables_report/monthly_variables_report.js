@@ -39,6 +39,12 @@ frappe.query_reports["Monthly Variables Report"] = {
 			default: frappe.datetime.add_days(frappe.datetime.month_start(frappe.query_report.get_filter('month')),24),
 		   },
 		   {
+			label: __("Branch"),
+			fieldname: "branch",
+			fieldtype: "Link",
+			options: "Branch",
+		   },
+		   {
 			label: __("Salary Component"),
 			fieldname: "salary_component",
 			fieldtype: "Link",

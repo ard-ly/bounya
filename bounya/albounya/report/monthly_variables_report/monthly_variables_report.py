@@ -14,26 +14,7 @@ def execute(filters=None):
 
 
 def get_columns():
-	columns = [
-		{
-		"label": _("Payroll Date"),
-		"fieldname": "payroll_date",
-		"fieldtype": "Date",
-		"width": "100"
-		},
-		{
-		"label": _("Salary Component"),
-		"fieldname": "salary_component",
-		"fieldtype": "Link",
-		"options": "Salary Component",
-		
-		},
-		{
-		"label": _("Salary Component Type"),
-		"fieldname": "type",
-		"fieldtype": "Data",
-		"width": "80"
-		},
+	columns = [	
 		{
 		"label": _("Employee"),
 		"fieldname": "employee",
@@ -48,15 +29,24 @@ def get_columns():
 		"width": "250"
 		},
 		{
+		"label": _("Payroll Date"),
+		"fieldname": "payroll_date",
+		"fieldtype": "Date",
+		"width": "100"
+		},
+		{
+		"label": _("Salary Component"),
+		"fieldname": "salary_component",
+		"fieldtype": "Link",
+		"options": "Salary Component",
+		
+		},
+		{
     	"label": "Amount",
 		"fieldname": "amount",
 		"fieldtype": "Float",
 		},			
-		{
-    	"label": "Doctype",
-		"fieldname": "doctype",
-		"fieldtype": "HTML",
-		},
+
 	]
 
 	return columns
@@ -95,5 +85,8 @@ def get_conditions(filters):
 
 	if filters.get("employee"):
 		conditions += f""" AND employee = '{filters.get("employee")}'"""
+
+	if filters.get("branch"):
+		conditions += f""" AND custom_branch = '{filters.get("branch")}'"""
 
 	return conditions
