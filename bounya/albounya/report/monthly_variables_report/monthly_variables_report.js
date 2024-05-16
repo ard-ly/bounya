@@ -70,7 +70,7 @@ frappe.query_reports["Monthly Variables Report"] = {
 			var cur_month = frappe.query_report.get_filter_value('month')
 			var pre_month = frappe.query_report.get_filter_value('month') -1
 			var from_d = '' + cur_year + '-' + pre_month + '-' + '25';
-			var to_d = '' + cur_year + '-' + cur_month + '-' + '25';
+			var to_d = '' + cur_year + '-' + cur_month + '-' + '24';
 			
 			frappe.query_report.set_filter_value('to_date', new Date(to_d));
 			frappe.query_report.set_filter_value('from_date', new Date(from_d));			
