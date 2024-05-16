@@ -1,6 +1,5 @@
 {
- "_liked_by": "[\"Administrator\"]",
- "add_total_row": 0,
+ "add_total_row": 1,
  "columns": [],
  "creation": "2024-03-26 10:43:40.311054",
  "disable_prepared_report": 0,
@@ -12,7 +11,7 @@
  "is_standard": "Yes",
  "json": "{}",
  "letter_head": "bounya",
- "modified": "2024-03-31 14:37:30.606210",
+ "modified": "2024-05-16 10:07:52.507510",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Monthly Variables Report",
