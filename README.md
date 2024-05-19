@@ -16,7 +16,7 @@ Ovrride Salary Slip Class to featch the Evaluation from the last Salay str assig
 
 
 #### Payroll Reaport :
-the monthly report but in (payroll entry) print formatt
+the monthly reports puted in (payroll entry) print formatt
 to be easily edit from website side and print
 
 ![alt text](image-2.png)
@@ -69,4 +69,4 @@ Full Report :
 
 هذا التقرير مشترك لكل من المواردا لبشرية و المرتبات
 
-                            {%set jihad_comp = frappe.get_all("Salary Detail" , filters={"parent" :["=" , slip.name ] , "salary_component" : ["=" , "ضريبة الجهاد- عن مكافأة"]}) %}
+    
