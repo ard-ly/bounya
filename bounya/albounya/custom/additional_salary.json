@@ -366,5 +366,5 @@
    "value": "[\"naming_series\", \"employee\", \"employee_name\", \"department\", \"custom_month\", \"column_break_5\", \"company\", \"is_recurring\", \"disabled\", \"from_date\", \"to_date\", \"payroll_date\", \"amended_from\", \"custom_employee_salary_slip\", \"salary_details_section\", \"salary_component\", \"type\", \"currency\", \"amount\", \"custom_monthly_variables\", \"column_break_8\", \"deduct_full_tax_on_selected_payroll_date\", \"overwrite_salary_structure_amount\", \"properties_and_references_section\", \"ref_doctype\", \"ref_docname\"]"
   }
  ],
- "sync_on_migrate": 1
+ "sync_on_migrate": 0
 }

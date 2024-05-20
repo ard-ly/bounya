@@ -327,6 +327,8 @@ def get_salary_slip_details(salary_slips, currency, company_currency, component_
 	ss_map = {}
 
 	for d in result:
+		if  (d.amount)== 0.0:
+			continue
 		ss_map.setdefault(d.parent, frappe._dict()).setdefault(d.salary_component, 0.0)
 		if currency == company_currency:
 			ss_map[d.parent][d.salary_component] += flt(d.amount) * flt(
