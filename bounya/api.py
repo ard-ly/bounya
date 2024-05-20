@@ -393,7 +393,7 @@ def cancel_salary_slip_overwrite(doc_name):
                 if doc.type == "Earning":
                     for row in ss_doc.earnings:
                         if row.salary_component == doc.salary_component and row.amount == doc.amount:
-                            # frappe.db.delete("Salary Detail", {"parent" :ss_doc.name, "additional_salary":doc.name, "salary_component": doc.salary_component, "amount" : doc.amount})
+                            
                             ss_doc.earnings.remove(row)
                             ss_doc.save()
                             frappe.db.commit()
@@ -401,8 +401,8 @@ def cancel_salary_slip_overwrite(doc_name):
                 elif doc.type == "Deduction":
                     for row in ss_doc.deductions:
                         if row.salary_component == doc.salary_component and row.amount == doc.amount:
-                            # frappe.db.delete("Salary Detail", {"parent" :ss_doc.name, "additional_salary":doc.name, "salary_component": doc.salary_component, "amount" : doc.amount})
+
                             ss_doc.deductions.remove(row)
                             ss_doc.save()
                             frappe.db.commit()
-        return "done"
+        return row

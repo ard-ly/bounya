@@ -28,7 +28,7 @@ frappe.ui.form.on('Additional Salary', {
         }
     },
 
-    before_cancel: function (frm) {
+    after_cancel: function (frm) {
             frappe.call({
                 method :"bounya.api.cancel_salary_slip_overwrite",
                 args: {
