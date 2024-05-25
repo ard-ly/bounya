@@ -5,6 +5,7 @@ from frappe.model.document import Document
 from frappe.model.mapper import get_mapped_doc
 from frappe.utils import cint, cstr, flt
 from frappe.utils.data import money_in_words
+from frappe.custom.doctype.property_setter.property_setter import make_property_setter
 
 import erpnext
 # from scipy import interpolate
@@ -151,10 +152,7 @@ def update_base_from_slip(doc, method):
         # doc.save()
         frappe.db.commit()
 
-# @frappe.whitelist()
-# def money_in_words(number):
-#     result = money_in_words(number)
-#     return _(result)
+
 
 @frappe.whitelist()
 def money_in_words(number, main_currency=None, fraction_currency=None):
@@ -299,16 +297,19 @@ def get_last_loans(applicant_type,applicant):
     # Employee Advance
     if applicant_type == "Employee":
         applicant_dependent = frappe.db.get_value("Employee", applicant, "custom_dependent")
-        last_ea = frappe.get_last_doc('Employee Advance', filters={"employee": applicant, "docstatus": 1})
-        # leave_balance
-        # to_date
+        last_ea = ""
+        last_ea_sql = frappe.db.sql(f""" SELECT name  FROM `tabEmployee Advance` WHERE employee = '{applicant}'AND docstatus = 1 ORDER BY posting_date DESC LIMIT 1 """,as_dict=1,)
+        if last_ea_sql:
+            last_ea = frappe.get_doc("Employee Advance", last_ea_sql[0].name)
 
+
+    
     #  Last Loan(not type Solidarity Fund or Treatment).
     last_loan=""
     last_loan_reasons=""
     last_loan_sql = frappe.db.sql(
         f"""SELECT name  FROM `tabLoan` WHERE applicant = '{applicant}' AND (loan_type Not LIKE '%التكافل%' AND loan_type NOT LIKE '%علاج%' AND loan_type NOT LIKE '%صح%ة%' ) ORDER BY posting_date DESC LIMIT 1""",as_dict=1,)
-    if last_loan_sql:
+    if last_loan_sql :
         last_loan = frappe.get_doc("Loan", last_loan_sql[0].name)
         last_loan_reasons  =frappe.db.get_value('Loan Application', last_loan.loan_application, 'description')
     
@@ -340,3 +341,68 @@ def get_last_loans(applicant_type,applicant):
             "last_treatment": last_treatment,
             "last_treatment_reasons": last_treatment_reasons,
             }
+
+# Additional Salary on validate event.
+@frappe.whitelist()
+def get_employee_salary_slip(doc, method):
+    if doc.docstatus ==0:
+        ss_sql = frappe.db.sql(f""" SELECT name  FROM `tabSalary Slip` WHERE employee = '{doc.employee}' AND docstatus = 0 AND (start_date <= '{doc.payroll_date}' AND '{doc.payroll_date}' <= end_date ) ORDER BY end_date DESC LIMIT 1""",as_dict=True)
+        
+        doc.custom_employee_salary_slip = ''
+        if ss_sql :
+            ss_doc = frappe.get_doc("Salary Slip", ss_sql[0].name)
+            doc.custom_employee_salary_slip = ss_doc.name
+        else:
+            msgprint(_("Can not find employee salary slip"))
+            make_property_setter(doc, "custom_employee_salary_slip", "hidden", 0, "Check", validate_fields_for_doctype=False)
+
+# Additional Salary on_submit event.
+@frappe.whitelist()
+def overwrite_salary_slip(doc, method):
+
+    if doc.custom_employee_salary_slip:
+        ss_doc = frappe.get_doc("Salary Slip", doc.custom_employee_salary_slip)
+        if doc.type == "Earning":
+            ss_doc.append(
+						"earnings",
+						{
+							"salary_component" :doc.salary_component,
+							"amount" : doc.amount,							
+						},
+					)
+            ss_doc.save()
+            
+        elif doc.type == "Deduction":
+            ss_doc.append(
+						"deductions",
+						{
+							"salary_component" :doc.salary_component,
+							"amount" : doc.amount,							
+						},
+					)
+            ss_doc.save()
+
+
+@frappe.whitelist()
+def cancel_salary_slip_overwrite(doc_name):
+        doc = frappe.get_doc("Additional Salary", doc_name)
+        if doc.custom_employee_salary_slip:
+            ss_doc = frappe.get_doc("Salary Slip", doc.custom_employee_salary_slip)
+            if ss_doc.docstatus == 0:
+
+                if doc.type == "Earning":
+                    for row in ss_doc.earnings:
+                        if row.salary_component == doc.salary_component and row.amount == doc.amount:
+                            
+                            ss_doc.earnings.remove(row)
+                            ss_doc.save()
+                            frappe.db.commit()
+
+                elif doc.type == "Deduction":
+                    for row in ss_doc.deductions:
+                        if row.salary_component == doc.salary_component and row.amount == doc.amount:
+
+                            ss_doc.deductions.remove(row)
+                            ss_doc.save()
+                            frappe.db.commit()
+        return row

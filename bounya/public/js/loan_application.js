@@ -16,6 +16,7 @@ frappe.ui.form.on('Loan Application', {
                     }
                     // Employee Advance.
                     if (r.message.last_ea && r.message.last_ea !="" && r.message.last_ea != null){
+                        console.log(r.message.last_ea)
                         frm.doc.custom_employee_advance = r.message.last_ea.name;
                         frm.doc.custom_employee_advance_date = r.message.last_ea.posting_date;
                         frm.doc.custom_employee_advance_reasons = r.message.last_ea.purpose;
