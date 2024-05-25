@@ -154,6 +154,8 @@ override_doctype_class = {
 # ---------------
 # Hook on document methods and events
 
+
+
 doc_events = {
     "Material Request": {
         "validate": "bounya.api.check_custom_has_assets",
