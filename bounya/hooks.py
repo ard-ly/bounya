@@ -146,7 +146,7 @@ jenv = {
 # Override standard doctype classes
 
 override_doctype_class = {
-    "Appraisal": "bounya.override.py.override_appraisal",
+    "Appraisal": "bounya.override.py.override_appraisal.CustomAppraisal",
     "Salary Slip": "bounya.override.py.salary_slip.CustomSalarySlip"
 }
 
