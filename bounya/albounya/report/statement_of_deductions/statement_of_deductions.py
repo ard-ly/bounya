@@ -315,7 +315,7 @@ def get_salary_slip_details(salary_slips, currency, company_currency, component_
 		frappe.qb.from_(salary_detail)
 		.join(salary_slip)
 		.on(salary_slip.name == salary_detail.parent)
-		.where((salary_detail.parent.isin(salary_slips)) & (salary_detail.parentfield == component_type) &(salary_detail.salary_component == "قيادية") )
+		.where((salary_detail.parent.isin(salary_slips)) & (salary_detail.parentfield == component_type)  )
 		.select(
 			salary_detail.parent,
 			salary_detail.salary_component,
