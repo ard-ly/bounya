@@ -44,7 +44,7 @@ def calculate_final_score(doc, method):
         final_score = flt(doc.self_score)
 
     # doc.final_score = flt(final_score, doc.precision("final_score"))
-    doc.final_score = 540
+    doc.final_score =  flt(doc.total_score)
 
 
 def validate_highest_score(doc, method):

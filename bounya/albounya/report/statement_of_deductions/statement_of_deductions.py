@@ -223,7 +223,7 @@ def get_columns(filters, earning_types, ded_types):
 
 		for component in filters.get("component"):
 			columns += [
-				{"label": _(component), "fieldname": frappe.scrub(component), "fieldtype": "Data", "width": 170},
+				{"label": _(component), "fieldname": frappe.scrub(component), "fieldtype": "Currency", "width": 170},
 
 			]	
 		columns +=[
@@ -269,8 +269,7 @@ def get_salary_slips(filters, company_currency):
 
 	# query = frappe.qb.from_(salary_slip).left_join(employee).on(employee.name == salary_slip.name).select(salary_slip.star)
 	query = (frappe.qb.from_(salary_slip).select(salary_slip.star))
-	query.join(salary_detail).on(salary_slip.name == salary_detail.parent)
-	query = query.where(salary_detail.parent == "قيادية")
+
 
 	if filters.get("docstatus"):
 		query = query.where(salary_slip.docstatus == doc_status[filters.get("docstatus")])
@@ -337,19 +336,18 @@ def get_salary_slip_details(salary_slips, currency, company_currency, component_
 	# 	ss_map.setdefault(d.parent, frappe._dict()).setdefault(d.salary_component, 0.00)
 
 	# 	ss_map[d.parent][d.salary_component] += flt(d.amount)
+	ss_map = {}
 
-	# for d in result:
-	# 	if  (d.amount) :
-	# 		ss_map.setdefault(d.parent, frappe._dict()).setdefault(d.salary_component, 0.00)
-	# 		if currency == company_currency:
-	# 			ss_map[d.parent][d.salary_component] += flt(d.amount) * flt(
-	# 				d.exchange_rate if d.exchange_rate else 1
-	# 			)
-	# 		else:
-	# 			ss_map[d.parent][d.salary_component] += flt(d.amount)
+	for d in result:
+		ss_map.setdefault(d.parent, frappe._dict()).setdefault(d.salary_component, 0.0)
+		if currency == company_currency:
+			ss_map[d.parent][d.salary_component] += flt(d.amount) * flt(
+				d.exchange_rate if d.exchange_rate else 1
+			)
+		else:
+			ss_map[d.parent][d.salary_component] +=  f"{flt(d.amount):,.2f}"
 
 	return ss_map
-
 
 
 
