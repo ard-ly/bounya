@@ -61,7 +61,7 @@ def get_columns():
 		},
 		{
 			"label": _("Total Principal Amount"),
-			"fieldname": "total_principal_amount",
+			"fieldname": "principal_amount",
 			"fieldtype": "Currency",
 			"width": 200,
 		},
@@ -162,7 +162,7 @@ def get_data(filters=None):
 	conditions = get_conditions(filters)
 
 	slips = frappe.db.sql("""
-				SELECT ss.name n, ss.start_date start_date , ss.end_date end_date , ss.*, sl.*  , ss.total_principal_amount  total_principal_amount, l.*   
+				SELECT ss.name n, ss.start_date start_date , ss.end_date end_date , ss.*, sl.*  , sl.principal_amount   principal_amount , l.*   
 					FROM `tabSalary Slip` ss
 					INNER JOIN  `tabSalary Slip Loan` sl ON sl.parent = ss.name
 					INNER JOIN `tabLoan` l	ON sl.loan = l.name
