@@ -31,7 +31,7 @@ def get_columns():
 			"label": _("Branch"),
 			"fieldname": "branch",
 			"fieldtype": "Link",
-			"options":"Branch"
+			"options":"Branch",
 			"width": 100,
 		},
 		{
