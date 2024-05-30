@@ -90,7 +90,8 @@ jinja = {
 
 jenv = {
     "methods": {
-        "grad_in_words": "bounya.utils.grad_in_words"
+        "grad_in_words": "bounya.utils.grad_in_words",
+        # "order_earnings":"bounya.utils.order_earnings",
     }
 }
 

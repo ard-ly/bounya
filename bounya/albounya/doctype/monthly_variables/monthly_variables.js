@@ -52,7 +52,7 @@ frappe.ui.form.on('Monthly Variables', {
 			var dateString = '' + year + '-' + month + '-' + '25';
 			var combined = new Date(dateString);
 			
-			frm.doc.to_date = new Date(dateString);
+			frm.doc.to_date = moment(combined).format('YYYY-MM-DD');
 			let from_date =  frappe.datetime.add_months(combined, -1);
 			frm.doc.from_date = new Date(from_date);
 			frm.refresh_fields();

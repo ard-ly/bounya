@@ -62,11 +62,14 @@ class MonthlyVariables(Document):
 			for e in self.monthly_variables_settings:
 				additional_salary= frappe.db.sql(
 				f""" SELECT *  FROM `tabAdditional Salary` WHERE employee = '{e.employee}' AND salary_component = '{self.salary_component}' AND docstatus = 1 """,as_dict=1,)
-				# msgprint(str(additional_salary))
 
 				from_date = datetime.strptime(str(self.from_date), '%Y-%m-%d').date()
 				to_date = datetime.strptime(str(self.to_date) , '%Y-%m-%d').date()
-
+				# print(self.to_date)
+				# print(type(self.to_date))
+				# print(to_date)
+				# print(type(to_date))
+		
 				for a in additional_salary:
 					if from_date <= a.payroll_date <= to_date:
 						# msgprint(str(a.name))
