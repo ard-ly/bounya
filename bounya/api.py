@@ -384,8 +384,9 @@ def overwrite_salary_slip(doc, method):
 
 
 @frappe.whitelist()
-def cancel_salary_slip_overwrite(doc_name):
-        doc = frappe.get_doc("Additional Salary", doc_name)
+def cancel_salary_slip_overwrite(doc, method):
+        
+        doc = frappe.get_doc("Additional Salary", doc.name)
         if doc.custom_employee_salary_slip:
             ss_doc = frappe.get_doc("Salary Slip", doc.custom_employee_salary_slip)
             if ss_doc.docstatus == 0:

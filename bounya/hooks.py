@@ -170,7 +170,7 @@ doc_events = {
     "Additional Salary":{
         "validate":"bounya.api.get_employee_salary_slip",
         "on_submit": "bounya.api.overwrite_salary_slip",
-        # "on_cancel": "bounya.api.cancel_salary_slip_overwrite",
+        "on_cancel": "bounya.api.cancel_salary_slip_overwrite",
     },
 }
 

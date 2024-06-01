@@ -4,7 +4,7 @@ let employee_list = [];
 
 frappe.ui.form.on('Monthly Variables', {
 	
-	setup: function (frm) {
+	before_load: function (frm) {
 		if (frm.is_new()) {
 			let monthes = ['January' , 'February' , 'March' , 'April' , 'May' , 'June' , 'July' , 'August' , 'September' , 'October' , 'November' , 'December']
 			const today = new Date();
@@ -54,7 +54,7 @@ frappe.ui.form.on('Monthly Variables', {
 			
 			frm.doc.to_date = moment(combined).format('YYYY-MM-DD');
 			let from_date =  frappe.datetime.add_months(combined, -1);
-			frm.doc.from_date = new Date(from_date);
+			frm.doc.from_date = moment(from_date).format('YYYY-MM-DD');;
 			frm.refresh_fields();
 		}
 	},
