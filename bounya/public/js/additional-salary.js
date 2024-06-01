@@ -28,19 +28,19 @@ frappe.ui.form.on('Additional Salary', {
         }
     },
 
-    after_cancel: function (frm) {
-            frappe.call({
-                method :"bounya.api.cancel_salary_slip_overwrite",
-                args: {
-                    doc_name:frm.doc.name,
-                },
-                callback:function(r){
-                    if(r.message){
-                        console.log(r.message);
-                    }
-                }
-            });
-    },
+    // after_cancel: function (frm) {
+    //         frappe.call({
+    //             method :"bounya.api.cancel_salary_slip_overwrite",
+    //             args: {
+    //                 doc_name:frm.doc.name,
+    //             },
+    //             callback:function(r){
+    //                 if(r.message){
+    //                     console.log(r.message);
+    //                 }
+    //             }
+    //         });
+    // },
 
     // change query to shoe the statistical componenet
     set_component_query: function(frm) {
@@ -116,7 +116,7 @@ frappe.listview_settings["Additional Salary"] = {
             payroll_date:   payroll_date ,
             docstatus : ["!=" , 2]
         };
-        console.log("sjldfffffffffffffff")
+        // console.log("sjldfffffffffffffff")
     },
 
 };

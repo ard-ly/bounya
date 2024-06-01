@@ -6,6 +6,7 @@ import json
 from frappe import _, msgprint,throw
 from datetime import datetime
 from frappe.model.document import Document
+# from bounya.api import cancel_salary_slip_overwrite
 
 class MonthlyVariables(Document):
 	
@@ -114,3 +115,6 @@ class MonthlyVariables(Document):
 				additional.add_comment("Comment",text=""" This Additional Salary was canceled by Monthly Variable {TE}.""".format(TE = TE), )
 				additional.cancel()
 				frappe.db.commit()
+				
+
+				
