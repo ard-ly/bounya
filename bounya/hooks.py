@@ -39,6 +39,7 @@ doctype_js = {
     "Salary Slip": "public/js/salary_slip.js",
     "Payroll Entry": "public/js/payroll_entry.js",
     "Loan Application":"public/js/loan_application.js",
+    "Supplier":"public/js/supplier.js",
 }
 doctype_list_js = {
         "Salary Slip": "public/js/salary_slip.js",
