@@ -178,7 +178,7 @@ def get_data(filters=None):
 	return slips
 
 def get_conditions(filters):
-	conditions = ["ss.status='Submitted'"]
+	conditions = ["ss.status!='Cancale'"]
 
 	if filters.get("company"):
 		conditions.append("ss.company='{}'".format(filters.get("company")))
