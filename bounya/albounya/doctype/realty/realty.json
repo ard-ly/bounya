@@ -413,6 +413,7 @@
   {
    "fieldname": "asset",
    "fieldtype": "Link",
+   "hidden": 1,
    "label": "Asset",
    "options": "Asset"
   }
@@ -420,7 +421,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-06-19 14:37:46.882184",
+ "modified": "2024-06-19 15:48:00.442252",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Realty",
