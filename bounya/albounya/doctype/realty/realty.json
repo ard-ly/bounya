@@ -1,0 +1,490 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:realty_no",
+ "creation": "2024-06-19 10:29:36.204267",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "realty_no",
+  "realty_type",
+  "description",
+  "column_break_3kixe",
+  "build_up_date",
+  "number_of_floors",
+  "branch",
+  "office",
+  "section_break_bkjyi",
+  "coordinates",
+  "section_break_boizg",
+  "longitude",
+  "column_break_btort",
+  "latitude",
+  "location_coordinate_section",
+  "north",
+  "south",
+  "column_break_f9tri",
+  "east",
+  "west",
+  "section_break_sumha",
+  "the_total_area",
+  "column_break_nnk3e",
+  "covered_space",
+  "section_break_4zifm",
+  "city",
+  "column_break_driwb",
+  "region",
+  "column_break_uidur",
+  "street",
+  "section_break_5dlu8",
+  "area_classification",
+  "amended_from",
+  "section_break_v1oca",
+  "realty_ct",
+  "dependency_of_the_realty_section",
+  "dependency_of_the_realty",
+  "column_break_yvjvn",
+  "real_estate_map_no",
+  "column_break_qf2et",
+  "brochure_number",
+  "column_break_l07wc",
+  "the_entity_benefiting_from_the_property",
+  "section_break_l3gbe",
+  "legal_status_of_the_property",
+  "column_break_b6kmr",
+  "evaluation_of_the_condition_of_the_property",
+  "column_break_oo1x6",
+  "generator",
+  "column_break_kofnt",
+  "generator_status",
+  "section_break_gu4it",
+  "amount_in_word",
+  "column_break_c4sio",
+  "market_value_of_the_property",
+  "attachments_section",
+  "technical_recipe_for_the_site",
+  "column_break_uaxbo",
+  "building_map",
+  "column_break_5jvs3",
+  "a_photograph_of_the_site",
+  "column_break_l9kmb",
+  "correspondence",
+  "column_break_ml0j6",
+  "any_other_documents",
+  "asset"
+ ],
+ "fields": [
+  {
+   "fieldname": "realty_no",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Realty No",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "realty_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Realty Type",
+   "options": "\nLand Plot\nBuilding\nLand Plot with building\nWarehouse\nTower Station",
+   "reqd": 1
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Small Text",
+   "label": "Description"
+  },
+  {
+   "fieldname": "column_break_3kixe",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "build_up_date",
+   "fieldtype": "Date",
+   "label": "Build up Date",
+   "reqd": 1
+  },
+  {
+   "depends_on": "eval:doc.realty_type == 'Building'",
+   "fieldname": "number_of_floors",
+   "fieldtype": "Int",
+   "label": "Number of Floors"
+  },
+  {
+   "fieldname": "branch",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "Branch",
+   "options": "Branch",
+   "reqd": 1
+  },
+  {
+   "fieldname": "office",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "Office",
+   "options": "Office",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_bkjyi",
+   "fieldtype": "Section Break",
+   "label": "Location Coordinates"
+  },
+  {
+   "fieldname": "coordinates",
+   "fieldtype": "Geolocation",
+   "label": "Coordinates"
+  },
+  {
+   "fieldname": "section_break_boizg",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "longitude",
+   "fieldtype": "Data",
+   "label": "Longitude"
+  },
+  {
+   "fieldname": "column_break_btort",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "latitude",
+   "fieldtype": "Data",
+   "label": "Latitude"
+  },
+  {
+   "fieldname": "location_coordinate_section",
+   "fieldtype": "Section Break",
+   "label": "Location Coordinate"
+  },
+  {
+   "fieldname": "north",
+   "fieldtype": "Data",
+   "label": "North"
+  },
+  {
+   "fieldname": "south",
+   "fieldtype": "Data",
+   "label": "South"
+  },
+  {
+   "fieldname": "column_break_f9tri",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "east",
+   "fieldtype": "Data",
+   "label": "East"
+  },
+  {
+   "fieldname": "west",
+   "fieldtype": "Data",
+   "label": "West"
+  },
+  {
+   "fieldname": "section_break_sumha",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "the_total_area",
+   "fieldtype": "Data",
+   "label": "The total area"
+  },
+  {
+   "fieldname": "column_break_nnk3e",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "covered_space",
+   "fieldtype": "Data",
+   "label": "Covered space"
+  },
+  {
+   "fieldname": "section_break_4zifm",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "city",
+   "fieldtype": "Link",
+   "label": "City",
+   "options": "City"
+  },
+  {
+   "fieldname": "column_break_driwb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "region",
+   "fieldtype": "Data",
+   "label": "Region"
+  },
+  {
+   "fieldname": "column_break_uidur",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "street",
+   "fieldtype": "Data",
+   "label": "Street"
+  },
+  {
+   "fieldname": "section_break_5dlu8",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "area_classification",
+   "fieldtype": "Data",
+   "label": "Area Classification"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Realty",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "collapsible": 1,
+   "fieldname": "section_break_v1oca",
+   "fieldtype": "Section Break",
+   "label": "Number of Realty on site"
+  },
+  {
+   "fieldname": "realty_ct",
+   "fieldtype": "Table",
+   "label": "Realty CT",
+   "options": "Realty CT"
+  },
+  {
+   "fieldname": "dependency_of_the_realty_section",
+   "fieldtype": "Section Break",
+   "label": "Dependency of the Realty"
+  },
+  {
+   "fieldname": "dependency_of_the_realty",
+   "fieldtype": "Select",
+   "in_standard_filter": 1,
+   "label": "Dependency of the Realty",
+   "options": "\nCompany property\nUnder the procedure"
+  },
+  {
+   "fieldname": "column_break_yvjvn",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "real_estate_map_no",
+   "fieldtype": "Data",
+   "label": "Real estate map no"
+  },
+  {
+   "fieldname": "column_break_qf2et",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.dependency_of_the_realty =='Company property'",
+   "fieldname": "brochure_number",
+   "fieldtype": "Data",
+   "label": "Brochure number"
+  },
+  {
+   "fieldname": "column_break_l07wc",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "the_entity_benefiting_from_the_property",
+   "fieldtype": "Small Text",
+   "label": "The entity benefiting from the property"
+  },
+  {
+   "fieldname": "section_break_l3gbe",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "legal_status_of_the_property",
+   "fieldtype": "Select",
+   "in_standard_filter": 1,
+   "label": "Legal status of the property",
+   "options": "\nunregistered\nHaving an issue\nLack of ownership documents"
+  },
+  {
+   "fieldname": "column_break_b6kmr",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "evaluation_of_the_condition_of_the_property",
+   "fieldtype": "Select",
+   "in_standard_filter": 1,
+   "label": "Evaluation of the condition of the property",
+   "options": "\nLuxurious\nexcellent\nvery good\nmiddle\nMy response"
+  },
+  {
+   "fieldname": "column_break_oo1x6",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "generator",
+   "fieldtype": "Select",
+   "label": "Generator",
+   "options": "\nExisting\nunavailable"
+  },
+  {
+   "fieldname": "column_break_kofnt",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "eval:doc.generator == \"Existing\"",
+   "fieldname": "generator_status",
+   "fieldtype": "Data",
+   "label": "Generator Status"
+  },
+  {
+   "fieldname": "section_break_gu4it",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amount_in_word",
+   "fieldtype": "Data",
+   "label": "Amount in Word"
+  },
+  {
+   "fieldname": "column_break_c4sio",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "market_value_of_the_property",
+   "fieldtype": "Currency",
+   "label": "Market value of the property"
+  },
+  {
+   "fieldname": "attachments_section",
+   "fieldtype": "Section Break",
+   "label": "Attachments"
+  },
+  {
+   "fieldname": "technical_recipe_for_the_site",
+   "fieldtype": "Attach",
+   "label": "Technical recipe for the site"
+  },
+  {
+   "fieldname": "column_break_uaxbo",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "building_map",
+   "fieldtype": "Attach",
+   "label": "Building map"
+  },
+  {
+   "fieldname": "column_break_5jvs3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "a_photograph_of_the_site",
+   "fieldtype": "Attach",
+   "label": "A photograph of the site"
+  },
+  {
+   "fieldname": "column_break_l9kmb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "correspondence",
+   "fieldtype": "Attach",
+   "label": "Correspondence"
+  },
+  {
+   "fieldname": "column_break_ml0j6",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "any_other_documents",
+   "fieldtype": "Attach",
+   "label": "Any other documents"
+  },
+  {
+   "fieldname": "asset",
+   "fieldtype": "Link",
+   "label": "Asset",
+   "options": "Asset"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2024-06-19 14:37:46.882184",
+ "modified_by": "Administrator",
+ "module": "Albounya",
+ "name": "Realty",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Assistant Realty Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Realty Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts Manager",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Accounts User",
+   "share": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

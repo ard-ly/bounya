@@ -39,7 +39,6 @@ doctype_js = {
     "Salary Slip": "public/js/salary_slip.js",
     "Payroll Entry": "public/js/payroll_entry.js",
     "Loan Application":"public/js/loan_application.js",
-    "Supplier":"public/js/supplier.js",
 }
 doctype_list_js = {
         "Salary Slip": "public/js/salary_slip.js",
@@ -91,6 +90,8 @@ jinja = {
 
 jenv = {
     "methods": {
+        "grad_in_words": "bounya.utils.grad_in_words",
+        # "order_earnings":"bounya.utils.order_earnings",
         "grad_in_words": "bounya.utils.grad_in_words",
         # "order_earnings":"bounya.utils.order_earnings",
     }
@@ -167,6 +168,11 @@ doc_events = {
     "Employee Promotion":{
         "on_submit": "bounya.api.create_external_work_history",
         "on_cancel": "bounya.api.cancel_external_work_history",
+    },
+    "Additional Salary":{
+        "validate":"bounya.api.get_employee_salary_slip",
+        "on_submit": "bounya.api.overwrite_salary_slip",
+        "on_cancel": "bounya.api.cancel_salary_slip_overwrite",
     },
     "Additional Salary":{
         "validate":"bounya.api.get_employee_salary_slip",
@@ -300,7 +306,6 @@ fixtures = [
             ]
         ],
     },
-    {"dt": "Translation"},
     {
         "dt": "Letter Head",
         "filters": [
