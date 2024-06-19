@@ -306,7 +306,6 @@ fixtures = [
             ]
         ],
     },
-    {"dt": "Translation"},
     {
         "dt": "Letter Head",
         "filters": [
