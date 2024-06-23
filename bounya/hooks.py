@@ -172,6 +172,11 @@ doc_events = {
         "on_submit": "bounya.api.overwrite_salary_slip",
         "on_cancel": "bounya.api.cancel_salary_slip_overwrite",
     },
+    "Salary Slip":{
+        "validate":"bounya.api.check_for_employee_external_advance",
+        "on_submit": "bounya.api.update_external_advance_on_submit",
+        "on_cancel": "bounya.api.update_external_advance_on_cancel",
+    },
 }
 
 # doc_events = {

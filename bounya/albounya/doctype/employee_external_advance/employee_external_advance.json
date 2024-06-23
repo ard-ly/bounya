@@ -1,0 +1,179 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "EEA-.employee.-.####",
+ "creation": "2024-06-23 09:43:05.951147",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "payment_disabled",
+  "employee",
+  "employee_name",
+  "department",
+  "column_break_0tlzx",
+  "posting_date",
+  "type",
+  "status",
+  "section_break_knkfy",
+  "advance_amount",
+  "monthly_repayment_amount",
+  "column_break_d8bc3",
+  "paid_amount",
+  "remaining_amount",
+  "section_break_ufm8l",
+  "repayment_schedule",
+  "section_break_lojse",
+  "note",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Employee",
+   "options": "Employee",
+   "reqd": 1
+  },
+  {
+   "fieldname": "type",
+   "fieldtype": "Link",
+   "label": "Type",
+   "options": "External Advance Type",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "employee.employee_name",
+   "fieldname": "employee_name",
+   "fieldtype": "Read Only",
+   "label": "Employee Name"
+  },
+  {
+   "fetch_from": "employee.department",
+   "fieldname": "department",
+   "fieldtype": "Link",
+   "label": "Department",
+   "options": "Department",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_0tlzx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_knkfy",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "posting_date",
+   "fieldtype": "Date",
+   "label": "Posting Date ",
+   "reqd": 1
+  },
+  {
+   "fieldname": "note",
+   "fieldtype": "Small Text",
+   "label": "Note"
+  },
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "no_copy": 1,
+   "options": "Draft\nPaid\nUnpaid\nCancelled",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fetch_from": "type.disable",
+   "fieldname": "payment_disabled",
+   "fieldtype": "Check",
+   "hidden": 1,
+   "label": "Payment Disabled"
+  },
+  {
+   "fieldname": "section_break_ufm8l",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "advance_amount",
+   "fieldtype": "Currency",
+   "label": "Advance Amount",
+   "options": "currency",
+   "reqd": 1
+  },
+  {
+   "fieldname": "paid_amount",
+   "fieldtype": "Currency",
+   "label": "Paid Amount",
+   "options": "currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "remaining_amount",
+   "fieldtype": "Currency",
+   "label": "Remaining Amount",
+   "options": "currency",
+   "read_only": 1
+  },
+  {
+   "fieldname": "monthly_repayment_amount",
+   "fieldtype": "Currency",
+   "label": " Monthly Repayment Amount ",
+   "options": "currency",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_d8bc3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_lojse",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "repayment_schedule",
+   "fieldtype": "Table",
+   "hidden": 1,
+   "label": " Repayment Schedule ",
+   "options": "External Advance Repayment"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Employee External Advance",
+   "print_hide": 1,
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2024-06-23 14:07:25.178674",
+ "modified_by": "Administrator",
+ "module": "Albounya",
+ "name": "Employee External Advance",
+ "naming_rule": "Expression (old style)",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
