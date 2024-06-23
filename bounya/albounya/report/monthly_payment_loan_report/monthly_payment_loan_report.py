@@ -167,6 +167,7 @@ def get_data(filters=None):
 					FROM `tabSalary Slip` ss
 					INNER JOIN  `tabSalary Slip Loan` sl ON sl.parent = ss.name
 					INNER JOIN `tabLoan` l	ON sl.loan = l.name
+					{}
 					   """.format(conditions), as_dict=True)
 
 	# slips = frappe.db.sql("""
@@ -178,7 +179,7 @@ def get_data(filters=None):
 	return slips
 
 def get_conditions(filters):
-	conditions = ["ss.status!='Cancale'"]
+	conditions = ["ss.status!='Cancale' "]
 
 	if filters.get("company"):
 		conditions.append("ss.company='{}'".format(filters.get("company")))
@@ -192,8 +193,8 @@ def get_conditions(filters):
 	if filters.get("to_date"):
 		conditions.append("ss.end_date <= '{}'".format(filters.get("to_date")))
 
-	# if filters.get("employee_name"):
-	# 	conditions.append("ss.employee_name LIKE '%{}%'".format(filters.get("employee_name")))
+	if filters.get("loan_type"):
+		conditions.append("sl.loan_type = '{}'".format(filters.get("loan_type")))
 
 	if filters.get("branch"):
 		conditions.append("ss.branch='{}'".format(filters.get("branch")))

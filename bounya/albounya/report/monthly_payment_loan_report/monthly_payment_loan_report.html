@@ -98,14 +98,14 @@
 		{% for(let j=0, k=data.length; j<k; j++) { %}
 			{%
 				var row = data[j];
-				 if (!row.is_total_row)  { 
+				 
 			%}
 			<tr>
                 <td class="{%= j == data.length -1 ? 'bg-aqua' : '' %}">{{ j +1 }}</td>
 				{% for(let i=1, l=report_columns.length; i<l; i++) { %}
 					<td class="{%= j == data.length -1 ? 'bg-aqua' : '' %} {%= row.is_total_row ? 'totalRow' : ''%}">
 						{% const fieldname = report_columns[i].fieldname; %}
-						{% if (!is_null(row[fieldname]) && !row.is_total_row) { %}
+						{% if (!is_null(row[fieldname])) { %}
 							{%= frappe.format(row[fieldname], report_columns[i], {}, row) %}
 						{% } %}
 					</td>
@@ -113,23 +113,9 @@
 				{% } %}
 			</tr>
 			
+			
 			{% } %}
-			{% } %}
-			<tr>
-				<td></td>
-					{% row = data[data.length -1 ] %}
-					{% for(let i=1, l=report_columns.length; i<l; i++) { %}
-					<td>
-					{% const fieldname = report_columns[i].fieldname; %}
-					{% if (!is_null(row[fieldname])&& (row[fieldname] > 0)) { %}
-					{%= frappe.format(row[fieldname], report_columns[report_columns.length -1], {}, row) %}
-					{% } %}
-					</td>
-					{% } %}
-					
-					<br>
-	
-			</tr>
+
 
 
 
