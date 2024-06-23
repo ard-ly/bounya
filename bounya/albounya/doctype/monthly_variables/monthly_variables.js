@@ -49,7 +49,7 @@ frappe.ui.form.on('Monthly Variables', {
 			let year = d.getFullYear();
 
 			let month = frm.doc.month
-			var dateString = '' + year + '-' + month + '-' + '25';
+			var dateString = '' + year + '-' + month + '-' + '24';
 			var combined = new Date(dateString);
 			
 			frm.doc.to_date = moment(combined).format('YYYY-MM-DD');

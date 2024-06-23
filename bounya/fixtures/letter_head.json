@@ -10,7 +10,9 @@
   "footer_image": null,
   "footer_image_height": 0.0,
   "footer_image_width": 0.0,
+  "footer_script": null,
   "footer_source": "HTML",
+  "header_script": null,
   "image": null,
   "image_height": 0.0,
   "image_width": 0.0,
@@ -18,7 +20,7 @@
   "letter_head_name": "bounya",
   "modified": "2024-04-22 12:40:40.439680",
   "name": "bounya",
-  "source": "HTML"
+  "source": "Image"
  },
  {
   "align": "Center",
@@ -31,7 +33,9 @@
   "footer_image": "",
   "footer_image_height": 0.0,
   "footer_image_width": 0.0,
+  "footer_script": null,
   "footer_source": "HTML",
+  "header_script": null,
   "image": "/files/\u0627\u0644\u0628\u0646\u064a\u0629.png",
   "image_height": 0.0,
   "image_width": 0.0,

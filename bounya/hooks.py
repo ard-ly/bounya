@@ -92,6 +92,8 @@ jenv = {
     "methods": {
         "grad_in_words": "bounya.utils.grad_in_words",
         # "order_earnings":"bounya.utils.order_earnings",
+        "grad_in_words": "bounya.utils.grad_in_words",
+        # "order_earnings":"bounya.utils.order_earnings",
     }
 }
 
@@ -304,7 +306,6 @@ fixtures = [
             ]
         ],
     },
-    {"dt": "Translation"},
     {
         "dt": "Letter Head",
         "filters": [
