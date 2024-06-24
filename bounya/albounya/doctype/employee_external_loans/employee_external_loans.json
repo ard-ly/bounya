@@ -1,7 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "EEA-.employee.-.####",
+ "autoname": "EEL-.employee.-.####",
  "creation": "2024-06-23 09:43:05.951147",
  "default_view": "List",
  "doctype": "DocType",
@@ -12,9 +12,11 @@
   "employee",
   "employee_name",
   "department",
+  "company",
   "column_break_0tlzx",
   "posting_date",
   "type",
+  "salary_component",
   "status",
   "section_break_knkfy",
   "advance_amount",
@@ -41,7 +43,7 @@
    "fieldname": "type",
    "fieldtype": "Link",
    "label": "Type",
-   "options": "External Advance Type",
+   "options": "External Loans Type",
    "reqd": 1
   },
   {
@@ -136,16 +138,31 @@
   {
    "fieldname": "repayment_schedule",
    "fieldtype": "Table",
-   "hidden": 1,
    "label": " Repayment Schedule ",
-   "options": "External Advance Repayment"
+   "options": "External Loans Repayment"
+  },
+  {
+   "fetch_from": "type.salary_component",
+   "fieldname": "salary_component",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Salary Component",
+   "options": "Salary Component"
+  },
+  {
+   "fetch_from": "employee.company",
+   "fieldname": "company",
+   "fieldtype": "Link",
+   "hidden": 1,
+   "label": "Company",
+   "options": "Company"
   },
   {
    "fieldname": "amended_from",
    "fieldtype": "Link",
    "label": "Amended From",
    "no_copy": 1,
-   "options": "Employee External Advance",
+   "options": "Employee External Loans",
    "print_hide": 1,
    "read_only": 1
   }
@@ -153,10 +170,10 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-06-23 14:07:25.178674",
+ "modified": "2024-06-24 13:06:03.632040",
  "modified_by": "Administrator",
  "module": "Albounya",
- "name": "Employee External Advance",
+ "name": "Employee External Loans",
  "naming_rule": "Expression (old style)",
  "owner": "Administrator",
  "permissions": [

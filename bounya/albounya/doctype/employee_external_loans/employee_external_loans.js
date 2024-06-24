@@ -1,7 +1,7 @@
 // Copyright (c) 2024, ARD Company and contributors
 // For license information, please see license.txt
 
-frappe.ui.form.on('Employee External Advance', {
+frappe.ui.form.on('Employee External Loans', {
 	setup: function(frm) {
 		// filter on employee.
 		frm.set_query("employee", function() {
@@ -16,6 +16,9 @@ frappe.ui.form.on('Employee External Advance', {
 			const today = new Date();
 			frm.doc.posting_date = today;
 			frm.refresh_field("posting_date");
+			frm.doc.status = 'Draft';
+			frm.refresh_field("status");
+
 		};
 	},
 

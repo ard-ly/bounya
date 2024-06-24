@@ -5,5 +5,5 @@
 from frappe.tests.utils import FrappeTestCase
 
 
-class TestExternalAdvanceType(FrappeTestCase):
+class TestExternalLoansType(FrappeTestCase):
 	pass
