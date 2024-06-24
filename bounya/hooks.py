@@ -162,8 +162,6 @@ override_doctype_class = {
 doc_events = {
     "Material Request": {
         "validate": "bounya.api.check_custom_has_assets",
-        # "on_cancel": "method",
-        # "on_trash": "method"
     },
     "Employee Promotion":{
         "on_submit": "bounya.api.create_external_work_history",
