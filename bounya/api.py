@@ -249,9 +249,7 @@ def check_custom_has_assets(doc, method):
 def create_external_work_history(doc, method):
     try:
         if doc.custom_created_by_monthly_promotion == 1:           
-            work_history = frappe.new_doc("Employee Internal Work History")
-            # branch
-            # department           
+            work_history = frappe.new_doc("Employee Internal Work History")        
             work_history.parent = doc.employee
             work_history.from_date = doc.promotion_date
             work_history.department = doc.department
@@ -408,3 +406,25 @@ def cancel_salary_slip_overwrite(doc, method):
                             ss_doc.save()
                             frappe.db.commit()
         return row
+
+# Salary Slip on validate event.
+@frappe.whitelist()
+def check_for_employee_external_advance(doc, method):
+    pass
+    # check for Employee External Advance, where employee = employee, status='Unpaid', payment_disabled=0
+    # create  Additional Salary.
+    # add row in External Advance Repayment.
+
+# Salary Slip on_submit event.
+@frappe.whitelist()
+def update_external_advance_on_submit(doc, method):
+    pass
+    # update row status in External Advance Repayment.
+    # update remaining_amount,paid_amount.
+
+# Salary Slip on_cancel event.
+@frappe.whitelist()
+def update_external_advance_on_cancel(doc, method):
+    pass
+    # update row status in External Advance Repayment.
+    # update remaining_amount,paid_amount to orginal amount.
