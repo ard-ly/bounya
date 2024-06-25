@@ -14,18 +14,16 @@
  "fields": [
   {
    "fieldname": "salary_slip",
-   "fieldtype": "Link",
+   "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Salary Slip",
-   "options": "Salary Slip",
    "reqd": 1
   },
   {
    "fieldname": "additional_salary",
-   "fieldtype": "Link",
+   "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Additional Salary",
-   "options": "Additional Salary",
    "reqd": 1
   },
   {
@@ -48,7 +46,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-06-24 13:06:57.502217",
+ "modified": "2024-06-25 11:20:04.317010",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "External Loans Repayment",

@@ -413,18 +413,15 @@ def cancel_salary_slip_overwrite(doc, method):
 def check_for_employee_external_advance(doc, method):
     # check for Employee External Loans.
     eea_list = frappe.get_list("Employee External Loans", filters={'employee':doc.employee, 'status':'Unpaid', 'payment_disabled':0 })
-    print('in check_for_employee_external_advance')
 
     for row in eea_list:
-        print("in eea_list row")
         eea_doc = frappe.get_doc('Employee External Loans', row.name)
         repay_list = frappe.get_list("External Loans Repayment", filters={'parent':eea_doc.name, 'salary_slip' : doc.name})
-        print(repay_list)
 
         if not repay_list:
-            print("in not repay_list")
             # check if Additional Salary already exists.
-            ad_list = frappe.get_list("Additional Salary", filters={'custom_employee_external_loans':row.name, 'docstatus':1})    
+            ad_list = frappe.get_list("Additional Salary", filters={'custom_employee_external_loans':row.name, 'docstatus':1, 'custom_employee_salary_slip': doc.name})    
+            print(ad_list)
             if not ad_list:
                 print("in not ad_list")
                 # create Additional Salary.
@@ -433,10 +430,11 @@ def check_for_employee_external_advance(doc, method):
                 new_ad.employee_name= eea_doc.employee_name
                 new_ad.department = eea_doc.department
                 new_ad.company = eea_doc.company
+                new_ad.payroll_date = doc.start_date
                 new_ad.custom_month = doc.custom_month
                 new_ad.salary_component = eea_doc.salary_component
                 new_ad.custom_employee_external_loans = eea_doc.name
-
+                
                 if eea_doc.remaining_amount < eea_doc.monthly_repayment_amount:
                     new_ad.amount= eea_doc.remaining_amount
                 else:
@@ -444,6 +442,7 @@ def check_for_employee_external_advance(doc, method):
 
                 new_ad.insert(ignore_permissions=True)
                 new_ad.submit()
+                
                 # add row in External Loans Repayment.
                 new_repayment_row = frappe.new_doc("External Loans Repayment")
                 new_repayment_row.salary_slip = doc.name
@@ -456,6 +455,7 @@ def check_for_employee_external_advance(doc, method):
                 new_repayment_row.insert(ignore_permissions=True)
                 print(new_repayment_row.name)
             
+                frappe.db.set_value('Additional Salary', new_ad.name, 'custom_employee_salary_slip', doc.name)
             else:
                 print("in ad_list else")
                 for ad in ad_list:
@@ -493,10 +493,39 @@ def update_external_advance_on_submit(doc, method):
                 'remaining_amount': new_remain,
                 })
             
+            # update Employee External Loans status.
+            if new_remain == 0:
+                frappe.db.set_value("Employee External Loans",eea_doc.name, "status", 'Paid')
+
+            
 # Salary Slip on_cancel event.
 @frappe.whitelist()
 def update_external_advance_on_cancel(doc, method):
-    pass
-    # update row status in External Loans Repayment.
-    # update remaining_amount,paid_amount to orginal amount.
-    # cancel Additional Salary
+    repay_list = frappe.get_list("External Loans Repayment", filters={'salary_slip':doc.name})
+    if repay_list:
+        for row in repay_list:
+            # update row status in External Loans Repayment.
+            frappe.db.set_value('External Loans Repayment', row.name, 'status', doc.status)
+            
+            # update remaining_amount,paid_amount.
+            repay_doc = frappe.get_doc('External Loans Repayment', row.name)
+            eea_doc = frappe.get_doc('Employee External Loans', repay_doc.parent)
+
+            new_paid = eea_doc.paid_amount - repay_doc.amount
+            new_remain = eea_doc.remaining_amount + repay_doc.amount
+
+            frappe.db.set_value('Employee External Loans', eea_doc.name , {
+                'paid_amount': new_paid,
+                'remaining_amount': new_remain,
+                })
+            
+            # update Employee External Loans status.
+            if new_remain == 0:
+                frappe.db.set_value("Employee External Loans",eea_doc.name, "status", 'Paid')
+            else:
+                frappe.db.set_value("Employee External Loans",eea_doc.name, "status", 'Unpaid')
+
+            # cancel Additional Salary.
+            ad_doc = frappe.get_doc('Additional Salary', repay_doc.additional_salary)
+            ad_doc.cancel()
+            
