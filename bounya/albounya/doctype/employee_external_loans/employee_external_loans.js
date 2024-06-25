@@ -2,6 +2,7 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on('Employee External Loans', {
+	
 	setup: function(frm) {
 		// filter on employee.
 		frm.set_query("employee", function() {
@@ -18,7 +19,13 @@ frappe.ui.form.on('Employee External Loans', {
 			frm.refresh_field("posting_date");
 			frm.doc.status = 'Draft';
 			frm.refresh_field("status");
-
+		};
+	},
+	
+	refresh: function(frm) {
+		if (frm.doc.paid_amount = 0){
+			frm.doc.remaining_amount = frm.doc.advance_amount;
+			frm.refresh_field("remaining_amount");
 		};
 	},
 
