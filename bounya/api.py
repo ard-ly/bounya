@@ -528,4 +528,13 @@ def update_external_advance_on_cancel(doc, method):
             # cancel Additional Salary.
             ad_doc = frappe.get_doc('Additional Salary', repay_doc.additional_salary)
             ad_doc.cancel()
-            
+
+# Salary Component validate event.
+@frappe.whitelist()
+def update_component_order(doc, method):
+    sd_list = frappe.db.sql(f""" select name from `tabSalary Detail` WHERE salary_component = '{doc.salary_component}' """,as_dict=True)
+    print(sd_list)
+    if sd_list:
+        for row in sd_list:
+            frappe.db.set_value('Salary Detail', row.name, 'custom_order', doc.custom_order)
+            frappe.db.commit()

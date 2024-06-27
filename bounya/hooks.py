@@ -177,6 +177,9 @@ doc_events = {
         "on_submit": "bounya.api.update_external_advance_on_submit",
         "on_cancel": "bounya.api.update_external_advance_on_cancel",
     },
+    "Salary Component":{
+        "validate":"bounya.api.update_component_order",
+    }
 }
 
 # doc_events = {
