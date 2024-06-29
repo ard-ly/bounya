@@ -19,6 +19,8 @@ class EmployeeExternalLoans(Document):
 	def validate_external_advance(self):
 		if self.monthly_repayment_amount > self.advance_amount:
 			throw(_("The Monthly Repayment Amount must be smaller than the Advance Amount."))
+		if self.paid_amount == 0:
+			self.remaining_amount = self.advance_amount
 
 	def cancel_external_advance(self):
 		frappe.db.set_value("Employee External Loans",self.name, "status", 'Cancelled')

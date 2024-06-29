@@ -1,0 +1,94 @@
+
+{%
+	var date = moment(new Date()).format('ddd YYYY-MM-DD');
+    
+%}
+<style>
+	body{
+		display: right;
+		direction: rtl;
+	}
+	th {
+        text-align: center;
+    	vertical-align: middle !important;
+		color: #606060 !important;
+        border: 1px solid !important;
+    }
+    td{
+		text-align: center;
+    	vertical-align: middle !important;
+		color: #000 !important;
+        border: 1px solid !important;
+	}
+	td div {
+		text-align: center !important;
+	}
+	.col-label{
+		display: flex !important;
+		align-items: center !important;
+		justify-content: space-evenly !important;
+	}
+
+</style>
+
+
+<div class="print-date" style="text-align: left;">{{date}}</div>
+
+<div class="head"  style="padding: 4px; text-align: center; font-size: 18px; font-weight: 800; margin-top: 25px; text-decoration: underline;">
+    {%= __(report.report_name) %}
+</div>
+
+
+<div style="padding: 25px ; font-weight: 400; font-size: 16px;">
+    <div class="filters-div" style="display: flex; justify-content: space-between;">
+      
+        {% if filters.employee %}
+            <div>الموظف : {%= __(filters.employee) || "" %}</div>
+        {% endif %}
+
+        {% if filters.department %}
+            <div>القسم : {%= __(filters.department) || "" %}</div>
+        {% endif %}
+
+        {% if filters.status %}
+            <div>الحالة : {%= __(filters.status) || "" %}</div>
+        {% endif %}
+
+
+        {% if filters.type %}
+            <div>نوع السلفة : {%= __(filters.type) || "" %}</div>
+        {% endif %}
+        
+    </div>
+</div>
+<!-- employee,employee_name,department,type,status,advance_amount,paid_amount,remaining_amount -->
+<table class="table table-bordered" style="font-size: 16px; width:100%; margin-top: 20px;">
+    <thead>
+        <tr>
+            <th><div class="col-label">{%= __("الموظف") %}</div></th>
+            <th><div class="col-label">{%= __("اسم الموظف") %}</div></th>
+            <th><div class="col-label">{%= __("القسم") %}</div></th>
+            <th><div class="col-label">{%= __("النوع") %}</div></th>
+            <th><div class="col-label">{%= __("الحالة") %}</div></th>
+            <th><div class="col-label">{%= __("مبلغ السلفة") %}</div></th>
+            <th><div class="col-label">{%= __("إجمالي المبلغ المدفوع") %}</div></th>
+            <th><div class="col-label">{%= __("المبلغ المتبقي") %}</div></th>         
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for(var i=0, l=data.length; i<l; i++) { %}
+            <tr>
+                <td>{{data[i].employee}}</td>
+                <td>{{data[i].employee_name}}</td>
+                <td>{{data[i].department}}</td>
+                <td>{{data[i].type}}</td>
+                <td>{{__(data[i].status)}}</td>
+                <td>{{data[i].advance_amount}}</td>
+                <td>{{data[i].paid_amount}}</td>
+                <td>{{data[i].remaining_amount}}</td>
+            </tr>
+         {% } %}
+        </tbody>
+
+</table>

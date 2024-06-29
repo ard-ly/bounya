@@ -110,6 +110,7 @@
    "fieldname": "paid_amount",
    "fieldtype": "Currency",
    "label": "Paid Amount",
+   "no_copy": 1,
    "options": "currency",
    "read_only": 1
   },
@@ -117,6 +118,7 @@
    "fieldname": "remaining_amount",
    "fieldtype": "Currency",
    "label": "Remaining Amount",
+   "no_copy": 1,
    "options": "currency",
    "read_only": 1
   },
@@ -170,7 +172,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-06-24 13:06:03.632040",
+ "modified": "2024-06-25 09:02:46.855265",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Employee External Loans",
