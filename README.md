@@ -69,4 +69,11 @@ Full Report :
 
 هذا التقرير مشترك لكل من المواردا لبشرية و المرتبات
 
-    
+
+## التعديلات التقنية hrms ovverried
+# Fix issue in fetch banck name in pulk payroll entry
+
+![alt text](image-11.png)
+
+#fix issue on fetch loan type in pulk payroll entry
+![alt text](image-12.png)

@@ -56,7 +56,7 @@ class CustomSalarySlip(SalarySlip):
                 ),
                 title=_("Salary Structure Missing"),
             )
-
+# overrid function to fetch loan type
     def set_loan_repayment(self):
         self.total_loan_repayment = 0
         self.total_interest_amount = 0
@@ -75,6 +75,7 @@ class CustomSalarySlip(SalarySlip):
                             "interest_amount": amounts["interest_amount"],
                             "principal_amount": amounts["payable_principal_amount"],
                             "loan_account": loan.loan_account,
+                            "loan_type": loan.loan_type,
                             "interest_income_account": loan.interest_income_account,
                         },
                     )
@@ -98,6 +99,17 @@ class CustomSalarySlip(SalarySlip):
             self.total_principal_amount += payment.principal_amount
 
             self.total_loan_repayment += payment.total_payment
+
+        
+    def pull_emp_details(self):
+        emp = frappe.db.get_value(
+            "Employee", self.employee, ["custom_bank_name", "bank_ac_no", "salary_mode"], as_dict=1
+        )
+        if emp:
+            self.mode_of_payment = emp.salary_mode
+            self.bank_name = emp.custom_bank_name
+            self.bank_account_no = emp.bank_ac_no
+
 
     # @frappe.whitelist()
     # def check_sal_struct(self, joining_date, relieving_date):

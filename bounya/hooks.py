@@ -150,7 +150,8 @@ jenv = {
 
 override_doctype_class = {
     "Appraisal": "bounya.override.py.override_appraisal.CustomAppraisal",
-    "Salary Slip": "bounya.override.py.salary_slip.CustomSalarySlip"
+    "Salary Slip": "bounya.override.py.salary_slip.CustomSalarySlip",
+    "Payroll Entry": "bounya.override.py.payroll_entry.CustomPayrollEntry"
 }
 
 # Document Events
