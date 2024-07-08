@@ -18,7 +18,7 @@ frappe.ui.form.on('Additional Salary', {
                 () => {
                     // action to perform if Yes is selected
                     console.log("YES");
-                    frappe.open_in_new_tab = true; // This line in version 14
+                    frappe.open_in_new_tab = false; // This line in version 14
                     frappe.set_route("Form", "Salary Slip", frm.doc.custom_employee_salary_slip);
                 }, () => {
                     // action to perform if No is selected

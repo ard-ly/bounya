@@ -362,12 +362,14 @@ def overwrite_salary_slip(doc, method):
 
     if doc.custom_employee_salary_slip:
         ss_doc = frappe.get_doc("Salary Slip", doc.custom_employee_salary_slip)
+        do_not_include_in_total = frappe.db.get_value("Salary Component" , doc.salary_component , "do_not_include_in_total")
         if doc.type == "Earning":
             ss_doc.append(
 						"earnings",
 						{
 							"salary_component" :doc.salary_component,
-							"amount" : doc.amount,							
+							"amount" : doc.amount,		
+                            "do_not_include_in_total" : do_not_include_in_total					
 						},
 					)
             ss_doc.save()
@@ -377,7 +379,9 @@ def overwrite_salary_slip(doc, method):
 						"deductions",
 						{
 							"salary_component" :doc.salary_component,
-							"amount" : doc.amount,							
+							"amount" : doc.amount,	
+                            "do_not_include_in_total" : do_not_include_in_total					
+						
 						},
 					)
             ss_doc.save()
