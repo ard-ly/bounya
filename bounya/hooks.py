@@ -38,13 +38,13 @@ doctype_js = {
     "Appraisal Template": "override/js/appraisal_template.js",
     "Salary Slip": "public/js/salary_slip.js",
     "Payroll Entry": "public/js/payroll_entry.js",
-    "Loan Application":"public/js/loan_application.js",
+    "Loan Application": "public/js/loan_application.js",
 }
 doctype_list_js = {
-        "Salary Slip": "public/js/salary_slip.js",
-        "Additional Salary" : "public/js/additional-salary.js",
-        "Salary Structure Assignment" : "public/js/salary_structure_assignment.js"
-    }
+    "Salary Slip": "public/js/salary_slip.js",
+    "Additional Salary": "public/js/additional-salary.js",
+    "Salary Structure Assignment": "public/js/salary_structure_assignment.js",
+}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
 
@@ -78,7 +78,7 @@ doctype_list_js = {
 # }
 
 jinja = {
-	"methods": "bounya.utils.grad_in_words",
+    "methods": "bounya.utils.grad_in_words",
 }
 
 
@@ -151,7 +151,7 @@ jenv = {
 override_doctype_class = {
     "Appraisal": "bounya.override.py.override_appraisal.CustomAppraisal",
     "Salary Slip": "bounya.override.py.salary_slip.CustomSalarySlip",
-    "Payroll Entry": "bounya.override.py.payroll_entry.CustomPayrollEntry"
+    "Payroll Entry": "bounya.override.py.payroll_entry.CustomPayrollEntry",
 }
 
 # Document Events
@@ -159,28 +159,30 @@ override_doctype_class = {
 # Hook on document methods and events
 
 
-
 doc_events = {
     "Material Request": {
         "validate": "bounya.api.check_custom_has_assets",
     },
-    "Employee Promotion":{
+    "Employee Promotion": {
         "on_submit": "bounya.api.create_external_work_history",
         "on_cancel": "bounya.api.cancel_external_work_history",
     },
-    "Additional Salary":{
-        "validate":"bounya.api.get_employee_salary_slip",
+    "Additional Salary": {
+        "validate": "bounya.api.get_employee_salary_slip",
         "on_submit": "bounya.api.overwrite_salary_slip",
         "on_cancel": "bounya.api.cancel_salary_slip_overwrite",
     },
-    "Salary Slip":{
-        "validate":"bounya.api.check_for_employee_external_advance",
+    "Salary Slip": {
+        "validate": "bounya.api.check_for_employee_external_advance",
         "on_submit": "bounya.api.update_external_advance_on_submit",
         "on_cancel": "bounya.api.update_external_advance_on_cancel",
     },
-    "Salary Component":{
-        "validate":"bounya.api.update_component_order",
-    }
+    "Salary Component": {
+        "validate": "bounya.api.update_component_order",
+    },
+    "Supplier": {
+        "on_update": "bounya.api.set_custom_supplier_group_sequence_field",
+    },
 }
 
 # doc_events = {
