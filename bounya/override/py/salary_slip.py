@@ -5,7 +5,10 @@ from hrms.payroll.doctype.salary_slip.salary_slip import SalarySlip
 from frappe.utils import getdate, nowdate, format_date
 from frappe import _
 from frappe.query_builder import Order
-
+from erpnext.loan_management.doctype.loan_repayment.loan_repayment import (
+	calculate_amounts,
+	create_repayment_entry,
+)
 import json, base64, urllib
 
 class CustomSalarySlip(SalarySlip):
@@ -53,7 +56,60 @@ class CustomSalarySlip(SalarySlip):
                 ),
                 title=_("Salary Structure Missing"),
             )
-                    
+# overrid function to fetch loan type
+    def set_loan_repayment(self):
+        self.total_loan_repayment = 0
+        self.total_interest_amount = 0
+        self.total_principal_amount = 0
+
+        if not self.get("loans"):
+            for loan in self.get_loan_details():
+                amounts = calculate_amounts(loan.name, self.posting_date, "Regular Payment")
+
+                if amounts["interest_amount"] or amounts["payable_principal_amount"]:
+                    self.append(
+                        "loans",
+                        {
+                            "loan": loan.name,
+                            "total_payment": amounts["interest_amount"] + amounts["payable_principal_amount"],
+                            "interest_amount": amounts["interest_amount"],
+                            "principal_amount": amounts["payable_principal_amount"],
+                            "loan_account": loan.loan_account,
+                            "loan_type": loan.loan_type,
+                            "interest_income_account": loan.interest_income_account,
+                        },
+                    )
+
+        for payment in self.get("loans"):
+            amounts = calculate_amounts(payment.loan, self.posting_date, "Regular Payment")
+            total_amount = amounts["interest_amount"] + amounts["payable_principal_amount"]
+            if payment.total_payment > total_amount:
+                frappe.throw(
+                    _(
+                        """Row {0}: Paid amount {1} is greater than pending accrued amount {2} against loan {3}"""
+                    ).format(
+                        payment.idx,
+                        frappe.bold(payment.total_payment),
+                        frappe.bold(total_amount),
+                        frappe.bold(payment.loan),
+                    )
+                )
+
+            self.total_interest_amount += payment.interest_amount
+            self.total_principal_amount += payment.principal_amount
+
+            self.total_loan_repayment += payment.total_payment
+
+        
+    def pull_emp_details(self):
+        emp = frappe.db.get_value(
+            "Employee", self.employee, ["custom_bank_name", "bank_ac_no", "salary_mode"], as_dict=1
+        )
+        if emp:
+            self.mode_of_payment = emp.salary_mode
+            self.bank_name = emp.custom_bank_name
+            self.bank_account_no = emp.bank_ac_no
+
 
     # @frappe.whitelist()
     # def check_sal_struct(self, joining_date, relieving_date):

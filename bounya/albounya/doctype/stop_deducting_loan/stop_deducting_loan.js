@@ -15,7 +15,17 @@ frappe.ui.form.on('Stop Deducting Loan', {
 		// 	};
 		//   });
 	},
-
+	refresh: function(frm) {
+		frm.fields_dict['stop_deducting_employees'].grid.get_field('loan').get_query = function(doc, cdt, cdn) {
+			var child = locals[cdt][cdn];
+			//console.log(child);
+			return {    
+				filters:[
+					['applicant', '=', child.employee]
+				]
+			}
+		}
+	},
 	get_employees(frm) {
 		frappe.call({
 			method :"get_employees",
