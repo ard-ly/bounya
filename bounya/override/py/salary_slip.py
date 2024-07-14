@@ -64,16 +64,22 @@ class CustomSalarySlip(SalarySlip):
 
         if not self.get("loans"):
             for loan in self.get_loan_details():
-                amounts = calculate_amounts(loan.name, self.posting_date, "Regular Payment")
+                amount = 0
+                if frappe.get_all("Loan Interest Accrual" , filters={"loan" : loan.name  ,"paid_principal_amount" :  0}, order_by="posting_date DESC", limit=1):
+                    latest_Interest = frappe.get_all("Loan Interest Accrual" , filters={"loan" : loan.name  ,"paid_principal_amount" :  0}, order_by="posting_date DESC", limit=1)
+                    amount=frappe.get_doc("Loan Interest Accrual" ,latest_Interest).payable_principal_amount
+                else:
+                    amount=frappe.get_doc("Loan" ,loan.name ).monthly_repayment_amount
+                amounts = calculate_amounts(loan.name, self.start_date, "Regular Payment")
 
                 if amounts["interest_amount"] or amounts["payable_principal_amount"]:
                     self.append(
                         "loans",
                         {
                             "loan": loan.name,
-                            "total_payment": amounts["interest_amount"] + amounts["payable_principal_amount"],
+                            "total_payment": amount,
                             "interest_amount": amounts["interest_amount"],
-                            "principal_amount": amounts["payable_principal_amount"],
+                            "principal_amount": amount,
                             "loan_account": loan.loan_account,
                             "loan_type": loan.loan_type,
                             "interest_income_account": loan.interest_income_account,
@@ -81,7 +87,7 @@ class CustomSalarySlip(SalarySlip):
                     )
 
         for payment in self.get("loans"):
-            amounts = calculate_amounts(payment.loan, self.posting_date, "Regular Payment")
+            amounts = calculate_amounts(payment.loan, self.start_date, "Regular Payment")
             total_amount = amounts["interest_amount"] + amounts["payable_principal_amount"]
             if payment.total_payment > total_amount:
                 frappe.throw(
