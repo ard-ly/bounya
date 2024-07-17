@@ -22,15 +22,13 @@ frappe.ui.form.on('Monthly Variables', {
 			doc:frm.doc,
 			callback:function(r){
 				if(r.message){
-					// console.log("aaaaaaaaaaaaaaaaaaaaaaaaa");
-					// console.log(r.message);
 					employee_list = r.message;
 					console.log("components:");
 					console.log(employee_list);
 				}
 			}
 		});
-		
+
 		frm.set_query("salary_component", function () {
 			return {
 			  filters: [
@@ -40,6 +38,24 @@ frappe.ui.form.on('Monthly Variables', {
 		  });
 
 	  
+	},
+
+	refresh(frm) {
+		// Clear the existing breadcrumbs. Set custom breadcrumbs will not do this automatically
+				frappe.breadcrumbs.clear();
+				
+		// Now add breadcrumb for the 'parent' document
+				frappe.breadcrumbs.set_custom_breadcrumbs({
+						label: cur_frm.doc.doctype, //the name of the field in Doc 2 that points to Doc 1
+						route: '/app/' + frappe.scrub(cur_frm.doc.doctype).replace('_', '-'),
+						});
+
+				// Finally add the breadcrumb for this document  
+				frappe.breadcrumbs.set_custom_breadcrumbs({
+						label: cur_frm.doc.name,
+						route: '/app/' + frappe.scrub(cur_frm.doc.doctype).replace('_', '-') 
+						});
+
 	},
 
 	month(frm) {
@@ -54,7 +70,8 @@ frappe.ui.form.on('Monthly Variables', {
 			
 			frm.doc.to_date = moment(combined).format('YYYY-MM-DD');
 			let from_date =  frappe.datetime.add_months(combined, -1);
-			frm.doc.from_date = moment(from_date).format('YYYY-MM-DD');;
+			let from_date_1 = frappe.datetime.add_days(from_date, 1);
+			frm.doc.from_date = moment(from_date_1).format('YYYY-MM-DD');
 			frm.refresh_fields();
 		}
 	},
@@ -74,3 +91,22 @@ frappe.ui.form.on('Monthly Variables', {
 	},
 
 });
+
+frappe.listview_settings['Monthly Variables'] = {
+	refresh: function (listview) {
+			// Clear the existing breadcrumbs. Set custom breadcrumbs will not do this automatically
+		frappe.breadcrumbs.clear();				
+		// Now add breadcrumb for the 'parent' document
+		frappe.breadcrumbs.set_custom_breadcrumbs({
+				label: 'Payroll', //the name of the field in Doc 2 that points to Doc 1
+				route: '/app/payroll',
+		});
+				
+		// Now add breadcrumb for the 'parent' document
+		frappe.breadcrumbs.set_custom_breadcrumbs({
+				label: 'Payroll', //the name of the field in Doc 2 that points to Doc 1
+				route: '/app/payroll',
+		});
+		},
+	}
+	
