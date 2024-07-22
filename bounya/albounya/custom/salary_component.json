@@ -90,5 +90,5 @@
    "value": "[\"overview_tab\", \"salary_component\", \"salary_component_abbr\", \"type\", \"description\", \"custom_order\", \"column_break_4\", \"depends_on_payment_days\", \"is_tax_applicable\", \"deduct_full_tax_on_selected_payroll_date\", \"variable_based_on_taxable_salary\", \"is_income_tax_component\", \"exempted_from_income_tax\", \"round_to_the_nearest_integer\", \"statistical_component\", \"do_not_include_in_total\", \"remove_if_zero_valued\", \"disabled\", \"section_break_5\", \"accounts\", \"configure_component_tab\", \"condition_and_formula\", \"condition\", \"amount\", \"amount_based_on_formula\", \"formula\", \"column_break_28\", \"help\", \"flexible_benefits_tab\", \"is_flexible_benefit\", \"max_benefit_amount\", \"column_break_9\", \"pay_against_benefit_claim\", \"only_tax_impact\", \"create_separate_payment_entry_against_benefit_claim\"]"
   }
  ],
- "sync_on_migrate": 1
+ "sync_on_migrate": 0
 }
