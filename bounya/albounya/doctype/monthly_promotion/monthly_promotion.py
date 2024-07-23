@@ -100,8 +100,6 @@ class MonthlyPromotion(Document):
                 if emp.designation:
                     designation_doc = frappe.get_doc('Designation', emp.designation)
                     if emp.grade:
-                        print ("***inside***")
-                        
                         try:
                             if emp.custom_last_promotion_date:
                                 
