@@ -90,7 +90,15 @@ frappe.ui.form.on('Monthly Variables', {
 		});
 	},
 
+
 });
+	frappe.ui.form.on('Monthly Variables Settings', {
+		employee: function(frm, cdt, cdn) {
+			var row = locals[cdt][cdn];
+			row.amount = frm.doc.amount;
+			cur_frm.refresh_field("monthly_variables_settings"); 
+		},
+	});
 
 frappe.listview_settings['Monthly Variables'] = {
 	refresh: function (listview) {
