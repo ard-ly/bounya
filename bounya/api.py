@@ -636,7 +636,7 @@ def update_external_advance_on_cancel(doc, method):
 @frappe.whitelist()
 def update_component_order(doc, method):
     sd_list = frappe.db.sql(
-        f""" select name from `tabSalary Detail` WHERE salary_component = '{doc.salary_component}' """,
+        f""" select name from `tabSalary Detail` WHERE salary_component = '{doc.name}' """,
         as_dict=True,
     )
     print(sd_list)
