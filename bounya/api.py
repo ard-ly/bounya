@@ -439,14 +439,16 @@ def overwrite_salary_slip(doc, method):
             )
             ss_doc.save()
 
-
+# Additional Salary on_cancel event.
 @frappe.whitelist()
 def cancel_salary_slip_overwrite(doc, method):
         
         doc = frappe.get_doc("Additional Salary", doc.name)
         if doc.custom_employee_salary_slip:
             try :
-                ss_doc = frappe.get_doc("Salary Slip", doc.custom_employee_salary_slip)
+                ss_name = frappe.db.get_value('Salary Detail', {'additional_salary': doc.name}, ['parent'])
+                ss_doc = frappe.get_doc("Salary Slip", ss_name)
+
                 if ss_doc.docstatus == 0:
 
                     if doc.type == "Earning":

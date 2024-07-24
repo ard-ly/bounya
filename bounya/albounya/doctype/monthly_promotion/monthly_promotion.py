@@ -97,12 +97,15 @@ class MonthlyPromotion(Document):
 
         if len(employees) > 0:
             for emp in employees:
-                if emp.grad:
-                    if emp.designation:
-                        designation_doc = frappe.get_doc('Designation', emp.designation)
+                if emp.designation:
+                    designation_doc = frappe.get_doc('Designation', emp.designation)
+                    if emp.grade:
                         try:
                             if emp.custom_last_promotion_date:
-                                if designation_doc.custom_dependent_promotion_year:
+                                
+                                if designation_doc.custom_grade_promotion_year:
+                                    # check the comparison.
+                                    # print(date_diff(date.today(), emp.custom_last_promotion_date) > (designation_doc.custom_grade_promotion_year * 340))
                                     if date_diff(date.today(), emp.custom_last_promotion_date) > (designation_doc.custom_grade_promotion_year * 340):
                                         if designation_doc.custom_designation_grade:
                                             for row in designation_doc.custom_designation_grade:
@@ -119,24 +122,22 @@ class MonthlyPromotion(Document):
 															"current_dependent": emp.custom_dependent,
 															"new_dependent": emp.custom_dependent+1, },)
 
-                                elif designation_doc.custom_dependent_promotion_year:
-                                    if date_diff(date.today(), emp.custom_last_promotion_date) > (designation_doc.custom_dependent_promotion_year * 340):
-                                        self.append(
-											"employee_table",
-											{
-												"employee": emp.name,
-												"full_name": emp.full_name,
-												"branch": emp.branch,
-												"designation": emp.designation,
-												"current_grade": emp.grade,
-												"current_dependent": emp.custom_dependent,
-												"new_dependent": emp.custom_dependent+1,
-											},)
-                                else:
-                                    pass
+                                    elif designation_doc.custom_dependent_promotion_year:
+                                        if date_diff(date.today(), emp.custom_last_promotion_date) > (designation_doc.custom_dependent_promotion_year * 340):
+                                            self.append(
+                                                "employee_table",
+                                                {
+                                                    "employee": emp.name,
+                                                    "full_name": emp.full_name,
+                                                    "branch": emp.branch,
+                                                    "designation": emp.designation,
+                                                    "current_grade": emp.grade,
+                                                    "current_dependent": emp.custom_dependent,
+                                                    "new_dependent": emp.custom_dependent+1,
+                                                },)
 
                             elif emp.date_of_joining:
-                                if designation_doc.custom_dependent_promotion_year:
+                                if designation_doc.custom_grade_promotion_year:
                                     if date_diff(date.today(), emp.date_of_joining) > (designation_doc.custom_grade_promotion_year * 340):
                                         if designation_doc.custom_designation_grade:
                                             for row in designation_doc.custom_designation_grade:
@@ -152,26 +153,25 @@ class MonthlyPromotion(Document):
 															"new_grade": row.to_grade,
 															"current_dependent": emp.custom_dependent,
 															"new_dependent": emp.custom_dependent+1, },)
-
-                                elif designation_doc.custom_dependent_promotion_year:
-                                    if date_diff(date.today(), emp.date_of_joining) > (designation_doc.custom_dependent_promotion_year * 340):
-                                        self.append(
-											"employee_table",
-											{
-												"employee": emp.name,
-												"full_name": emp.full_name,
-												"branch": emp.branch,
-												"designation": emp.designation,
-												"current_grade": emp.grade,
-												"current_dependent": emp.custom_dependent,
-												"new_dependent": emp.custom_dependent+1,
-											},)
-                                else:
-                                    pass
-
-
+                                
+                                    elif designation_doc.custom_dependent_promotion_year:
+                                        if date_diff(date.today(), emp.date_of_joining) > (designation_doc.custom_dependent_promotion_year * 340):
+                                            self.append(
+                                                "employee_table",
+                                                {
+                                                    "employee": emp.name,
+                                                    "full_name": emp.full_name,
+                                                    "branch": emp.branch,
+                                                    "designation": emp.designation,
+                                                    "current_grade": emp.grade,
+                                                    "current_dependent": emp.custom_dependent,
+                                                    "new_dependent": emp.custom_dependent+1,
+                                                },)
+                                
                         except Exception as emp:
                             frappe.log_error("Error while Getting Employees")
+                    
+                    # elif emp.custom_dependent
 
         elif len(employees) == 0:
             msgprint(
