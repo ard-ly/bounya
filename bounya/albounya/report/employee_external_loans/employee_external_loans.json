@@ -10,7 +10,7 @@
  "idx": 0,
  "is_standard": "Yes",
  "letter_head": "bounya",
- "modified": "2024-06-24 13:34:09.043556",
+ "modified": "2024-07-24 12:43:46.471638",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Employee External Loans",
@@ -22,6 +22,9 @@
  "roles": [
   {
    "role": "System Manager"
+  },
+  {
+   "role": "Payroll Manager"
   }
  ]
 }
