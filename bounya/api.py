@@ -538,9 +538,10 @@ def check_for_employee_external_advance(doc, method):
                     doc.name,
                 )
             else:
-                print("in ad_list else")
+                print("in ad_list else" ,)
                 for ad in ad_list:
-                    ad_doc = frappe.get_doc("Employee External Loans", ad.name)
+                    # ad_doc = frappe.get_doc("Employee External Loans", ad.custom_employee_external_loans)
+                    ad_doc = frappe.get_doc("Additional Salary", ad.name)
                     # new row in External Loans Repayment.
                     new_repayment_row = frappe.new_doc("External Loans Repayment")
                     new_repayment_row.salary_slip = doc.name

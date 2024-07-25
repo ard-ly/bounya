@@ -11,10 +11,10 @@ frappe.query_reports["Employee External Loans"] = {
 			options: "Employee",
 		},
 		{
-			label: __("Department"),
-			fieldname: "department",
+			label: __("Branch"),
+			fieldname: "branch",
 			fieldtype: "Link",
-			options: "Department",
+			options: "Branch",
 		},
 		{
 			label: __("Status"),

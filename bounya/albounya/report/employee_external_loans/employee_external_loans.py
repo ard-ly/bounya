@@ -44,6 +44,12 @@ def get_columns():
             "fieldname": "advance_amount",
             "fieldtype": "Currency",
             "options": "currency",
+        }, 
+        {
+            "label": _(" Monthly Repayment Amount "),
+            "fieldname": "monthly_repayment_amount",
+            "fieldtype": "Currency",
+            "options": "currency",
         },
         {
             "label": _("Total Paid Amount"),
@@ -62,7 +68,7 @@ def get_columns():
 
 def get_data(conditions):
     data = frappe.db.sql(
-        f"""SELECT employee,employee_name,department,type,status,advance_amount,paid_amount,remaining_amount FROM `tabEmployee External Loans` {conditions}""", as_dict=True)
+        f"""SELECT employee,employee_name,department,type,status,advance_amount,paid_amount,remaining_amount , monthly_repayment_amount FROM `tabEmployee External Loans` {conditions}""", as_dict=True)
     
     return data
 
