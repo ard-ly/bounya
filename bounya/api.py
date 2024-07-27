@@ -475,21 +475,21 @@ def cancel_salary_slip_overwrite(doc, method):
 @frappe.whitelist()
 def check_for_employee_external_advance(doc, method):
     # check for Employee External Loans.
-    eea_list = frappe.get_list(
+    eea_list = frappe.get_all(
         "Employee External Loans",
         filters={"employee": doc.employee, "status": "Unpaid", "payment_disabled": 0},
     )
 
     for row in eea_list:
         eea_doc = frappe.get_doc("Employee External Loans", row.name)
-        repay_list = frappe.get_list(
+        repay_list = frappe.get_all(
             "External Loans Repayment",
             filters={"parent": eea_doc.name, "salary_slip": doc.name},
         )
 
         if not repay_list:
             # check if Additional Salary already exists.
-            ad_list = frappe.get_list(
+            ad_list = frappe.get_all(
                 "Additional Salary",
                 filters={
                     "custom_employee_external_loans": row.name,
@@ -558,7 +558,7 @@ def check_for_employee_external_advance(doc, method):
 # Salary Slip on_submit event.
 @frappe.whitelist()
 def update_external_advance_on_submit(doc, method):
-    repay_list = frappe.get_list(
+    repay_list = frappe.get_all(
         "External Loans Repayment", filters={"salary_slip": doc.name}
     )
     if repay_list:
@@ -594,7 +594,7 @@ def update_external_advance_on_submit(doc, method):
 # Salary Slip on_cancel event.
 @frappe.whitelist()
 def update_external_advance_on_cancel(doc, method):
-    repay_list = frappe.get_list(
+    repay_list = frappe.get_all(
         "External Loans Repayment", filters={"salary_slip": doc.name}
     )
     if repay_list:
