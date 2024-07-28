@@ -442,32 +442,34 @@ def overwrite_salary_slip(doc, method):
 # Additional Salary on_cancel event.
 @frappe.whitelist()
 def cancel_salary_slip_overwrite(doc, method):
-        
+        doc.flags.ignore_links = True
+        frappe.db.commit()
         doc = frappe.get_doc("Additional Salary", doc.name)
-        if doc.custom_employee_salary_slip:
-            try :
-                ss_name = frappe.db.get_value('Salary Detail', {'additional_salary': doc.name}, ['parent'])
-                ss_doc = frappe.get_doc("Salary Slip", ss_name)
+        if (doc.custom_employee_salary_slip):
+            if (frappe.get_doc("Salary Slip", doc.custom_employee_salary_slip).docstatus != 1):
+                try :
+                    ss_name = frappe.db.get_value('Salary Detail', {'additional_salary': doc.name}, ['parent'])
+                    ss_doc = frappe.get_doc("Salary Slip", ss_name)
 
-                if ss_doc.docstatus == 0:
+                    if ss_doc.docstatus == 0:
 
-                    if doc.type == "Earning":
-                        for row in ss_doc.earnings:
-                            if row.salary_component == doc.salary_component and row.amount == doc.amount:
-                                
-                                ss_doc.earnings.remove(row)
-                                ss_doc.save()
+                        if doc.type == "Earning":
+                            for row in ss_doc.earnings:
+                                if row.salary_component == doc.salary_component and row.amount == doc.amount:
+                                    
+                                    ss_doc.earnings.remove(row)
+                                    ss_doc.save()
+                                    frappe.db.commit()
+
+                        elif doc.type == "Deduction":
+                            for row in ss_doc.deductions:
+                                if row.salary_component == doc.salary_component and row.amount == doc.amount:
+
+                                    ss_doc.deductions.remove(row)
+                                    ss_doc.save()
                                 frappe.db.commit()
-
-                    elif doc.type == "Deduction":
-                        for row in ss_doc.deductions:
-                            if row.salary_component == doc.salary_component and row.amount == doc.amount:
-
-                                ss_doc.deductions.remove(row)
-                                ss_doc.save()
-                            frappe.db.commit()
-            except Exception:
-                return "Salary Slip"
+                except Exception:
+                    return "Salary Slip"
         return "done"
 
 
