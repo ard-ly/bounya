@@ -240,7 +240,7 @@ override_whitelisted_methods = {
 # Ignore links to specified DocTypes when deleting documents
 # -----------------------------------------------------------
 
-# ignore_links_on_delete = ["Salary SLip", "Additional Salary"]
+ignore_links_on_delete = ["Salary SLip", "Additional Salary"]
 
 # Request Events
 # ----------------
