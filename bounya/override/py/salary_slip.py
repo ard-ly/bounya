@@ -116,42 +116,14 @@ class CustomSalarySlip(SalarySlip):
             self.bank_name = emp.custom_bank_name
             self.bank_account_no = emp.bank_ac_no
 
+    def set_status(self, status=None):
+        """Get and update status"""
+        if not status:
+            status = self.get_status()
+        print("55555555555")
 
-    # @frappe.whitelist()
-    # def check_sal_struct(self, joining_date, relieving_date):
-    #     ss = frappe.qb.DocType("Salary Structure")
-    #     ssa = frappe.qb.DocType("Salary Structure Assignment")
+        frappe.db.set_value("Salary Slip" , self.name , "docstatus" , 1 )
 
-    #     query = (
-    #         frappe.qb.from_(ssa)
-    #         .join(ss)
-    #         .on(ssa.salary_structure == ss.name)
-    #         .select(ssa.salary_structure , ssa.custom_performance_factor , ssa.custom_evaluation)
-    #         .where(
-    #             (ssa.docstatus == 1)
-    #             & (ss.docstatus == 1)
-    #             & (ss.is_active == "Yes")
-    #             & (ssa.employee == self.employee)
-    #             & (
-    #                 (ssa.from_date <= self.start_date)
-    #                 | (ssa.from_date <= self.end_date)
-    #                 | (ssa.from_date <= joining_date)
-    #             )
-    #         )
-    #         .orderby(ssa.from_date, order=Order.desc)
-    #         .limit(1)
-    #     )
 
-    #     if not self.salary_slip_based_on_timesheet and self.payroll_frequency:
-    #         query = query.where(ss.payroll_frequency == self.payroll_frequency)
-
-    #     st_name = query.run()
-
-    #     if st_name:
-    #         self.custom_performance_factor = st_name[0][1]
-    #         self.custom_evaluation = st_name[0][2]
-    #         print (self.custom_evaluation)
-    #         # return self.salary_structure
-
-    #     else:
-    #         self.salary_structure = None
+    def validate(self):
+        pass
