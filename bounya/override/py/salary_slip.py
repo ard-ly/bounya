@@ -116,14 +116,14 @@ class CustomSalarySlip(SalarySlip):
             self.bank_name = emp.custom_bank_name
             self.bank_account_no = emp.bank_ac_no
 
-    def set_status(self, status=None):
-        """Get and update status"""
-        if not status:
-            status = self.get_status()
-        print("55555555555")
+    # def set_status(self, status=None):
+    #     """Get and update status"""
+    #     if not status:
+    #         status = self.get_status()
+    #     print("55555555555")
 
-        frappe.db.set_value("Salary Slip" , self.name , "docstatus" , 1 )
+    #     frappe.db.set_value("Salary Slip" , self.name , "docstatus" , 1 )
 
 
-    def validate(self):
-        pass
+    # def validate(self):
+    #     pass
