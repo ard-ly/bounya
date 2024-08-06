@@ -93,7 +93,15 @@ import re
 
 # this code work in employee fileds for bank branches
 
+@frappe.whitelist()
+def get_salary_components(doc):
+    components = []
+    component_list = frappe.db.get_all('Salary Component Settings', fields=['salary_component'],)
 
+    for c in component_list:
+        components.append(str(c.salary_component))
+    return components
+	
 @frappe.whitelist()
 def fetch_bank_branch_list(doctype, txt, searchfield, start, page_len, filters):
     return frappe.db.sql(

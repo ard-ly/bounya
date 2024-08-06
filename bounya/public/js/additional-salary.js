@@ -41,19 +41,36 @@ frappe.ui.form.on('Additional Salary', {
     //             }
     //         });
     // },
-
+ 
     // change query to shoe the statistical componenet
     set_component_query: function(frm) {
-        if (!frm.doc.company) return;
-        let filters = {company: frm.doc.company};
-        if (frm.doc.type) {
-            filters.type = "Erning";
-        }
-        frm.set_query("salary_component", function() {
-            return {
-                // filters: filters
-            };
-        });
+        // if (!frm.doc.company) return;
+        // let filters = {company: frm.doc.company};
+        // if (frm.doc.type) {
+        //     filters.type = "Erning";
+        // }
+        // frm.set_query("salary_component", function() {
+        //     return {
+        //         // filters: filters
+        //     };
+        // });
+        return {
+            query: "bounya.api.get_salary_components",
+            filters: {
+            //   bank_name: frm.doc.custom_bank_name,
+            },
+          };
+        // frappe.call({
+		// 	method :"bounya.api.get_salary_components",
+		// 	doc:frm.doc,
+		// 	callback:function(r){
+		// 		if(r.message){
+		// 			employee_list = r.message;
+		// 			console.log("components:");
+		// 			console.log(employee_list);
+		// 		}
+		// 	}
+		// });
     },
 
 	custom_month(frm) {
