@@ -6,6 +6,8 @@ from frappe.model.document import Document
 from frappe import _, msgprint, throw
 from frappe.utils import today, date_diff
 from datetime import date, timedelta
+import datetime
+from dateutil.relativedelta import relativedelta
 
 
 class MonthlyPromotion(Document):
@@ -36,16 +38,17 @@ class MonthlyPromotion(Document):
             new_doc.insert(ignore_permissions=True)
 
     def create_promotion(self):
-        self.status = 'Approved'
+        frappe.db.set_value("Monthly Promotion", self.name,"status", 'Approved')
         if len(self.employee_table) > 0:
             for e in self.employee_table:
-                try:
                     prom = frappe.new_doc("Employee Promotion")
                     prom.employee = e.employee
                     prom.promotion_date = e.promotion_date
                     prom.custom_monthly_promotion = self.name
                     prom.custom_created_by_monthly_promotion = 1
-                    if e.new_grade != 0:
+                    prom.old_promotion_date = e.old_promotion_date
+                     
+                    if e.new_grade and e.new_grade != 0:
                         prom.append(
                             "promotion_details",
                             {
@@ -54,7 +57,7 @@ class MonthlyPromotion(Document):
                                 "new": e.new_grade,
                             },
                         )
-                    if e.new_dependent != 0:
+                    if e.new_dependent and e.new_dependent != 0:
                         prom.append(
                             "promotion_details",
                             {
@@ -64,14 +67,10 @@ class MonthlyPromotion(Document):
                             },
                         )
                     prom.save()
-                    frappe.db.set_value("Monthly Promotion Table", e.name,
-                                        "employee_promotion", prom.name)
+                    frappe.db.set_value("Monthly Promotion Table", e.name, "employee_promotion", prom.name)
                     prom.submit()
                     frappe.db.commit()
 
-                except Exception as e:
-                    frappe.log_error("Error while creating Employee Promotion")
-                    return
         else:
             throw(_("Employees table canot be empty."))
 
@@ -93,88 +92,89 @@ class MonthlyPromotion(Document):
     def get_employees(self):
         employees = {}
         employees = frappe.db.sql(
-            f""" SELECT *  FROM `tabEmployee` WHERE status = 'Active' AND custom_contract_type = 'Local contract' """, as_dict=1)
+            f""" SELECT *  FROM `tabEmployee` WHERE status = 'Active' AND custom_contract_type = 'Local contract' AND designation !="" AND grade !="" """, as_dict=1)
 
         if len(employees) > 0:
             for emp in employees:
-                if emp.designation:
-                    designation_doc = frappe.get_doc('Designation', emp.designation)
-                    if emp.grade:
-                        try:
-                            if emp.custom_last_promotion_date:
-                                
-                                if designation_doc.custom_grade_promotion_year:
-                                    # check the comparison.
-                                    # print(date_diff(date.today(), emp.custom_last_promotion_date) > (designation_doc.custom_grade_promotion_year * 340))
-                                    if date_diff(date.today(), emp.custom_last_promotion_date) > (designation_doc.custom_grade_promotion_year * 340):
-                                        if designation_doc.custom_designation_grade:
-                                            for row in designation_doc.custom_designation_grade:
-                                                if row.from_grade == emp.grade:
-                                                    self.append(
-														"employee_table",
-														{
-															"employee": emp.name,
-															"full_name": emp.full_name,
-															"branch": emp.branch,
-															"designation": emp.designation,
-															"current_grade": emp.grade,
-															"new_grade": row.to_grade,
-															"current_dependent": emp.custom_dependent,
-															"new_dependent": emp.custom_dependent+1, },)
+                designation_doc = frappe.get_doc('Designation', emp.designation)
+                try:
+                    if emp.custom_last_promotion_date:
+                        if designation_doc.custom_grade_promotion_year:
+                            self.grade_promo(
+                                emp, designation_doc.name, emp.custom_last_promotion_date)
 
-                                    elif designation_doc.custom_dependent_promotion_year:
-                                        if date_diff(date.today(), emp.custom_last_promotion_date) > (designation_doc.custom_dependent_promotion_year * 340):
-                                            self.append(
-                                                "employee_table",
-                                                {
-                                                    "employee": emp.name,
-                                                    "full_name": emp.full_name,
-                                                    "branch": emp.branch,
-                                                    "designation": emp.designation,
-                                                    "current_grade": emp.grade,
-                                                    "current_dependent": emp.custom_dependent,
-                                                    "new_dependent": emp.custom_dependent+1,
-                                                },)
+                        elif designation_doc.custom_dependent_promotion_year:
+                            self.dependent_promo(
+                                emp, designation_doc.name, emp.custom_last_promotion_date)
 
-                            elif emp.date_of_joining:
-                                if designation_doc.custom_grade_promotion_year:
-                                    if date_diff(date.today(), emp.date_of_joining) > (designation_doc.custom_grade_promotion_year * 340):
-                                        if designation_doc.custom_designation_grade:
-                                            for row in designation_doc.custom_designation_grade:
-                                                if row.from_grade == emp.grade:
-                                                    self.append(
-														"employee_table",
-														{
-															"employee": emp.name,
-															"full_name": emp.full_name,
-															"branch": emp.branch,
-															"designation": emp.designation,
-															"current_grade": emp.grade,
-															"new_grade": row.to_grade,
-															"current_dependent": emp.custom_dependent,
-															"new_dependent": emp.custom_dependent+1, },)
-                                
-                                    elif designation_doc.custom_dependent_promotion_year:
-                                        if date_diff(date.today(), emp.date_of_joining) > (designation_doc.custom_dependent_promotion_year * 340):
-                                            self.append(
-                                                "employee_table",
-                                                {
-                                                    "employee": emp.name,
-                                                    "full_name": emp.full_name,
-                                                    "branch": emp.branch,
-                                                    "designation": emp.designation,
-                                                    "current_grade": emp.grade,
-                                                    "current_dependent": emp.custom_dependent,
-                                                    "new_dependent": emp.custom_dependent+1,
-                                                },)
-                                
-                        except Exception as emp:
-                            frappe.log_error("Error while Getting Employees")
-                    
-                    # elif emp.custom_dependent
+                    # elif emp.date_of_joining:
+                    #     if designation_doc.custom_grade_promotion_year:
+                    #         self.grade_promo(emp,designation_doc.name,emp.date_of_joining)
+
+                    #     elif designation_doc.custom_dependent_promotion_year:
+                    #         self.dependent_promo(emp,designation_doc.name,emp.date_of_joining)
+
+                except Exception as emp:
+                    frappe.log_error("Error while Getting Employees")
 
         elif len(employees) == 0:
             msgprint(
-                _("There is no Active employess with contract type = Local contract ."))
+                _("There is no Active employess with contract type 'Local contract'."))
 
         return (str(employees))
+
+    def grade_promo(self, emp_doc, designation_name, emp_promo_date):
+        designation_doc = frappe.get_doc('Designation', designation_name)
+        # emp_promo_date compare with designation_doc.custom_grade_promotion_year
+        int_auto_grade = int(designation_doc.custom_grade_promotion_year)
+        promotion_date = emp_promo_date + relativedelta(years=int_auto_grade)
+        
+        if promotion_date.year == self.year:
+            if promotion_date.month == self.month_number:
+                if designation_doc.custom_designation_grade:
+                    for row in designation_doc.custom_designation_grade:
+                        if row.from_grade == emp_doc.grade:
+                            self.append(
+                                "employee_table",
+                                {
+                                    "employee": emp_doc.name,
+                                    "full_name": emp_doc.full_name,  
+                                    "branch": emp_doc.branch,
+                                    "designation": emp_doc.designation,
+                                    "current_grade": emp_doc.grade,
+                                    "new_grade": row.to_grade,
+                                    "current_dependent": emp_doc.custom_dependent,
+                                    "new_dependent": emp_doc.custom_dependent+1,
+                                    "promotion_date": promotion_date,
+                                    "old_promotion_date":emp_promo_date,
+                                },
+                            )
+                        else:
+                            self.dependent_promo(emp_doc, designation_name, emp_promo_date)
+                else:
+                    self.dependent_promo(emp_doc, designation_name, emp_promo_date)
+
+        else:
+            self.dependent_promo(emp_doc, designation_name, emp_promo_date)
+
+    def dependent_promo(self, emp_doc, designation_name, emp_promo_date):
+        designation_doc = frappe.get_doc('Designation', designation_name)
+        # emp_promo_date compare with designation_doc.custom_dependent_promotion_year
+        int_auto_dependent = int(designation_doc.custom_dependent_promotion_year)
+        promotion_date = emp_promo_date + relativedelta(years=int_auto_dependent)
+        
+        if promotion_date.year == self.year:
+            if promotion_date.month == self.month_number:
+                self.append(
+                    "employee_table",
+                    {
+                        "employee": emp_doc.name,
+                        "full_name": emp_doc.full_name,
+                        "branch": emp_doc.branch,
+                        "designation": emp_doc.designation,
+                        "current_grade": emp_doc.grade,
+                        "current_dependent": emp_doc.custom_dependent,
+                        "new_dependent": emp_doc.custom_dependent+1,
+                        "promotion_date": promotion_date,
+                        "old_promotion_date":emp_promo_date,
+                    },)
