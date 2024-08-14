@@ -1,5 +1,4 @@
 {
- "_liked_by": "[\"Administrator\"]",
  "actions": [],
  "allow_rename": 1,
  "autoname": "naming_series:",
@@ -11,6 +10,7 @@
  "field_order": [
   "naming_series",
   "month",
+  "month_number",
   "column_break_valzv",
   "status",
   "year",
@@ -82,12 +82,18 @@
    "fieldname": "get_employees",
    "fieldtype": "Button",
    "label": "Get Employees"
+  },
+  {
+   "fieldname": "month_number",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Month number"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-04-29 13:01:30.284984",
+ "modified": "2024-08-12 15:32:48.986912",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Monthly Promotion",

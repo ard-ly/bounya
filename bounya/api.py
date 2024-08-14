@@ -273,9 +273,16 @@ def create_external_work_history(doc, method):
 
                 if row.property == "Designation":
                     work_history.designation = row.new
+                else:
+                    work_history.designation = doc.custom_currennt_designation
 
                 if row.property == "Dependent":
                     work_history.custom_dependent = row.new
+                
+                if row.property == "Branch":
+                    work_history.branch = row.new
+                else:
+                    work_history.branch = doc.custom_branch
 
             work_history.insert(ignore_permissions=True)
             frappe.db.set_value(
@@ -305,22 +312,16 @@ def cancel_external_work_history(doc, method):
             as_dict=True,
         )
         frappe.db.commit()
-        last_pro_date = frappe.get_last_doc(
-            "Employee Promotion", filters={"employee": "HR-EMP-00002", "docstatus": 1}
-        )
-        # frappe.db.sql(f""" SELECT promotion_date  FROM `tabEmployee Promotion` WHERE employee = '{doc.employee}' AND docstatus =1 ORDER BY promotion_date DESC LIMIT 1 """,as_dict=True)
-        if last_pro_date:
-            frappe.db.set_value(
-                "Employee",
-                doc.employee,
-                "custom_last_promotion_date",
-                last_pro_date.promotion_date,
-            )
-
-        else:
-            frappe.db.set_value(
-                "Employee", doc.employee, "custom_last_promotion_date", " "
-            )
+        frappe.db.set_value("Employee",doc.employee,"custom_last_promotion_date",doc.custom_old_promotion_date)
+        # last_pro_date = frappe.get_last_doc(
+        #     "Employee Promotion", filters={"employee": doc.employee, "docstatus": 1})
+        # if last_pro_date:
+        #     frappe.db.set_value(
+        #         "Employee",
+        #         doc.employee,
+        #         "custom_last_promotion_date",
+        #         last_pro_date.promotion_date,
+        #     )
 
 
 # Ajax Call for "Loan Application".

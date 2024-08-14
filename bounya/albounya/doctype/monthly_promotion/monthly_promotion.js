@@ -3,20 +3,21 @@
 
 frappe.ui.form.on('Monthly Promotion', {
 	
-	setup: function (frm) {
+	onload: function (frm) {
 		
-		if (frm.is_new()) {
+		// if (frm.is_new()) {
 			let monthes = ['January' , 'February' , 'March' , 'April' , 'May' , 'June' , 'July' , 'August' , 'September' , 'October' , 'November' , 'December']
 			const today = new Date();
 			let month = today.getMonth(); // returns from 0 to 11
 			frm.doc.month = monthes[month];
+			frm.doc.month_number = month+1;
 
 			const d = new Date();
 			let year = d.getFullYear();
 			frm.doc.year = year
 
 			frm.refresh_fields();
-		};
+		// };
 	},
 	
 	get_employees(frm) {
