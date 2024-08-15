@@ -107,12 +107,12 @@ class MonthlyPromotion(Document):
                             self.dependent_promo(
                                 emp, designation_doc.name, emp.custom_last_promotion_date)
 
-                    # elif emp.date_of_joining:
-                    #     if designation_doc.custom_grade_promotion_year:
-                    #         self.grade_promo(emp,designation_doc.name,emp.date_of_joining)
+                    elif emp.date_of_joining:
+                        if designation_doc.custom_grade_promotion_year:
+                            self.grade_promo(emp,designation_doc.name,emp.date_of_joining)
 
-                    #     elif designation_doc.custom_dependent_promotion_year:
-                    #         self.dependent_promo(emp,designation_doc.name,emp.date_of_joining)
+                        elif designation_doc.custom_dependent_promotion_year:
+                            self.dependent_promo(emp,designation_doc.name,emp.date_of_joining)
 
                 except Exception as emp:
                     frappe.log_error("Error while Getting Employees")
@@ -131,7 +131,7 @@ class MonthlyPromotion(Document):
         
         if promotion_date.year == self.year:
             if promotion_date.month == self.month_number:
-                if designation_doc.custom_designation_grade:
+                if len(designation_doc.custom_designation_grade) != 0:
                     for row in designation_doc.custom_designation_grade:
                         if row.from_grade == emp_doc.grade:
                             self.append(
@@ -163,7 +163,7 @@ class MonthlyPromotion(Document):
         int_auto_dependent = int(designation_doc.custom_dependent_promotion_year)
         promotion_date = emp_promo_date + relativedelta(years=int_auto_dependent)
         
-        if promotion_date.year == self.year:
+        if promotion_date.year <= self.year:
             if promotion_date.month == self.month_number:
                 self.append(
                     "employee_table",
