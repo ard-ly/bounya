@@ -695,3 +695,30 @@ def set_custom_supplier_group_sequence_field(doc, method):
     # frappe.msgprint(str(f"{result}{new_number}"))
     frappe.db.commit()
     doc.reload()
+
+@frappe.whitelist()
+def get_address_html(link_doctype,link_name):
+    address_name = frappe.db.sql(f"""select parent from `tabDynamic Link` where link_doctype = "{link_doctype}" and parenttype = "Address" and link_name = "{link_name}" """)
+    if address_name:
+        address_doc = frappe.get_doc("Address", address_name[0][0])
+        address_html = """<p> Address <br>"""+ address_doc.address_line1 +""", <br>"""+ address_doc.city+ """, <br>""" +address_doc.country + """</p>"""
+    return address_html
+
+
+@frappe.whitelist()
+def get_party_contact(link_doctype,link_name):
+        Contact_name = frappe.db.sql(f"""select parent from `tabDynamic Link` where link_doctype = "{link_doctype}" and parenttype = "Contact" and link_name = "{link_name}" """)
+        if Contact_name:
+            Contact_doc = frappe.get_doc("Contact", Contact_name[0][0])
+            user=""
+            phone = ""
+            if Contact_doc.user:
+               user =  Contact_doc.user
+            if Contact_doc.phone:
+                phone = Contact_doc.phone
+            elif Contact_doc.mobile_no:
+                phone = Contact_doc.mobile_no
+
+        return {"user":user,
+                "phone":phone,
+                }
