@@ -20,7 +20,7 @@ class CustomSalarySlip(SalarySlip):
             frappe.qb.from_(ssa)
             .join(ss)
             .on(ssa.salary_structure == ss.name )
-            .select(ssa.salary_structure , ssa.custom_performance_factor , ssa.custom_evaluation)
+            .select(ssa.salary_structure , ssa.custom_performance_factor_ , ssa.custom_evaluation)
             .where(
                 (ssa.docstatus == 1)
                 & (ss.docstatus == 1)
