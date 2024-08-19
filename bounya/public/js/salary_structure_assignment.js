@@ -43,15 +43,15 @@ frappe.ui.form.on('Salary Structure Assignment', {
     
     // // 90:00
     custom_evaluation : function(frm) {
-        frm.set_value('custom_performance_factor' , 0.0)
+        frm.set_value('custom_performance_factor_' , 0.0)
         if (frm.doc.custom_evaluation == 'Good') {
-            frm.set_value('custom_performance_factor' , 0.15)
+            frm.set_value('custom_performance_factor_' , 0.15)
         }
         if (frm.doc.custom_evaluation == 'Hassan') {
-            frm.set_value('custom_performance_factor' , 0.2)
+            frm.set_value('custom_performance_factor_' , 0.2)
         }
         if (frm.doc.custom_evaluation == 'high') {
-            frm.set_value('custom_performance_factor' , 0.3)
+            frm.set_value('custom_performance_factor_' , 0.3)
         }
     },
     // custom_marital_status: function(frm) {
