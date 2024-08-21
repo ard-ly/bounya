@@ -40,6 +40,8 @@ doctype_js = {
     "Payroll Entry": "public/js/payroll_entry.js",
     "Loan Application": "public/js/loan_application.js",
     "Contract":"public/js/contract.js",
+    "Purchase Order":"public/js/purchase_order.js",
+    "Sales Order":"public/js/sales_order.js",
 }
 doctype_list_js = {
     "Salary Slip": "public/js/salary_slip.js",
