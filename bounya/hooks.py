@@ -243,7 +243,7 @@ override_whitelisted_methods = {
 
 ignore_links_on_delete = ["Salary SLip", "Additional Salary"]
 ignore_links_on_delete = ["Additional Salary", "Salary SLip"]
-
+ignore_links_on_delete = ["Department", "Salary Slip", "Additional Salary" , "Employee" , "Monthly Variables" , "Salary Structure Assignment"]
 # Request Events
 # ----------------
 # before_request = ["bounya.utils.before_request"]
