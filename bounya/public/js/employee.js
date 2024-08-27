@@ -16,7 +16,13 @@ frappe.ui.form.on("Employee", "onload", function(frm){
           },
         };
   });
-
 });    
+  
+// frappe.ui.form.on('Employee', {
+//   // frm passed as the first parameter
+//   setup(frm) {
+//       frm.doc.employee_number = 88888888888
+//       frm.refresh_fields();
+//   },
 
-
+// })
