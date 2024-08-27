@@ -67,7 +67,6 @@ class CustomPayrollEntry(PayrollEntry):
 		
 	@frappe.whitelist()
 	def make_payment_entry(self):
-		frappe.msgprint("Husaam")
 		self.check_permission("write")
 		self.employee_based_payroll_payable_entries = {}
 		process_payroll_accounting_entry_based_on_employee = frappe.db.get_single_value(
