@@ -93,15 +93,18 @@ import re
 
 # this code work in employee fileds for bank branches
 
+
 @frappe.whitelist()
 def get_salary_components(doc):
     components = []
-    component_list = frappe.db.get_all('Salary Component Settings', fields=['salary_component'],)
+    component_list = frappe.db.get_all(
+        'Salary Component Settings', fields=['salary_component'],)
 
     for c in component_list:
         components.append(str(c.salary_component))
     return components
-	
+
+
 @frappe.whitelist()
 def fetch_bank_branch_list(doctype, txt, searchfield, start, page_len, filters):
     return frappe.db.sql(
@@ -198,7 +201,8 @@ def money_in_words(number, main_currency=None, fraction_currency=None):
         ) or _("Cent")
 
     number_format = (
-        frappe.db.get_value("Currency", main_currency, "number_format", cache=True)
+        frappe.db.get_value("Currency", main_currency,
+                            "number_format", cache=True)
         or frappe.db.get_default("number_format")
         or "#,###.##"
     )
@@ -225,7 +229,8 @@ def money_in_words(number, main_currency=None, fraction_currency=None):
         out = "{0} {1}".format(main_currency, _("Zero"))
     # 0.XX
     elif main == "0":
-        out = _(in_words(fraction, in_million).title()) + " " + fraction_currency
+        out = _(in_words(fraction, in_million).title()) + \
+            " " + fraction_currency
     else:
         out = _(in_words(main, in_million).title()) + " " + main_currency
         if cint(fraction):
@@ -273,9 +278,16 @@ def create_external_work_history(doc, method):
 
                 if row.property == "Designation":
                     work_history.designation = row.new
+                else:
+                    work_history.designation = doc.custom_currennt_designation
 
                 if row.property == "Dependent":
                     work_history.custom_dependent = row.new
+
+                if row.property == "Branch":
+                    work_history.branch = row.new
+                else:
+                    work_history.branch = doc.custom_branch
 
             work_history.insert(ignore_permissions=True)
             frappe.db.set_value(
@@ -305,22 +317,17 @@ def cancel_external_work_history(doc, method):
             as_dict=True,
         )
         frappe.db.commit()
-        last_pro_date = frappe.get_last_doc(
-            "Employee Promotion", filters={"employee": "HR-EMP-00002", "docstatus": 1}
-        )
-        # frappe.db.sql(f""" SELECT promotion_date  FROM `tabEmployee Promotion` WHERE employee = '{doc.employee}' AND docstatus =1 ORDER BY promotion_date DESC LIMIT 1 """,as_dict=True)
-        if last_pro_date:
-            frappe.db.set_value(
-                "Employee",
-                doc.employee,
-                "custom_last_promotion_date",
-                last_pro_date.promotion_date,
-            )
-
-        else:
-            frappe.db.set_value(
-                "Employee", doc.employee, "custom_last_promotion_date", " "
-            )
+        frappe.db.set_value("Employee", doc.employee,
+                            "custom_last_promotion_date", doc.custom_old_promotion_date)
+        # last_pro_date = frappe.get_last_doc(
+        #     "Employee Promotion", filters={"employee": doc.employee, "docstatus": 1})
+        # if last_pro_date:
+        #     frappe.db.set_value(
+        #         "Employee",
+        #         doc.employee,
+        #         "custom_last_promotion_date",
+        #         last_pro_date.promotion_date,
+        #     )
 
 
 # Ajax Call for "Loan Application".
@@ -448,37 +455,40 @@ def overwrite_salary_slip(doc, method):
             ss_doc.save()
 
 # Additional Salary on_cancel event.
+
+
 @frappe.whitelist()
 def cancel_salary_slip_overwrite(doc, method):
-        doc.flags.ignore_links = True
-        frappe.db.commit()
-        doc = frappe.get_doc("Additional Salary", doc.name)
-        if (doc.custom_employee_salary_slip):
-            if (frappe.get_doc("Salary Slip", doc.custom_employee_salary_slip).docstatus != 1):
-                try :
-                    ss_name = frappe.db.get_value('Salary Detail', {'additional_salary': doc.name}, ['parent'])
-                    ss_doc = frappe.get_doc("Salary Slip", ss_name)
+    doc.flags.ignore_links = True
+    frappe.db.commit()
+    doc = frappe.get_doc("Additional Salary", doc.name)
+    if (doc.custom_employee_salary_slip):
+        if (frappe.get_doc("Salary Slip", doc.custom_employee_salary_slip).docstatus != 1):
+            try:
+                ss_name = frappe.db.get_value(
+                    'Salary Detail', {'additional_salary': doc.name}, ['parent'])
+                ss_doc = frappe.get_doc("Salary Slip", ss_name)
 
-                    if ss_doc.docstatus == 0:
+                if ss_doc.docstatus == 0:
 
-                        if doc.type == "Earning":
-                            for row in ss_doc.earnings:
-                                if row.salary_component == doc.salary_component and row.amount == doc.amount:
-                                    
-                                    ss_doc.earnings.remove(row)
-                                    ss_doc.save()
-                                    frappe.db.commit()
+                    if doc.type == "Earning":
+                        for row in ss_doc.earnings:
+                            if row.salary_component == doc.salary_component and row.amount == doc.amount:
 
-                        elif doc.type == "Deduction":
-                            for row in ss_doc.deductions:
-                                if row.salary_component == doc.salary_component and row.amount == doc.amount:
-
-                                    ss_doc.deductions.remove(row)
-                                    ss_doc.save()
+                                ss_doc.earnings.remove(row)
+                                ss_doc.save()
                                 frappe.db.commit()
-                except Exception:
-                    return "Salary Slip"
-        return "done"
+
+                    elif doc.type == "Deduction":
+                        for row in ss_doc.deductions:
+                            if row.salary_component == doc.salary_component and row.amount == doc.amount:
+
+                                ss_doc.deductions.remove(row)
+                                ss_doc.save()
+                            frappe.db.commit()
+            except Exception:
+                return "Salary Slip"
+    return "done"
 
 
 # Salary Slip on validate event.
@@ -487,7 +497,8 @@ def check_for_employee_external_advance(doc, method):
     # check for Employee External Loans.
     eea_list = frappe.get_all(
         "Employee External Loans",
-        filters={"employee": doc.employee, "status": "Unpaid", "payment_disabled": 0},
+        filters={"employee": doc.employee,
+                 "status": "Unpaid", "payment_disabled": 0},
     )
 
     for row in eea_list:
@@ -548,12 +559,13 @@ def check_for_employee_external_advance(doc, method):
                     doc.name,
                 )
             else:
-                print("in ad_list else" ,)
+                print("in ad_list else",)
                 for ad in ad_list:
                     # ad_doc = frappe.get_doc("Employee External Loans", ad.custom_employee_external_loans)
                     ad_doc = frappe.get_doc("Additional Salary", ad.name)
                     # new row in External Loans Repayment.
-                    new_repayment_row = frappe.new_doc("External Loans Repayment")
+                    new_repayment_row = frappe.new_doc(
+                        "External Loans Repayment")
                     new_repayment_row.salary_slip = doc.name
                     new_repayment_row.additional_salary = ad_doc.name
                     new_repayment_row.status = doc.status
@@ -580,7 +592,8 @@ def update_external_advance_on_submit(doc, method):
 
             # update remaining_amount,paid_amount.
             repay_doc = frappe.get_doc("External Loans Repayment", row.name)
-            eea_doc = frappe.get_doc("Employee External Loans", repay_doc.parent)
+            eea_doc = frappe.get_doc(
+                "Employee External Loans", repay_doc.parent)
 
             new_paid = eea_doc.paid_amount + repay_doc.amount
             new_remain = eea_doc.remaining_amount - repay_doc.amount
@@ -616,7 +629,8 @@ def update_external_advance_on_cancel(doc, method):
 
             # update remaining_amount,paid_amount.
             repay_doc = frappe.get_doc("External Loans Repayment", row.name)
-            eea_doc = frappe.get_doc("Employee External Loans", repay_doc.parent)
+            eea_doc = frappe.get_doc(
+                "Employee External Loans", repay_doc.parent)
 
             new_paid = eea_doc.paid_amount - repay_doc.amount
             new_remain = eea_doc.remaining_amount + repay_doc.amount
@@ -641,7 +655,8 @@ def update_external_advance_on_cancel(doc, method):
                 )
 
             # cancel Additional Salary.
-            ad_doc = frappe.get_doc("Additional Salary", repay_doc.additional_salary)
+            ad_doc = frappe.get_doc(
+                "Additional Salary", repay_doc.additional_salary)
             ad_doc.cancel()
 
 
@@ -649,7 +664,7 @@ def update_external_advance_on_cancel(doc, method):
 @frappe.whitelist()
 def update_component_order(doc, method):
     sd_list = frappe.db.sql(
-        f""" select name from `tabSalary Detail` WHERE salary_component = '{doc.salary_component}' """,
+        f""" select name from `tabSalary Detail` WHERE salary_component = '{doc.name}' """,
         as_dict=True,
     )
     print(sd_list)
@@ -697,14 +712,124 @@ def set_custom_supplier_group_sequence_field(doc, method):
 
 
 @frappe.whitelist()
-def calculate_exp_yrears_in_employee():
-    frappe.db.sql(
-         f"""
-         UPDATE tabEmployee AS e
-         SET
-         e.custom_total_insed_experience_in_years =DATEDIFF(NOW(), e.date_of_joining)/365
-         e.custom_total_experience_in_years  = (DATEDIFF(NOW(), e.date_of_joining)/365 + e.custom_total_external_experians_year )
-             WHERE e.status = "Active";
-         """)
+def get_address_html(link_doctype, link_name):
+    address_name = frappe.db.sql(
+        f"""select parent from `tabDynamic Link` where link_doctype = "{link_doctype}" and parenttype = "Address" and link_name = "{link_name}" """)
+    if address_name:
+        address_doc = frappe.get_doc("Address", address_name[0][0])
+        address_html = address_doc.address_line1 + \
+            """, \n""" + address_doc.city + """, \n""" + address_doc.country 
+    return address_html
 
 
+@frappe.whitelist()
+def get_party_contact(link_doctype, link_name):
+    Contact_name = frappe.db.sql(
+        f"""select parent from `tabDynamic Link` where link_doctype = "{link_doctype}" and parenttype = "Contact" and link_name = "{link_name}" """)
+    if Contact_name:
+        Contact_doc = frappe.get_doc("Contact", Contact_name[0][0])
+        user = ""
+        phone = ""
+        if Contact_doc.user:
+            user = Contact_doc.user
+        if Contact_doc.phone:
+            phone = Contact_doc.phone
+        elif Contact_doc.mobile_no:
+            phone = Contact_doc.mobile_no
+
+    return {"user": user,
+            "phone": phone,
+            }
+
+
+@frappe.whitelist()
+def create_contract_from_po(source, target=None):
+    def set_missing_values(source, target):
+        target.document_type = 'Purchase Order'
+        target.document_name = source.name
+        target.custom_service_value = source.total
+        target.custom_tax = source.total_taxes_and_charges
+        target.custom_total = source.grand_total
+        target.party_type = 'Supplier'
+        target.party_name = source.supplier
+        sup_doc = frappe.get_doc('Supplier', source.supplier)
+        if sup_doc.custom_commercial_register:
+            target.custom_second_party_commercial_register = sup_doc.custom_commercial_register
+
+        if sup_doc.custom_registration_date:
+            target.custom_second_party_registration_date = sup_doc.custom_registration_date
+        
+        if sup_doc.custom_classification:
+            target.custom_second_party_classification = sup_doc.custom_classification
+        
+        if sup_doc.custom_license_number:
+            target.custom_second_party_id_number = sup_doc.custom_license_number
+
+        address = get_address_html('Supplier', source.supplier)
+        if address:
+            target.custom_second_party_address_html = address
+        contact = get_party_contact('Supplier', source.supplier)
+        if contact:
+            target.party_user = contact['user']
+            target.custom_second_party_phone = contact['phone']
+        target.run_method("set_missing_values")
+
+    doc = get_mapped_doc(
+        "Purchase Order",
+        source,
+        {
+            "Purchase Order": {
+                "doctype": "Contract",
+            },
+        },
+        target,
+        set_missing_values,
+        )
+    return doc
+
+@frappe.whitelist()
+def create_contract_from_so(source, target=None):
+    def set_missing_values(source, target):
+        target.document_type = 'Sales Order'
+        target.document_name = source.name
+        target.custom_service_value = source.total
+        target.custom_tax = source.total_taxes_and_charges
+        target.custom_total = source.grand_total
+        target.party_type = 'Customer'
+        target.party_name = source.customer
+        cus_doc = frappe.get_doc('Customer', source.customer)
+
+        if cus_doc.custom_commercial_register:
+            target.custom_second_party_commercial_register = cus_doc.custom_commercial_register
+
+        if cus_doc.custom_registration_date:
+            target.custom_second_party_registration_date = cus_doc.custom_registration_date
+        
+        if cus_doc.custom_classification:
+            target.custom_second_party_classification = cus_doc.custom_classification
+        
+        if cus_doc.custom_license_number:
+            target.custom_second_party_id_number = cus_doc.custom_license_number
+
+        address = get_address_html('Customer', source.customer)
+        if address:
+            target.custom_second_party_address_html = address
+        contact = get_party_contact('Customer', source.customer)
+        if contact:
+            target.party_user = contact['user']
+            target.custom_second_party_phone = contact['phone']
+        
+        target.run_method("set_missing_values")
+
+    doc = get_mapped_doc(
+        "Sales Order",
+        source,
+        {
+            "Sales Order": {
+                "doctype": "Contract",
+            },
+        },
+        target,
+        set_missing_values,
+        )
+    return doc

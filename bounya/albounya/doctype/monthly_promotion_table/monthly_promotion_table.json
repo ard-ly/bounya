@@ -1,5 +1,4 @@
 {
- "_liked_by": "[\"Administrator\"]",
  "actions": [],
  "allow_rename": 1,
  "creation": "2024-04-23 13:43:14.369581",
@@ -16,6 +15,7 @@
   "current_dependent",
   "new_dependent",
   "promotion_date",
+  "old_promotion_date",
   "employee_promotion"
  ],
  "fields": [
@@ -40,8 +40,7 @@
    "fieldtype": "Link",
    "label": "Branch",
    "options": "Branch",
-   "read_only": 1,
-   "reqd": 1
+   "read_only": 1
   },
   {
    "columns": 1,
@@ -100,12 +99,18 @@
    "fieldtype": "Date",
    "label": "Promotion Date",
    "reqd": 1
+  },
+  {
+   "fieldname": "old_promotion_date",
+   "fieldtype": "Date",
+   "hidden": 1,
+   "label": "Old Promotion Date"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-04-29 10:36:01.280714",
+ "modified": "2024-08-13 11:58:51.816096",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Monthly Promotion Table",

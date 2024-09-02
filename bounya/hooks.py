@@ -39,6 +39,9 @@ doctype_js = {
     "Salary Slip": "public/js/salary_slip.js",
     "Payroll Entry": "public/js/payroll_entry.js",
     "Loan Application": "public/js/loan_application.js",
+    "Contract":"public/js/contract.js",
+    "Purchase Order":"public/js/purchase_order.js",
+    "Sales Order":"public/js/sales_order.js",
 }
 doctype_list_js = {
     "Salary Slip": "public/js/salary_slip.js",
@@ -306,8 +309,7 @@ ignore_links_on_delete = ["Department", "Salary Slip", "Additional Salary" , "Em
 fixtures = [
     {"dt": "Custom Field", "filters": [["module", "in", ["Albounya"]]]},
     {"dt": "Translation"},
-    {
-        "dt": "Custom Field",
+    {"dt": "Custom Field",
         "filters": [
             [
                 "name",
@@ -319,18 +321,16 @@ fixtures = [
             ]
         ],
     },
-    {
-        "dt": "Letter Head",
+    {"dt": "Letter Head",
         "filters": [
             [
                 "name",
                 "in",
-                ["bounya", "Bounya LH"],
+                ["bounya","Contract LH"],
             ]
         ],
     },
-    {
-        "dt": "Workflow",
+    {"dt": "Workflow",
         "filters": [
             [
                 "name",
@@ -342,4 +342,16 @@ fixtures = [
             ]
         ],
     },
+    # {"dt": "Role",
+    #     "filters": [
+    #         [
+    #             "name",
+    #             "in",
+    #             [
+    #                 "Contracts Unit Employee",
+                    
+    #             ],
+    #         ]
+    #     ],
+    # },
 ]
