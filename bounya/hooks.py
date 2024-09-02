@@ -195,6 +195,14 @@ doc_events = {
 # Scheduled Tasks
 # ---------------
 
+scheduler_events = {
+
+	"monthly": [
+		"bounya.tasks.calculate_exp_yrears_in_employee"
+	],
+}
+
+
 # scheduler_events = {
 # 	"all": [
 # 		"bounya.tasks.all"
