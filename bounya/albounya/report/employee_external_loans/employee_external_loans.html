@@ -35,7 +35,7 @@
 <div class="print-date" style="text-align: left;">{{date}}</div>
 
 <div class="head"  style="padding: 4px; text-align: center; font-size: 18px; font-weight: 800; margin-top: 25px; text-decoration: underline;">
-    {%= __(report.report_name) %}
+    {%= __(تقرير استقطاع السلف الخارجية) %}
 </div>
 
 
@@ -47,7 +47,7 @@
         {% endif %}
 
         {% if filters.department %}
-            <div>القسم : {%= __(filters.department) || "" %}</div>
+            <div>الفرع : {%= __(filters.branch) || "" %}</div>
         {% endif %}
 
         {% if filters.status %}
@@ -67,7 +67,7 @@
         <tr>
             <th><div class="col-label">{%= __("الموظف") %}</div></th>
             <th><div class="col-label">{%= __("اسم الموظف") %}</div></th>
-            <th><div class="col-label">{%= __("القسم") %}</div></th>
+            <th><div class="col-label">{%= __("الفرع") %}</div></th>
             <th><div class="col-label">{%= __("النوع") %}</div></th>
             <th><div class="col-label">{%= __("الحالة") %}</div></th>
             <th><div class="col-label">{%= __("مبلغ السلفة") %}</div></th>
@@ -81,7 +81,7 @@
             <tr>
                 <td>{{data[i].employee}}</td>
                 <td>{{data[i].employee_name}}</td>
-                <td>{{data[i].department}}</td>
+                <td>{{data[i].branch}}</td>
                 <td>{{data[i].type}}</td>
                 <td>{{__(data[i].status)}}</td>
                 <td>{{data[i].advance_amount}}</td>
