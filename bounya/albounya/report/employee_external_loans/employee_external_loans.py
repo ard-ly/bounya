@@ -23,10 +23,10 @@ def get_columns():
             "fieldtype": "Data",
         },
         {
-            "label": _("Department"),
-            "fieldname": "department",
+            "label": _("Branch"),
+            "fieldname": "branch",
             "fieldtype": "Link",
-            "options": "Department",
+            "options": "Branch",
         },
         {
             "label": _("Type"),
@@ -75,14 +75,14 @@ def get_data(conditions):
 def get_conditions(filters):
     conditions = " WHERE docstatus=1"
     employee = filters.get("employee")
-    bracnh = filters.get("bracnh") 
+    branch = filters.get("branch") 
     status = filters.get("status")
     type = filters.get("type")
        
     if employee:
         conditions += " AND employee = '{0}' ".format(employee)
-    if bracnh:
-          conditions += " AND department = '{0}' ".format(bracnh)
+    if branch:
+          conditions += " AND branch = '{0}' ".format(branch)
     if status:
           conditions += " AND status = '{0}' ".format(status)
     if type:
