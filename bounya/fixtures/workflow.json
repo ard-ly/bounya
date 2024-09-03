@@ -11,6 +11,7 @@
   "states": [
    {
     "allow_edit": "Purchase User",
+    "avoid_status_override": 0,
     "doc_status": "0",
     "is_optional_state": 0,
     "message": null,
@@ -24,6 +25,7 @@
    },
    {
     "allow_edit": "\u0627\u0644\u0645\u062f\u064a\u0631 \u0627\u0644\u0639\u0627\u0645",
+    "avoid_status_override": 0,
     "doc_status": "0",
     "is_optional_state": 0,
     "message": null,
@@ -37,6 +39,7 @@
    },
    {
     "allow_edit": "\u0627\u0644\u0645\u062f\u064a\u0631 \u0627\u0644\u0639\u0627\u0645",
+    "avoid_status_override": 0,
     "doc_status": "2",
     "is_optional_state": 0,
     "message": null,
@@ -50,6 +53,7 @@
    },
    {
     "allow_edit": "\u0631\u0626\u064a\u0633 \u0645\u062c\u0644\u0633 \u0627\u0644\u0627\u062f\u0627\u0631\u0629",
+    "avoid_status_override": 0,
     "doc_status": "0",
     "is_optional_state": 0,
     "message": null,
@@ -63,6 +67,7 @@
    },
    {
     "allow_edit": "\u0631\u0626\u064a\u0633 \u0645\u062c\u0644\u0633 \u0627\u0644\u0627\u062f\u0627\u0631\u0629",
+    "avoid_status_override": 0,
     "doc_status": "2",
     "is_optional_state": 0,
     "message": null,
@@ -76,6 +81,7 @@
    },
    {
     "allow_edit": "Accounts Manager",
+    "avoid_status_override": 0,
     "doc_status": "0",
     "is_optional_state": 0,
     "message": null,
@@ -89,6 +95,7 @@
    },
    {
     "allow_edit": "Accounts Manager",
+    "avoid_status_override": 0,
     "doc_status": "2",
     "is_optional_state": 0,
     "message": null,
@@ -102,6 +109,7 @@
    },
    {
     "allow_edit": "\u0645\u062f\u064a\u0631 \u0642\u0633\u0645 \u0627\u0644\u062a\u062d\u0635\u064a\u0644",
+    "avoid_status_override": 0,
     "doc_status": "0",
     "is_optional_state": 0,
     "message": null,
@@ -115,6 +123,7 @@
    },
    {
     "allow_edit": "\u0645\u062f\u064a\u0631 \u0642\u0633\u0645 \u0627\u0644\u062a\u062d\u0635\u064a\u0644",
+    "avoid_status_override": 0,
     "doc_status": "2",
     "is_optional_state": 0,
     "message": null,
@@ -128,6 +137,7 @@
    },
    {
     "allow_edit": "Stock Manager",
+    "avoid_status_override": 0,
     "doc_status": "1",
     "is_optional_state": 0,
     "message": null,
@@ -141,6 +151,7 @@
    },
    {
     "allow_edit": "Stock Manager",
+    "avoid_status_override": 0,
     "doc_status": "0",
     "is_optional_state": 0,
     "message": null,
@@ -154,6 +165,7 @@
    },
    {
     "allow_edit": "\u0645\u062f\u064a\u0631 \u0627\u0644\u062a\u062c\u0627\u0631\u064a\u0629",
+    "avoid_status_override": 0,
     "doc_status": "1",
     "is_optional_state": 0,
     "message": null,
@@ -167,6 +179,7 @@
    },
    {
     "allow_edit": "\u0645\u062f\u064a\u0631 \u0627\u0644\u062a\u062c\u0627\u0631\u064a\u0629",
+    "avoid_status_override": 0,
     "doc_status": "0",
     "is_optional_state": 0,
     "message": null,
@@ -295,6 +308,7 @@
   "states": [
    {
     "allow_edit": "All",
+    "avoid_status_override": 0,
     "doc_status": "0",
     "is_optional_state": 0,
     "message": null,
@@ -308,6 +322,7 @@
    },
    {
     "allow_edit": "HR Manager",
+    "avoid_status_override": 0,
     "doc_status": "1",
     "is_optional_state": 0,
     "message": null,
@@ -321,6 +336,7 @@
    },
    {
     "allow_edit": "HR Manager",
+    "avoid_status_override": 0,
     "doc_status": "2",
     "is_optional_state": 0,
     "message": null,

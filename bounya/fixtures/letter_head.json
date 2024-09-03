@@ -10,7 +10,9 @@
   "footer_image": null,
   "footer_image_height": 0.0,
   "footer_image_width": 0.0,
+  "footer_script": null,
   "footer_source": "Image",
+  "header_script": null,
   "image": null,
   "image_height": 0.0,
   "image_width": 0.0,
@@ -18,7 +20,7 @@
   "letter_head_name": "Contract LH",
   "modified": "2024-08-17 15:25:39.678634",
   "name": "Contract LH",
-  "source": "HTML"
+  "source": "Image"
  },
  {
   "align": "Right",
@@ -31,7 +33,9 @@
   "footer_image": null,
   "footer_image_height": 0.0,
   "footer_image_width": 0.0,
+  "footer_script": null,
   "footer_source": "HTML",
+  "header_script": null,
   "image": null,
   "image_height": 0.0,
   "image_width": 0.0,
