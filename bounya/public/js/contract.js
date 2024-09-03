@@ -20,7 +20,6 @@ frappe.ui.form.on('Contract', {
                         console.log(r.message);
                         frm.doc.custom_first_party_address_html =  r.message;
                         frm.refresh_field("custom_first_party_address_html");
-                        // frm.set_df_property("custom_first_party_address_html", "options", r.message);
                     }
                 }
             })
@@ -43,7 +42,6 @@ frappe.ui.form.on('Contract', {
                         console.log(r.message);
                         frm.doc.custom_second_party_address_html =  r.message;
                         frm.refresh_field("custom_second_party_address_html");
-                        // frm.set_df_property("custom_second_party_address_html", "options", r.message);
                     }
                 }
             });

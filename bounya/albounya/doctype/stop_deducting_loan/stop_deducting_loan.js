@@ -6,14 +6,7 @@ frappe.ui.form.on('Stop Deducting Loan', {
 		if (frm.doc.docstatus == 1){
 			frm.set_df_property("get_employees", "hidden", 1);
 		}
-		// frm.set_query("loan", function () {
-		// 	return {
-		// 	  filters: [
-		// 		["Loan", 'docstatus', '=', 1 ],
-				
-		// 	  ],
-		// 	};
-		//   });
+	
 	},
 	refresh: function(frm) {
 		frm.fields_dict['stop_deducting_employees'].grid.get_field('loan').get_query = function(doc, cdt, cdn) {

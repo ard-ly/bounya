@@ -340,10 +340,25 @@ fixtures = [
     #             "name",
     #             "in",
     #             [
-    #                 "Contracts Unit Employee",
+    #                 "Tower Management",
+    #                 "Buildings Management",
                     
     #             ],
     #         ]
     #     ],
     # },
+    
+    # {"dt": "Asset Category",
+    #     "filters": [
+    #         [
+    #             "name",
+    #             "in",
+    #             [
+    #                 "Buildings",
+    #                 "Towers",
+    #             ],
+    #         ]
+    #     ],
+    # },
+    
 ]

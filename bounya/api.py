@@ -454,9 +454,8 @@ def overwrite_salary_slip(doc, method):
             )
             ss_doc.save()
 
+
 # Additional Salary on_cancel event.
-
-
 @frappe.whitelist()
 def cancel_salary_slip_overwrite(doc, method):
     doc.flags.ignore_links = True
