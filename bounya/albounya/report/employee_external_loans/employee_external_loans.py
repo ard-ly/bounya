@@ -23,10 +23,10 @@ def get_columns():
             "fieldtype": "Data",
         },
         {
-            "label": _("Department"),
-            "fieldname": "department",
+            "label": _("Branch"),
+            "fieldname": "branch",
             "fieldtype": "Link",
-            "options": "Department",
+            "options": "Branch",
         },
         {
             "label": _("Type"),
@@ -68,21 +68,21 @@ def get_columns():
 
 def get_data(conditions):
     data = frappe.db.sql(
-        f"""SELECT employee,employee_name,department,type,status,advance_amount,paid_amount,remaining_amount , monthly_repayment_amount FROM `tabEmployee External Loans` {conditions}""", as_dict=True)
+        f"""SELECT employee,employee_name,department,branch ,type,status,advance_amount,paid_amount,remaining_amount , monthly_repayment_amount FROM `tabEmployee External Loans` {conditions}""", as_dict=True)
     
     return data
 
 def get_conditions(filters):
     conditions = " WHERE docstatus=1"
     employee = filters.get("employee")
-    department = filters.get("department") 
+    branch = filters.get("branch") 
     status = filters.get("status")
     type = filters.get("type")
        
     if employee:
         conditions += " AND employee = '{0}' ".format(employee)
-    if department:
-          conditions += " AND department = '{0}' ".format(department)
+    if branch:
+          conditions += " AND branch = '{0}' ".format(branch)
     if status:
           conditions += " AND status = '{0}' ".format(status)
     if type:
