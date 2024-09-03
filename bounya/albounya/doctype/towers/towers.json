@@ -1,0 +1,180 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:serial_number",
+ "creation": "2024-09-02 09:14:23.665496",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "tower_name",
+  "serial_number",
+  "column_break_5xew4",
+  "branch",
+  "building_details_section",
+  "asset",
+  "location",
+  "details",
+  "column_break_ovrjw",
+  "tower_weigh",
+  "unit_of_measure",
+  "measurment",
+  "number_of_equipments",
+  "equipments_section",
+  "towers_equipment_table",
+  "references_section",
+  "contract",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "tower_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Tower Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "serial_number",
+   "fieldtype": "Data",
+   "label": "Serial Number",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "column_break_5xew4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "branch",
+   "fieldtype": "Link",
+   "label": "Branch",
+   "options": "Branch",
+   "reqd": 1
+  },
+  {
+   "fieldname": "building_details_section",
+   "fieldtype": "Section Break",
+   "label": "Tower Details"
+  },
+  {
+   "fieldname": "asset",
+   "fieldtype": "Link",
+   "label": "Asset",
+   "options": "Asset",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "asset.location",
+   "fieldname": "location",
+   "fieldtype": "Link",
+   "label": "Location",
+   "options": "Location",
+   "reqd": 1
+  },
+  {
+   "fieldname": "details",
+   "fieldtype": "Small Text",
+   "label": "Details"
+  },
+  {
+   "fieldname": "column_break_ovrjw",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "unit_of_measure",
+   "fieldtype": "Select",
+   "label": "Unit of Measure",
+   "options": "\nUnit\nNumber",
+   "reqd": 1
+  },
+  {
+   "fieldname": "measurment",
+   "fieldtype": "Float",
+   "label": "Measurment"
+  },
+  {
+   "fieldname": "equipments_section",
+   "fieldtype": "Section Break",
+   "label": "Equipments"
+  },
+  {
+   "fieldname": "towers_equipment_table",
+   "fieldtype": "Table",
+   "label": "Towers Equipment table",
+   "options": "Towers Equipment table",
+   "read_only": 1
+  },
+  {
+   "fieldname": "references_section",
+   "fieldtype": "Section Break",
+   "label": "References"
+  },
+  {
+   "fieldname": "contract",
+   "fieldtype": "Link",
+   "label": "Contract",
+   "options": "Contract"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Towers",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "tower_weigh",
+   "fieldtype": "Float",
+   "label": "Tower Weigh"
+  },
+  {
+   "fieldname": "number_of_equipments",
+   "fieldtype": "Int",
+   "label": "Number Of Equipments"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2024-09-03 10:57:51.767646",
+ "modified_by": "Administrator",
+ "module": "Albounya",
+ "name": "Towers",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Tower Management",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}
