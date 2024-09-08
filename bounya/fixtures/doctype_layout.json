@@ -69,6 +69,13 @@
     "parenttype": "DocType Layout"
    },
    {
+    "fieldname": "custom_employee_full_number",
+    "label": "Employee Full Number",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
     "fieldname": "salutation",
     "label": "Salutation",
     "parent": "Employee",
@@ -1210,7 +1217,7 @@
     "parenttype": "DocType Layout"
    }
   ],
-  "modified": "2024-09-03 09:41:18.187387",
+  "modified": "2024-09-09 01:47:42.182531",
   "name": "Employee",
   "route": "Employee"
  }
