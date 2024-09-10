@@ -5,6 +5,14 @@
 frappe.query_reports["Age Group Report"] = {
 	"filters": [
 		{
+			"fieldname": "company",
+			"label": __("Company"),
+			"fieldtype": "Link",
+			"options": "Company",
+			"default": frappe.defaults.get_user_default("Company"),
+			"hide": 1
+		},
+		{
 			label: __("Employee"),
 			fieldname: "employee",
 			fieldtype: "Link",

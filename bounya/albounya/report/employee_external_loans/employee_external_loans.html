@@ -62,20 +62,15 @@
 <section  >
 <center>
 	<h1>
-
-شركة ليبيانا للهاتف المحمول
+		{%var company = frappe.db.get_single_value("Global Defaults", "default_company")  %}
+		<span class="company-name-header">{{ filters.company }}</span>
 		{{(filters.branch) }}
 	<br>
-    تقرير المتغيرات الشهرية
-
+		تقرير استقطاع السلف الخارجية
 	</h1>
 	<h3>
 		<br>
-		لشهر
-		{{__(filters.month)}}
-		{{(filters.year) }}
-        <br>
-        {{filters.salary_component}}
+
 
 	</h3>
 

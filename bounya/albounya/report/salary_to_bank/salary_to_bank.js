@@ -77,7 +77,15 @@ frappe.query_reports["Salary To Bank"] = {
 			"fieldname": "total_in_words",
 			"fieldtype": "Data",
 			"hidden": 1
-		}
+		},
+		{
+			"fieldname": "company",
+			"label": __("Company"),
+			"fieldtype": "Link",
+			"options": "Company",
+			"default": frappe.defaults.get_user_default("Company"),
+			"hidden": 1
+		},
 	],
 	"formatter": function(value, row, column, data, default_formatter) {
 		$("input[data-fieldname='inst_num']").css({"font-size":"12px", "background-color":"#6c7680", "color":"#fff"});

@@ -34,6 +34,13 @@ frappe.query_reports["Employee External Loans"] = {
 			fieldtype: "Link",
 			options: "External Loans Type",
 		},
-
+		{
+			"fieldname": "company",
+			"label": __("Company"),
+			"fieldtype": "Link",
+			"options": "Company",
+			"default": frappe.defaults.get_user_default("Company"),
+			"hidden": 1
+		},
 	]
 };
