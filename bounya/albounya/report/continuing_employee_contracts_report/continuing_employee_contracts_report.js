@@ -46,5 +46,13 @@ frappe.query_reports["Continuing employee contracts report"] = {
 			"fieldtype": "Link",
 			"options": "Letter Head"
 		},
+		{
+			"fieldname": "company",
+			"label": __("Company"),
+			"fieldtype": "Link",
+			"options": "Company",
+			"default": frappe.defaults.get_user_default("Company"),
+			"hidden": 1
+		},
 	]
 };
