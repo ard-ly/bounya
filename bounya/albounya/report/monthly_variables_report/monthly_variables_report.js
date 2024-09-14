@@ -62,6 +62,14 @@ frappe.query_reports["Monthly Variables Report"] = {
 			fieldtype: "Link",
 			options: "Employee",
 		   },
+		   {
+			"fieldname": "company",
+			"label": __("Company"),
+			"fieldtype": "Link",
+			"options": "Company",
+			"default": frappe.defaults.get_user_default("Company"),
+			"hidden": 1
+		},
 		  
 	],
 	"onload": function (report){ 
