@@ -832,3 +832,47 @@ def create_contract_from_so(source, target=None):
         set_missing_values,
         )
     return doc
+
+@frappe.whitelist()
+def add_contract_to_so(doc, method):
+    if doc.document_type == "Sales Order":
+        frappe.db.set_value('Sales Order', doc.document_name, 'custom_contract', doc.name)
+
+@frappe.whitelist()
+def create_equipment_installation_from_so(source, target=None):
+    def set_missing_values(source, target):
+        # target.contract = source.custom_contract
+        # contract_doc = frappe.get_doc('Contact', source.custom_contract)
+        # if contract_doc:
+        #     target.contract_end_date = contract_doc.end_date
+        target.run_method("set_missing_values")
+    
+    doc = get_mapped_doc(
+        "Sales Order",
+        source,
+        {
+            "Sales Order": {
+                "doctype": "Equipment Installation",
+            },
+        },
+        target,
+        set_missing_values,
+        )
+    return doc
+
+# Building Accessories
+@frappe.whitelist()
+def add_building_accessories(doc, method):
+    if doc.custom_is_a_building_accessories == 1:
+        new_doc = frappe.new_doc("Building Accessories")
+        new_doc.asset = doc.name
+        new_doc.item_code = doc.item_code
+        new_doc.item_name = doc.item_name
+        new_doc.parent = doc.custom_buildings 
+        new_doc.parentfield = 'building_accessories'
+        new_doc.parenttype = 'Buildings'
+        new_doc.insert(ignore_permissions=True)
+
+@frappe.whitelist()     
+def cancel_building_accessories(doc, method):
+    frappe.db.sql(f""" DELETE FROM `tabBuilding Accessories` WHERE asset = '{doc.name}' """)

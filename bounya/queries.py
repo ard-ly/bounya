@@ -13,3 +13,9 @@ def filter_sq_based_on_rfq(doctype, txt, searchfield, start, page_len, filters):
                 WHERE (is_active = '{active}'
             """
     return frappe.db.sql(query)
+
+@frappe.whitelist()
+def filter_office(doctype, txt, searchfield, start, page_len, filters):
+    branch = filters.get('branch')
+    offices = frappe.db.sql(f""" select office_name from `tabBranches Offices` where parent = '{branch}' """)
+    return offices

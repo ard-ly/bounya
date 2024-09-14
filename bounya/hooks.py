@@ -186,6 +186,13 @@ doc_events = {
     "Supplier": {
         "on_update": "bounya.api.set_custom_supplier_group_sequence_field",
     },
+    # "Contract":{
+    #     "on_submit": "bounya.api.add_contract_to_so",
+    # },
+    "Asset":{
+        "on_submit": "bounya.api.add_building_accessories",
+        "on_cancel": "bounya.api.cancel_building_accessories",
+    },
 }
 
 # doc_events = {
@@ -343,31 +350,18 @@ fixtures = [
             ]
         ],
     },
-    # {"dt": "Role",
-    #     "filters": [
-    #         [
-    #             "name",
-    #             "in",
-    #             [
-    #                 "Tower Management",
-    #                 "Buildings Management",
+    {"dt": "Role",
+        "filters": [
+            [
+                "name",
+                "in",
+                [
+                    "Tower Management",
+                    "Buildings Management",
                     
-    #             ],
-    #         ]
-    #     ],
-    # },
-    
-    # {"dt": "Asset Category",
-    #     "filters": [
-    #         [
-    #             "name",
-    #             "in",
-    #             [
-    #                 "Buildings",
-    #                 "Towers",
-    #             ],
-    #         ]
-    #     ],
-    # },
-    
+                ],
+            ]
+        ],
+    },    
+
 ]

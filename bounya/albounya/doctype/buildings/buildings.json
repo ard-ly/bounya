@@ -13,6 +13,7 @@
   "serial_number",
   "column_break_5xew4",
   "branch",
+  "office",
   "building_details_section",
   "asset",
   "location",
@@ -21,6 +22,9 @@
   "building_classification",
   "unit_of_measure",
   "measurment",
+  "number_of_floors",
+  "section_break_upwem",
+  "building_accessories",
   "references_section",
   "contract",
   "amended_from"
@@ -91,6 +95,7 @@
    "reqd": 1
   },
   {
+   "description": "Ownership or lease contract",
    "fieldname": "contract",
    "fieldtype": "Link",
    "label": "Contract",
@@ -104,7 +109,7 @@
    "fieldname": "unit_of_measure",
    "fieldtype": "Select",
    "label": "Unit of Measure",
-   "options": "\nUnit\nNumber",
+   "options": "\nUnit\nMeters",
    "reqd": 1
   },
   {
@@ -114,16 +119,39 @@
   },
   {
    "fieldname": "building_classification",
-   "fieldtype": "Select",
+   "fieldtype": "Link",
    "label": "Building Classification",
-   "options": "\nA\nB\nC",
+   "options": "Building Classification",
    "reqd": 1
+  },
+  {
+   "fieldname": "number_of_floors",
+   "fieldtype": "Int",
+   "label": "Number of floors"
+  },
+  {
+   "fieldname": "office",
+   "fieldtype": "Link",
+   "label": "Office",
+   "options": "Office",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_upwem",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "building_accessories",
+   "fieldtype": "Table",
+   "label": "Building Accessories",
+   "options": "Building Accessories",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-09-03 10:57:36.427672",
+ "modified": "2024-09-14 10:47:53.876715",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Buildings",

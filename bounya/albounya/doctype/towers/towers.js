@@ -7,10 +7,20 @@ frappe.ui.form.on('Towers', {
 			return {
 				filters: {
 					"docstatus": 0,
-					"asset_category": "Towers",
+					"custom_is_tower": 1,
+					// "asset_category": "Towers",
 				}
 			};
 		});
-		
 	},
+	branch: function(frm) {
+		frm.set_query("office", function() {
+			return {
+				query: "bounya.queries.filter_office",
+				filters: {
+					branch: frm.doc.branch
+				}
+			};
+		});
+	}
 });

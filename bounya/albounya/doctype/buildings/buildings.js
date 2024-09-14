@@ -7,9 +7,21 @@ frappe.ui.form.on('Buildings', {
 			return {
 				filters: {
 					"docstatus": 0,
-					"asset_category": "Buildings",
+					"custom_is_building": 1,
+					// "asset_category": "Buildings",
 				}
 			};
 		});
+
 	},
+	branch: function(frm) {
+		frm.set_query("office", function() {
+			return {
+				query: "bounya.queries.filter_office",
+				filters: {
+					branch: frm.doc.branch
+				}
+			};
+		});
+	}
 });

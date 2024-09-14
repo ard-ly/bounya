@@ -15,7 +15,6 @@
   "section_break_ijbnz",
   "tower",
   "equipment_state",
-  "equipment_installation",
   "old_equipment_serial_number",
   "column_break_3vinj",
   "installed",
@@ -140,13 +139,6 @@
    "reqd": 1
   },
   {
-   "depends_on": "eval:doc.equipment_state == \"Replacement\" ",
-   "fieldname": "equipment_installation",
-   "fieldtype": "Link",
-   "label": "Equipment Installation",
-   "options": "Equipment Installation"
-  },
-  {
    "depends_on": "eval:doc.equipment_state == \"Replacement\" || doc.equipment_state == \"Renewing\"",
    "fetch_from": "equipment_installation.serial_number",
    "fieldname": "old_equipment_serial_number",
@@ -157,7 +149,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-09-03 10:58:15.925301",
+ "modified": "2024-09-14 11:14:58.031683",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Equipment Installation",

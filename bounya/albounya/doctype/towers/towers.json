@@ -10,17 +10,22 @@
  "field_order": [
   "tower_name",
   "serial_number",
+  "tower_type",
   "column_break_5xew4",
   "branch",
-  "building_details_section",
+  "office",
   "asset",
+  "building_details_section",
   "location",
   "details",
   "column_break_ovrjw",
   "tower_weigh",
-  "unit_of_measure",
-  "measurment",
+  "tower_\u0623eight",
+  "age_of_tower",
   "number_of_equipments",
+  "required_height_for_installation",
+  "allowable__equipment__weight",
+  "equipments_direction",
   "equipments_section",
   "towers_equipment_table",
   "references_section",
@@ -66,14 +71,6 @@
    "reqd": 1
   },
   {
-   "fetch_from": "asset.location",
-   "fieldname": "location",
-   "fieldtype": "Link",
-   "label": "Location",
-   "options": "Location",
-   "reqd": 1
-  },
-  {
    "fieldname": "details",
    "fieldtype": "Small Text",
    "label": "Details"
@@ -81,18 +78,6 @@
   {
    "fieldname": "column_break_ovrjw",
    "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "unit_of_measure",
-   "fieldtype": "Select",
-   "label": "Unit of Measure",
-   "options": "\nUnit\nNumber",
-   "reqd": 1
-  },
-  {
-   "fieldname": "measurment",
-   "fieldtype": "Float",
-   "label": "Measurment"
   },
   {
    "fieldname": "equipments_section",
@@ -112,6 +97,7 @@
    "label": "References"
   },
   {
+   "description": "Ownership or lease contract",
    "fieldname": "contract",
    "fieldtype": "Link",
    "label": "Contract",
@@ -135,12 +121,58 @@
    "fieldname": "number_of_equipments",
    "fieldtype": "Int",
    "label": "Number Of Equipments"
+  },
+  {
+   "fieldname": "office",
+   "fieldtype": "Link",
+   "label": "Office",
+   "options": "Office",
+   "reqd": 1
+  },
+  {
+   "fieldname": "location",
+   "fieldtype": "Geolocation",
+   "label": "Location",
+   "reqd": 1
+  },
+  {
+   "fieldname": "tower_\u0623eight",
+   "fieldtype": "Float",
+   "label": "Tower Height"
+  },
+  {
+   "fieldname": "age_of_tower",
+   "fieldtype": "Float",
+   "label": "Age Of Tower"
+  },
+  {
+   "fieldname": "tower_type",
+   "fieldtype": "Link",
+   "label": "Tower Type",
+   "options": "Tower Type",
+   "reqd": 1
+  },
+  {
+   "fieldname": "required_height_for_installation",
+   "fieldtype": "Float",
+   "label": "Required height For Installation"
+  },
+  {
+   "fieldname": "allowable__equipment__weight",
+   "fieldtype": "Float",
+   "label": "Allowable  Equipment  Weight"
+  },
+  {
+   "fieldname": "equipments_direction",
+   "fieldtype": "Select",
+   "label": "Equipments Direction",
+   "options": "\nWest\nEast\nNorth\nSouth\nSoutheast\nNortheast\nSouthwest\nNorthwest"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-09-03 10:57:51.767646",
+ "modified": "2024-09-14 11:10:00.669388",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Towers",
