@@ -927,16 +927,10 @@ def create_contract_from_quotation(source, target=None):
         )
     return doc
 
-# @frappe.whitelist()
-# def get_qualification(doc,qualification_template):
-#     qt_doc = frappe.get_doc('Qualification Template', qualification_template)
-#     lead_doc = frappe.get_doc('Lead',doc)
-#     for row in qt_doc.qualification_template_table:
-#         lead_doc.append(
-#                 "custom_qualification_grade_table",
-#                 {
-#                     "qualification": row.qualification,
-#                     "grade": 0, 
-#                 },
-#             )
-#     return "yes"
+@frappe.whitelist()
+def get_qualification(qualification_template):
+    qt_doc = frappe.get_doc('Qualification Template', qualification_template)
+    q_list = []
+    for item in qt_doc.qualification_template_table:
+        q_list.append(item.qualification)
+    return {"q_list":q_list}
