@@ -1,0 +1,219 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "naming_series:",
+ "creation": "2024-08-28 08:34:30.886848",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "naming_series",
+  "equipment_name",
+  "column_break_hqb9i",
+  "serial_number",
+  "section_break_ijbnz",
+  "tower",
+  "installed",
+  "installation_date",
+  "column_break_vk8su",
+  "owned_by",
+  "section_break_xto1s",
+  "equipment_state",
+  "old_equipment_serial_number",
+  "column_break_3vinj",
+  "equipment_weigh",
+  "equipment_direction",
+  "references_section",
+  "contract",
+  "contract_end_date",
+  "column_break_yvzw6",
+  "sales_order",
+  "section_break_cizfp",
+  "amended_from",
+  "notes"
+ ],
+ "fields": [
+  {
+   "fieldname": "equipment_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Equipment Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Equipment Installation",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "hidden": 1,
+   "label": "Series",
+   "options": "EQU-INS-.YYYY.-.####"
+  },
+  {
+   "fieldname": "serial_number",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Serial Number",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "installed",
+   "fieldtype": "Check",
+   "label": "Installed"
+  },
+  {
+   "fieldname": "column_break_hqb9i",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_ijbnz",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "equipment_state",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Equipment State",
+   "options": "\nReplacement\nRenewing\nFirst Installation\nExpired",
+   "reqd": 1
+  },
+  {
+   "depends_on": "eval:doc.installed == 1 ",
+   "fieldname": "installation_date",
+   "fieldtype": "Date",
+   "label": "Installation Date",
+   "mandatory_depends_on": "eval:doc.installed == 1 "
+  },
+  {
+   "fieldname": "references_section",
+   "fieldtype": "Section Break",
+   "label": "References"
+  },
+  {
+   "fieldname": "contract",
+   "fieldtype": "Link",
+   "label": "Contract",
+   "options": "Contract"
+  },
+  {
+   "fetch_from": "contract.end_date",
+   "fieldname": "contract_end_date",
+   "fieldtype": "Date",
+   "label": "Contract End Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_yvzw6",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "sales_order",
+   "fieldtype": "Link",
+   "label": "Sales Order",
+   "options": "Sales Order",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_cizfp",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Small Text",
+   "label": "Notes"
+  },
+  {
+   "fieldname": "column_break_3vinj",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "tower",
+   "fieldtype": "Link",
+   "label": "Tower",
+   "options": "Towers",
+   "reqd": 1
+  },
+  {
+   "depends_on": "eval:doc.equipment_state == \"Replacement\" || doc.equipment_state == \"Renewing\"",
+   "fetch_from": "equipment_installation.serial_number",
+   "fieldname": "old_equipment_serial_number",
+   "fieldtype": "Data",
+   "label": "Old Equipment Serial Number"
+  },
+  {
+   "fieldname": "section_break_xto1s",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "equipment_weigh",
+   "fieldtype": "Float",
+   "label": "Equipment Weigh "
+  },
+  {
+   "fieldname": "equipment_direction",
+   "fieldtype": "Select",
+   "label": " Equipment Direction ",
+   "options": "\nWest\nEast\nNorth\nSouth\nSoutheast\nNortheast\nSouthwest\nNorthwest"
+  },
+  {
+   "fieldname": "column_break_vk8su",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "owned_by",
+   "fieldtype": "Link",
+   "label": "Owned By",
+   "options": "Customer"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2024-09-19 10:45:42.008914",
+ "modified_by": "Administrator",
+ "module": "Albounya",
+ "name": "Equipment Installation",
+ "naming_rule": "By \"Naming Series\" field",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Tower Management",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

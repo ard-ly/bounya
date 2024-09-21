@@ -1,0 +1,197 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:serial_number",
+ "creation": "2024-08-26 12:10:09.849170",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "name1",
+  "serial_number",
+  "column_break_5xew4",
+  "branch",
+  "office",
+  "building_details_section",
+  "asset",
+  "location",
+  "geolocation",
+  "column_break_ovrjw",
+  "building_classification",
+  "unit_of_measure",
+  "measurment",
+  "number_of_floors",
+  "details",
+  "section_break_upwem",
+  "building_accessories",
+  "references_section",
+  "contract",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "name1",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Building Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "serial_number",
+   "fieldtype": "Data",
+   "label": "Serial Number",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Buildings",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_5xew4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "building_details_section",
+   "fieldtype": "Section Break",
+   "label": "Building Details"
+  },
+  {
+   "fetch_from": "asset.location",
+   "fieldname": "location",
+   "fieldtype": "Link",
+   "label": "Location",
+   "options": "Location",
+   "reqd": 1
+  },
+  {
+   "fieldname": "details",
+   "fieldtype": "Small Text",
+   "label": "Details"
+  },
+  {
+   "fieldname": "branch",
+   "fieldtype": "Link",
+   "label": "Branch",
+   "options": "Branch",
+   "reqd": 1
+  },
+  {
+   "fieldname": "references_section",
+   "fieldtype": "Section Break",
+   "label": "References"
+  },
+  {
+   "fieldname": "asset",
+   "fieldtype": "Link",
+   "label": "Asset",
+   "options": "Asset",
+   "reqd": 1
+  },
+  {
+   "description": "Ownership or lease contract",
+   "fieldname": "contract",
+   "fieldtype": "Link",
+   "label": "Contract",
+   "options": "Contract"
+  },
+  {
+   "fieldname": "column_break_ovrjw",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "unit_of_measure",
+   "fieldtype": "Select",
+   "label": "Unit of Measure",
+   "options": "\nUnit\nMeters",
+   "reqd": 1
+  },
+  {
+   "fieldname": "measurment",
+   "fieldtype": "Float",
+   "label": "Measurment"
+  },
+  {
+   "fieldname": "building_classification",
+   "fieldtype": "Link",
+   "label": "Building Classification",
+   "options": "Building Classification",
+   "reqd": 1
+  },
+  {
+   "fieldname": "number_of_floors",
+   "fieldtype": "Int",
+   "label": "Number of floors"
+  },
+  {
+   "fieldname": "office",
+   "fieldtype": "Link",
+   "label": "Office",
+   "options": "Office",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_upwem",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "building_accessories",
+   "fieldtype": "Table",
+   "label": "Building Accessories",
+   "options": "Building Accessories",
+   "read_only": 1
+  },
+  {
+   "fieldname": "geolocation",
+   "fieldtype": "Geolocation",
+   "label": "Geolocation",
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2024-09-17 14:09:54.257091",
+ "modified_by": "Administrator",
+ "module": "Albounya",
+ "name": "Buildings",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Buildings Management",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

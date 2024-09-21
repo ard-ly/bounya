@@ -1,0 +1,29 @@
+{
+ "cards": [
+  {
+   "card": "Total Towers"
+  }
+ ],
+ "charts": [
+  {
+   "chart": "Towers by Branch",
+   "width": "Full"
+  },
+  {
+   "chart": "Towers by Office",
+   "width": "Full"
+  }
+ ],
+ "creation": "2024-09-18 11:05:47.121815",
+ "dashboard_name": "Number Of Towers",
+ "docstatus": 0,
+ "doctype": "Dashboard",
+ "idx": 0,
+ "is_default": 0,
+ "is_standard": 1,
+ "modified": "2024-09-18 11:12:50.959909",
+ "modified_by": "Administrator",
+ "module": "Albounya",
+ "name": "Number Of Towers",
+ "owner": "Administrator"
+}

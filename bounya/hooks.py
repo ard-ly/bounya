@@ -11,6 +11,9 @@ app_license = "MIT"
 # include js, css files in header of desk.html
 # app_include_css = "/assets/bounya/css/bounya.css"
 # app_include_js = "/assets/bounya/js/bounya.js"
+app_include_js = [
+    "/assets/bounya/js/map_defaults.js",
+]
 
 # include js, css files in header of web template
 # web_include_css = "/assets/bounya/css/bounya.css"
@@ -42,6 +45,8 @@ doctype_js = {
     "Contract":"public/js/contract.js",
     "Purchase Order":"public/js/purchase_order.js",
     "Sales Order":"public/js/sales_order.js",
+    "Quotation" : "public/js/quotation.js",
+    "Lead" : "public/js/lead.js",
 }
 doctype_list_js = {
     "Salary Slip": "public/js/salary_slip.js",
@@ -185,6 +190,13 @@ doc_events = {
     },
     "Supplier": {
         "on_update": "bounya.api.set_custom_supplier_group_sequence_field",
+    },
+    # "Contract":{
+    #     "on_submit": "bounya.api.add_contract_to_so",
+    # },
+    "Asset":{
+        "on_submit": "bounya.api.add_building_accessories",
+        "on_cancel": "bounya.api.cancel_building_accessories",
     },
 }
 
@@ -343,16 +355,18 @@ fixtures = [
             ]
         ],
     },
-    # {"dt": "Role",
-    #     "filters": [
-    #         [
-    #             "name",
-    #             "in",
-    #             [
-    #                 "Contracts Unit Employee",
+    {"dt": "Role",
+        "filters": [
+            [
+                "name",
+                "in",
+                [
+                    "Tower Management",
+                    "Buildings Management",
                     
-    #             ],
-    #         ]
-    #     ],
-    # },
+                ],
+            ]
+        ],
+    },    
+
 ]

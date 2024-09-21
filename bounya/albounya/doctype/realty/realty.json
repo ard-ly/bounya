@@ -10,6 +10,8 @@
  "field_order": [
   "realty_no",
   "realty_type",
+  "building",
+  "towers",
   "description",
   "column_break_3kixe",
   "build_up_date",
@@ -90,7 +92,7 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Realty Type",
-   "options": "\nLand Plot\nBuilding\nLand Plot with building\nWarehouse\nTower Station",
+   "options": "\nLand Plot\nBuilding\nLand Plot with building\nWarehouse\nTower Station\nTower",
    "reqd": 1
   },
   {
@@ -254,6 +256,7 @@
   },
   {
    "collapsible": 1,
+   "depends_on": "eval: doc.realty_type == \"Land Plot with building\"",
    "fieldname": "section_break_v1oca",
    "fieldtype": "Section Break",
    "label": "Number of Realty on site"
@@ -416,12 +419,28 @@
    "hidden": 1,
    "label": "Asset",
    "options": "Asset"
+  },
+  {
+   "depends_on": "eval: doc.realty_type == \"Building\"",
+   "fieldname": "building",
+   "fieldtype": "Link",
+   "label": "Building",
+   "mandatory_depends_on": "eval: doc.realty_type == \"Building\"",
+   "options": "Buildings"
+  },
+  {
+   "depends_on": "eval: doc.realty_type == \"Tower\"",
+   "fieldname": "towers",
+   "fieldtype": "Link",
+   "label": "Tower",
+   "mandatory_depends_on": "eval: doc.realty_type == \"Tower\"",
+   "options": "Towers"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-06-19 15:48:00.442252",
+ "modified": "2024-09-17 14:36:37.009042",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Realty",

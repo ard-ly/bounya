@@ -1,0 +1,207 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:serial_number",
+ "creation": "2024-09-02 09:14:23.665496",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "tower_name",
+  "serial_number",
+  "tower_type",
+  "column_break_5xew4",
+  "branch",
+  "office",
+  "asset",
+  "building_details_section",
+  "location",
+  "details",
+  "column_break_ovrjw",
+  "tower_weigh",
+  "tower_height",
+  "age_of_tower",
+  "number_of_equipments",
+  "required_height_for_installation",
+  "allowable_equipment_weight",
+  "equipments_section",
+  "towers_equipment_table",
+  "references_section",
+  "contract",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "tower_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Tower Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "serial_number",
+   "fieldtype": "Data",
+   "label": "Serial Number",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "column_break_5xew4",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "branch",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Branch",
+   "options": "Branch",
+   "reqd": 1
+  },
+  {
+   "fieldname": "building_details_section",
+   "fieldtype": "Section Break",
+   "label": "Tower Details"
+  },
+  {
+   "fieldname": "asset",
+   "fieldtype": "Link",
+   "label": "Asset",
+   "options": "Asset",
+   "reqd": 1
+  },
+  {
+   "fieldname": "details",
+   "fieldtype": "Small Text",
+   "label": "Details"
+  },
+  {
+   "fieldname": "column_break_ovrjw",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "equipments_section",
+   "fieldtype": "Section Break",
+   "label": "Equipments"
+  },
+  {
+   "fieldname": "towers_equipment_table",
+   "fieldtype": "Table",
+   "label": "Towers Equipment table",
+   "options": "Towers Equipment table",
+   "read_only": 1
+  },
+  {
+   "fieldname": "references_section",
+   "fieldtype": "Section Break",
+   "label": "References"
+  },
+  {
+   "description": "Ownership or lease contract",
+   "fieldname": "contract",
+   "fieldtype": "Link",
+   "label": "Contract",
+   "options": "Contract"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Towers",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "tower_weigh",
+   "fieldtype": "Float",
+   "label": "Tower Weigh"
+  },
+  {
+   "fieldname": "number_of_equipments",
+   "fieldtype": "Int",
+   "label": "Number Of Equipments"
+  },
+  {
+   "fieldname": "office",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Office",
+   "options": "Office",
+   "reqd": 1
+  },
+  {
+   "fieldname": "location",
+   "fieldtype": "Geolocation",
+   "label": "Location",
+   "reqd": 1
+  },
+  {
+   "fieldname": "age_of_tower",
+   "fieldtype": "Float",
+   "label": "Age Of Tower"
+  },
+  {
+   "fieldname": "tower_type",
+   "fieldtype": "Link",
+   "label": "Tower Type",
+   "options": "Tower Type",
+   "reqd": 1
+  },
+  {
+   "fieldname": "required_height_for_installation",
+   "fieldtype": "Float",
+   "label": "Required height For Installation"
+  },
+  {
+   "fieldname": "tower_height",
+   "fieldtype": "Float",
+   "label": "Tower Height"
+  },
+  {
+   "fieldname": "allowable_equipment_weight",
+   "fieldtype": "Float",
+   "label": "Allowable Equipment Weight"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2024-09-18 12:30:33.262266",
+ "modified_by": "Administrator",
+ "module": "Albounya",
+ "name": "Towers",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Tower Management",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}
