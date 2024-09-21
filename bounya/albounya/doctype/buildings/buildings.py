@@ -24,14 +24,14 @@ class Buildings(Document):
 				new_doc.email_content = "empty@empty.com"
 				new_doc.insert(ignore_permissions=True)
 
-				mesg = "<p> New Building Doctype Created,<br> name:"+self.name1+"<br>Serial Number:"+self.serial_number+"<br> branch:"+self.branch+ "<br> Office: "+self.office+ "</p>"
-				frappe.sendmail(
-					recipients=user,
-					subject="Building " + self.name,
-					message= mesg,
-					now=1,
-					retry=3
-				)
-				frappe.db.commit()
+				# mesg = "<p> New Building Doctype Created,<br> name:"+self.name1+"<br>Serial Number:"+self.serial_number+"<br> branch:"+self.branch+ "<br> Office: "+self.office+ "</p>"
+				# frappe.sendmail(
+				# 	recipients=user,
+				# 	subject="Building " + self.name,
+				# 	message= mesg,
+				# 	now=1,
+				# 	retry=3
+				# )
+				# frappe.db.commit()
 
 	

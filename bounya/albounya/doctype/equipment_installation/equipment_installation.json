@@ -14,11 +14,16 @@
   "serial_number",
   "section_break_ijbnz",
   "tower",
+  "installed",
+  "installation_date",
+  "column_break_vk8su",
+  "owned_by",
+  "section_break_xto1s",
   "equipment_state",
   "old_equipment_serial_number",
   "column_break_3vinj",
-  "installed",
-  "installation_date",
+  "equipment_weigh",
+  "equipment_direction",
   "references_section",
   "contract",
   "contract_end_date",
@@ -144,12 +149,37 @@
    "fieldname": "old_equipment_serial_number",
    "fieldtype": "Data",
    "label": "Old Equipment Serial Number"
+  },
+  {
+   "fieldname": "section_break_xto1s",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "equipment_weigh",
+   "fieldtype": "Float",
+   "label": "Equipment Weigh "
+  },
+  {
+   "fieldname": "equipment_direction",
+   "fieldtype": "Select",
+   "label": " Equipment Direction ",
+   "options": "\nWest\nEast\nNorth\nSouth\nSoutheast\nNortheast\nSouthwest\nNorthwest"
+  },
+  {
+   "fieldname": "column_break_vk8su",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "owned_by",
+   "fieldtype": "Link",
+   "label": "Owned By",
+   "options": "Customer"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-09-14 11:14:58.031683",
+ "modified": "2024-09-19 10:45:42.008914",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Equipment Installation",

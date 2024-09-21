@@ -34,14 +34,19 @@ def get_columns():
             "fieldtype": "Data",
         },
 		{
+            "label": _("Equipment Weigh"),
+            "fieldname": "equipment_weigh",
+            "fieldtype": "Float",
+        },
+		{
+            "label": _("Equipment Direction"),
+            "fieldname": "equipment_direction",
+            "fieldtype": "Data",
+        },
+		{
             "label": _("Contract End Date"),
             "fieldname": "contract_end_date",
             "fieldtype": "Date",
-        },
-		{
-            "label": _("Installed"),
-            "fieldname": "installed",
-            "fieldtype": "Check",
         },
 		{
             "label": _("Installation Date"),
@@ -52,7 +57,7 @@ def get_columns():
 	return columns
 
 def get_data(conditions):
-	data = frappe.db.sql(f"""SELECT tower,equipment_name,serial_number,equipment_state,contract_end_date,installed,installation_date FROM `tabEquipment Installation` {conditions}""", as_dict=True)
+	data = frappe.db.sql(f"""SELECT tower,equipment_name,serial_number,equipment_state,equipment_weigh,equipment_direction,contract_end_date,installation_date FROM `tabEquipment Installation` {conditions}""", as_dict=True)
 	return data
 	
 def get_conditions(filters):

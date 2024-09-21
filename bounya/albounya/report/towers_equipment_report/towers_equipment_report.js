@@ -35,11 +35,6 @@ frappe.query_reports["Towers Equipment Report"] = {
 			],
 		},
 		
-		// {
-		// 	label: __("Installed"),
-		// 	fieldname: "installed",
-		// 	fieldtype: "Check",
-		// },
 
 	]
 };

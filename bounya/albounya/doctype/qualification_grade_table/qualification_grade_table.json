@@ -1,0 +1,41 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-09-19 13:36:59.284352",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "qualification",
+  "grade"
+ ],
+ "fields": [
+  {
+   "fieldname": "qualification",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Qualification",
+   "options": "Qualification",
+   "reqd": 1
+  },
+  {
+   "fieldname": "grade",
+   "fieldtype": "Int",
+   "in_list_view": 1,
+   "label": "Grade",
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-09-19 13:48:39.811329",
+ "modified_by": "Administrator",
+ "module": "Albounya",
+ "name": "Qualification Grade Table",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

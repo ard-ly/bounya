@@ -1,5 +1,4 @@
 {
- "_liked_by": "[\"Administrator\"]",
  "actions": [],
  "allow_rename": 1,
  "autoname": "field:serial_number",
@@ -17,12 +16,13 @@
   "building_details_section",
   "asset",
   "location",
-  "details",
+  "geolocation",
   "column_break_ovrjw",
   "building_classification",
   "unit_of_measure",
   "measurment",
   "number_of_floors",
+  "details",
   "section_break_upwem",
   "building_accessories",
   "references_section",
@@ -146,12 +146,18 @@
    "label": "Building Accessories",
    "options": "Building Accessories",
    "read_only": 1
+  },
+  {
+   "fieldname": "geolocation",
+   "fieldtype": "Geolocation",
+   "label": "Geolocation",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-09-14 10:47:53.876715",
+ "modified": "2024-09-17 14:09:54.257091",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Buildings",

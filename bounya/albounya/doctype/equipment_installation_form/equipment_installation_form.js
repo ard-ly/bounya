@@ -1,34 +1,31 @@
 // Copyright (c) 2024, ARD Company and contributors
 // For license information, please see license.txt
 
-frappe.ui.form.on('Equipment Installation', {
+frappe.ui.form.on('Equipment Installation Form', {
 	onload: function(frm) {
-		// frm.set_query("equipment_installation", function() {
-		// 	return {
-		// 		filters: {
-		// 			"docstatus": 1,
-		// 		}
-		// 	};
-		// });
+		if (frappe.user.has_role("Customer")){
+			
+			// frappe.db.get_doc('User', frappe.user.name).then(user_doc => {
+					// frm.set_df_property("customer", "hidden", 1);
+			// 		frm.doc.customer_name = user_doc.full_name;
+					// frm.doc.user = frappe.user.name;
+					// frm.set_df_property("email", "hidden", 1);
+			// 		frm.doc.email = user_doc.email;
+			// 		frm.refresh_fields();
+				
+			// });
+		}
+	},
 
-		// frm.set_query("sales_order", function() {
-		// 	return {
-		// 		filters: {
-		// 			"docstatus": 1,
-		// 			"order_type": "Equipment Installation",
-		// 		}
-		// 	};
-		// });
-
-		// frm.set_query("contract", function() {
-		// 	return {
-		// 		filters: {
-		// 			"docstatus": 1,
-		// 			"document_type": "Sales Order",
-		// 			// document_name 
-		// 		}
-		// 	};
-		// });
+	branch: function(frm) {
+		frm.set_query("towers", function() {
+			return {
+				filters: {
+					"docstatus": 1,
+					"branch": frm.doc.branch,
+				}
+			};
+		});
 	},
 
 	refresh(frm) {
@@ -48,9 +45,9 @@ frappe.ui.form.on('Equipment Installation', {
 						});
 
 	},
-	
 });
-frappe.listview_settings['Equipment Installation'] = {
+
+frappe.listview_settings['Equipment Installation Form'] = {
 	refresh: function (listview) {
 		// Clear the existing breadcrumbs. Set custom breadcrumbs will not do this automatically
 	frappe.breadcrumbs.clear();				
@@ -63,9 +60,8 @@ frappe.listview_settings['Equipment Installation'] = {
 	// Now add breadcrumb for the 'parent' document
 	frappe.breadcrumbs.set_custom_breadcrumbs({
 			label: 'Equipment Installation', //the name of the field in Doc 2 that points to Doc 1
-			route: '/app/assets/Equipment Installation',
+			route: '/app/assets/Equipment Installation Form',
 	});
 	},
 	}
-
 

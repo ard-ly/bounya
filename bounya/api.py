@@ -718,7 +718,7 @@ def get_address_html(link_doctype, link_name):
         address_doc = frappe.get_doc("Address", address_name[0][0])
         address_html = address_doc.address_line1 + \
             """, \n""" + address_doc.city + """, \n""" + address_doc.country 
-    return address_html
+        return address_html
 
 
 @frappe.whitelist()
@@ -736,9 +736,9 @@ def get_party_contact(link_doctype, link_name):
         elif Contact_doc.mobile_no:
             phone = Contact_doc.mobile_no
 
-    return {"user": user,
-            "phone": phone,
-            }
+        return {"user": user,
+                "phone": phone,
+                }
 
 
 @frappe.whitelist()
@@ -841,7 +841,7 @@ def add_contract_to_so(doc, method):
 @frappe.whitelist()
 def create_equipment_installation_from_so(source, target=None):
     def set_missing_values(source, target):
-        # target.contract = source.custom_contract
+        target.owned_by = source.customer
         # contract_doc = frappe.get_doc('Contact', source.custom_contract)
         # if contract_doc:
         #     target.contract_end_date = contract_doc.end_date
@@ -876,3 +876,67 @@ def add_building_accessories(doc, method):
 @frappe.whitelist()     
 def cancel_building_accessories(doc, method):
     frappe.db.sql(f""" DELETE FROM `tabBuilding Accessories` WHERE asset = '{doc.name}' """)
+
+@frappe.whitelist()
+def create_contract_from_quotation(source, target=None):
+    def set_missing_values(source, target):
+        target.document_type = 'Quotation'
+        target.document_name = source.name
+        target.custom_service_value = source.total
+        target.custom_tax = source.total_taxes_and_charges
+        target.custom_total = source.grand_total
+        target.party_type = 'Customer'
+
+        if frappe.db.exists("Customer", source.contact_person) == True :
+
+            target.party_name = source.contact_person
+            cus_doc = frappe.get_doc('Customer', source.contact_person)
+
+            if cus_doc.custom_commercial_register:
+                target.custom_second_party_commercial_register = cus_doc.custom_commercial_register
+
+            if cus_doc.custom_registration_date:
+                target.custom_second_party_registration_date = cus_doc.custom_registration_date
+            
+            if cus_doc.custom_classification:
+                target.custom_second_party_classification = cus_doc.custom_classification
+            
+            if cus_doc.custom_license_number:
+                target.custom_second_party_id_number = cus_doc.custom_license_number
+
+            address = get_address_html('Customer', source.contact_person)
+            if address:
+                target.custom_second_party_address_html = address
+            contact = get_party_contact('Customer', source.contact_person)
+            if contact:
+                target.party_user = contact['user']
+                target.custom_second_party_phone = contact['phone']
+        
+        target.run_method("set_missing_values")
+
+    doc = get_mapped_doc(
+        "Quotation",
+        source,
+        {
+            "Quotation": {
+                "doctype": "Contract",
+            },
+        },
+        target,
+        set_missing_values,
+        )
+    return doc
+
+# @frappe.whitelist()
+# def get_qualification(doc,qualification_template):
+#     qt_doc = frappe.get_doc('Qualification Template', qualification_template)
+#     lead_doc = frappe.get_doc('Lead',doc)
+#     for row in qt_doc.qualification_template_table:
+#         lead_doc.append(
+#                 "custom_qualification_grade_table",
+#                 {
+#                     "qualification": row.qualification,
+#                     "grade": 0, 
+#                 },
+#             )
+#     return "yes"

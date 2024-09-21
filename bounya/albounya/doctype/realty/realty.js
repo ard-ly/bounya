@@ -3,6 +3,23 @@
 
 frappe.ui.form.on('Realty', {
 	
+	onload: function(frm) {
+		frm.set_query("building", function() {
+			return {
+				filters: {
+					"docstatus": 1,
+				}
+			};
+		});
+		frm.set_query("towers", function() {
+			return {
+				filters: {
+					"docstatus": 1,
+				}
+			};
+		});
+	},
+
 	refresh: frm => {
 
 		if (frm.doc.docstatus  == 1){
@@ -30,6 +47,42 @@ frappe.ui.form.on('Realty', {
 
 	},
 
+	branch: function(frm) {
+		frm.set_query("office", function() {
+			return {
+				query: "bounya.queries.filter_office",
+				filters: {
+					branch: frm.doc.branch
+				}
+			};
+		});
+	},
+
+	building: function(frm){
+		if (frm.doc.building){
+			frappe.db.get_doc('Buildings', frm.doc.building).then(building_doc => {
+				frm.doc.number_of_floors = building_doc.number_of_floors;
+				frm.doc.branch = building_doc.branch;
+				frm.doc.office = building_doc.office;
+				frm.doc.coordinates = building_doc.geolocation;
+				frm.doc.description = building_doc.details;
+				frm.refresh_fields();
+			});
+		}
+
+	},
+
+	towers: function(frm){
+		if (frm.doc.towers){
+			frappe.db.get_doc('Towers', frm.doc.towers).then(towers_doc => {
+				frm.doc.branch = towers_doc.branch;
+				frm.doc.office = towers_doc.office;
+				frm.doc.coordinates = towers_doc.geolocation;
+				frm.doc.description = towers_doc.details;
+				frm.refresh_fields();
+			});
+		}
+	},
 
 });
 frappe.listview_settings['Append'] = {
