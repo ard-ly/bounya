@@ -8,7 +8,6 @@ class Towers(Document):
 	def validate(self):
 		self.send_notification_to_Tower_management()
 
-		# Buildings Management
 	def send_notification_to_Tower_management(self):
 		if self. docstatus == 0:
 			users = frappe.db.sql(

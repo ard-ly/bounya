@@ -115,7 +115,7 @@
   {
    "fieldname": "measurment",
    "fieldtype": "Float",
-   "label": "Measurment"
+   "label": "Measurement"
   },
   {
    "fieldname": "building_classification",
@@ -133,12 +133,12 @@
    "fieldname": "office",
    "fieldtype": "Link",
    "label": "Office",
-   "options": "Office",
-   "reqd": 1
+   "options": "Office"
   },
   {
    "fieldname": "section_break_upwem",
-   "fieldtype": "Section Break"
+   "fieldtype": "Section Break",
+   "label": "Building Accessories"
   },
   {
    "fieldname": "building_accessories",
@@ -157,7 +157,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-09-17 14:09:54.257091",
+ "modified": "2024-09-26 13:24:12.976638",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Buildings",

@@ -47,6 +47,7 @@ doctype_js = {
     "Sales Order":"public/js/sales_order.js",
     "Quotation" : "public/js/quotation.js",
     "Lead" : "public/js/lead.js",
+    "Opportunity":"public/js/opportunity.js",
 }
 doctype_list_js = {
     "Salary Slip": "public/js/salary_slip.js",
@@ -322,6 +323,7 @@ fixtures = [
     {"dt": "Custom Field", "filters": [["module", "in", ["Albounya"]]]},
     {"dt": "DocType Layout", "filters": [["name", "in", ["Employee"]]]},
     {"dt": "Translation"},
+    # {"dt": "Kanban Board"},
     {"dt": "Custom Field",
         "filters": [
             [
@@ -351,6 +353,7 @@ fixtures = [
                 [
                     "MR Complete WF",
                     "Monthly Promotion",
+                    "Equipment Installation Form",
                 ],
             ]
         ],
@@ -360,9 +363,12 @@ fixtures = [
             [
                 "name",
                 "in",
-                [
-                    "Tower Management",
-                    "Buildings Management",
+                [   
+                    # "Contracts Unit Employee",
+                    # "Tower Management",
+                    # "Buildings Management",
+                    "Commercial Management",
+                    "General Management",
                     
                 ],
             ]

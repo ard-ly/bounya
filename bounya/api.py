@@ -934,3 +934,75 @@ def get_qualification(qualification_template):
     for item in qt_doc.qualification_template_table:
         q_list.append(item.qualification)
     return {"q_list":q_list}
+
+@frappe.whitelist()
+def send_qualification_notification(doc_name, status):
+    users = frappe.db.sql(
+			f""" SELECT DISTINCT parent FROM `tabHas Role` WHERE role = 'Tower Management' AND parenttype = 'User' AND parent != 'Administrator' """, as_dict=True)
+    if users:
+        for user in users:
+            new_doc = frappe.new_doc("Notification Log")
+            new_doc.from_user = frappe.session.user
+            new_doc.for_user = user.parent
+            new_doc.type = "Share"
+            new_doc.document_type = "Lead"
+            new_doc.document_name = doc_name
+            new_doc.subject = f"""Lead related to Equipment Installation is: {status}"""
+            new_doc.email_content = "empty@empty.com"
+            new_doc.insert(ignore_permissions=True)
+    return "done"
+
+@frappe.whitelist()
+def get_pricing_matrix(tower_type):
+    tt_doc = frappe.get_doc('Tower Type', tower_type)
+    radius_list = []
+    height_list = []
+    for row in tt_doc.pricing_matrix:
+        if row.equipment_radius > 0:
+            radius_list.append(row.equipment_radius)
+
+        if row.equipment_height > 0:
+            height_list.append(row.equipment_height)
+
+    return {
+            "radius_list":radius_list,
+            "height_list":height_list,
+            }
+
+@frappe.whitelist()
+def get_price_for_radius(tower_type,custom_equipment_radius_):
+    tt_doc = frappe.get_doc('Tower Type', tower_type)
+    price = 0
+    height= 0
+    for row in tt_doc.pricing_matrix:
+        if row.equipment_radius == float(custom_equipment_radius_):
+            price += row.price
+            if row.equipment_height > 0:
+                height += row.equipment_height
+           
+            
+            break
+
+    return {
+            "price":price,
+            "height":height,
+            }
+
+@frappe.whitelist()
+def get_price_for_height(tower_type,custom_equipment_height):
+    tt_doc = frappe.get_doc('Tower Type', tower_type)
+    price = 0
+    radius= 0
+    for row in tt_doc.pricing_matrix:
+        if row.equipment_height== float(custom_equipment_height):
+            price += row.price
+            if row.equipment_radius > 0:
+                radius += row.equipment_radius
+           
+            
+            break
+
+    return {
+            "price":price,
+            "radius":radius,
+            }
