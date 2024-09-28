@@ -74,6 +74,114 @@ frappe.ui.form.on('Lead', {
             });
         }
     },
+
+    refresh:function (frm) {
+        if (frm.doc.docstatus  == 0){
+			frm.add_custom_button(__('Opportunity'), function () {
+                
+                if (frm.doc.qualification_status == 'Qualified'){
+                    if (frm.doc.custom_equipment_installation_form == 1){
+                        frappe.model.open_mapped_doc({
+                        	method: "bounya.api.create_opportunity_from_lead",
+                        	frm: frm,
+                            args: {
+                               "owner":frappe.user,
+
+                            }
+                        })
+                    }
+                    else{
+                        // 1.prospect.
+                        // 2. Opportunity form == Lead.
+                        frm.trigger("make_opportunity");
+                     
+                    }
+                }
+                else{
+                    frappe.throw(__("Lead must be Qualified to create Opportunity."));
+                }
+			}, __("Create"));
+	}
+    },
+
+    make_opportunity: async function(frm) {
+		let existing_prospect = (await frappe.db.get_value("Prospect Lead",
+			{
+				"lead": frm.doc.name
+			},
+			"name", null, "Prospect"
+		)).message.name;
+
+		if (!existing_prospect) {
+			var fields = [
+				{
+					"label": "Create Prospect",
+					"fieldname": "create_prospect",
+					"fieldtype": "Check",
+					"default": 1
+				},
+				{
+					"label": "Prospect Name",
+					"fieldname": "prospect_name",
+					"fieldtype": "Data",
+					"default": frm.doc.company_name,
+					"depends_on": "create_prospect"
+				}
+			];
+		}
+		let existing_contact = (await frappe.db.get_value("Contact",
+			{
+				"first_name": frm.doc.first_name || frm.doc.lead_name,
+				"last_name": frm.doc.last_name
+			},
+			"name"
+		)).message.name;
+
+		if (!existing_contact) {
+			fields.push(
+				{
+					"label": "Create Contact",
+					"fieldname": "create_contact",
+					"fieldtype": "Check",
+					"default": "1"
+				}
+			);
+		}
+
+		if (fields) {
+			var d = new frappe.ui.Dialog({
+				title: __('Create Opportunity'),
+				fields: fields,
+				primary_action: function() {
+					var data = d.get_values();
+					frappe.call({
+						method: 'create_prospect_and_contact',
+						doc: frm.doc,
+						args: {
+							data: data,
+						},
+						freeze: true,
+						callback: function(r) {
+							if (!r.exc) {
+								frappe.model.open_mapped_doc({
+									method: "erpnext.crm.doctype.lead.lead.make_opportunity",
+									frm: frm
+								});
+							}
+							d.hide();
+						}
+					});
+				},
+				primary_action_label: __('Create')
+			});
+			d.show();
+		} else {
+			frappe.model.open_mapped_doc({
+				method: "erpnext.crm.doctype.lead.lead.make_opportunity",
+				frm: frm
+			});
+		}
+	}
 });
 
 frappe.ui.form.on('Qualification Grade Table', {

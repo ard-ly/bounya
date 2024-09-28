@@ -1311,5 +1311,31 @@
   "name": "d563a792a6",
   "source_text": "Qualified",
   "translated_text": "\u0645\u0624\u0647\u064e\u0644"
+ },
+ {
+  "context": null,
+  "contributed": 0,
+  "contribution_docname": null,
+  "contribution_status": "",
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "ar",
+  "modified": "2024-09-28 12:01:53.568311",
+  "name": "bcff0bc676",
+  "source_text": "Can not submit if Equipment is not installed.",
+  "translated_text": "\u0644\u0627 \u064a\u0645\u0643\u0646 \u0627\u0644\u062a\u0633\u062c\u064a\u0644 \u0625\u0630\u0627 \u0644\u0645 \u064a\u062a\u0645 \u062a\u062b\u0628\u064a\u062a \u0627\u0644\u0645\u0639\u062f\u0629"
+ },
+ {
+  "context": null,
+  "contributed": 0,
+  "contribution_docname": null,
+  "contribution_status": "",
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "ar",
+  "modified": "2024-09-28 12:04:02.273856",
+  "name": "8ab6b663bf",
+  "source_text": "Lead must be Qualified to create Opportunity.",
+  "translated_text": "\u064a\u062c\u0628 \u0623\u0646 \u062a\u0643\u0648\u0646 \u0645\u0628\u0627\u062f\u0631\u0629 \u0627\u0644\u0628\u064a\u0639 \u0645\u0624\u0647\u0644\u0629 \u0644\u0625\u0646\u0634\u0627\u0621 \u0627\u0644\u0641\u0631\u0635\u0629"
  }
 ]
