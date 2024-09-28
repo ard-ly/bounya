@@ -1,0 +1,44 @@
+[
+ {
+  "columns": [
+   {
+    "column_name": "Pending",
+    "indicator": "Gray",
+    "order": "[]",
+    "parent": "Equipment Installation Form",
+    "parentfield": "columns",
+    "parenttype": "Kanban Board",
+    "status": "Active"
+   },
+   {
+    "column_name": "Approved",
+    "indicator": "Green",
+    "order": "[]",
+    "parent": "Equipment Installation Form",
+    "parentfield": "columns",
+    "parenttype": "Kanban Board",
+    "status": "Active"
+   },
+   {
+    "column_name": "Rejected",
+    "indicator": "Red",
+    "order": "[]",
+    "parent": "Equipment Installation Form",
+    "parentfield": "columns",
+    "parenttype": "Kanban Board",
+    "status": "Active"
+   }
+  ],
+  "docstatus": 0,
+  "doctype": "Kanban Board",
+  "field_name": "status",
+  "fields": null,
+  "filters": null,
+  "kanban_board_name": "Equipment Installation Form",
+  "modified": "2024-09-25 10:46:11.861258",
+  "name": "Equipment Installation Form",
+  "private": 0,
+  "reference_doctype": "Equipment Installation Form",
+  "show_labels": 0
+ }
+]

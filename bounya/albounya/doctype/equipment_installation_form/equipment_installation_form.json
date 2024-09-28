@@ -12,14 +12,14 @@
   "section_break_isikg",
   "customer",
   "user",
-  "email",
   "column_break_g79hm",
   "customer_name",
+  "status",
   "tower_details_section",
-  "branch",
+  "towers",
   "office",
   "column_break_3lxu3",
-  "towers",
+  "branch",
   "equipment_details_section",
   "equipment_name",
   "equipment_weigh",
@@ -36,7 +36,8 @@
    "fieldtype": "Link",
    "in_list_view": 1,
    "label": "Customer",
-   "options": "Customer"
+   "options": "Customer",
+   "reqd": 1
   },
   {
    "fieldname": "amended_from",
@@ -48,11 +49,11 @@
    "read_only": 1
   },
   {
+   "fetch_from": "customer.customer_name",
    "fieldname": "customer_name",
    "fieldtype": "Data",
    "label": "Customer Name",
-   "read_only": 1,
-   "reqd": 1
+   "read_only": 1
   },
   {
    "fieldname": "naming_series",
@@ -68,10 +69,12 @@
    "options": "Towers"
   },
   {
+   "fetch_from": "towers.branch",
    "fieldname": "branch",
    "fieldtype": "Link",
    "label": "Branch",
-   "options": "Branch"
+   "options": "Branch",
+   "read_only": 1
   },
   {
    "fetch_from": "towers.office",
@@ -109,12 +112,12 @@
   {
    "fieldname": "equipment_weigh",
    "fieldtype": "Float",
-   "label": "Equipment Weigh"
+   "label": "Equipment Weigh "
   },
   {
    "fieldname": "equipment_direction",
    "fieldtype": "Select",
-   "label": "Equipment Direction",
+   "label": " Equipment Direction ",
    "options": "\nWest\nEast\nNorth\nSouth\nSoutheast\nNortheast\nSouthwest\nNorthwest"
   },
   {
@@ -136,27 +139,29 @@
    "label": "Lead"
   },
   {
-   "fieldname": "user",
-   "fieldtype": "Link",
-   "label": "User",
-   "options": "User",
-   "read_only": 1
-  },
-  {
    "fieldname": "column_break_g79hm",
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "email",
-   "fieldtype": "Data",
-   "label": "Email",
-   "options": "Email"
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Pending\nApproved\nRejected"
+  },
+  {
+   "fieldname": "user",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "User",
+   "options": "User",
+   "read_only": 1,
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-09-19 10:48:02.841449",
+ "modified": "2024-09-26 13:28:29.347669",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Equipment Installation Form",
@@ -192,7 +197,9 @@
    "create": 1,
    "email": 1,
    "export": 1,
+   "if_owner": 1,
    "print": 1,
+   "read": 1,
    "report": 1,
    "role": "Customer",
    "share": 1,

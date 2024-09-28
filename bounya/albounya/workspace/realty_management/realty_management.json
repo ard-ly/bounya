@@ -1,0 +1,140 @@
+{
+ "_liked_by": "[\"Administrator\"]",
+ "charts": [
+  {
+   "chart_name": "Towers by Branch",
+   "label": "Towers by Branch"
+  },
+  {
+   "chart_name": "Towers by Office",
+   "label": "Towers by Office"
+  }
+ ],
+ "content": "[{\"id\":\"KiAciIauCw\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Realty Management</span>\",\"col\":12}},{\"id\":\"4PyM8_8WED\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"g7ZjfwwTwL\",\"type\":\"card\",\"data\":{\"card_name\":\"Realty\",\"col\":4}},{\"id\":\"9b4tkdq1IZ\",\"type\":\"card\",\"data\":{\"card_name\":\"Equipment\",\"col\":4}},{\"id\":\"Kfl1BMM9-Z\",\"type\":\"number_card\",\"data\":{\"number_card_name\":\"Total Towers\",\"col\":4}},{\"id\":\"-kL1Ax2NjC\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"10SIiICwKi\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Towers by Branch\",\"col\":6}},{\"id\":\"FPtvgyvWn3\",\"type\":\"chart\",\"data\":{\"chart_name\":\"Towers by Office\",\"col\":6}}]",
+ "creation": "2024-09-23 11:01:34.051810",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "",
+ "idx": 0,
+ "is_hidden": 0,
+ "label": "Realty Management",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Realty",
+   "link_count": 4,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Realty",
+   "link_count": 0,
+   "link_to": "Realty",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Towers",
+   "link_count": 0,
+   "link_to": "Towers",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Towers Report",
+   "link_count": 0,
+   "link_to": "Towers Report",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Buildings",
+   "link_count": 0,
+   "link_to": "Buildings",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Equipment",
+   "link_count": 3,
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Equipment Installation",
+   "link_count": 0,
+   "link_to": "Equipment Installation",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Equipment Installation Form",
+   "link_count": 0,
+   "link_to": "Equipment Installation Form",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Towers Equipment Report",
+   "link_count": 0,
+   "link_to": "Towers Equipment Report",
+   "link_type": "Report",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2024-09-26 11:38:29.704625",
+ "modified_by": "Administrator",
+ "module": "Albounya",
+ "name": "Realty Management",
+ "number_cards": [
+  {
+   "label": "Total Towers",
+   "number_card_name": "Total Towers"
+  }
+ ],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [
+  {
+   "role": "Tower Management"
+  },
+  {
+   "role": "Buildings Management"
+  },
+  {
+   "role": "Realty Manager"
+  }
+ ],
+ "sequence_id": 40.0,
+ "shortcuts": [],
+ "title": "Realty Management"
+}

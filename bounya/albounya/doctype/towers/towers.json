@@ -11,6 +11,7 @@
   "tower_name",
   "serial_number",
   "tower_type",
+  "allow_equipment_installation",
   "column_break_5xew4",
   "branch",
   "office",
@@ -120,7 +121,7 @@
   {
    "fieldname": "number_of_equipments",
    "fieldtype": "Int",
-   "label": "Number Of Equipments"
+   "label": "Number Of Equipment"
   },
   {
    "fieldname": "office",
@@ -151,7 +152,7 @@
   {
    "fieldname": "required_height_for_installation",
    "fieldtype": "Float",
-   "label": "Required height For Installation"
+   "label": "Required Height For Installation"
   },
   {
    "fieldname": "tower_height",
@@ -162,12 +163,18 @@
    "fieldname": "allowable_equipment_weight",
    "fieldtype": "Float",
    "label": "Allowable Equipment Weight"
+  },
+  {
+   "default": "1",
+   "fieldname": "allow_equipment_installation",
+   "fieldtype": "Check",
+   "label": "Allow Equipment Installation"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-09-18 12:30:33.262266",
+ "modified": "2024-09-26 13:08:05.728039",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Towers",

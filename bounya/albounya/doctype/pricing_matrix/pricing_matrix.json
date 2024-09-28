@@ -1,0 +1,47 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-09-25 11:47:15.315758",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "equipment_radius",
+  "equipment_height",
+  "price"
+ ],
+ "fields": [
+  {
+   "fieldname": "price",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Price",
+   "options": "Currency",
+   "reqd": 1
+  },
+  {
+   "fieldname": "equipment_radius",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Equipment Radius "
+  },
+  {
+   "fieldname": "equipment_height",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Equipment Height"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-09-25 12:04:42.785045",
+ "modified_by": "Administrator",
+ "module": "Albounya",
+ "name": "Pricing Matrix",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

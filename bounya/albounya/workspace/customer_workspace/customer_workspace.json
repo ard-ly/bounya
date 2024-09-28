@@ -1,6 +1,7 @@
 {
+ "_liked_by": "[\"Administrator\"]",
  "charts": [],
- "content": "[{\"id\":\"FN0jJIpRqK\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Customer Workspace</span>\",\"col\":12}},{\"id\":\"qsIbixDOJw\",\"type\":\"card\",\"data\":{\"card_name\":\"Equipment\",\"col\":4}},{\"id\":\"lWVeXJ1ruU\",\"type\":\"card\",\"data\":{\"card_name\":\"Contracts\",\"col\":4}}]",
+ "content": "[{\"id\":\"FN0jJIpRqK\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Customer Workspace</span>\",\"col\":12}},{\"id\":\"mZgU817Tmk\",\"type\":\"spacer\",\"data\":{\"col\":12}},{\"id\":\"qsIbixDOJw\",\"type\":\"card\",\"data\":{\"card_name\":\"Equipment\",\"col\":4}}]",
  "creation": "2024-09-17 14:59:21.218895",
  "custom_blocks": [],
  "docstatus": 0,
@@ -12,24 +13,6 @@
  "is_hidden": 0,
  "label": "Customer Workspace",
  "links": [
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Contracts",
-   "link_count": 1,
-   "onboard": 0,
-   "type": "Card Break"
-  },
-  {
-   "hidden": 0,
-   "is_query_report": 0,
-   "label": "Contact",
-   "link_count": 0,
-   "link_to": "Contact",
-   "link_type": "DocType",
-   "onboard": 0,
-   "type": "Link"
-  },
   {
    "hidden": 0,
    "is_query_report": 0,
@@ -59,7 +42,7 @@
    "type": "Link"
   }
  ],
- "modified": "2024-09-18 11:26:20.800274",
+ "modified": "2024-09-24 10:01:26.748875",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Customer Workspace",
