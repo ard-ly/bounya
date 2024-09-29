@@ -126,5 +126,5 @@ class CustomSalarySlip(SalarySlip):
     #     frappe.db.set_value("Salary Slip" , self.name , "docstatus" , 1 )
 
 
-    # def validate(self):
-    #     pass
+    def validate(self):
+        pass
