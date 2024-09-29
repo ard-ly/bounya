@@ -21,9 +21,11 @@
   "section_break_xto1s",
   "equipment_state",
   "old_equipment_serial_number",
+  "equipment_radius",
   "column_break_3vinj",
   "equipment_weigh",
   "equipment_direction",
+  "equipment_height",
   "references_section",
   "contract",
   "contract_end_date",
@@ -174,12 +176,22 @@
    "fieldtype": "Link",
    "label": "Owned By",
    "options": "Customer"
+  },
+  {
+   "fieldname": "equipment_radius",
+   "fieldtype": "Float",
+   "label": "Equipment Radius"
+  },
+  {
+   "fieldname": "equipment_height",
+   "fieldtype": "Float",
+   "label": "Equipment Height"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-09-19 10:45:42.008914",
+ "modified": "2024-09-29 11:45:29.327264",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Equipment Installation",
