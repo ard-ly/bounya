@@ -64,7 +64,26 @@ class CustomPayrollEntry(PayrollEntry):
 			).run(as_dict=True)
 
 			return salary_components
-		
+
+	def get_sal_slip_list(self, ss_status, as_dict=False):
+		"""
+		Returns list of salary slips based on selected criteria
+		"""
+		print("KKKKKKKKKKKKKKKKKKKKKKKKK \n kkkkkkkkkkkkkkkkkkkkkkkkkkkkkk")
+		ss = frappe.qb.DocType("Salary Slip")
+		ss_list = (
+			frappe.qb.from_(ss)
+			.select(ss.name, ss.salary_structure)
+			.where(
+				(ss.docstatus == ss_status)
+				& (ss.payroll_entry == self.name)
+				& ((ss.journal_entry.isnull()) | (ss.journal_entry == ""))
+				& (Coalesce(ss.salary_slip_based_on_timesheet, 0) == self.salary_slip_based_on_timesheet)
+			)
+		).run(as_dict=as_dict)
+
+		return ss_list
+
 	@frappe.whitelist()
 	def make_payment_entry(self):
 		self.check_permission("write")
