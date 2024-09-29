@@ -1006,3 +1006,26 @@ def get_price_for_height(tower_type,custom_equipment_height):
             "price":price,
             "radius":radius,
             }
+
+@frappe.whitelist()
+def create_opportunity_from_lead(source, target=None,owner=None):
+    def set_missing_values(source, target):
+        target.opportunity_from = "Customer"
+        target.party_name = source.customer
+        target.source = "Existing Customer"
+        target.opportunity_type = "Sales"
+        target.opportunity_owner = owner
+        target.run_method("set_missing_values")
+
+    doc = get_mapped_doc(
+        "Lead",
+        source,
+        {
+            "Lead": {
+                "doctype": "Opportunity",
+            },
+        },
+        target,
+        set_missing_values,
+        )
+    return doc
