@@ -26,7 +26,6 @@ frappe.ui.form.on('Equipment Installation Form', {
 						}
 					};
 				});
-				// frm.doc.querySelector('.layout-side-section').style.display = 'none';
 			}
 		}
 	},
