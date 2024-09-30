@@ -8,7 +8,6 @@ frappe.ui.form.on('Towers', {
 				filters: {
 					"docstatus": 0,
 					"custom_is_tower": 1,
-					// "asset_category": "Towers",
 				}
 			};
 		});
