@@ -157,6 +157,7 @@
    "fieldtype": "Section Break"
   },
   {
+   "description": "Kg",
    "fieldname": "equipment_weigh",
    "fieldtype": "Float",
    "label": "Equipment Weigh "
@@ -178,11 +179,13 @@
    "options": "Customer"
   },
   {
+   "description": "Meter",
    "fieldname": "equipment_radius",
    "fieldtype": "Float",
-   "label": "Equipment Radius"
+   "label": "Equipment Radius "
   },
   {
+   "description": "Meter",
    "fieldname": "equipment_height",
    "fieldtype": "Float",
    "label": "Equipment Height"
@@ -191,7 +194,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-09-29 11:45:29.327264",
+ "modified": "2024-10-02 12:15:10.428102",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Equipment Installation",

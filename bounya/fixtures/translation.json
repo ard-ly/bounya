@@ -1060,10 +1060,10 @@
   "docstatus": 0,
   "doctype": "Translation",
   "language": "ar",
-  "modified": "2024-09-26 13:30:51.466966",
+  "modified": "2024-10-02 12:15:34.521703",
   "name": "354576696d",
   "source_text": "Equipment Radius ",
-  "translated_text": "\u0627\u0644\u0645\u0639\u062f\u0627\u062a \u0646\u0635\u0641 \u0627\u0644\u0642\u0637\u0631"
+  "translated_text": " \u0646\u0635\u0641 \u0627\u0644\u0642\u0637\u0631\u0627\u0644\u0645\u0639\u062f\u0629"
  },
  {
   "context": null,
@@ -1532,5 +1532,18 @@
   "name": "7eb92c06ad",
   "source_text": "Registration Date",
   "translated_text": "\u062a\u0627\u0631\u064a\u062e \u0627\u0644\u062a\u0633\u062c\u064a\u0644"
+ },
+ {
+  "context": null,
+  "contributed": 0,
+  "contribution_docname": null,
+  "contribution_status": "",
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "ar",
+  "modified": "2024-10-02 12:18:14.575339",
+  "name": "cc2eee7a5d",
+  "source_text": "Old Equipment Serial Number",
+  "translated_text": "\u0627\u0644\u0631\u0642\u0645 \u0627\u0644\u062a\u0633\u0644\u0633\u0644\u064a \u0644\u0644\u0645\u0639\u062f\u0629 \u0627\u0644\u0642\u062f\u064a\u0645\u0629"
  }
 ]
