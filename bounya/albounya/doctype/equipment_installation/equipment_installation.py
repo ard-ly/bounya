@@ -50,8 +50,8 @@ class EquipmentInstallation(Document):
 						rad_in_m = self.equipment_radius * 0.01
 						new_available_area = tower_doc.available_area - rad_in_m
 						if new_available_area >= 0:
-							frappe.db.sql(f""" UPDATE `tabTowers` SET available_area = {new_available_area} WHERE name = '{self.tower}' """,as_dict=1,)
-							# frappe.db.set_value('Towers', self.tower, 'available_area', new_available_area)
+							# frappe.db.sql(f""" UPDATE `tabTowers` SET available_area = {new_available_area} WHERE name = '{self.tower}' """,as_dict=1,)
+							frappe.db.set_value('Towers', self.tower, 'available_area', new_available_area)
 						else:
 							throw(_("The equipment Radius is more than the tower's available area."))
 
@@ -67,8 +67,7 @@ class EquipmentInstallation(Document):
 					if tower_doc.available_area > 0:
 						rad_in_m = self.equipment_radius * 0.01
 						new_available_area = tower_doc.available_area + rad_in_m
-						frappe.db.sql(f""" UPDATE `tabTowers` SET available_area = {new_available_area} WHERE name = '{self.tower}' """,as_dict=1,)
-
-						# frappe.db.set_value('Towers', self.tower, 'available_area', new_available_area)
+						# frappe.db.sql(f""" UPDATE `tabTowers` SET available_area = {new_available_area} WHERE name = '{self.tower}' """,as_dict=1,)
+						frappe.db.set_value('Towers', self.tower, 'available_area', new_available_area)
 
 		
