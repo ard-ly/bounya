@@ -24,7 +24,10 @@ frappe.ui.form.on('Equipment Installation', {
 			return {
 				filters: {
 					"docstatus": 1,
-					"document_type":  ["in", ["Sales Order","Quotation"]],
+					"document_type":  "Sales Order",
+					"document_name": frm.doc.sales_order,
+					"is_signed": 1,
+
 				}
 			};
 		});
