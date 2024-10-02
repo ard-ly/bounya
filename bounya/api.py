@@ -963,7 +963,7 @@ def create_opportunity_from_lead(source, target=None,owner=None):
         target.opportunity_from = "Customer"
         target.party_name = source.customer
         target.source = "Existing Customer"
-        target.opportunity_type = "Sales"
+        # target.opportunity_type = "Sales"
         target.opportunity_owner = owner
         target.run_method("set_missing_values")
 

@@ -22,7 +22,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-10-02 19:31:39.765429",
+ "modified": "2024-10-02 23:27:24.734353",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Realty Area Classification",
@@ -30,13 +30,16 @@
  "owner": "Administrator",
  "permissions": [
   {
+   "create": 1,
+   "delete": 1,
    "email": 1,
    "export": 1,
    "print": 1,
    "read": 1,
    "report": 1,
    "role": "System Manager",
-   "share": 1
+   "share": 1,
+   "write": 1
   },
   {
    "email": 1,

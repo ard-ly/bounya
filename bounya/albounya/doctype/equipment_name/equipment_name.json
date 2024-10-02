@@ -22,7 +22,7 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-10-02 19:24:57.852039",
+ "modified": "2024-10-02 23:27:04.134426",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Equipment Name",
@@ -30,13 +30,15 @@
  "owner": "Administrator",
  "permissions": [
   {
+   "create": 1,
    "email": 1,
    "export": 1,
    "print": 1,
    "read": 1,
    "report": 1,
    "role": "System Manager",
-   "share": 1
+   "share": 1,
+   "write": 1
   },
   {
    "email": 1,
@@ -58,6 +60,15 @@
    "role": "Realty Details Manager",
    "share": 1,
    "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Customer",
+   "share": 1
   }
  ],
  "sort_field": "modified",
