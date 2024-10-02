@@ -355,6 +355,15 @@ fixtures = [
             ]
         ],
     },
+    {"dt": "Equipment Name",
+        "filters": [
+            [
+                "name",
+                "in",
+                ["Services"],
+            ]
+        ],
+    },
     {"dt": "Workflow",
         "filters": [
             [
