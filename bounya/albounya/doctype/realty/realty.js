@@ -18,6 +18,8 @@ frappe.ui.form.on('Realty', {
 				}
 			};
 		});
+		// frm.set_df_proprty("area_classification", "only_select", 1);
+
 	},
 
 	refresh: frm => {

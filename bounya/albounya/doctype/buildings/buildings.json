@@ -27,6 +27,7 @@
   "building_accessories",
   "references_section",
   "contract",
+  "contract_end_date",
   "amended_from"
  ],
  "fields": [
@@ -152,12 +153,19 @@
    "fieldtype": "Geolocation",
    "label": "Geolocation",
    "reqd": 1
+  },
+  {
+   "fetch_from": "contract.end_date",
+   "fieldname": "contract_end_date",
+   "fieldtype": "Date",
+   "label": "Contract End Date",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-09-26 13:24:12.976638",
+ "modified": "2024-10-02 19:53:23.681070",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Buildings",

@@ -214,7 +214,8 @@ doc_events = {
 scheduler_events = {
 
 	"monthly": [
-		"bounya.tasks.calculate_exp_yrears_in_employee"
+		"bounya.tasks.calculate_exp_yrears_in_employee",
+        "bounya.tasks.calculate_tower_age"
 	],
 }
 
@@ -345,6 +346,15 @@ fixtures = [
             ]
         ],
     },
+    {"dt": "Equipment Name",
+        "filters": [
+            [
+                "name",
+                "in",
+                ["Sector"],
+            ]
+        ],
+    },
     {"dt": "Workflow",
         "filters": [
             [
@@ -364,11 +374,12 @@ fixtures = [
                 "name",
                 "in",
                 [   
-                    # "Contracts Unit Employee",
-                    # "Tower Management",
-                    # "Buildings Management",
+                    "Contracts Unit Employee",
+                    "Tower Management",
+                    "Buildings Management",
                     "Commercial Management",
                     "General Management",
+                    "Realty Details Manager",
                     
                 ],
             ]

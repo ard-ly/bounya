@@ -12,9 +12,10 @@
   "section_break_isikg",
   "customer",
   "user",
+  "status",
   "column_break_g79hm",
   "customer_name",
-  "status",
+  "customer_branch",
   "tower_details_section",
   "towers",
   "office",
@@ -22,9 +23,13 @@
   "branch",
   "equipment_details_section",
   "equipment_name",
-  "equipment_weigh",
+  "technical_name",
+  "equipment_radius",
+  "equipment_height",
   "column_break_8p4e8",
+  "equipment_weigh",
   "equipment_direction",
+  "direction_degrees",
   "section_break_aonm8",
   "notes",
   "amended_from",
@@ -105,8 +110,9 @@
   },
   {
    "fieldname": "equipment_name",
-   "fieldtype": "Data",
+   "fieldtype": "Link",
    "label": "Equipment Name",
+   "options": "Equipment Name",
    "reqd": 1
   },
   {
@@ -156,12 +162,48 @@
    "options": "User",
    "read_only": 1,
    "reqd": 1
+  },
+  {
+   "fetch_from": "customer.custom_branch",
+   "fieldname": "customer_branch",
+   "fieldtype": "Link",
+   "label": "Customer Branch",
+   "options": "Branch",
+   "read_only": 1
+  },
+  {
+   "depends_on": "eval: doc.equipment_name != \"Sector\"",
+   "description": "CM",
+   "fieldname": "equipment_radius",
+   "fieldtype": "Float",
+   "label": "Equipment Radius ",
+   "mandatory_depends_on": "eval: doc.equipment_name != \"Sector\""
+  },
+  {
+   "depends_on": "eval: doc.equipment_name == \"Sector\"",
+   "description": "CM",
+   "fieldname": "equipment_height",
+   "fieldtype": "Float",
+   "label": "Equipment Height",
+   "mandatory_depends_on": "eval: doc.equipment_name == \"Sector\""
+  },
+  {
+   "depends_on": "eval: doc.equipment_direction",
+   "fieldname": "direction_degrees",
+   "fieldtype": "Float",
+   "label": "Direction Degrees"
+  },
+  {
+   "fieldname": "technical_name",
+   "fieldtype": "Data",
+   "label": "Technical Name",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-09-26 13:28:29.347669",
+ "modified": "2024-10-02 19:14:18.899286",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Equipment Installation Form",

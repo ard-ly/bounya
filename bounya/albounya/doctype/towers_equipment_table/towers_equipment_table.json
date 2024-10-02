@@ -1,5 +1,4 @@
 {
- "_liked_by": "[\"Administrator\"]",
  "actions": [],
  "allow_rename": 1,
  "creation": "2024-08-27 11:25:24.331135",
@@ -51,7 +50,7 @@
   },
   {
    "fieldname": "equipment_installation",
-   "fieldtype": "Link",
+   "fieldtype": "Data",
    "label": "Equipment Installation",
    "options": "Equipment Installation",
    "read_only": 1,
@@ -61,7 +60,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-09-02 10:48:59.606133",
+ "modified": "2024-10-02 15:06:23.025759",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Towers Equipment table",
