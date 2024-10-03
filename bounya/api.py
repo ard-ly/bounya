@@ -979,3 +979,24 @@ def create_opportunity_from_lead(source, target=None,owner=None):
         set_missing_values,
         )
     return doc
+
+@frappe.whitelist()
+def update_cost_center_on_submit(doc, method):
+    if doc.purpose == "Transfer":
+        for row in doc.assets:
+            if row.custom_from_cost_center and row.custom_to_cost_center:
+                frappe.db.set_value('Asset', row.asset, 'cost_center', row.custom_to_cost_center)
+            if row.source_location and row.target_location:
+                frappe.db.set_value('Asset', row.asset, 'location', row.target_location)
+    print("update_cost_center_on_submit")
+
+@frappe.whitelist()
+def update_cost_center_on_cancel(doc, method):
+    if doc.purpose == "Transfer":
+        for row in doc.assets:
+            if row.custom_from_cost_center and row.custom_to_cost_center:
+                frappe.db.set_value('Asset', row.asset, 'cost_center', row.custom_from_cost_center)
+            if row.source_location and row.target_location:
+                frappe.db.set_value('Asset', row.asset, 'location',row.source_location)
+    print("update_cost_center_on_cancel")
+

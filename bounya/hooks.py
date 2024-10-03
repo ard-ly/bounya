@@ -199,6 +199,10 @@ doc_events = {
         "on_submit": "bounya.api.add_building_accessories",
         "on_cancel": "bounya.api.cancel_building_accessories",
     },
+    "Asset Movement":{
+        "on_submit": "bounya.api.update_cost_center_on_submit",
+        "on_cancel": "bounya.api.update_cost_center_on_cancel",
+    },
 }
 
 # doc_events = {
@@ -355,15 +359,15 @@ fixtures = [
             ]
         ],
     },
-    {"dt": "Equipment Name",
-        "filters": [
-            [
-                "name",
-                "in",
-                ["Services"],
-            ]
-        ],
-    },
+    # {"dt": "Equipment Name",
+    #     "filters": [
+    #         [
+    #             "name",
+    #             "in",
+    #             ["Services"],
+    #         ]
+    #     ],
+    # },
     {"dt": "Workflow",
         "filters": [
             [
