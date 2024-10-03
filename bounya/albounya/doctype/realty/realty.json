@@ -35,6 +35,7 @@
   "the_total_area",
   "column_break_nnk3e",
   "covered_space",
+  "available_area",
   "section_break_4zifm",
   "city",
   "column_break_driwb",
@@ -196,8 +197,9 @@
    "fieldtype": "Section Break"
   },
   {
+   "description": "Meter",
    "fieldname": "the_total_area",
-   "fieldtype": "Data",
+   "fieldtype": "Float",
    "label": "The total area"
   },
   {
@@ -205,8 +207,9 @@
    "fieldtype": "Column Break"
   },
   {
+   "description": "Meter",
    "fieldname": "covered_space",
-   "fieldtype": "Data",
+   "fieldtype": "Float",
    "label": "Covered space"
   },
   {
@@ -445,12 +448,19 @@
    "fieldtype": "Date",
    "label": "Purchase Date",
    "mandatory_depends_on": "eval:doc.realty_type == \"Land Plot\""
+  },
+  {
+   "description": "For Rent Or Sale (Meter)",
+   "fieldname": "available_area",
+   "fieldtype": "Float",
+   "label": "Available Area",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-10-03 09:28:39.247205",
+ "modified": "2024-10-03 14:12:39.374037",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Realty",
@@ -511,6 +521,15 @@
    "read": 1,
    "report": 1,
    "role": "Accounts User",
+   "share": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales User",
    "share": 1
   }
  ],

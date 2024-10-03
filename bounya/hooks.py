@@ -192,9 +192,6 @@ doc_events = {
     "Supplier": {
         "on_update": "bounya.api.set_custom_supplier_group_sequence_field",
     },
-    # "Contract":{
-    #     "on_submit": "bounya.api.add_contract_to_so",
-    # },
     "Asset":{
         "on_submit": "bounya.api.add_building_accessories",
         "on_cancel": "bounya.api.cancel_building_accessories",
@@ -202,6 +199,10 @@ doc_events = {
     "Asset Movement":{
         "on_submit": "bounya.api.update_cost_center_on_submit",
         "on_cancel": "bounya.api.update_cost_center_on_cancel",
+    },
+    "Sales Order":{
+        "on_submit": "bounya.api.update_realty_available_area_on_submit",
+        "on_cancel": "bounya.api.update_realty_available_area_on_cancel",
     },
 }
 

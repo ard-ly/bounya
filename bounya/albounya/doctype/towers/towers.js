@@ -26,10 +26,10 @@ frappe.ui.form.on('Towers', {
 
 	total_area:function(frm) {
 		if ((frm.doc.docstatus != 1) || (frm.doc.docstatus != 2)){
-			if(frm.doc.total_area > 0){
+			// if(frm.doc.total_area > 0){
 				frm.doc.available_area = frm.doc.total_area;
 				frm.refresh_field("available_area");
-			}
+			// }
 		}
 	},
 
