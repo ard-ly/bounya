@@ -18,8 +18,16 @@ frappe.ui.form.on('Realty', {
 				}
 			};
 		});
-		// frm.set_df_proprty("area_classification", "only_select", 1);
+		
 
+	},
+	covered_space:function(frm) {
+		if ((frm.doc.docstatus != 1) || (frm.doc.docstatus != 2)){
+			// if(frm.doc.covered_space > 0){
+				frm.doc.available_area = frm.doc.covered_space;
+				frm.refresh_field("available_area");
+			// }
+		}
 	},
 
 	refresh: frm => {

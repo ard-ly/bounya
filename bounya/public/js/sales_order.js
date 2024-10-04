@@ -27,9 +27,21 @@ frappe.ui.form.on('Sales Order', {
 	    }
     },
 
-	// onload: function(frm) {
-	// 	let types = ['Sales','Maintenance','Shopping Cart','Equipment Installation'];
-    //     frm.set_df_property("order_type", "options", types);
-    //     frm.refresh_field("order_type");
-	// },
+	onload: function(frm) {
+		frm.set_query("custom_realty_name", function() {
+			return {
+				query: "bounya.queries.filter_realty",
+				filters: {}
+			};
+		});
+	},
+
+	validate: function(frm) {
+		if (frm.doc.custom_realty == 1){
+			if (frm.doc.custom_needed_space > parseFloat(frm.doc.custom_available_area)){
+				frappe.throw(__("The needed space must be less than the available space."));
+			}
+
+		}
+	},
 });

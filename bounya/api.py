@@ -834,11 +834,6 @@ def create_contract_from_so(source, target=None):
     return doc
 
 @frappe.whitelist()
-def add_contract_to_so(doc, method):
-    if doc.document_type == "Sales Order":
-        frappe.db.set_value('Sales Order', doc.document_name, 'custom_contract', doc.name)
-
-@frappe.whitelist()
 def create_equipment_installation_from_so(source, target=None):
     def set_missing_values(source, target):
         target.owned_by = source.customer
@@ -979,3 +974,43 @@ def create_opportunity_from_lead(source, target=None,owner=None):
         set_missing_values,
         )
     return doc
+
+@frappe.whitelist()
+def update_cost_center_on_submit(doc, method):
+    if doc.purpose == "Transfer":
+        for row in doc.assets:
+            if row.custom_from_cost_center and row.custom_to_cost_center:
+                frappe.db.set_value('Asset', row.asset, 'cost_center', row.custom_to_cost_center)
+            if row.source_location and row.target_location:
+                frappe.db.set_value('Asset', row.asset, 'location', row.target_location)
+    print("update_cost_center_on_submit")
+
+@frappe.whitelist()
+def update_cost_center_on_cancel(doc, method):
+    if doc.purpose == "Transfer":
+        for row in doc.assets:
+            if row.custom_from_cost_center and row.custom_to_cost_center:
+                frappe.db.set_value('Asset', row.asset, 'cost_center', row.custom_from_cost_center)
+            if row.source_location and row.target_location:
+                frappe.db.set_value('Asset', row.asset, 'location',row.source_location)
+    print("update_cost_center_on_cancel")
+
+@frappe.whitelist()
+def update_realty_available_area_on_submit(doc, method):
+    if doc.custom_realty == 1 :
+        if doc.custom_realty_name and (doc.custom_needed_space > 0) :
+            realty_doc = frappe.get_doc('Realty', doc.custom_realty_name)
+            new_available_space = float(realty_doc.available_area) - doc.custom_needed_space
+            frappe.db.set_value('Realty', doc.custom_realty_name, 'available_area', float(new_available_space))
+
+    print("update_realty_available_area_on_submit")
+
+@frappe.whitelist()
+def update_realty_available_area_on_cancel(doc, method):
+    if doc.custom_realty == 1 :
+        if doc.custom_realty_name and (doc.custom_needed_space > 0) :
+            realty_doc = frappe.get_doc('Realty', doc.custom_realty_name)
+            new_available_space = float(realty_doc.available_area) + doc.custom_needed_space
+            frappe.db.set_value('Realty', doc.custom_realty_name, 'available_area', float(new_available_space))
+            
+    print("update_realty_available_area_on_cancel")
