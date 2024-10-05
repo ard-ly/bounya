@@ -121,7 +121,8 @@ class CustomSalarySlip(SalarySlip):
                 self.custom_default_base_pay = frappe.db.get_value("Employee Grade" ,  self.custom_grade , "default_base_pay")
                 self.custom_dependent_value = frappe.db.get_value("Employee Grade" ,  self.custom_grade , "custom_dependent_value")
         except :
-            frappe.throw("You cannot cancel a document more than once")    # def set_status(self, status=None):
+            frappe.throw("You cannot cancel a document more than once") 
+# def set_status(self, status=None):
     #     """Get and update status"""
     #     if not status:
     #         status = self.get_status()
