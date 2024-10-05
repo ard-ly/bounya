@@ -1,0 +1,119 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-10-05 13:00:17.170642",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "tower",
+  "owner1",
+  "column_break_7vbzw",
+  "uninstallation_date",
+  "section_break_vetg9",
+  "existing_equipment_installation",
+  "equipment_installation",
+  "equipment_name",
+  "technical_name",
+  "serial_number",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "tower",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Tower",
+   "options": "Towers",
+   "reqd": 1
+  },
+  {
+   "fieldname": "owner1",
+   "fieldtype": "Link",
+   "label": "Owner",
+   "options": "Customer",
+   "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "existing_equipment_installation",
+   "fieldtype": "Check",
+   "label": "Existing Equipment Installation"
+  },
+  {
+   "depends_on": "eval:doc.existing_equipment_installation == \"1\"",
+   "fieldname": "equipment_installation",
+   "fieldtype": "Link",
+   "label": "Equipment Installation",
+   "options": "Equipment Installation"
+  },
+  {
+   "fieldname": "equipment_name",
+   "fieldtype": "Link",
+   "label": "Equipment Name",
+   "options": "Equipment Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "technical_name",
+   "fieldtype": "Data",
+   "label": "Technical Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Uninstall Equipment",
+   "print_hide": 1,
+   "read_only": 1
+  },
+  {
+   "fieldname": "uninstallation_date",
+   "fieldtype": "Date",
+   "label": "UnInstallation Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_7vbzw",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_vetg9",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "serial_number",
+   "fieldtype": "Data",
+   "label": "Serial Number",
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2024-10-05 13:06:35.068579",
+ "modified_by": "Administrator",
+ "module": "Albounya",
+ "name": "Uninstall Equipment",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

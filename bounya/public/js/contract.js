@@ -66,4 +66,65 @@ frappe.ui.form.on('Contract', {
             
         }
     },
+    document_name(frm){
+        if (frm.doc.document_name){  
+            if (frm.doc.document_type == "Purchase Invoice"){
+                frappe.db.get_doc("Purchase Invoice", frm.doc.document_name).then(docu => { 
+                    frm.doc.party_type ="Supplier";
+                    frm.doc.party_name = docu.supplier;
+                    frm.trigger('party_name');
+                    frm.doc.custom_service_value = docu.total;  
+                    frm.doc.custom_tax = docu.total_taxes_and_charges;
+                    frm.doc.custom_total = docu.grand_total;
+                    
+                    frm.refresh_fields();
+                });
+            }
+            else if(frm.doc.document_type == "Purchase Order"){
+                frappe.db.get_doc("Purchase Order", frm.doc.document_name).then(docu => { 
+                    frm.doc.party_type ="Supplier";
+                    frm.doc.party_name = docu.supplier;
+                    frm.trigger('party_name');
+                    frm.doc.custom_service_value = docu.total;  
+                    frm.doc.custom_tax = docu.total_taxes_and_charges;
+                    frm.doc.custom_total = docu.grand_total;
+                    frm.refresh_fields();
+                });
+            }
+            else if(frm.doc.document_type == "Sales Invoice"){
+                frappe.db.get_doc("Sales Invoice", frm.doc.document_name).then(docu => { 
+                    frm.doc.party_type ="Customer";
+                    frm.doc.party_name = docu.customer;
+                    frm.trigger('party_name');
+                    frm.doc.custom_service_value = docu.total;  
+                    frm.doc.custom_tax = docu.total_taxes_and_charges;
+                    frm.doc.custom_total = docu.grand_total;
+                    frm.refresh_fields();
+                });
+            }
+            else if(frm.doc.document_type == "Sales Order"){
+                frappe.db.get_doc("Sales Order", frm.doc.document_name).then(docu => { 
+                    frm.doc.party_type ="Customer";
+                    frm.doc.party_name = docu.customer;
+                    frm.trigger('party_name');
+                    frm.doc.custom_service_value = docu.total;  
+                    frm.doc.custom_tax = docu.total_taxes_and_charges;
+                    frm.doc.custom_total = docu.grand_total;
+                    frm.refresh_fields();
+                    
+                });
+            }
+            else if(frm.doc.document_type == "Quotation"){
+                frappe.db.get_doc("Quotation", frm.doc.document_name).then(docu => { 
+                    frm.doc.party_type ="Customer";
+                    frm.doc.party_name = docu.customer;
+                    frm.trigger('party_name');
+                    frm.doc.custom_service_value = docu.total;  
+                    frm.doc.custom_tax = docu.total_taxes_and_charges;
+                    frm.doc.custom_total = docu.grand_total;
+                    frm.refresh_fields();
+                });
+            }
+    }
+    },
 }); 

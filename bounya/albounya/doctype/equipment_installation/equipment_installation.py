@@ -38,6 +38,16 @@ class EquipmentInstallation(Document):
 			new_doc.installation_date = self.installation_date
 		if self.contract_end_date:
 			new_doc.contract_ending_date = self.contract_end_date
+		if self.equipment_radius:
+			new_doc.equipment_radius = self.equipment_radius
+		if self.equipment_height:
+			new_doc.equipment_height = self.equipment_height
+		if self.equipment_weigh:
+			new_doc.equipment_weigh = self.equipment_weigh
+		if self.equipment_direction:
+			new_doc.equipment_direction = self.equipment_direction
+		if self.direction_degrees:
+			new_doc.direction_degrees = self.direction_degrees
 
 		new_doc.insert(ignore_permissions=True)
 	
