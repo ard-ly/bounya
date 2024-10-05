@@ -45,13 +45,13 @@ frappe.ui.form.on('Realty', {
 		
 
 	},
-	covered_space:function(frm) {
-		if ((frm.doc.docstatus != 1) || (frm.doc.docstatus != 2)){
-				frm.doc.available_area = frm.doc.covered_space;
-				frm.refresh_field("available_area");
+	// covered_space:function(frm) {
+	// 	if ((frm.doc.docstatus != 1) || (frm.doc.docstatus != 2)){
+	// 			frm.doc.available_area = frm.doc.covered_space;
+	// 			frm.refresh_field("available_area");
 			
-		}
-	},
+	// 	}
+	// },
 
 	refresh: frm => {
 
