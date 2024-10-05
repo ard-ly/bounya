@@ -39,7 +39,6 @@
   "the_total_area",
   "column_break_nnk3e",
   "covered_space",
-  "available_area",
   "section_break_4zifm",
   "city",
   "column_break_driwb",
@@ -454,13 +453,6 @@
    "mandatory_depends_on": "eval:doc.realty_type == \"Land Plot\""
   },
   {
-   "description": "For Rent Or Sale (Meter)",
-   "fieldname": "available_area",
-   "fieldtype": "Float",
-   "label": "Available Area",
-   "read_only": 1
-  },
-  {
    "fetch_from": "branch.custom_branch_no",
    "fieldname": "branch_no",
    "fieldtype": "Data",
@@ -490,7 +482,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-10-05 12:44:05.140975",
+ "modified": "2024-10-05 13:25:36.228260",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Realty",

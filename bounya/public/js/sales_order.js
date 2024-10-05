@@ -36,12 +36,12 @@ frappe.ui.form.on('Sales Order', {
 		});
 	},
 
-	validate: function(frm) {
-		if (frm.doc.custom_realty == 1){
-			if (frm.doc.custom_needed_space > parseFloat(frm.doc.custom_available_area)){
-				frappe.throw(__("The needed space must be less than the available space."));
-			}
+	// validate: function(frm) {
+	// 	if (frm.doc.custom_realty == 1){
+	// 		if (frm.doc.custom_needed_space > parseFloat(frm.doc.custom_available_area)){
+	// 			frappe.throw(__("The needed space must be less than the available space."));
+	// 		}
 
-		}
-	},
+	// 	}
+	// },
 });
