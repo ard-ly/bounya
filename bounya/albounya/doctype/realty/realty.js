@@ -2,6 +2,30 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on('Realty', {
+	validate: function(frm) {
+		let naming = frm.doc.realty_no
+
+		if (frm.doc.location){
+			naming = naming + "/" +frm.doc.location
+		}
+		if (frm.doc.office_no){
+			naming = naming + "/" +frm.doc.office_no
+		}
+		if (frm.doc.branch_no){
+			naming = naming + "/" +frm.doc.branch_no
+		}
+		frm.doc.realty_name = naming;
+		frm.refresh_field("realty_name");
+
+		if (frm.doc.realty_ct){
+			let total = 0.0
+			frm.doc.realty_ct.forEach((d) => {
+				total += d.covered_space;
+			});
+			frm.doc.covered_space = total;
+			frm.refresh_field("covered_space");
+		}
+	},
 	
 	onload: function(frm) {
 		frm.set_query("building", function() {
@@ -18,7 +42,16 @@ frappe.ui.form.on('Realty', {
 				}
 			};
 		});
+		
+
 	},
+	// covered_space:function(frm) {
+	// 	if ((frm.doc.docstatus != 1) || (frm.doc.docstatus != 2)){
+	// 			frm.doc.available_area = frm.doc.covered_space;
+	// 			frm.refresh_field("available_area");
+			
+	// 	}
+	// },
 
 	refresh: frm => {
 

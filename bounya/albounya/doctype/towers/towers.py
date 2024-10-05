@@ -3,11 +3,25 @@
 
 import frappe
 from frappe.model.document import Document
+from frappe import _, msgprint,throw
+from frappe.utils import today
+from datetime import date
 
 class Towers(Document):
 	def validate(self):
+		self.validate_date_of_construction()
 		self.send_notification_to_Tower_management()
 
+	
+	def validate_date_of_construction(self):
+		if self.date_of_construction:
+			if self.date_of_construction >= today():
+				throw(_("Date of construction must be before today date."))
+			else:
+				
+				months=frappe.utils.month_diff(frappe.utils.nowdate(),self.date_of_construction)
+				self.age_of_tower =  int(months)
+	
 	def send_notification_to_Tower_management(self):
 		if self. docstatus == 0:
 			users = frappe.db.sql(

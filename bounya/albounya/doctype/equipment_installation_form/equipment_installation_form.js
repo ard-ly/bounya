@@ -2,6 +2,20 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on('Equipment Installation Form', {
+	customer: function(frm) {
+		if(frm.doc.customer_branch){
+			frm.set_query("towers", function() {
+				return {
+					filters: {
+						"docstatus": 1,
+						"allow_equipment_installation":1,
+						"branch":frm.doc.customer_branch,
+					}
+				};
+			});
+		}
+	},
+
 	onload: function(frm) {
 		
 		frm.set_query("towers", function() {
@@ -26,9 +40,17 @@ frappe.ui.form.on('Equipment Installation Form', {
 						}
 					};
 				});
-				// frm.doc.querySelector('.layout-side-section').style.display = 'none';
 			}
 		}
+
+		// let eq_name_list = []
+		// frappe.db.get_list('Equipment Name').then(eq_name_doc => {
+		// 	eq_name_list.push(eq_name_doc[0].name);
+		// 	console.log(eq_name_list);
+		// });
+		// if( eq_name_list.length != 0 ){
+		// 	frm.set_df_property("equipment_name", "options", eq_name_list);
+		// }
 	},
 
 	refresh(frm) {

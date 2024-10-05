@@ -192,12 +192,17 @@ doc_events = {
     "Supplier": {
         "on_update": "bounya.api.set_custom_supplier_group_sequence_field",
     },
-    # "Contract":{
-    #     "on_submit": "bounya.api.add_contract_to_so",
-    # },
     "Asset":{
         "on_submit": "bounya.api.add_building_accessories",
         "on_cancel": "bounya.api.cancel_building_accessories",
+    },
+    "Asset Movement":{
+        "on_submit": "bounya.api.update_cost_center_on_submit",
+        "on_cancel": "bounya.api.update_cost_center_on_cancel",
+    },
+    "Sales Order":{
+        "on_submit": "bounya.api.update_realty_available_area_on_submit",
+        "on_cancel": "bounya.api.update_realty_available_area_on_cancel",
     },
 }
 
@@ -214,7 +219,8 @@ doc_events = {
 scheduler_events = {
 
 	"monthly": [
-		"bounya.tasks.calculate_exp_yrears_in_employee"
+		"bounya.tasks.calculate_exp_yrears_in_employee",
+        "bounya.tasks.calculate_tower_age"
 	],
 }
 
@@ -345,6 +351,24 @@ fixtures = [
             ]
         ],
     },
+    {"dt": "Equipment Name",
+        "filters": [
+            [
+                "name",
+                "in",
+                ["Sector"],
+            ]
+        ],
+    },
+    # {"dt": "Equipment Name",
+    #     "filters": [
+    #         [
+    #             "name",
+    #             "in",
+    #             ["Services"],
+    #         ]
+    #     ],
+    # },
     {"dt": "Workflow",
         "filters": [
             [
@@ -364,11 +388,12 @@ fixtures = [
                 "name",
                 "in",
                 [   
-                    # "Contracts Unit Employee",
-                    # "Tower Management",
-                    # "Buildings Management",
+                    "Contracts Unit Employee",
+                    "Tower Management",
+                    "Buildings Management",
                     "Commercial Management",
                     "General Management",
+                    "Realty Details Manager",
                     
                 ],
             ]

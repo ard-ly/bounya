@@ -818,6 +818,23 @@ def create_contract_from_so(source, target=None):
             target.party_user = contact['user']
             target.custom_second_party_phone = contact['phone']
         
+        for row in source.items:
+            if row.prevdoc_docname:
+                quo_doc = frappe.get_doc('Quotation', row.prevdoc_docname)
+                for item in quo_doc.items:
+                    if item.prevdoc_doctype == "Opportunity":
+                        opp_doc = frappe.get_doc('Opportunity', item.prevdoc_docname)
+                        eqf_doc = frappe.get_doc('Equipment Installation Form', opp_doc.custom_equipment_installation_form)
+                        if opp_doc.custom_equipment_installation_form:
+                            target.custom_equipment_installation_form = opp_doc.custom_equipment_installation_form
+                            target.custom_tower = eqf_doc.towers
+                            target.custom_branch = eqf_doc.branch
+                            target.custom_office = eqf_doc.office
+                            print(opp_doc.custom_equipment_installation_form)
+                            print(eqf_doc.towers)
+
+                    break
+            break
         target.run_method("set_missing_values")
 
     doc = get_mapped_doc(
@@ -832,11 +849,6 @@ def create_contract_from_so(source, target=None):
         set_missing_values,
         )
     return doc
-
-@frappe.whitelist()
-def add_contract_to_so(doc, method):
-    if doc.document_type == "Sales Order":
-        frappe.db.set_value('Sales Order', doc.document_name, 'custom_contract', doc.name)
 
 @frappe.whitelist()
 def create_equipment_installation_from_so(source, target=None):
@@ -876,56 +888,6 @@ def add_building_accessories(doc, method):
 @frappe.whitelist()     
 def cancel_building_accessories(doc, method):
     frappe.db.sql(f""" DELETE FROM `tabBuilding Accessories` WHERE asset = '{doc.name}' """)
-
-@frappe.whitelist()
-def create_contract_from_quotation(source, target=None):
-    def set_missing_values(source, target):
-        target.document_type = 'Quotation'
-        target.document_name = source.name
-        target.custom_service_value = source.total
-        target.custom_tax = source.total_taxes_and_charges
-        target.custom_total = source.grand_total
-        target.party_type = 'Customer'
-
-        if frappe.db.exists("Customer", source.contact_person) == True :
-
-            target.party_name = source.contact_person
-            cus_doc = frappe.get_doc('Customer', source.contact_person)
-
-            if cus_doc.custom_commercial_register:
-                target.custom_second_party_commercial_register = cus_doc.custom_commercial_register
-
-            if cus_doc.custom_registration_date:
-                target.custom_second_party_registration_date = cus_doc.custom_registration_date
-            
-            if cus_doc.custom_classification:
-                target.custom_second_party_classification = cus_doc.custom_classification
-            
-            if cus_doc.custom_license_number:
-                target.custom_second_party_id_number = cus_doc.custom_license_number
-
-            address = get_address_html('Customer', source.contact_person)
-            if address:
-                target.custom_second_party_address_html = address
-            contact = get_party_contact('Customer', source.contact_person)
-            if contact:
-                target.party_user = contact['user']
-                target.custom_second_party_phone = contact['phone']
-        
-        target.run_method("set_missing_values")
-
-    doc = get_mapped_doc(
-        "Quotation",
-        source,
-        {
-            "Quotation": {
-                "doctype": "Contract",
-            },
-        },
-        target,
-        set_missing_values,
-        )
-    return doc
 
 @frappe.whitelist()
 def get_qualification(qualification_template):
@@ -1013,7 +975,7 @@ def create_opportunity_from_lead(source, target=None,owner=None):
         target.opportunity_from = "Customer"
         target.party_name = source.customer
         target.source = "Existing Customer"
-        target.opportunity_type = "Sales"
+        target.custom_equipment_installation_form = source.custom_equipment_installation_form_doctype
         target.opportunity_owner = owner
         target.run_method("set_missing_values")
 
@@ -1029,3 +991,44 @@ def create_opportunity_from_lead(source, target=None,owner=None):
         set_missing_values,
         )
     return doc
+
+@frappe.whitelist()
+def update_cost_center_on_submit(doc, method):
+    if doc.purpose == "Transfer":
+        for row in doc.assets:
+            if row.custom_from_cost_center and row.custom_to_cost_center:
+                frappe.db.set_value('Asset', row.asset, 'cost_center', row.custom_to_cost_center)
+            if row.source_location and row.target_location:
+                frappe.db.set_value('Asset', row.asset, 'location', row.target_location)
+    print("update_cost_center_on_submit")
+
+@frappe.whitelist()
+def update_cost_center_on_cancel(doc, method):
+    if doc.purpose == "Transfer":
+        for row in doc.assets:
+            if row.custom_from_cost_center and row.custom_to_cost_center:
+                frappe.db.set_value('Asset', row.asset, 'cost_center', row.custom_from_cost_center)
+            if row.source_location and row.target_location:
+                frappe.db.set_value('Asset', row.asset, 'location',row.source_location)
+    print("update_cost_center_on_cancel")
+
+@frappe.whitelist()
+def update_realty_available_area_on_submit(doc, method):
+    if doc.custom_realty == 1 :
+        if doc.custom_realty_name and (doc.custom_needed_space > 0) :
+            realty_doc = frappe.get_doc('Realty', doc.custom_realty_name)
+            new_available_space = float(realty_doc.available_area) - doc.custom_needed_space
+            frappe.db.set_value('Realty', doc.custom_realty_name, 'available_area', float(new_available_space))
+
+    print("update_realty_available_area_on_submit")
+
+@frappe.whitelist()
+def update_realty_available_area_on_cancel(doc, method):
+    if doc.custom_realty == 1 :
+        if doc.custom_realty_name and (doc.custom_needed_space > 0) :
+            realty_doc = frappe.get_doc('Realty', doc.custom_realty_name)
+            new_available_space = float(realty_doc.available_area) + doc.custom_needed_space
+            frappe.db.set_value('Realty', doc.custom_realty_name, 'available_area', float(new_available_space))
+            
+    print("update_realty_available_area_on_cancel")
+

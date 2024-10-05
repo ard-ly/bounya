@@ -3,12 +3,12 @@
 
 frappe.ui.form.on('Towers', {
 	onload: function(frm) {
+		
 		frm.set_query("asset", function() {
 			return {
 				filters: {
 					"docstatus": 0,
 					"custom_is_tower": 1,
-					// "asset_category": "Towers",
 				}
 			};
 		});
@@ -23,6 +23,16 @@ frappe.ui.form.on('Towers', {
 			};
 		});
 	},
+
+	total_area:function(frm) {
+		if ((frm.doc.docstatus != 1) || (frm.doc.docstatus != 2)){
+			// if(frm.doc.total_area > 0){
+				frm.doc.available_area = frm.doc.total_area;
+				frm.refresh_field("available_area");
+			// }
+		}
+	},
+
 	refresh(frm) {
 		// Clear the existing breadcrumbs. Set custom breadcrumbs will not do this automatically
 				frappe.breadcrumbs.clear();

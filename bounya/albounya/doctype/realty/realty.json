@@ -1,23 +1,28 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "field:realty_no",
+ "autoname": "field:realty_name",
  "creation": "2024-06-19 10:29:36.204267",
  "default_view": "List",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "realty_name",
   "realty_no",
   "realty_type",
   "building",
   "towers",
   "description",
+  "location",
   "column_break_3kixe",
   "build_up_date",
+  "purchase_date",
   "number_of_floors",
   "branch",
+  "branch_no",
   "office",
+  "office_no",
   "section_break_bkjyi",
   "coordinates",
   "section_break_boizg",
@@ -105,10 +110,11 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "eval:doc.realty_type != \"Land Plot\"",
    "fieldname": "build_up_date",
    "fieldtype": "Date",
    "label": "Build up Date",
-   "reqd": 1
+   "mandatory_depends_on": "eval:doc.realty_type != \"Land Plot\""
   },
   {
    "depends_on": "eval:doc.realty_type == 'Building'",
@@ -194,8 +200,9 @@
    "fieldtype": "Section Break"
   },
   {
+   "description": "Meter",
    "fieldname": "the_total_area",
-   "fieldtype": "Data",
+   "fieldtype": "Float",
    "label": "The total area"
   },
   {
@@ -203,8 +210,9 @@
    "fieldtype": "Column Break"
   },
   {
+   "description": "Meter",
    "fieldname": "covered_space",
-   "fieldtype": "Data",
+   "fieldtype": "Float",
    "label": "Covered space"
   },
   {
@@ -241,8 +249,9 @@
   },
   {
    "fieldname": "area_classification",
-   "fieldtype": "Data",
-   "label": "Area Classification"
+   "fieldtype": "Link",
+   "label": "Area Classification",
+   "options": "Realty Area Classification"
   },
   {
    "fieldname": "amended_from",
@@ -265,7 +274,7 @@
    "fieldname": "realty_ct",
    "fieldtype": "Table",
    "label": "Realty CT",
-   "options": "Realty CT"
+   "options": "Realty CT table"
   },
   {
    "fieldname": "dependency_of_the_realty_section",
@@ -435,12 +444,45 @@
    "label": "Tower",
    "mandatory_depends_on": "eval: doc.realty_type == \"Tower\"",
    "options": "Towers"
+  },
+  {
+   "depends_on": "eval:doc.realty_type == \"Land Plot\"",
+   "fieldname": "purchase_date",
+   "fieldtype": "Date",
+   "label": "Purchase Date",
+   "mandatory_depends_on": "eval:doc.realty_type == \"Land Plot\""
+  },
+  {
+   "fetch_from": "branch.custom_branch_no",
+   "fieldname": "branch_no",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Branch No"
+  },
+  {
+   "fetch_from": "office.custom_office_no",
+   "fieldname": "office_no",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Office No"
+  },
+  {
+   "fieldname": "location",
+   "fieldtype": "Data",
+   "label": "Location"
+  },
+  {
+   "fieldname": "realty_name",
+   "fieldtype": "Data",
+   "label": "Realty Name",
+   "read_only": 1,
+   "unique": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-09-17 14:36:37.009042",
+ "modified": "2024-10-05 13:25:36.228260",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Realty",
@@ -502,8 +544,18 @@
    "report": 1,
    "role": "Accounts User",
    "share": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Sales User",
+   "share": 1
   }
  ],
+ "search_fields": "realty_type,branch",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": []
