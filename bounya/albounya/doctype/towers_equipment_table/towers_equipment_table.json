@@ -8,7 +8,13 @@
  "field_order": [
   "name1",
   "serial_number",
+  "technical_name",
   "equipment_state",
+  "equipment_radius",
+  "equipment_height",
+  "equipment_weigh",
+  "equipment_direction",
+  "direction_degrees",
   "installation_date",
   "contract_ending_date",
   "equipment_installation"
@@ -55,12 +61,42 @@
    "options": "Equipment Installation",
    "read_only": 1,
    "reqd": 1
+  },
+  {
+   "fieldname": "technical_name",
+   "fieldtype": "Data",
+   "label": "Technical Name"
+  },
+  {
+   "fieldname": "equipment_radius",
+   "fieldtype": "Float",
+   "label": "Equipment Radius "
+  },
+  {
+   "fieldname": "equipment_height",
+   "fieldtype": "Float",
+   "label": "Equipment Height"
+  },
+  {
+   "fieldname": "equipment_weigh",
+   "fieldtype": "Float",
+   "label": "Equipment Weigh "
+  },
+  {
+   "fieldname": "equipment_direction",
+   "fieldtype": "Data",
+   "label": " Equipment Direction "
+  },
+  {
+   "fieldname": "direction_degrees",
+   "fieldtype": "Data",
+   "label": "Direction Degrees"
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-10-02 15:06:23.025759",
+ "modified": "2024-10-05 12:50:43.498888",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Towers Equipment table",

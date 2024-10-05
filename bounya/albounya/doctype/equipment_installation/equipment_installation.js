@@ -51,7 +51,28 @@ frappe.ui.form.on('Equipment Installation', {
 
 	},
 	
+	contract(frm) {
+		if (frm.doc.contract){
+			frappe.db.get_doc('Contract', frm.doc.contract).then(contract_doc => {
+				if (contract_doc.custom_equipment_installation_form){
+					frappe.db.get_doc('Equipment Installation Form', contract_doc.custom_equipment_installation_form).then(eq_form_doc => {
+						frm.doc.tower= eq_form_doc.tower;
+						frm.doc.owned_by = eq_form_doc.customer;
+						frm.refresh_fields();
+						// frm.doc.equipment_name = eq_form_doc.
+						// frm.doc.technical_name
+						// frm.doc.equipment_radius
+						// frm.doc.equipment_height
+						// frm.doc.equipment_weigh
+						// frm.doc.equipment_direction
+						// frm.doc.direction_degrees
+					});
+				}
+			});
+		}
+	},
 });
+
 frappe.listview_settings['Equipment Installation'] = {
 	refresh: function (listview) {
 		// Clear the existing breadcrumbs. Set custom breadcrumbs will not do this automatically

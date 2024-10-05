@@ -818,6 +818,23 @@ def create_contract_from_so(source, target=None):
             target.party_user = contact['user']
             target.custom_second_party_phone = contact['phone']
         
+        for row in source.items:
+            if row.prevdoc_docname:
+                quo_doc = frappe.get_doc('Quotation', row.prevdoc_docname)
+                for item in quo_doc.items:
+                    if item.prevdoc_doctype == "Opportunity":
+                        opp_doc = frappe.get_doc('Opportunity', item.prevdoc_docname)
+                        eqf_doc = frappe.get_doc('Equipment Installation Form', opp_doc.custom_equipment_installation_form)
+                        if opp_doc.custom_equipment_installation_form:
+                            target.custom_equipment_installation_form = opp_doc.custom_equipment_installation_form
+                            target.custom_tower = eqf_doc.towers
+                            target.custom_branch = eqf_doc.branch
+                            target.custom_office = eqf_doc.office
+                            print(opp_doc.custom_equipment_installation_form)
+                            print(eqf_doc.towers)
+
+                    break
+            break
         target.run_method("set_missing_values")
 
     doc = get_mapped_doc(
@@ -958,7 +975,7 @@ def create_opportunity_from_lead(source, target=None,owner=None):
         target.opportunity_from = "Customer"
         target.party_name = source.customer
         target.source = "Existing Customer"
-        # target.opportunity_type = "Sales"
+        target.custom_equipment_installation_form = source.custom_equipment_installation_form_doctype
         target.opportunity_owner = owner
         target.run_method("set_missing_values")
 
@@ -1014,3 +1031,4 @@ def update_realty_available_area_on_cancel(doc, method):
             frappe.db.set_value('Realty', doc.custom_realty_name, 'available_area', float(new_available_space))
             
     print("update_realty_available_area_on_cancel")
+

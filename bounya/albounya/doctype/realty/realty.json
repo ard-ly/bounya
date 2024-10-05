@@ -1,24 +1,28 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "field:realty_no",
+ "autoname": "field:realty_name",
  "creation": "2024-06-19 10:29:36.204267",
  "default_view": "List",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "realty_name",
   "realty_no",
   "realty_type",
   "building",
   "towers",
   "description",
+  "location",
   "column_break_3kixe",
   "build_up_date",
   "purchase_date",
   "number_of_floors",
   "branch",
+  "branch_no",
   "office",
+  "office_no",
   "section_break_bkjyi",
   "coordinates",
   "section_break_boizg",
@@ -271,7 +275,7 @@
    "fieldname": "realty_ct",
    "fieldtype": "Table",
    "label": "Realty CT",
-   "options": "Realty CT"
+   "options": "Realty CT table"
   },
   {
    "fieldname": "dependency_of_the_realty_section",
@@ -455,12 +459,38 @@
    "fieldtype": "Float",
    "label": "Available Area",
    "read_only": 1
+  },
+  {
+   "fetch_from": "branch.custom_branch_no",
+   "fieldname": "branch_no",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Branch No"
+  },
+  {
+   "fetch_from": "office.custom_office_no",
+   "fieldname": "office_no",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Office No"
+  },
+  {
+   "fieldname": "location",
+   "fieldtype": "Data",
+   "label": "Location"
+  },
+  {
+   "fieldname": "realty_name",
+   "fieldtype": "Data",
+   "label": "Realty Name",
+   "read_only": 1,
+   "unique": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-10-03 14:12:39.374037",
+ "modified": "2024-10-05 12:44:05.140975",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Realty",
