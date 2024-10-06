@@ -1,1 +1,1266 @@
-[]
+[
+ {
+  "client_script": null,
+  "docstatus": 0,
+  "doctype": "DocType Layout",
+  "document_type": "Employee",
+  "fields": [
+   {
+    "fieldname": "basic_details_tab",
+    "label": "Overview",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "basic_information",
+    "label": null,
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "employee",
+    "label": "Employee",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "naming_series",
+    "label": "Series",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "first_name",
+    "label": "First Name",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "employee_name",
+    "label": "Full Name",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "column_break_9",
+    "label": null,
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "middle_name",
+    "label": "Middle Name",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "employee_number",
+    "label": "Employee Number",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "custom_employee_full_number",
+    "label": "Employee Full Number",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "salutation",
+    "label": "Salutation",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "custom_total_experience",
+    "label": "Total Experience (In Years)",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "column_break1",
+    "label": null,
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "last_name",
+    "label": "Last Name",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "status",
+    "label": "Status",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "image",
+    "label": "Image",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "custom_stop_resune",
+    "label": "Stop resune",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "custom_section_break_aaars",
+    "label": null,
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "date_of_birth",
+    "label": "Date of Birth",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "custom_column_break_7pb26",
+    "label": null,
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "custom_national_number",
+    "label": "National number",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "custom_column_break_glwn8",
+    "label": null,
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "gender",
+    "label": "Gender",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "custom_section_break_gtkpt",
+    "label": null,
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "date_of_joining",
+    "label": "Date of Joining",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "custom_last_promotion_date",
+    "label": "Last Promotion Date",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "custom_column_break_ciicd",
+    "label": null,
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "custom_total_insed_experience_in_years",
+    "label": "\u0627\u062c\u0645\u0627\u0644\u064a \u0633\u0646\u0648\u0627\u062a \u0627\u0644\u062e\u0628\u0631\u0629 \u062f\u0627\u062e\u0644 \u0627\u0644\u0634\u0631\u0643\u0629",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "custom_column_break_07jpe",
+    "label": null,
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "custom_nationality_number",
+    "label": "Nationality Number",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "custom_total_experience_in_years",
+    "label": "\u0625\u062c\u0645\u0627\u0644\u064a \u0633\u0646\u0648\u0627\u062a \u0627\u0644\u062e\u0628\u0631\u0629",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "erpnext_user",
+    "label": "User Details",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "user_id",
+    "label": "User ID",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "create_user",
+    "label": "Create User",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "create_user_permission",
+    "label": "Create User Permission",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "company_details_section",
+    "label": "Company Details",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "company",
+    "label": "Company",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "custom_contract_type",
+    "label": "Contract Type",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "employment_type",
+    "label": "Employment Type",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "column_break_25",
+    "label": null,
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "department",
+    "label": "Department",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "custom_contract_duration",
+    "label": "\u0645\u062f\u0629 \u0627\u0644\u0639\u0642\u062f",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "custom_assignment_or_secondment_from",
+    "label": "\u0627\u0644\u0627\u0646\u062a\u062f\u0627\u0628 \u0623\u0648 \u0627\u0644\u0625\u0639\u0627\u0631\u0629 \u0645\u0646",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "column_break_18",
+    "label": null,
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "reports_to",
+    "label": "Reports to",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "custom_contract_no",
+    "label": "Contract No",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "custom_envoy",
+    "label": "envoy",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "custom_section_break_pfmtm",
+    "label": null,
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "grade",
+    "label": "Grade",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "custom_column_break_kh52w",
+    "label": null,
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "custom_dependent",
+    "label": "Dependent",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "custom_column_break_uyxus",
+    "label": null,
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "custom_grade_of_assignment",
+    "label": "Grade of assignment",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "custom_column_break_vpeto",
+    "label": null,
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "custom_dependent_of_assignment",
+    "label": "Dependent of assignment",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "custom_column_break_fswgl",
+    "label": null,
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "custom_designation_of_assignment",
+    "label": "Designation of assignment",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "custom_section_break_0ugbp",
+    "label": null,
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "designation",
+    "label": "Designation",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "custom_column_break_gv43p",
+    "label": null,
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "custom_designation_number",
+    "label": "\u0631\u0642\u0645\u0647\u0627 \u0641\u064a \u0627\u0644\u0645\u0644\u0627\u0643",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "custom_column_break_yv0sp",
+    "label": null,
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "custom_designation_type",
+    "label": "\u0627\u0644\u0645\u062c\u0645\u0648\u0639\u0629 \u0627\u0644\u0646\u0648\u0639\u064a\u0629",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "custom_column_break_wdr9b",
+    "label": null,
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "custom_position",
+    "label": "\u0627\u0644\u0645\u0646\u0635\u0628",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "custom_section_break_stejj",
+    "label": null,
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "branch",
+    "label": "Branch",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "custom_column_break_5pcb2",
+    "label": null,
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "custom_branch_no",
+    "label": "Branch No",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "custom_column_break_cgdjl",
+    "label": null,
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "custom_location",
+    "label": "\u0627\u0644\u0645\u0648\u0642\u0639",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "custom_column_break_xpi4k",
+    "label": null,
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "custom_office",
+    "label": "Office",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "employment_details",
+    "label": "Joining",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "job_applicant",
+    "label": "Job Applicant",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "scheduled_confirmation_date",
+    "label": "Offer Date",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "column_break_32",
+    "label": null,
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "final_confirmation_date",
+    "label": "Confirmation Date",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "contract_end_date",
+    "label": "Contract End Date",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "col_break_22",
+    "label": null,
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "notice_number_of_days",
+    "label": "Notice (days)",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "date_of_retirement",
+    "label": "Date Of Retirement",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "contact_details",
+    "label": "Address & Contacts",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "custom_nationalty",
+    "label": "\u0627\u0644\u062c\u0646\u0633\u064a\u0629",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "custom_place_sof_birth",
+    "label": "Place of Birth",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "cell_number",
+    "label": "Mobile",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "column_break_40",
+    "label": null,
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "personal_email",
+    "label": "Personal Email",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "company_email",
+    "label": "Company Email",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "column_break4",
+    "label": null,
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "prefered_contact_email",
+    "label": "Prefered Contact Email",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "prefered_email",
+    "label": "Prefered Email",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "unsubscribed",
+    "label": "Unsubscribed",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "address_section",
+    "label": "Address",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "current_address",
+    "label": "Current Address",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "current_accommodation_type",
+    "label": "Current Address Is",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "column_break_46",
+    "label": null,
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "permanent_address",
+    "label": "Permanent Address",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "permanent_accommodation_type",
+    "label": "Permanent Address Is",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "emergency_contact_details",
+    "label": "Emergency Contact",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "person_to_be_contacted",
+    "label": "Emergency Contact Name",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "column_break_55",
+    "label": null,
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "emergency_phone_number",
+    "label": "Emergency Phone",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "column_break_19",
+    "label": null,
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "relation",
+    "label": "Relation",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "attendance_and_leave_details",
+    "label": "Attendance & Leaves",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "attendance_device_id",
+    "label": "Attendance Device ID (Biometric/RF tag ID)",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "column_break_44",
+    "label": null,
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "holiday_list",
+    "label": "Holiday List",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "default_shift",
+    "label": "Default Shift",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "approvers_section",
+    "label": "Approvers",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "expense_approver",
+    "label": "Expense Approver",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "leave_approver",
+    "label": "Leave Approver",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "column_break_45",
+    "label": null,
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "shift_request_approver",
+    "label": "Shift Request Approver",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "salary_information",
+    "label": "Salary",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "ctc",
+    "label": "Cost to Company (CTC)",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "salary_currency",
+    "label": "Salary Currency",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "salary_mode",
+    "label": "Salary Mode",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "salary_cb",
+    "label": null,
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "payroll_cost_center",
+    "label": "Payroll Cost Center",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "pan_number",
+    "label": "PAN Number",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "provident_fund_account",
+    "label": "Provident Fund Account",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "bank_details_section",
+    "label": "Bank Details",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "bank_name",
+    "label": "Bank Name",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "column_break_heye",
+    "label": null,
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "custom_bank_name",
+    "label": "Employee Bank Name",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "custom_employee_bank_branch",
+    "label": "Employee Bank Branch",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "bank_ac_no",
+    "label": "Bank A/C No.",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "bank_cb",
+    "label": null,
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "ifsc_code",
+    "label": "IFSC Code",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "micr_code",
+    "label": "MICR Code",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "iban",
+    "label": "IBAN",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "personal_details",
+    "label": "Personal",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "marital_status",
+    "label": "Marital Status",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "custom_number_of_children",
+    "label": "Number of Children",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "custom_mother_name",
+    "label": "\u0627\u0633\u0645 \u0627\u0644\u0623\u0645 \u0627\u0644\u062b\u0644\u0627\u062b\u064a",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "family_background",
+    "label": "Family Background",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "column_break6",
+    "label": null,
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "custom_registration_number",
+    "label": "Registration number",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "custom_family_paper_number",
+    "label": "Family paper number",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "blood_group",
+    "label": "Blood Group",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "health_details",
+    "label": "Health Details",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "health_insurance_section",
+    "label": "Health Insurance",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "health_insurance_provider",
+    "label": "Health Insurance Provider",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "health_insurance_no",
+    "label": "Health Insurance No",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "passport_details_section",
+    "label": "Passport Details",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "passport_number",
+    "label": "Passport Number",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "valid_upto",
+    "label": "Valid Upto",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "column_break_73",
+    "label": null,
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "date_of_issue",
+    "label": "Date of Issue",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "place_of_issue",
+    "label": "Place of Issue",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "profile_tab",
+    "label": "Profile",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "bio",
+    "label": "Bio / Cover Letter",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "educational_qualification",
+    "label": "Educational Qualification",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "education",
+    "label": "Education",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "custom_total_external_experians",
+    "label": "\u0627\u062c\u0645\u0627\u0644\u064a \u0627\u0644\u062e\u0628\u0631\u0629 \u062e\u0627\u0631\u062c \u0627\u0644\u0634\u0631\u0643\u0629",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "previous_work_experience",
+    "label": "Previous Work Experience",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "custom_total_external_experians_year",
+    "label": "Total External Experians (year)",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "external_work_history",
+    "label": "External Work History",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "history_in_company",
+    "label": "History In Company",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "internal_work_history",
+    "label": "Internal Work History",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "exit",
+    "label": "Exit",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "resignation_letter_date",
+    "label": "Resignation Letter Date",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "relieving_date",
+    "label": "Relieving Date",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "exit_interview_details",
+    "label": null,
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "held_on",
+    "label": "Exit Interview Held On",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "new_workplace",
+    "label": "New Workplace",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "column_break_99",
+    "label": null,
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "leave_encashed",
+    "label": "Leave Encashed?",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "encashment_date",
+    "label": "Encashment Date",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "feedback_section",
+    "label": "Feedback",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "reason_for_leaving",
+    "label": "Reason for Leaving",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "column_break_104",
+    "label": null,
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "feedback",
+    "label": "Feedback",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "lft",
+    "label": "lft",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "rgt",
+    "label": "rgt",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "old_parent",
+    "label": "Old Parent",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   },
+   {
+    "fieldname": "connections_tab",
+    "label": "Connections",
+    "parent": "Employee",
+    "parentfield": "fields",
+    "parenttype": "DocType Layout"
+   }
+  ],
+  "modified": "2024-10-05 13:55:43.390909",
+  "name": "Employee",
+  "route": "Employee"
+ }
+]
