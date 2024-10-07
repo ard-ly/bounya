@@ -10,6 +10,8 @@ from erpnext.loan_management.doctype.loan_repayment.loan_repayment import (
 	create_repayment_entry,
 )
 import json, base64, urllib
+from frappe.utils import cint, cstr, flt, today
+
 
 class CustomSalarySlip(SalarySlip):
     def check_sal_struct(self, joining_date, relieving_date):
@@ -90,16 +92,17 @@ class CustomSalarySlip(SalarySlip):
             amounts = calculate_amounts(payment.loan, self.start_date, "Regular Payment")
             total_amount = amounts["interest_amount"] + amounts["payable_principal_amount"]
             if payment.total_payment > total_amount:
-                frappe.throw(
-                    _(
-                        """Row {0}: Paid amount {1} is greater than pending accrued amount {2} against loan {3}"""
-                    ).format(
-                        payment.idx,
-                        frappe.bold(payment.total_payment),
-                        frappe.bold(total_amount),
-                        frappe.bold(payment.loan),
-                    )
-                )
+                pass
+                # frappe.throw(
+                #     _(
+                #         """Row {0}: Paid amount {1} is greater than pending accrued amount {2} against loan {3}"""
+                #     ).format(
+                #         payment.idx,
+                #         frappe.bold(payment.total_payment),
+                #         frappe.bold(total_amount),
+                #         frappe.bold(payment.loan),
+                #     )
+                # )
 
             self.total_interest_amount += payment.interest_amount
             self.total_principal_amount += payment.principal_amount
@@ -109,19 +112,25 @@ class CustomSalarySlip(SalarySlip):
         
     def pull_emp_details(self):
         emp = frappe.db.get_value(
-            "Employee", self.employee, ["custom_bank_name", "bank_ac_no", "salary_mode" ,"grade" , "custom_grade_of_assignment"], as_dict=1
+            "Employee", self.employee, ["custom_bank_name", "bank_ac_no", "salary_mode" ,"grade" , "custom_grade_of_assignment" , "custom_dependent"   ,"custom_dependent_of_assignment"], as_dict=1
         )
         if emp:
             self.mode_of_payment = emp.salary_mode
             self.bank_name = emp.custom_bank_name
             self.bank_account_no = emp.bank_ac_no
             self.custom_grade = emp.custom_grade_of_assignment or emp.grade
+            self.custom_dependent = emp.custom_dependent_of_assignment or emp.custom_dependent
+
         try:
             if self.custom_grade:
                 self.custom_default_base_pay = frappe.db.get_value("Employee Grade" ,  self.custom_grade , "default_base_pay")
                 self.custom_dependent_value = frappe.db.get_value("Employee Grade" ,  self.custom_grade , "custom_dependent_value")
         except :
-            frappe.throw("You cannot cancel a document more than once")    # def set_status(self, status=None):
+            frappe.throw("You cannot cancel a document more than once") 
+
+
+
+# def set_status(self, status=None):
     #     """Get and update status"""
     #     if not status:
     #         status = self.get_status()
