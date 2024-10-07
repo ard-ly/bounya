@@ -1,0 +1,88 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "format:{location_name}-{location_no}",
+ "creation": "2024-10-07 08:59:12.179695",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "location_name",
+  "column_break_q3x0s",
+  "location_no",
+  "section_break_qantb",
+  "longitude",
+  "latitude",
+  "location_coordinates"
+ ],
+ "fields": [
+  {
+   "fieldname": "location_no",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Location No",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "location_name",
+   "fieldtype": "Data",
+   "label": "Location Name",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "column_break_q3x0s",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_qantb",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "longitude",
+   "fieldtype": "Float",
+   "label": "Longitude",
+   "precision": "6",
+   "reqd": 1
+  },
+  {
+   "fieldname": "latitude",
+   "fieldtype": "Float",
+   "label": "Latitude",
+   "precision": "6",
+   "reqd": 1
+  },
+  {
+   "fieldname": "location_coordinates",
+   "fieldtype": "Geolocation",
+   "label": "Location Coordinates"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-10-07 09:12:24.033905",
+ "modified_by": "Administrator",
+ "module": "Albounya",
+ "name": "Realty Location",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

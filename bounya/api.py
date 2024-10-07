@@ -977,6 +977,8 @@ def create_opportunity_from_lead(source, target=None,owner=None):
         target.source = "Existing Customer"
         target.custom_equipment_installation_form = source.custom_equipment_installation_form_doctype
         target.opportunity_owner = owner
+        target.custom_equipment_installation = 1
+        target.custom_towers = source.custom_towers
         target.run_method("set_missing_values")
 
     doc = get_mapped_doc(
@@ -1032,3 +1034,72 @@ def update_realty_available_area_on_cancel(doc, method):
             
     print("update_realty_available_area_on_cancel")
 
+@frappe.whitelist()
+def send_opportunity_notification(doc_name):
+    users = frappe.db.sql(
+			f""" SELECT DISTINCT parent FROM `tabHas Role` WHERE (role = 'Sales Manager' or role = 'Commercial Management') AND parenttype = 'User' AND parent != 'Administrator' """, as_dict=True)
+    if users:
+        for user in users:
+            new_doc = frappe.new_doc("Notification Log")
+            new_doc.from_user = frappe.session.user
+            new_doc.for_user = user.parent
+            new_doc.type = "Share"
+            new_doc.document_type = "Opportunity"
+            new_doc.document_name = doc_name
+            new_doc.subject = f"""Opportunity validated"""
+            new_doc.email_content = "empty@empty.com"
+            new_doc.insert(ignore_permissions=True)
+    return "done"
+
+@frappe.whitelist()
+def send_quotation_notification(doc_name):
+    users = frappe.db.sql(
+			f""" SELECT DISTINCT parent FROM `tabHas Role` WHERE (role = 'Sales Manager' or role = 'Commercial Management' or role ='Contracts Unit Employee') AND parenttype = 'User' AND parent != 'Administrator' """, as_dict=True)
+    if users:
+        for user in users:
+            new_doc = frappe.new_doc("Notification Log")
+            new_doc.from_user = frappe.session.user
+            new_doc.for_user = user.parent
+            new_doc.type = "Share"
+            new_doc.document_type = "Quotation"
+            new_doc.document_name = doc_name
+            new_doc.subject = f"""Quotation Submitted"""
+            new_doc.email_content = "empty@empty.com"
+            new_doc.insert(ignore_permissions=True)
+    return "done"
+
+
+@frappe.whitelist()
+def send_so_notification(doc_name):
+    users = frappe.db.sql(
+			f""" SELECT DISTINCT parent FROM `tabHas Role` WHERE (role = 'Sales Manager' or role = 'Commercial Management' or role ='Contracts Unit Employee' or role = 'General Management') AND parenttype = 'User' AND parent != 'Administrator' """, as_dict=True)
+    if users:
+        for user in users:
+            new_doc = frappe.new_doc("Notification Log")
+            new_doc.from_user = frappe.session.user
+            new_doc.for_user = user.parent
+            new_doc.type = "Share"
+            new_doc.document_type = "Sales Order"
+            new_doc.document_name = doc_name
+            new_doc.subject = f"""Sales Order Submitted"""
+            new_doc.email_content = "empty@empty.com"
+            new_doc.insert(ignore_permissions=True)
+    return "done"
+
+
+@frappe.whitelist()
+def send_contract_notification(doc_name):
+    users = frappe.db.sql(
+			f""" SELECT DISTINCT parent FROM `tabHas Role` WHERE (role = 'Sales Manager' or role = 'Commercial Management' or role ='Contracts Unit Employee' or role = 'Technical Management') AND parenttype = 'User' AND parent != 'Administrator' """, as_dict=True)
+    if users:
+        for user in users:
+            new_doc = frappe.new_doc("Notification Log")
+            new_doc.from_user = frappe.session.user
+            new_doc.for_user = user.parent
+            new_doc.type = "Share"
+            new_doc.document_type = "Sales Order"
+            new_doc.document_name = doc_name
+            new_doc.subject = f"""Sales Order Submitted"""
+            new_doc.email_content = "empty@empty.com"
+            new_doc.insert(ignore_permissions=True)
+    return "done"

@@ -6,9 +6,6 @@ from frappe.model.document import Document
 from frappe.model.mapper import get_mapped_doc
 
 class Realty(Document):
-	# @frappe.whitelist()
-	# def create_asset(source_name, target_doc = None):
-	# 	doc = get_mapped_doc("Realty", source_name, {"Realty": {"doctype": "Asset",},"Realty":{"doctype":"Asset","field_map":{"realty_no":"custodian", "location":"city"},},}, target_doc)
 
 	@frappe.whitelist()
 	def create_item(

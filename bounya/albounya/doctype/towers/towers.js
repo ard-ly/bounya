@@ -34,6 +34,28 @@ frappe.ui.form.on('Towers', {
 	},
 
 	refresh(frm) {
+
+		if (frm.doc.latitude && frm.doc.longitude) {
+            // Ensure the map is available
+            if (frm.fields_dict.location.map) {
+                let map = frm.fields_dict.location.map;
+                
+                // If a previous marker exists, remove it
+                if (frm.marker) {
+                    map.removeLayer(frm.marker);
+                }
+
+                // Add a new marker at the current location
+                frm.marker = L.marker([frm.doc.latitude, frm.doc.longitude]).addTo(map);
+
+                // Optionally, bind a popup to the marker
+                frm.marker.bindPopup("Your location").openPopup();
+
+                // Center the map to the new marker
+                map.setView([frm.doc.latitude, frm.doc.longitude], 13);  // '13' is the zoom level
+            }
+        }
+
 		// Clear the existing breadcrumbs. Set custom breadcrumbs will not do this automatically
 				frappe.breadcrumbs.clear();
 				

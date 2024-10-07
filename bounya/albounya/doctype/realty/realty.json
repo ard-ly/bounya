@@ -15,6 +15,7 @@
   "towers",
   "description",
   "location",
+  "location_no",
   "column_break_3kixe",
   "build_up_date",
   "purchase_date",
@@ -144,6 +145,7 @@
    "label": "Location Coordinates"
   },
   {
+   "fetch_from": "location.location_coordinates",
    "fieldname": "coordinates",
    "fieldtype": "Geolocation",
    "label": "Coordinates"
@@ -153,6 +155,7 @@
    "fieldtype": "Section Break"
   },
   {
+   "fetch_from": "location.longitude",
    "fieldname": "longitude",
    "fieldtype": "Data",
    "label": "Longitude"
@@ -162,6 +165,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "fetch_from": "location.latitude",
    "fieldname": "latitude",
    "fieldtype": "Data",
    "label": "Latitude"
@@ -468,8 +472,10 @@
   },
   {
    "fieldname": "location",
-   "fieldtype": "Data",
-   "label": "Location"
+   "fieldtype": "Link",
+   "label": "Location",
+   "options": "Realty Location",
+   "reqd": 1
   },
   {
    "fieldname": "realty_name",
@@ -477,12 +483,19 @@
    "label": "Realty Name",
    "read_only": 1,
    "unique": 1
+  },
+  {
+   "fetch_from": "location.location_no",
+   "fieldname": "location_no",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Location No"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-10-05 13:25:36.228260",
+ "modified": "2024-10-07 10:31:45.977906",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Realty",

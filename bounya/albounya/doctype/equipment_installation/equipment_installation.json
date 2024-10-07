@@ -9,43 +9,24 @@
  "engine": "InnoDB",
  "field_order": [
   "naming_series",
-  "equipment_name",
-  "technical_name",
-  "column_break_hqb9i",
-  "serial_number",
   "section_break_ijbnz",
   "tower",
   "installed",
-  "installation_date",
   "column_break_vk8su",
   "owned_by",
   "section_break_xto1s",
-  "equipment_state",
-  "old_equipment_serial_number",
-  "equipment_radius",
-  "equipment_height",
-  "column_break_3vinj",
-  "equipment_weigh",
-  "equipment_direction",
-  "direction_degrees",
+  "equipment_table",
   "references_section",
   "sales_order",
   "column_break_yvzw6",
   "contract",
   "contract_end_date",
   "section_break_cizfp",
+  "uninstall_equipment",
   "amended_from",
   "notes"
  ],
  "fields": [
-  {
-   "fieldname": "equipment_name",
-   "fieldtype": "Link",
-   "in_list_view": 1,
-   "label": "Equipment Name",
-   "options": "Equipment Name",
-   "reqd": 1
-  },
   {
    "fieldname": "amended_from",
    "fieldtype": "Link",
@@ -63,41 +44,14 @@
    "options": "EQU-INS-.YYYY.-.####"
   },
   {
-   "fieldname": "serial_number",
-   "fieldtype": "Data",
-   "in_list_view": 1,
-   "label": "Serial Number",
-   "reqd": 1,
-   "unique": 1
-  },
-  {
    "default": "0",
    "fieldname": "installed",
    "fieldtype": "Check",
    "label": "Installed"
   },
   {
-   "fieldname": "column_break_hqb9i",
-   "fieldtype": "Column Break"
-  },
-  {
    "fieldname": "section_break_ijbnz",
    "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "equipment_state",
-   "fieldtype": "Select",
-   "in_list_view": 1,
-   "label": "Equipment State",
-   "options": "\nReplacement\nRenewing\nFirst Installation\nExpired",
-   "reqd": 1
-  },
-  {
-   "depends_on": "eval:doc.installed == 1 ",
-   "fieldname": "installation_date",
-   "fieldtype": "Date",
-   "label": "Installation Date",
-   "mandatory_depends_on": "eval:doc.installed == 1 "
   },
   {
    "fieldname": "references_section",
@@ -125,6 +79,7 @@
   {
    "fieldname": "sales_order",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Sales Order",
    "options": "Sales Order",
    "reqd": 1
@@ -139,38 +94,16 @@
    "label": "Notes"
   },
   {
-   "fieldname": "column_break_3vinj",
-   "fieldtype": "Column Break"
-  },
-  {
    "fieldname": "tower",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Tower",
    "options": "Towers",
    "reqd": 1
   },
   {
-   "depends_on": "eval:doc.equipment_state == \"Replacement\" || doc.equipment_state == \"Renewing\"",
-   "fetch_from": "equipment_installation.serial_number",
-   "fieldname": "old_equipment_serial_number",
-   "fieldtype": "Data",
-   "label": "Old Equipment Serial Number"
-  },
-  {
    "fieldname": "section_break_xto1s",
    "fieldtype": "Section Break"
-  },
-  {
-   "description": "Kg",
-   "fieldname": "equipment_weigh",
-   "fieldtype": "Float",
-   "label": "Equipment Weigh "
-  },
-  {
-   "fieldname": "equipment_direction",
-   "fieldtype": "Select",
-   "label": " Equipment Direction ",
-   "options": "\nWest\nEast\nNorth\nSouth\nSoutheast\nNortheast\nSouthwest\nNorthwest"
   },
   {
    "fieldname": "column_break_vk8su",
@@ -183,35 +116,24 @@
    "options": "Customer"
   },
   {
-   "description": "CM",
-   "fieldname": "equipment_radius",
-   "fieldtype": "Float",
-   "label": "Equipment Radius "
-  },
-  {
-   "depends_on": "eval: doc.equipment_name == \"Sector\"",
-   "description": "CM",
-   "fieldname": "equipment_height",
-   "fieldtype": "Float",
-   "label": "Equipment Height"
-  },
-  {
-   "fieldname": "technical_name",
-   "fieldtype": "Data",
-   "label": "Technical Name",
+   "fieldname": "equipment_table",
+   "fieldtype": "Table",
+   "label": "Equipment Table",
+   "options": "Equipment Installation Table",
    "reqd": 1
   },
   {
-   "depends_on": "eval: doc.equipment_direction",
-   "fieldname": "direction_degrees",
-   "fieldtype": "Float",
-   "label": "Direction Degrees"
+   "fieldname": "uninstall_equipment",
+   "fieldtype": "Link",
+   "label": "Uninstall Equipment",
+   "options": "Uninstall Equipment",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-10-02 20:31:00.713959",
+ "modified": "2024-10-07 13:32:34.969263",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Equipment Installation",
@@ -244,7 +166,7 @@
    "write": 1
   }
  ],
- "search_fields": "equipment_name,technical_name,tower",
+ "search_fields": "tower, owned_by",
  "sort_field": "modified",
  "sort_order": "DESC",
  "states": [],

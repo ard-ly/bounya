@@ -95,7 +95,7 @@
    "fieldname": "towers_equipment_table",
    "fieldtype": "Table",
    "label": "Towers Equipment table",
-   "options": "Towers Equipment table",
+   "options": "Tower Equipment Table",
    "read_only": 1
   },
   {
@@ -236,7 +236,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-10-02 17:54:33.723687",
+ "modified": "2024-10-06 13:52:31.420304",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Towers",

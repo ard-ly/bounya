@@ -394,6 +394,7 @@ fixtures = [
                     "Commercial Management",
                     "General Management",
                     "Realty Details Manager",
+                    "Technical Management",
                     
                 ],
             ]

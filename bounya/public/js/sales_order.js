@@ -35,13 +35,18 @@ frappe.ui.form.on('Sales Order', {
 			};
 		});
 	},
+	on_submit: function (frm) {
+        frappe.call({
+            method :"bounya.api.send_so_notification",
+            args: {
+                doc_name: frm.doc.name,
+            },
+            callback:function(r){
+                if(r.message){
+                    console.log(r.message);
+                }
+            }
+        });
+    },
 
-	// validate: function(frm) {
-	// 	if (frm.doc.custom_realty == 1){
-	// 		if (frm.doc.custom_needed_space > parseFloat(frm.doc.custom_available_area)){
-	// 			frappe.throw(__("The needed space must be less than the available space."));
-	// 		}
-
-	// 	}
-	// },
 });

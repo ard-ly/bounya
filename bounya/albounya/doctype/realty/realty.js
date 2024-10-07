@@ -3,16 +3,17 @@
 
 frappe.ui.form.on('Realty', {
 	validate: function(frm) {
-		let naming = frm.doc.realty_no
+		let naming = frm.doc.realty_no 
 
-		if (frm.doc.location){
-			naming = naming + "/" +frm.doc.location
-		}
+		if (frm.doc.location_no){
+			naming = naming + "/" +frm.doc.location_no
+		}	
 		if (frm.doc.office_no){
 			naming = naming + "/" +frm.doc.office_no
 		}
-		if (frm.doc.branch_no){
-			naming = naming + "/" +frm.doc.branch_no
+		
+		if (frm.doc.branch){
+			naming = naming + "/" +frm.doc.branch
 		}
 		frm.doc.realty_name = naming;
 		frm.refresh_field("realty_name");
@@ -62,7 +63,30 @@ frappe.ui.form.on('Realty', {
 					frm: frm,
 				})
 			}, __("Make"));
-	}
+		}
+
+		if (frm.doc.latitude && frm.doc.longitude) {
+            // Ensure the map is available
+            if (frm.fields_dict.coordinates.map) {
+                let map = frm.fields_dict.coordinates.map;
+                
+                // If a previous marker exists, remove it
+                if (frm.marker) {
+                    map.removeLayer(frm.marker);
+                }
+
+                // Add a new marker at the current location
+                frm.marker = L.marker([frm.doc.latitude, frm.doc.longitude]).addTo(map);
+
+                // Optionally, bind a popup to the marker
+                frm.marker.bindPopup("Your location").openPopup();
+
+                // Center the map to the new marker
+                map.setView([frm.doc.latitude, frm.doc.longitude], 13);  // '13' is the zoom level
+            }
+        }
+
+
 		// Clear the existing breadcrumbs. Set custom breadcrumbs will not do this automatically
 		frappe.breadcrumbs.clear();
 				
