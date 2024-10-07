@@ -186,9 +186,9 @@ doc_events = {
         "on_submit": "bounya.api.update_external_advance_on_submit",
         "on_cancel": "bounya.api.update_external_advance_on_cancel",
     },
-    "Salary Component": {
-        "validate": "bounya.api.update_component_order",
-    },
+    # "Salary Component": {
+    #     "validate": "bounya.api.update_component_order",
+    # },
     "Supplier": {
         "on_update": "bounya.api.set_custom_supplier_group_sequence_field",
     },
