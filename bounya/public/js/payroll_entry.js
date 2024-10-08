@@ -53,7 +53,6 @@ let recalculate_salary_slip = function (frm) {
 		},
 		callback: function (r) {
 			if (r.message) {
-				frappe.msgprint(__("Item got created successfully!"));
 				frappe.msgprint(r.message);
 			}
 		},
