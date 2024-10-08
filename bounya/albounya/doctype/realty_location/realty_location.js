@@ -6,25 +6,33 @@ frappe.ui.form.on('Realty Location', {
 
 	refresh: function(frm) {
         if (frm.doc.latitude && frm.doc.longitude) {
-            // Ensure the map is available
+            frm.doc.location_coordinates = `{"type":"FeatureCollection","features":[{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[${frm.doc.longitude},${frm.doc.latitude}]}}]}`;
+            frm.refresh_fields();
+            // Ensure the map is available and initialized
             if (frm.fields_dict.location_coordinates.map) {
                 let map = frm.fields_dict.location_coordinates.map;
-                
-                // If a previous marker exists, remove it
-                if (frm.marker) {
-                    map.removeLayer(frm.marker);
+        
+                if (map) {
+                    // Remove the previous marker if it exists
+                    if (frm.marker) {
+                        map.removeLayer(frm.marker);
+                    }
+        
+                    // Add a new marker at the current location (make sure the order is [longitude, latitude])
+                    frm.marker = L.marker([frm.doc.latitude, frm.doc.longitude]).addTo(map);
+        
+                    // Optionally, bind a popup to the marker
+                    frm.marker.bindPopup("Your location").openPopup();
+        
+                    // Center the map on the new marker
+                    map.setView([frm.doc.latitude, frm.doc.longitude], 13);
                 }
-
-                // Add a new marker at the current location
-                frm.marker = L.marker([frm.doc.latitude, frm.doc.longitude]).addTo(map);
-
-                // Optionally, bind a popup to the marker
-                frm.marker.bindPopup("Your location").openPopup();
-
-                // Center the map to the new marker
-                map.setView([frm.doc.latitude, frm.doc.longitude], 13);  // '13' is the zoom level
             }
+    
+            // Correct the order of latitude and longitude in GeoJSON
         }
+        frm.refresh_fields();
+        console.log(frm.doc.location_coordinates);
     }
 });
 

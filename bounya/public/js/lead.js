@@ -9,7 +9,7 @@ frappe.ui.form.on('Lead', {
                 frm.doc.qualified_by = frappe.user.name;
                 frm.doc.qualified_on = today;
                
-                if (frm.doc.custom_equipment_installation_form_doctype){
+                if (frm.doc.custom_equipment_installation_form == 1){
                     frappe.call({
                         method :"bounya.api.send_qualification_notification",
                         args: {
@@ -31,7 +31,7 @@ frappe.ui.form.on('Lead', {
                 frm.doc.qualified_by = frappe.user.name;
                 frm.doc.qualified_on = today;
 
-                if (frm.doc.custom_equipment_installation_form_doctype){
+                if (frm.doc.custom_equipment_installation_form == 1){
                     frappe.call({
                         method :"bounya.api.send_qualification_notification",
                         args: {

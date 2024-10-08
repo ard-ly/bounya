@@ -16,6 +16,8 @@
   "building_details_section",
   "asset",
   "location",
+  "longitude",
+  "latitude",
   "geolocation",
   "column_break_ovrjw",
   "building_classification",
@@ -160,12 +162,24 @@
    "fieldtype": "Date",
    "label": "Contract End Date",
    "read_only": 1
+  },
+  {
+   "fieldname": "longitude",
+   "fieldtype": "Float",
+   "label": "Longitude",
+   "precision": "6"
+  },
+  {
+   "fieldname": "latitude",
+   "fieldtype": "Float",
+   "label": "Latitude",
+   "precision": "6"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-10-02 19:53:23.681070",
+ "modified": "2024-10-08 14:38:08.756347",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Buildings",
