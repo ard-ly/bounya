@@ -25,6 +25,7 @@ frappe.ui.form.on('Realty Location', {
                 map.setView([frm.doc.latitude, frm.doc.longitude], 13);  // '13' is the zoom level
             }
         }
+        console.log(frm.doc.location_coordinates);
     }
 });
 

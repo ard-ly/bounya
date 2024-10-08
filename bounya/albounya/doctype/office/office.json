@@ -9,6 +9,7 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "custom_office_no",
   "office_name"
  ],
  "fields": [
@@ -19,11 +20,16 @@
    "label": "Office Name",
    "reqd": 1,
    "unique": 1
+  },
+  {
+   "fieldname": "custom_office_no",
+   "fieldtype": "Data",
+   "label": "Office No"
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-04-16 11:58:24.379287",
+ "modified": "2024-10-08 10:49:08.736562",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Office",
