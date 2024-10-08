@@ -117,13 +117,10 @@ def recalculate_salary_slip(doc):
             s.save()
             frappe.db.commit()
             count = count + 1
-            frappe.publish_realtime(
-                "ledger_merge_progress",
-                {"salary_slip_list": slip, "current": count, "total": len(salary_slip_list)},
-            )
+            frappe.publish_progress(count * 100 / len(salary_slip_list), title=_("Updating Salary Slip..."))
+
         except:
             print ("can not save salary slip update")
-        frappe.publish_progress(count * 100 / len(salary_slip_list), title=_("Updating Salary Slip..."))
 
     print("llllllllllllllllllllllllllll" , count)
     return count
