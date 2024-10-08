@@ -56,15 +56,6 @@ frappe.ui.form.on('Realty', {
 
 	refresh: frm => {
 
-		if (frm.doc.docstatus  == 1){
-			frm.add_custom_button(__('Salary structure Assignment'), function () {
-				frappe.model.open_mapped_doc({
-					method: "bounya.albounya.doctype.realty.realty.create_asset",
-					frm: frm,
-				})
-			}, __("Make"));
-		}
-
 		if (frm.doc.latitude && frm.doc.longitude) {
 			frm.doc.coordinates = `{"type":"FeatureCollection","features":[{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[${frm.doc.latitude},${frm.doc.longitude}]}}]}`;
 			frm.refresh_fields();
