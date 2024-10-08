@@ -26,7 +26,7 @@ def filter_customer_based_on_users(doctype, txt, searchfield, start, page_len, f
     customer = frappe.db.sql(f""" select name from `tabCustomer` where custom_user = '{user}' """)
     return customer
 
-@frappe.whitelist()
-def filter_realty(doctype, txt, searchfield, start, page_len, filters):
-    realty = frappe.db.sql(f""" select name,realty_type,branch from `tabRealty` where covered_space > 0 and available_area > 0 and docstatus = 1 """)
-    return realty
+# @frappe.whitelist()
+# def filter_realty(doctype, txt, searchfield, start, page_len, filters):
+#     realty = frappe.db.sql(f""" select name,realty_type,branch from `tabRealty` where covered_space > 0 and available_area > 0 and docstatus = 1 """)
+#     return realty

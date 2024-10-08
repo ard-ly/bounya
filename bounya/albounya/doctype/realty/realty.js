@@ -3,28 +3,30 @@
 
 frappe.ui.form.on('Realty', {
 	validate: function(frm) {
-		let naming = frm.doc.realty_no 
+		let naming = frm.doc.branch 
 
-		if (frm.doc.location_no){
-			naming = naming + "/" +frm.doc.location_no
-		}	
 		if (frm.doc.office_no){
 			naming = naming + "/" +frm.doc.office_no
 		}
+		if (frm.doc.location_no){
+			naming = naming + "/" +frm.doc.location_no
+		}	
 		
-		if (frm.doc.branch){
-			naming = naming + "/" +frm.doc.branch
+		if (frm.doc.realty_no ){
+			naming = naming + "/" +frm.doc.realty_no 
 		}
 		frm.doc.realty_name = naming;
 		frm.refresh_field("realty_name");
 
-		if (frm.doc.realty_ct){
-			let total = 0.0
-			frm.doc.realty_ct.forEach((d) => {
-				total += d.covered_space;
-			});
-			frm.doc.covered_space = total;
-			frm.refresh_field("covered_space");
+		if (frm.doc.realty_type == "Land Plot with building"){
+			if (frm.doc.realty_ct){
+				let total = 0.0
+				frm.doc.realty_ct.forEach((d) => {
+					total += d.covered_space;
+				});
+				frm.doc.covered_space = total;
+				frm.refresh_field("covered_space");
+			}
 		}
 	},
 	
