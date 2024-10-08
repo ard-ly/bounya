@@ -39,23 +39,24 @@ frappe.ui.form.on('Towers', {
             // Ensure the map is available
             if (frm.fields_dict.location.map) {
                 let map = frm.fields_dict.location.map;
-                
-                // If a previous marker exists, remove it
-                if (frm.marker) {
-                    map.removeLayer(frm.marker);
+                if (map) {
+                    // Remove the previous marker if it exists
+                    if (frm.marker) {
+                        map.removeLayer(frm.marker);
+                    }
+        
+                    // Add a new marker at the current location (make sure the order is [longitude, latitude])
+                    frm.marker = L.marker([frm.doc.latitude, frm.doc.longitude]).addTo(map);
+        
+                    // Optionally, bind a popup to the marker
+                    frm.marker.bindPopup("Your location").openPopup();
+        
+                    // Center the map on the new marker
+                    map.setView([frm.doc.latitude, frm.doc.longitude], 13);
                 }
-
-                // Add a new marker at the current location
-                frm.marker = L.marker([frm.doc.latitude, frm.doc.longitude]).addTo(map);
-
-                // Optionally, bind a popup to the marker
-                frm.marker.bindPopup("Your location").openPopup();
-
-                // Center the map to the new marker
-                map.setView([frm.doc.latitude, frm.doc.longitude], 13);  // '13' is the zoom level
             }
-			frm.doc.location_coordinates = `{"type":"FeatureCollection","features":[{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[${frm.doc.latitude},${frm.doc.longitude}]}}]}`
-			console.log(frm.doc.location_coordinates);
+			frm.doc.location = `{"type":"FeatureCollection","features":[{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[${frm.doc.latitude},${frm.doc.longitude}]}}]}`
+			console.log(frm.doc.location);
         }
 
 		// Clear the existing breadcrumbs. Set custom breadcrumbs will not do this automatically
