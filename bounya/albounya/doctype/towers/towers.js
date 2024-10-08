@@ -36,7 +36,9 @@ frappe.ui.form.on('Towers', {
 	refresh(frm) {
 
 		if (frm.doc.latitude && frm.doc.longitude) {
-            // Ensure the map is available
+            frm.doc.location = `{"type":"FeatureCollection","features":[{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[${frm.doc.latitude},${frm.doc.longitude}]}}]}`;
+			frm.refresh_fields();
+			// Ensure the map is available
             if (frm.fields_dict.location.map) {
                 let map = frm.fields_dict.location.map;
                 if (map) {
@@ -55,7 +57,6 @@ frappe.ui.form.on('Towers', {
                     map.setView([frm.doc.latitude, frm.doc.longitude], 13);
                 }
             }
-			frm.doc.location = `{"type":"FeatureCollection","features":[{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[${frm.doc.latitude},${frm.doc.longitude}]}}]}`
 			frm.refresh_fields();
 			console.log(frm.doc.location);
         }

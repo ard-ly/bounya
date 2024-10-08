@@ -66,6 +66,8 @@ frappe.ui.form.on('Realty', {
 		}
 
 		if (frm.doc.latitude && frm.doc.longitude) {
+			frm.doc.coordinates = `{"type":"FeatureCollection","features":[{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[${frm.doc.latitude},${frm.doc.longitude}]}}]}`;
+			frm.refresh_fields();
             // Ensure the map is available
             if (frm.fields_dict.coordinates.map) {
                 let map = frm.fields_dict.coordinates.map;
@@ -86,7 +88,6 @@ frappe.ui.form.on('Realty', {
                     map.setView([frm.doc.latitude, frm.doc.longitude], 13);
                 }
             }
-			frm.doc.coordinates = `{"type":"FeatureCollection","features":[{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[${frm.doc.latitude},${frm.doc.longitude}]}}]}`
 			console.log(frm.doc.coordinates);
 			frm.refresh_fields();
         }
