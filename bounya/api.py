@@ -1117,9 +1117,9 @@ def send_contract_notification(doc_name):
             new_doc.from_user = frappe.session.user
             new_doc.for_user = user.parent
             new_doc.type = "Share"
-            new_doc.document_type = "Sales Order"
+            new_doc.document_type = "Contract"
             new_doc.document_name = doc_name
-            new_doc.subject = f"""Sales Order Submitted"""
+            new_doc.subject = f"""Contract Submitted"""
             new_doc.email_content = "empty@empty.com"
             new_doc.insert(ignore_permissions=True)
     return "done"
