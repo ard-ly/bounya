@@ -104,6 +104,23 @@ def get_salary_components(doc):
         components.append(str(c.salary_component))
     return components
 
+@frappe.whitelist()
+def recalculate_salary_slip(doc):
+    print("Calculating LLLLLLLLLLLLLLLL")
+    salary_slip_list =frappe.db.get_all("Salary Slip"  , filters={'payroll_entry' :doc} , fields=['name'] , pluck='name')
+    count = 0
+    for slip in salary_slip_list:
+        frappe.publish_realtime("import_attendance", dict(progress=count, total=len(salary_slip_list)))
+        try:
+            s= frappe.get_doc("Salary Slip" , slip)
+            s.validate()
+            s.save()
+            frappe.db.commit()
+            count = count + 1
+        except:
+            print ("can not save salary slip update")
+    print("llllllllllllllllllllllllllll" , count)
+    return count
 
 @frappe.whitelist()
 def fetch_bank_branch_list(doctype, txt, searchfield, start, page_len, filters):
