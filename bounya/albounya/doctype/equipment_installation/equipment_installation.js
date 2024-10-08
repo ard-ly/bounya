@@ -51,26 +51,32 @@ frappe.ui.form.on('Equipment Installation', {
 
 	},
 	
-	contract(frm) {
-		if (frm.doc.contract){
-			frappe.db.get_doc('Contract', frm.doc.contract).then(contract_doc => {
-				if (contract_doc.custom_equipment_installation_form){
-					frappe.db.get_doc('Equipment Installation Form', contract_doc.custom_equipment_installation_form).then(eq_form_doc => {
-						frm.doc.tower= eq_form_doc.tower;
-						frm.doc.owned_by = eq_form_doc.customer;
-						frm.refresh_fields();
-						// frm.doc.equipment_name = eq_form_doc.
-						// frm.doc.technical_name
-						// frm.doc.equipment_radius
-						// frm.doc.equipment_height
-						// frm.doc.equipment_weigh
-						// frm.doc.equipment_direction
-						// frm.doc.direction_degrees
-					});
-				}
-			});
-		}
+	sales_order(frm) {
+			if (frm.doc.sales_order){
+				frappe.db.get_doc('Sales Order', frm.doc.sales_order).then(so_doc => {
+					frm.doc.owned_by = so_doc.customer;
+					if(so_doc.custom_towers){
+						frm.doc.tower = so_doc.custom_towers;
+					}
+					if(so_doc.custom_equipment_table){
+						frm.set_value('equipment_table', []);
+						so_doc.custom_equipment_table.forEach((row)=>{
+                            var child = frm.add_child('equipment_table');
+                            child.equipment_name = row.equipment_name;
+                            child.manufacturer = row.manufacturer;
+							child.equipment_radius = row.equipment_radius;
+							child.equipment_height = row.equipment_height;
+							child.equipment_weigh = row.equipment_weigh;
+							child.equipment_direction_tab = row.equipment_direction_tab;
+							child.direction_degrees = row.direction_degrees;
+                        });
+
+					}
+					frm.refresh_fields();
+				});
+			}
 	},
+	
 });
 
 frappe.listview_settings['Equipment Installation'] = {

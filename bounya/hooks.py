@@ -326,82 +326,79 @@ ignore_links_on_delete = ["Department", "Salary Slip", "Additional Salary" , "Em
 #     ]}
 # ]
 fixtures = [
-        {"dt": "DocType Layout", "filters": [["name", "in", ["Employee"]]]},
+    {"dt": "Custom Field", "filters": [["module", "in", ["Albounya"]]]},
+    {"dt": "DocType Layout", "filters": [["name", "in", ["Employee"]]]},
+    {"dt": "Translation"},
+    # {"dt": "Kanban Board"},
+    {"dt": "Custom Field",
+        "filters": [
+            [
+                "name",
+                "in",
+                [
+                    "Payroll Settings-salary_component_settings",
+                    "Leave Application-custom_leave_application_group",
+                ],
+            ]
+        ],
+    },
+    {"dt": "Letter Head",
+        "filters": [
+            [
+                "name",
+                "in",
+                ["bounya","Contract LH"],
+            ]
+        ],
+    },
+    {"dt": "Equipment Name",
+        "filters": [
+            [
+                "name",
+                "in",
+                ["Sector"],
+            ]
+        ],
+    },
+    # {"dt": "Equipment Name",
+    #     "filters": [
+    #         [
+    #             "name",
+    #             "in",
+    #             ["Services"],
+    #         ]
+    #     ],
+    # },
+    {"dt": "Workflow",
+        "filters": [
+            [
+                "name",
+                "in",
+                [
+                    "MR Complete WF",
+                    "Monthly Promotion",
+                    "Equipment Installation Form",
+                ],
+            ]
+        ],
+    },
+    {"dt": "Role",
+        "filters": [
+            [
+                "name",
+                "in",
+                [   
+                    "Contracts Unit Employee",
+                    "Tower Management",
+                    "Buildings Management",
+                    "Commercial Management",
+                    "General Management",
+                    "Realty Details Manager",
+                    "Technical Management",
+                    
+                ],
+            ]
+        ],
+    },    
 
 ]
-
-#     {"dt": "Custom Field", "filters": [["module", "in", ["Albounya"]]]},
-#     {"dt": "DocType Layout", "filters": [["name", "in", ["Employee"]]]},
-#     {"dt": "Translation"},
-#     # {"dt": "Kanban Board"},
-#     {"dt": "Custom Field",
-#         "filters": [
-#             [
-#                 "name",
-#                 "in",
-#                 [
-#                     "Payroll Settings-salary_component_settings",
-#                     "Leave Application-custom_leave_application_group",
-#                 ],
-#             ]
-#         ],
-#     },
-#     {"dt": "Letter Head",
-#         "filters": [
-#             [
-#                 "name",
-#                 "in",
-#                 ["bounya","Contract LH"],
-#             ]
-#         ],
-#     },
-#     {"dt": "Equipment Name",
-#         "filters": [
-#             [
-#                 "name",
-#                 "in",
-#                 ["Sector"],
-#             ]
-#         ],
-#     },
-#     # {"dt": "Equipment Name",
-#     #     "filters": [
-#     #         [
-#     #             "name",
-#     #             "in",
-#     #             ["Services"],
-#     #         ]
-#     #     ],
-#     # },
-#     {"dt": "Workflow",
-#         "filters": [
-#             [
-#                 "name",
-#                 "in",
-#                 [
-#                     "MR Complete WF",
-#                     "Monthly Promotion",
-#                     "Equipment Installation Form",
-#                 ],
-#             ]
-#         ],
-#     },
-#     {"dt": "Role",
-#         "filters": [
-#             [
-#                 "name",
-#                 "in",
-#                 [   
-#                     "Contracts Unit Employee",
-#                     "Tower Management",
-#                     "Buildings Management",
-#                     "Commercial Management",
-#                     "General Management",
-#                     "Realty Details Manager",
-                    
-#                 ],
-#             ]
-#         ],
-#     },    
-
-# ]

@@ -1,4 +1,18 @@
 frappe.ui.form.on('Contract', {
+    on_submit: function (frm) {
+        frappe.call({
+            method :"bounya.api.send_contract_notification",
+            args: {
+                doc_name: frm.doc.name,
+            },
+            callback:function(r){
+                if(r.message){
+                    console.log(r.message);
+                }
+            }
+        });
+    },
+    
     onload(frm){
         let types = ["Customer","Supplier"];
         frm.set_df_property("party_type", "options", types);

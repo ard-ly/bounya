@@ -1,22 +1,23 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "naming_series:",
  "creation": "2024-10-05 13:00:17.170642",
  "default_view": "List",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "naming_series",
+  "section_break_6vhzd",
   "tower",
   "owner1",
   "column_break_7vbzw",
-  "uninstallation_date",
+  "uninstalled",
   "section_break_vetg9",
   "existing_equipment_installation",
   "equipment_installation",
-  "equipment_name",
-  "technical_name",
-  "serial_number",
+  "uninstall_equipment_table_tab",
   "amended_from"
  ],
  "fields": [
@@ -49,16 +50,24 @@
    "options": "Equipment Installation"
   },
   {
-   "fieldname": "equipment_name",
-   "fieldtype": "Link",
-   "label": "Equipment Name",
-   "options": "Equipment Name",
-   "reqd": 1
+   "fieldname": "column_break_7vbzw",
+   "fieldtype": "Column Break"
   },
   {
-   "fieldname": "technical_name",
-   "fieldtype": "Data",
-   "label": "Technical Name",
+   "fieldname": "section_break_vetg9",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "uninstalled",
+   "fieldtype": "Check",
+   "label": "Uninstalled"
+  },
+  {
+   "fieldname": "uninstall_equipment_table_tab",
+   "fieldtype": "Table",
+   "label": "Uninstall Equipment Table",
+   "options": "Uninstall Equipment Table",
    "reqd": 1
   },
   {
@@ -71,33 +80,24 @@
    "read_only": 1
   },
   {
-   "fieldname": "uninstallation_date",
-   "fieldtype": "Date",
-   "label": "UnInstallation Date",
-   "reqd": 1
+   "fieldname": "naming_series",
+   "fieldtype": "Select",
+   "label": "Series",
+   "options": "UNI-EQU-.YYYY.-.####"
   },
   {
-   "fieldname": "column_break_7vbzw",
-   "fieldtype": "Column Break"
-  },
-  {
-   "fieldname": "section_break_vetg9",
+   "fieldname": "section_break_6vhzd",
    "fieldtype": "Section Break"
-  },
-  {
-   "fieldname": "serial_number",
-   "fieldtype": "Data",
-   "label": "Serial Number",
-   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-10-05 13:06:35.068579",
+ "modified": "2024-10-07 13:37:13.690190",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Uninstall Equipment",
+ "naming_rule": "By \"Naming Series\" field",
  "owner": "Administrator",
  "permissions": [
   {

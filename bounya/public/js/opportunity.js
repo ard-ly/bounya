@@ -1,5 +1,19 @@
 frappe.ui.form.on('Opportunity', {
 
+    validate: function (frm) {
+        frappe.call({
+            method :"bounya.api.send_opportunity_notification",
+            args: {
+                doc_name: frm.doc.name,
+            },
+            callback:function(r){
+                if(r.message){
+                    console.log(r.message);
+                }
+            }
+        });
+    },
+    
     refresh: function (frm) {
         if (frm.doc.custom_towers){
             frm.trigger("custom_towers");

@@ -15,7 +15,7 @@ class EquipmentInstallationForm(Document):
 	def send_notification_to_Tower_management(self):
 		if self. docstatus == 0:
 			users = frappe.db.sql(
-				f""" SELECT DISTINCT parent FROM `tabHas Role` WHERE role = 'Tower Management' AND parenttype = 'User' AND parent != 'Administrator' """, as_dict=True)
+				f""" SELECT DISTINCT parent FROM `tabHas Role` WHERE (role = 'Tower Management' or role = 'Technical Management') AND parenttype = 'User' AND parent != 'Administrator'""", as_dict=True)
 			for user in users:
 				new_doc = frappe.new_doc("Notification Log")
 				new_doc.from_user = frappe.session.user
@@ -35,6 +35,26 @@ class EquipmentInstallationForm(Document):
 		new_doc.first_name = self.customer
 		new_doc.source = "Existing Customer"
 		new_doc.customer = self.customer
+		new_doc.custom_towers = self.towers
+		if self.branch:
+			new_doc.custom_branch = self.branch
+		if self.office:
+			new_doc.custom_office = self.office
+		for row in self.equipment_table:
+			new_doc.append(
+                "custom_equipment_table",
+                {
+                    "equipment_name": row.equipment_name,
+					"manufacturer": row.manufacturer,
+					"equipment_radius": row.equipment_radius,
+					"equipment_height":row.equipment_height,
+					"equipment_weigh":row.equipment_weigh,
+					"equipment_direction_tab":row.equipment_direction_tab,
+					"direction_degrees":row.direction_degrees
+                    
+                },
+            )
+		
 		new_doc.insert(ignore_permissions=True)
 
 		frappe.db.set_value(
@@ -45,7 +65,7 @@ class EquipmentInstallationForm(Document):
             )
 		
 		users = frappe.db.sql(
-				f""" SELECT DISTINCT parent FROM `tabHas Role` WHERE (role = 'General Management' or role = 'Commercial Management') AND parenttype = 'User' AND parent != 'Administrator' """, as_dict=True)
+				f""" SELECT DISTINCT parent FROM `tabHas Role` WHERE role = ''Tower Management' AND parenttype = 'User' AND parent != 'Administrator' """, as_dict=True)
 		for user in users:
 				new_doc = frappe.new_doc("Notification Log")
 				new_doc.from_user = frappe.session.user

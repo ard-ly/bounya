@@ -1,18 +1,23 @@
 {
  "actions": [],
  "allow_rename": 1,
- "creation": "2024-10-05 12:18:33.941620",
+ "creation": "2024-10-06 13:05:28.250435",
+ "default_view": "List",
  "doctype": "DocType",
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
   "equipment_name",
   "manufacturer",
+  "serial_number",
+  "equipment_state",
   "equipment_radius",
   "equipment_height",
   "equipment_weigh",
   "equipment_direction_tab",
-  "direction_degrees"
+  "direction_degrees",
+  "installation_date",
+  "uninstall_equipment"
  ],
  "fields": [
   {
@@ -21,6 +26,13 @@
    "in_list_view": 1,
    "label": "Equipment Name",
    "options": "Equipment Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "manufacturer",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Manufacturer",
    "reqd": 1
   },
   {
@@ -62,20 +74,42 @@
    "label": "Direction Degrees"
   },
   {
-   "fieldname": "manufacturer",
+   "fieldname": "equipment_state",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Equipment State",
+   "options": "First Installation\nReplacement\nRenewing\nExpired",
+   "reqd": 1
+  },
+  {
+   "fieldname": "installation_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Installation Date"
+  },
+  {
+   "fieldname": "serial_number",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Manufacturer",
-   "reqd": 1
+   "label": "Serial Number",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "uninstall_equipment",
+   "fieldtype": "Data",
+   "label": "Uninstall Equipment",
+   "options": "Uninstall Equipment",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-10-06 12:56:58.354555",
+ "modified": "2024-10-07 14:50:23.253581",
  "modified_by": "Administrator",
  "module": "Albounya",
- "name": "Equipment Installation Form Table",
+ "name": "Equipment Installation Table",
  "owner": "Administrator",
  "permissions": [],
  "sort_field": "modified",
