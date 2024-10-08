@@ -30,7 +30,7 @@ frappe.ui.form.on('Realty Location', {
             // Correct the order of latitude and longitude in GeoJSON
             frm.doc.location_coordinates = `{"type":"FeatureCollection","features":[{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[${frm.doc.longitude},${frm.doc.latitude}]}}]}`;
         }
-        
+        frm.refresh_fields();
         console.log(frm.doc.location_coordinates);
     }
 });

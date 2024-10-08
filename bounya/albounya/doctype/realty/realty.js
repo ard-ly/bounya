@@ -88,6 +88,7 @@ frappe.ui.form.on('Realty', {
             }
 			frm.doc.coordinates = `{"type":"FeatureCollection","features":[{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[${frm.doc.latitude},${frm.doc.longitude}]}}]}`
 			console.log(frm.doc.coordinates);
+			frm.refresh_fields();
         }
 
 

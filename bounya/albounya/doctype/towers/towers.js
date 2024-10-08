@@ -56,6 +56,7 @@ frappe.ui.form.on('Towers', {
                 }
             }
 			frm.doc.location = `{"type":"FeatureCollection","features":[{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[${frm.doc.latitude},${frm.doc.longitude}]}}]}`
+			frm.refresh_fields();
 			console.log(frm.doc.location);
         }
 
