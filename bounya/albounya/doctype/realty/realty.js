@@ -84,6 +84,8 @@ frappe.ui.form.on('Realty', {
                 // Center the map to the new marker
                 map.setView([frm.doc.latitude, frm.doc.longitude], 13);  // '13' is the zoom level
             }
+			frm.doc.location_coordinates = `{"type":"FeatureCollection","features":[{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[${frm.doc.latitude},${frm.doc.longitude}]}}]}`
+			console.log(frm.doc.location_coordinates);
         }
 
 
