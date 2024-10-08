@@ -37,7 +37,6 @@
   "east",
   "west",
   "section_break_sumha",
-  "the_total_area",
   "column_break_nnk3e",
   "covered_space",
   "section_break_4zifm",
@@ -202,12 +201,6 @@
   {
    "fieldname": "section_break_sumha",
    "fieldtype": "Section Break"
-  },
-  {
-   "description": "Meter",
-   "fieldname": "the_total_area",
-   "fieldtype": "Float",
-   "label": "The total area"
   },
   {
    "fieldname": "column_break_nnk3e",
@@ -495,7 +488,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-10-07 10:31:45.977906",
+ "modified": "2024-10-08 10:14:03.412151",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Realty",
