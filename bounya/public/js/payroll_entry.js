@@ -21,4 +21,42 @@ frappe.ui.form.on('Payroll Entry', {
 			frm.refresh_fields();
 		}
 	},
+
+	refresh:function (frm) {
+		if (
+			!frm.doc.salary_slips_submitted ||
+			(frm.doc.__onload && frm.doc.__onload.submitted_ss)
+		) {
+		frappe.call({
+			method: "hrms.payroll.doctype.payroll_entry.payroll_entry.payroll_entry_has_bank_entries",
+			args: {
+				name: frm.doc.name,
+				payroll_payable_account: frm.doc.payroll_payable_account,
+			},
+			callback: function (r) {
+				if (r.message && !r.message.submitted) {
+					frm.add_custom_button(__('Recalculate Salary values'), function (){
+						recalculate_salary_slip(frm);
+					});
+				}
+			},
+		});
+	}
+    },
+
 }); 
+let recalculate_salary_slip = function (frm) {
+	frappe.call({
+		method: "bounya.api.recalculate_salary_slip",
+		args: {
+			doc: frm.doc.name,
+		},
+		callback: function (r) {
+			if (r.message) {
+				frappe.msgprint(__("Item got created successfully!"));
+				frappe.msgprint(r.message);
+			}
+		},
+	});
+
+};
