@@ -40,22 +40,23 @@ class EquipmentInstallationForm(Document):
 			new_doc.custom_branch = self.branch
 		if self.office:
 			new_doc.custom_office = self.office
-		for row in self.equipment_table:
-			new_doc.append(
-                "custom_equipment_table",
-                {
-                    "equipment_name": row.equipment_name,
-					"manufacturer": row.manufacturer,
-					"equipment_radius": row.equipment_radius,
-					"equipment_height":row.equipment_height,
-					"equipment_weigh":row.equipment_weigh,
-					"equipment_direction_tab":row.equipment_direction_tab,
-					"direction_degrees":row.direction_degrees
-                    
-                },
-            )
-		
 		new_doc.insert(ignore_permissions=True)
+		self.lead = new_doc.name
+
+		for row in self.equipment_table:
+			new_tab = frappe.new_doc("Equipment Installation Form Table")
+			new_tab.parent = new_doc.name
+			new_tab.parentfield = "custom_equipment_table"
+			new_tab.parenttype = "Lead"
+			new_tab.equipment_name = row.equipment_name
+			new_tab.manufacturer = row.manufacturer
+			new_tab.equipment_radius = row.equipment_radius
+			new_tab.equipment_height = row.equipment_height
+			new_tab.equipment_weigh = row.equipment_weigh
+			new_tab.equipment_direction_tab = row.equipment_direction_tab
+			new_tab.direction_degrees = row.direction_degrees
+			new_tab.insert(ignore_permissions=True)
+		
 
 		frappe.db.set_value(
                 "Equipment Installation Form",
@@ -65,14 +66,14 @@ class EquipmentInstallationForm(Document):
             )
 		
 		users = frappe.db.sql(
-				f""" SELECT DISTINCT parent FROM `tabHas Role` WHERE role = ''Tower Management' AND parenttype = 'User' AND parent != 'Administrator' """, as_dict=True)
+				f""" SELECT DISTINCT parent FROM `tabHas Role` WHERE role = 'Tower Management' AND parenttype = 'User' AND parent != 'Administrator' """, as_dict=True)
 		for user in users:
 				new_doc = frappe.new_doc("Notification Log")
 				new_doc.from_user = frappe.session.user
 				new_doc.for_user = user.parent
 				new_doc.type = "Share"
 				new_doc.document_type = "Lead"
-				new_doc.document_name =  new_doc.name
-				new_doc.subject = f"""New Lead Created From Equipment Installation Form : {new_doc.name}"""
+				new_doc.document_name =  self.lead
+				new_doc.subject = f"""New Lead Created From Equipment Installation Form : {self.lead}"""
 				new_doc.email_content = "empty@empty.com"
 				new_doc.insert(ignore_permissions=True)
