@@ -111,6 +111,9 @@ class CustomSalarySlip(SalarySlip):
 
         
     def pull_emp_details(self):
+        self.custom_grade = ""
+        self.custom_dependent = 0
+
         emp = frappe.db.get_value(
             "Employee", self.employee, ["custom_bank_name", "bank_ac_no", "salary_mode" ,"grade" , "custom_grade_of_assignment" , "custom_dependent"   ,"custom_dependent_of_assignment"], as_dict=1
         )
@@ -126,7 +129,7 @@ class CustomSalarySlip(SalarySlip):
                 self.custom_default_base_pay = frappe.db.get_value("Employee Grade" ,  self.custom_grade , "default_base_pay")
                 self.custom_dependent_value = frappe.db.get_value("Employee Grade" ,  self.custom_grade , "custom_dependent_value")
         except :
-            frappe.throw("You cannot cancel a document more than once") 
+            frappe.throw(_("Could not find employee grade")) 
 
 
 
