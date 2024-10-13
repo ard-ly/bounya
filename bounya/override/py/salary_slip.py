@@ -131,6 +131,8 @@ class CustomSalarySlip(SalarySlip):
 
 
 
+
+
 # def set_status(self, status=None):
     #     """Get and update status"""
     #     if not status:
