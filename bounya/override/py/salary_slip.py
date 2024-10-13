@@ -111,18 +111,16 @@ class CustomSalarySlip(SalarySlip):
 
         
     def pull_emp_details(self):
-        self.custom_grade = ""
-        self.custom_dependent = 0
 
         emp = frappe.db.get_value(
-            "Employee", self.employee, ["custom_bank_name", "bank_ac_no", "salary_mode" ,"grade" , "custom_grade_of_assignment" , "custom_dependent"   ,"custom_dependent_of_assignment"], as_dict=1
+            "Employee", self.employee, ["custom_bank_name", "bank_ac_no", "salary_mode" ,"grade" , "custom_grade_of_assignment" , "custom_dependent_"   ,"custom_dependent_of_assignment"], as_dict=1
         )
         if emp:
             self.mode_of_payment = emp.salary_mode
             self.bank_name = emp.custom_bank_name
             self.bank_account_no = emp.bank_ac_no
             self.custom_grade = emp.custom_grade_of_assignment or emp.grade
-            self.custom_dependent = emp.custom_dependent_of_assignment or emp.custom_dependent
+            self.custom_dependent = emp.custom_dependent_of_assignment or emp.custom_dependent_
 
         try:
             if self.custom_grade:
