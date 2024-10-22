@@ -1,0 +1,50 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-10-22 13:23:25.389301",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "realty_type",
+  "realty",
+  "realty_area"
+ ],
+ "fields": [
+  {
+   "fieldname": "realty_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Realty Type",
+   "options": "\nA Land Plot\nBuilding\nWarehouse",
+   "reqd": 1
+  },
+  {
+   "fieldname": "realty",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Realty",
+   "options": "Realty",
+   "reqd": 1
+  },
+  {
+   "fieldname": "realty_area",
+   "fieldtype": "Float",
+   "in_list_view": 1,
+   "label": "Realty Area",
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-10-22 13:23:25.389301",
+ "modified_by": "Administrator",
+ "module": "Albounya",
+ "name": "Realty Rent Form Table",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

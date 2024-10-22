@@ -342,6 +342,17 @@ fixtures = [
             ]
         ],
     },
+    {"dt": "Client Script",
+        "filters": [
+            [
+                "name",
+                "in",
+                [
+                    "Realty Rent Script",
+                ],
+            ]
+        ],
+    },
     {"dt": "Letter Head",
         "filters": [
             [
