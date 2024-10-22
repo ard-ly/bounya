@@ -20,6 +20,7 @@
   "realty_rent_table",
   "section_break_yihuf",
   "notes",
+  "lead",
   "amended_from"
  ],
  "fields": [
@@ -109,12 +110,18 @@
    "print_hide": 1,
    "read_only": 1,
    "search_index": 1
+  },
+  {
+   "fieldname": "lead",
+   "fieldtype": "Data",
+   "hidden": 1,
+   "label": "Lead"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-10-22 14:31:13.872944",
+ "modified": "2024-10-22 14:58:41.255671",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Realty Rent Form",
