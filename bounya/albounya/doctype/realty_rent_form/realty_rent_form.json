@@ -114,7 +114,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-10-22 14:30:10.967720",
+ "modified": "2024-10-22 14:31:13.872944",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Realty Rent Form",
@@ -131,7 +131,6 @@
    "report": 1,
    "role": "System Manager",
    "share": 1,
-   "submit": 1,
    "write": 1
   },
   {
