@@ -342,6 +342,7 @@ fixtures = [
             ]
         ],
     },
+    {"dt": "Custom Field"},
     {"dt": "Letter Head",
         "filters": [
             [
