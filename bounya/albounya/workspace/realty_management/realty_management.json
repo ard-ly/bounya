@@ -1,5 +1,4 @@
 {
- "_liked_by": "[\"Administrator\"]",
  "charts": [
   {
    "chart_name": "Towers by Branch",
@@ -74,7 +73,8 @@
    "hidden": 0,
    "is_query_report": 0,
    "label": "Equipment",
-   "link_count": 3,
+   "link_count": 4,
+   "link_type": "DocType",
    "onboard": 0,
    "type": "Card Break"
   },
@@ -101,6 +101,16 @@
   {
    "hidden": 0,
    "is_query_report": 0,
+   "label": "Realty Rent Form",
+   "link_count": 0,
+   "link_to": "Realty Rent Form",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
    "label": "Towers Equipment Report",
    "link_count": 0,
    "link_to": "Towers Equipment Report",
@@ -109,7 +119,7 @@
    "type": "Link"
   }
  ],
- "modified": "2024-09-26 11:38:29.704625",
+ "modified": "2024-10-22 15:45:13.623125",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Realty Management",

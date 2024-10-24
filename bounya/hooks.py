@@ -342,6 +342,7 @@ fixtures = [
             ]
         ],
     },
+    {"dt": "Custom Field"},
     {"dt": "Letter Head",
         "filters": [
             [
@@ -378,6 +379,7 @@ fixtures = [
                     "MR Complete WF",
                     "Monthly Promotion",
                     "Equipment Installation Form",
+                    "Realty Rent Form",
                 ],
             ]
         ],
