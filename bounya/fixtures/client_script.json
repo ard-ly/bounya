@@ -1,0 +1,13 @@
+[
+ {
+  "docstatus": 0,
+  "doctype": "Client Script",
+  "dt": "Quotation",
+  "enabled": 1,
+  "modified": "2024-10-26 11:43:22.420652",
+  "module": "Albounya",
+  "name": "Quotation Script",
+  "script": "frappe.ui.form.on('Quotation', {\n    refresh(frm) {\n        if (frm.doc.docstatus === 1 && ![\"Lost\", \"Ordered\"].includes(frm.doc.status)) {\n            cur_frm.add_custom_button(__('Contract'), function() {\n                frappe.call({\n                    method: \"frappe.automation.doctype.auto_repeat.auto_repeat.make_auto_repeat\",\n                    args: {\n                        doctype: doctype,\n                        docname: docname,\n                    },\n                    callback: function (r) {\n                        var doclist = frappe.model.sync(r.message);\n                        frappe.set_route(\"Form\", doclist[0].doctype, doclist[0].name);\n                    },\n                });\n            }, __('Create'))\n\n            cur_frm.page.set_inner_btn_group_as_primary(__('Create'));\n        }\n    }\n})",
+  "view": "Form"
+ }
+]
