@@ -343,6 +343,7 @@ fixtures = [
         ],
     },
     {"dt": "Custom Field"},
+    {"dt": "Property Setter"},
     {"dt": "Letter Head",
         "filters": [
             [
