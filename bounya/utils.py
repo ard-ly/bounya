@@ -15,6 +15,22 @@ def grad_in_words(value):
         throw(_("value must be a number."))
 
 
+@frappe.whitelist()
+def create_contract(document, customer_name=None):
+    doc = frappe.new_doc("Contract")
+    doc.document_type = "Quotation"
+    doc.document_name = document
+    doc.party_type = 'Customer'
+    doc.party_name = customer_name if customer_name else ""
+    
+    doc.flags.ignore_validate = True
+    doc.flags.ignore_mandatory = True
+    doc.save(ignore_permissions=True)
+    frappe.db.commit()
+    
+    return doc.name
+
+
 # @frappe.whitelist()
 # def order_earnings(salary_detail_earnings):
 #     try:
