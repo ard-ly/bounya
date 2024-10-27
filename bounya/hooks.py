@@ -254,6 +254,7 @@ scheduler_events = {
 override_whitelisted_methods = {
     "erpnext.stock.doctype.material_request.material_request.make_stock_entry": "bounya.events.make_stock_entry",
     "erpnext.stock.doctype.material_request.material_request.make_purchase_order": "bounya.events.make_purchase_order",
+    # "hrms.payroll.doctype.payroll_entry.payroll_entry.make_payment_entry" :"bounya.override.py.payroll_entry.make_payment_entry",
 }
 #
 # each overriding function accepts a `data` argument;

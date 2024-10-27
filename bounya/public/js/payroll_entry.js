@@ -43,7 +43,7 @@ frappe.ui.form.on('Payroll Entry', {
 		});
 	}
     },
-
+	
 }); 
 let recalculate_salary_slip = function (frm) {
 	frappe.call({
@@ -59,3 +59,5 @@ let recalculate_salary_slip = function (frm) {
 	});
 
 };
+
+
