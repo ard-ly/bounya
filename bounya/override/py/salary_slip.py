@@ -130,7 +130,21 @@ class CustomSalarySlip(SalarySlip):
             frappe.throw(_("Could not find employee grade")) 
 
 
-
+    def get_loan_details(self):
+        loan_details = frappe.get_all(
+            "Loan",
+            fields=["name", "interest_income_account", "loan_account", "loan_type", "is_term_loan"],
+            filters={
+                "applicant": self.employee,
+                "docstatus": 1,
+                "repay_from_salary": 1,
+                "company": self.company,
+                "status": ("!=", "Closed"),
+                "status": ("!=", "Loan Closure Requested"),
+                
+                
+            },
+        )
 
 
 # def set_status(self, status=None):

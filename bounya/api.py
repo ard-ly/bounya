@@ -1123,3 +1123,4 @@ def send_contract_notification(doc_name):
             new_doc.email_content = "empty@empty.com"
             new_doc.insert(ignore_permissions=True)
     return "done"
+

@@ -141,4 +141,17 @@ frappe.ui.form.on('Contract', {
             }
     }
     },
+
+    refresh(frm) {
+
+    frm.set_query("custom_employee", function() {
+    return {
+        query: "bounya.queries.fetch_employee_with_role",
+        filters: {
+        }
+    };
+});
+}
+
 }); 
+
