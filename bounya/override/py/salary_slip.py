@@ -142,6 +142,6 @@ class CustomSalarySlip(SalarySlip):
     #     frappe.db.set_value("Salary Slip" , self.name , "docstatus" , 1 )
 
 
-    def validate(self):
-        self.flags.ignore_links = True
-        self.flags.ignore_validate = True
+    # def validate(self):
+    #     self.flags.ignore_links = True
+    #     self.flags.ignore_validate = True
