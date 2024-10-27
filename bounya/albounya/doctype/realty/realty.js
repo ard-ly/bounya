@@ -3,28 +3,30 @@
 
 frappe.ui.form.on('Realty', {
 	validate: function(frm) {
-		let naming = frm.doc.realty_no 
+		let naming = frm.doc.branch 
 
-		if (frm.doc.location_no){
-			naming = naming + "/" +frm.doc.location_no
-		}	
 		if (frm.doc.office_no){
 			naming = naming + "/" +frm.doc.office_no
 		}
+		if (frm.doc.location_no){
+			naming = naming + "/" +frm.doc.location_no
+		}	
 		
-		if (frm.doc.branch){
-			naming = naming + "/" +frm.doc.branch
+		if (frm.doc.realty_no ){
+			naming = naming + "/" +frm.doc.realty_no 
 		}
 		frm.doc.realty_name = naming;
 		frm.refresh_field("realty_name");
 
-		if (frm.doc.realty_ct){
-			let total = 0.0
-			frm.doc.realty_ct.forEach((d) => {
-				total += d.covered_space;
-			});
-			frm.doc.covered_space = total;
-			frm.refresh_field("covered_space");
+		if (frm.doc.realty_type == "Land Plot with building"){
+			if (frm.doc.realty_ct){
+				let total = 0.0
+				frm.doc.realty_ct.forEach((d) => {
+					total += d.covered_space;
+				});
+				frm.doc.covered_space = total;
+				frm.refresh_field("covered_space");
+			}
 		}
 	},
 	
@@ -55,15 +57,6 @@ frappe.ui.form.on('Realty', {
 	// },
 
 	refresh: frm => {
-
-		if (frm.doc.docstatus  == 1){
-			frm.add_custom_button(__('Salary structure Assignment'), function () {
-				frappe.model.open_mapped_doc({
-					method: "bounya.albounya.doctype.realty.realty.create_asset",
-					frm: frm,
-				})
-			}, __("Make"));
-		}
 
 		if (frm.doc.latitude && frm.doc.longitude) {
 			frm.doc.coordinates = `{"type":"FeatureCollection","features":[{"type":"Feature","properties":{},"geometry":{"type":"Point","coordinates":[${frm.doc.latitude},${frm.doc.longitude}]}}]}`;

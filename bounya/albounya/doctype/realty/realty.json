@@ -37,7 +37,6 @@
   "east",
   "west",
   "section_break_sumha",
-  "column_break_nnk3e",
   "covered_space",
   "section_break_4zifm",
   "city",
@@ -97,7 +96,7 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Realty Type",
-   "options": "\nLand Plot\nBuilding\nLand Plot with building\nWarehouse\nTower Station\nTower",
+   "options": "\nA Land Plot\nBuilding\nLand Plot with building\nWarehouse\nTower Station\nTower",
    "reqd": 1
   },
   {
@@ -110,11 +109,11 @@
    "fieldtype": "Column Break"
   },
   {
-   "depends_on": "eval:doc.realty_type != \"Land Plot\"",
+   "depends_on": "eval:doc.realty_type != \"A Land Plot\"",
    "fieldname": "build_up_date",
    "fieldtype": "Date",
    "label": "Build up Date",
-   "mandatory_depends_on": "eval:doc.realty_type != \"Land Plot\""
+   "mandatory_depends_on": "eval:doc.realty_type != \"A Land Plot\""
   },
   {
    "depends_on": "eval:doc.realty_type == 'Building'",
@@ -156,8 +155,9 @@
   {
    "fetch_from": "location.longitude",
    "fieldname": "longitude",
-   "fieldtype": "Data",
-   "label": "Longitude"
+   "fieldtype": "Float",
+   "label": "Longitude",
+   "precision": "6"
   },
   {
    "fieldname": "column_break_btort",
@@ -166,8 +166,9 @@
   {
    "fetch_from": "location.latitude",
    "fieldname": "latitude",
-   "fieldtype": "Data",
-   "label": "Latitude"
+   "fieldtype": "Float",
+   "label": "Latitude",
+   "precision": "6"
   },
   {
    "fieldname": "location_coordinate_section",
@@ -203,14 +204,9 @@
    "fieldtype": "Section Break"
   },
   {
-   "fieldname": "column_break_nnk3e",
-   "fieldtype": "Column Break"
-  },
-  {
-   "description": "Meter",
    "fieldname": "covered_space",
    "fieldtype": "Float",
-   "label": "Covered space"
+   "label": "covered  space"
   },
   {
    "fieldname": "section_break_4zifm",
@@ -268,6 +264,7 @@
    "label": "Number of Realty on site"
   },
   {
+   "allow_on_submit": 1,
    "fieldname": "realty_ct",
    "fieldtype": "Table",
    "label": "Realty CT",
@@ -443,11 +440,11 @@
    "options": "Towers"
   },
   {
-   "depends_on": "eval:doc.realty_type == \"Land Plot\"",
+   "depends_on": "eval:doc.realty_type == \"A Land Plot\"",
    "fieldname": "purchase_date",
    "fieldtype": "Date",
    "label": "Purchase Date",
-   "mandatory_depends_on": "eval:doc.realty_type == \"Land Plot\""
+   "mandatory_depends_on": "eval:doc.realty_type == \"A Land Plot\""
   },
   {
    "fetch_from": "branch.custom_branch_no",
@@ -487,7 +484,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-10-08 10:43:53.976663",
+ "modified": "2024-10-08 16:06:26.649888",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Realty",

@@ -15,6 +15,32 @@ def grad_in_words(value):
         throw(_("value must be a number."))
 
 
+@frappe.whitelist()
+def create_contract(document, customer_name=None):
+    quotation_doc = frappe.get_doc("Quotation", document)
+
+    doc = frappe.new_doc("Contract")
+    doc.document_type = "Quotation"
+    doc.document_name = document
+    doc.party_type = 'Customer'
+    doc.party_name = customer_name if customer_name else ""
+    doc.custom_realty_rent_form_doctype = quotation_doc.custom_realty_rent_form_doctype
+
+    for realtyrent in quotation_doc.custom_realty_rent_table:
+        doc.append('custom_realty_rent_table', {
+            "realty_type": realtyrent.realty_type,
+            "realty": realtyrent.realty,
+            "realty_area": realtyrent.realty_area
+        })
+
+    doc.flags.ignore_validate = True
+    doc.flags.ignore_mandatory = True
+    doc.save(ignore_permissions=True)
+    frappe.db.commit()
+
+    return doc.name
+
+
 # @frappe.whitelist()
 # def order_earnings(salary_detail_earnings):
 #     try:

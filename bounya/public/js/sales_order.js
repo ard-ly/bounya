@@ -35,6 +35,7 @@ frappe.ui.form.on('Sales Order', {
 			};
 		});
 	},
+
 	on_submit: function (frm) {
         frappe.call({
             method :"bounya.api.send_so_notification",
@@ -48,5 +49,4 @@ frappe.ui.form.on('Sales Order', {
             }
         });
     },
-
 });

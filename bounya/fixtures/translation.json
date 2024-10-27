@@ -189,9 +189,9 @@
   "docstatus": 0,
   "doctype": "Translation",
   "language": "ar",
-  "modified": "2024-10-05 11:31:50.358045",
+  "modified": "2024-10-08 15:43:33.931312",
   "name": "9dd233291c",
-  "source_text": "Land Plot",
+  "source_text": "A Land Plot",
   "translated_text": "\u0623\u0631\u0636 \u0641\u0636\u0627\u0621"
  },
  {
@@ -1870,5 +1870,83 @@
   "name": "1682bc7d59",
   "source_text": "Fulfilment Details",
   "translated_text": "\u062a\u0641\u0627\u0635\u064a\u0644 \u0627\u0644\u0645\u0633\u062a\u0646\u062f\u0627\u062a \u0627\u0644\u0645\u0637\u0644\u0648\u0628\u0629"
+ },
+ {
+  "context": null,
+  "contributed": 0,
+  "contribution_docname": null,
+  "contribution_status": "",
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "ar",
+  "modified": "2024-10-23 14:06:33.412898",
+  "name": "i0uuav7nq9",
+  "source_text": "Realty Rent Form",
+  "translated_text": "\u0646\u0645\u0648\u0630\u062c \u0625\u064a\u062c\u0627\u0631 \u0639\u0642\u0627\u0631"
+ },
+ {
+  "context": null,
+  "contributed": 0,
+  "contribution_docname": null,
+  "contribution_status": "",
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "ar",
+  "modified": "2024-10-23 14:06:48.145600",
+  "name": "i13h04huru",
+  "source_text": "Realty Details",
+  "translated_text": "\u062a\u0641\u0627\u0635\u064a\u0644 \u0627\u0644\u0639\u0642\u0627\u0631"
+ },
+ {
+  "context": null,
+  "contributed": 0,
+  "contribution_docname": null,
+  "contribution_status": "",
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "ar",
+  "modified": "2024-10-23 14:06:58.156703",
+  "name": "i16lv5hpl3",
+  "source_text": "Realty Rent Table",
+  "translated_text": "\u062c\u062f\u0648\u0644 \u062a\u0623\u062c\u064a\u0631 \u0639\u0642\u0627\u0631"
+ },
+ {
+  "context": null,
+  "contributed": 0,
+  "contribution_docname": null,
+  "contribution_status": "",
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "ar",
+  "modified": "2024-10-23 14:07:09.978873",
+  "name": "i1abjufuvh",
+  "source_text": "Realty Area",
+  "translated_text": "\u0645\u0633\u0627\u062d\u0629 \u0627\u0644\u0639\u0642\u0627\u0631"
+ },
+ {
+  "context": null,
+  "contributed": 0,
+  "contribution_docname": null,
+  "contribution_status": "",
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "ar",
+  "modified": "2024-10-23 14:07:19.412328",
+  "name": "i1da1qp6hu",
+  "source_text": "Rent",
+  "translated_text": "\u0625\u064a\u062c\u0627\u0631"
+ },
+ {
+  "context": null,
+  "contributed": 0,
+  "contribution_docname": null,
+  "contribution_status": "",
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "ar",
+  "modified": "2024-10-23 14:07:30.000106",
+  "name": "i1gkgo0qi2",
+  "source_text": "Realty Rent Form Doctype",
+  "translated_text": "\u0646\u0645\u0648\u0630\u062c \u0625\u064a\u062c\u0627\u0631 \u0639\u0642\u0627\u0631"
  }
 ]
