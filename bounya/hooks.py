@@ -344,6 +344,8 @@ fixtures = [
         ],
     },
     {"dt": "Custom Field"},
+    {"dt": "Property Setter"},
+    {"dt": "Client Script"},
     {"dt": "Letter Head",
         "filters": [
             [
