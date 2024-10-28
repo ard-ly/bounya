@@ -9,6 +9,9 @@ from erpnext.loan_management.doctype.loan_repayment.loan_repayment import (
 	calculate_amounts,
 	create_repayment_entry,
 )
+from erpnext.loan_management.doctype.process_loan_interest_accrual.process_loan_interest_accrual import (
+	process_loan_interest_accrual_for_term_loans,
+)
 import json, base64, urllib
 from frappe.utils import cint, cstr, flt, today
 
@@ -133,7 +136,7 @@ class CustomSalarySlip(SalarySlip):
     def get_loan_details(self):
         loan_details = frappe.get_all(
             "Loan",
-            fields=["name", "interest_income_account", "loan_account", "loan_type", "is_term_loan"],
+            fields=["name", "interest_income_account", "loan_account", "loan_type", "is_term_loan" , "loan_amount" , "total_amount_paid"],
             filters={
                 "applicant": self.employee,
                 "docstatus": 1,
@@ -141,11 +144,17 @@ class CustomSalarySlip(SalarySlip):
                 "company": self.company,
                 "status": ("!=", "Closed"),
                 "status": ("!=", "Loan Closure Requested"),
-                
-                
             },
         )
 
+        if loan_details:
+            for loan in loan_details:
+                if loan.is_term_loan:
+                    process_loan_interest_accrual_for_term_loans(
+                        posting_date=self.posting_date, loan_type=loan.loan_type, loan=loan.name
+                    )
+
+        return loan_details
 
 # def set_status(self, status=None):
     #     """Get and update status"""
