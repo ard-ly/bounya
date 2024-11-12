@@ -24,12 +24,13 @@
   {
    "fieldname": "custom_office_no",
    "fieldtype": "Data",
-   "label": "Office No"
+   "label": "Office No",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-10-08 10:49:08.736562",
+ "modified": "2024-11-12 12:49:49.127935",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Office",
