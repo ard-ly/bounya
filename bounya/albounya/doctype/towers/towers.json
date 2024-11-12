@@ -51,8 +51,7 @@
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "Tower Name",
-   "reqd": 1,
-   "unique": 1
+   "reqd": 1
   },
   {
    "fieldname": "column_break_5xew4",
@@ -247,7 +246,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-11-12 12:42:23.746782",
+ "modified": "2024-11-12 20:15:39.086163",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Towers",
