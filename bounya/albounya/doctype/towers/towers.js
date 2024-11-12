@@ -13,6 +13,16 @@ frappe.ui.form.on('Towers', {
 			};
 		});
 	},
+	tower_type_select: function(frm) {
+		frm.set_value("tower_type",)
+		frm.set_query("tower_type", function() {
+            return {
+                filters: [
+                    ["Tower Type","tower_type", "=", frm.doc.tower_type_select]
+                ]
+            }
+        });
+	},
 	branch: function(frm) {
 		frm.set_query("office", function() {
 			return {
