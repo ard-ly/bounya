@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "format:{YY}-{####}",
  "creation": "2024-11-30 13:48:03.412355",
  "default_view": "List",
  "doctype": "DocType",
@@ -96,10 +97,11 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-11-30 13:49:16.651316",
+ "modified": "2024-11-30 13:55:49.392089",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Outgoing Mail",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {
