@@ -1,0 +1,58 @@
+{
+ "charts": [],
+ "content": "[{\"id\":\"WaWBRN2lOL\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Correspondences</span>\",\"col\":12}},{\"id\":\"Xq_JpVxGzX\",\"type\":\"card\",\"data\":{\"card_name\":\"Correspondences\",\"col\":4}}]",
+ "creation": "2024-11-30 13:29:14.964561",
+ "custom_blocks": [],
+ "docstatus": 0,
+ "doctype": "Workspace",
+ "for_user": "",
+ "hide_custom": 0,
+ "icon": "mail",
+ "idx": 0,
+ "is_hidden": 0,
+ "label": "Correspondences",
+ "links": [
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Correspondences",
+   "link_count": 2,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Incoming Mail",
+   "link_count": 0,
+   "link_to": "Incoming Mail",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Outgoing Mail",
+   "link_count": 0,
+   "link_to": "Outgoing Mail",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  }
+ ],
+ "modified": "2024-11-30 13:51:10.830612",
+ "modified_by": "Administrator",
+ "module": "Albounya",
+ "name": "Correspondences",
+ "number_cards": [],
+ "owner": "Administrator",
+ "parent_page": "",
+ "public": 1,
+ "quick_lists": [],
+ "roles": [],
+ "sequence_id": 41.0,
+ "shortcuts": [],
+ "title": "Correspondences"
+}
