@@ -327,7 +327,9 @@ ignore_links_on_delete = ["Department", "Salary Slip", "Additional Salary" , "Em
 #     ]}
 # ]
 fixtures = [
-    {"dt": "DocType Layout", "filters": [["name", "in", ["Employee"]]]},]
+        {"dt": "DocType Layout", "filters": [["name", "in", ["Employee"]]]},
+        {"dt": "Translation"},
+    ]
 
 #     {"dt": "Custom Field", "filters": [["module", "in", ["Albounya"]]]},
 #     {"dt": "DocType Layout", "filters": [["name", "in", ["Employee"]]]},
