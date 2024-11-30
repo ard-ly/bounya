@@ -1,7 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "format:format:{YY}-{####}",
+ "autoname": "format:{YY}-{####}",
  "creation": "2024-11-30 13:36:45.374462",
  "default_view": "List",
  "doctype": "DocType",
@@ -54,7 +54,8 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "in_standard_filter": 1,
-   "label": "From"
+   "label": "From",
+   "reqd": 1
   },
   {
    "fieldname": "to",
@@ -106,7 +107,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-11-30 13:55:59.823199",
+ "modified": "2024-11-30 14:02:45.663377",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Incoming Mail",
