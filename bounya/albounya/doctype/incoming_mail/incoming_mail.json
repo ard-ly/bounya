@@ -8,6 +8,7 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "entity",
   "reference_number",
   "column_break_wi12n",
   "incoming_message_date",
@@ -102,12 +103,18 @@
   {
    "fieldname": "section_break_y2dez",
    "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "entity",
+   "fieldtype": "Data",
+   "label": "Entity",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-12-01 13:38:29.574137",
+ "modified": "2024-12-01 13:40:10.498689",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Incoming Mail",
