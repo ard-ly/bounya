@@ -8,6 +8,7 @@
  "engine": "InnoDB",
  "field_order": [
   "entity",
+  "correspondence_type",
   "reference_number",
   "column_break_wi12n",
   "message_registration_date",
@@ -113,12 +114,20 @@
    "label": "Transfer Type",
    "options": "DocType",
    "reqd": 1
+  },
+  {
+   "fieldname": "correspondence_type",
+   "fieldtype": "Select",
+   "in_standard_filter": 1,
+   "label": "Correspondence Type",
+   "options": "\nInternal\nExternal",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-12-01 14:03:15.674993",
+ "modified": "2024-12-01 14:16:27.061790",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Outgoing Mail",
