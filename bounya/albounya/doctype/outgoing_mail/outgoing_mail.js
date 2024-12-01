@@ -2,7 +2,17 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on('Outgoing Mail', {
-	// refresh: function(frm) {
-
-	// }
+	onload: function(frm) {
+		frm.set_query('transfer_type', function () {
+            return {
+                filters: [
+                    ['name', 'in', ['Designation', 'Department']]
+                ]
+            };
+        });
+	},
+	transfer_type: function(frm) {
+		frm.set_value("from", )
+		frm.set_value("to", )
+	}
 });
