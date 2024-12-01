@@ -7,6 +7,10 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "outgoing_email_referral",
+  "outgoing_mail",
+  "outgoing_message_subject",
+  "section_break_rj7fv",
   "entity",
   "correspondence_type",
   "reference_number",
@@ -130,12 +134,37 @@
    "label": "Correspondence Type",
    "options": "\nInternal\nExternal",
    "reqd": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "outgoing_email_referral",
+   "fieldtype": "Check",
+   "label": "Outgoing Email Referral"
+  },
+  {
+   "fieldname": "section_break_rj7fv",
+   "fieldtype": "Section Break"
+  },
+  {
+   "depends_on": "outgoing_email_referral",
+   "fieldname": "outgoing_mail",
+   "fieldtype": "Link",
+   "label": "Outgoing Mail",
+   "mandatory_depends_on": "outgoing_email_referral",
+   "options": "Outgoing Mail"
+  },
+  {
+   "fetch_from": "outgoing_mail.message_subject",
+   "fieldname": "outgoing_message_subject",
+   "fieldtype": "Data",
+   "label": "Outgoing Message Subject",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-12-01 14:18:01.478851",
+ "modified": "2024-12-01 14:27:14.674699",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Incoming Mail",
