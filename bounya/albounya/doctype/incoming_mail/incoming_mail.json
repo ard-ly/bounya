@@ -164,7 +164,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-12-01 14:27:14.674699",
+ "modified": "2024-12-01 14:29:08.808272",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Incoming Mail",
@@ -186,5 +186,6 @@
  ],
  "sort_field": "modified",
  "sort_order": "DESC",
- "states": []
+ "states": [],
+ "title_field": "message_subject"
 }
