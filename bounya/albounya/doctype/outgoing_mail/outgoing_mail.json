@@ -27,6 +27,10 @@
   "notes",
   "attachments_section",
   "mail_attachments",
+  "section_break_po46z",
+  "copy_to",
+  "column_break_9etdz",
+  "marginalize",
   "amended_from"
  ],
  "fields": [
@@ -163,12 +167,32 @@
    "fieldtype": "Table",
    "label": "Mail Attachments",
    "options": "Mail Attachments"
+  },
+  {
+   "fieldname": "section_break_po46z",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "copy_to",
+   "fieldtype": "Table",
+   "label": "Copy to",
+   "options": "Copy to Department"
+  },
+  {
+   "fieldname": "marginalize",
+   "fieldtype": "Table",
+   "label": "Marginalize",
+   "options": "Marginalize Department"
+  },
+  {
+   "fieldname": "column_break_9etdz",
+   "fieldtype": "Column Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-12-01 15:34:41.397102",
+ "modified": "2024-12-01 16:01:43.522174",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Outgoing Mail",
