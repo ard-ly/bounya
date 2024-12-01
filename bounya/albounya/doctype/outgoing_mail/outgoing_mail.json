@@ -26,7 +26,6 @@
    "fieldname": "reference_number",
    "fieldtype": "Data",
    "label": "Reference Number",
-   "reqd": 1,
    "unique": 1
   },
   {
@@ -99,7 +98,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-11-30 14:37:59.203335",
+ "modified": "2024-12-01 13:36:27.701482",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Outgoing Mail",
