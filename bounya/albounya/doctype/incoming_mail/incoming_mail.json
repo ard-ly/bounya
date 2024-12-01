@@ -26,6 +26,8 @@
   "message_subject",
   "section_break_y2dez",
   "notes",
+  "attachments_section",
+  "mail_attachments",
   "amended_from"
  ],
  "fields": [
@@ -157,12 +159,23 @@
    "fieldtype": "Data",
    "label": "Outgoing Message Subject",
    "read_only": 1
+  },
+  {
+   "fieldname": "attachments_section",
+   "fieldtype": "Section Break",
+   "label": "Attachments"
+  },
+  {
+   "fieldname": "mail_attachments",
+   "fieldtype": "Table",
+   "label": "Mail Attachments",
+   "options": "Mail Attachments"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-12-01 14:31:14.523379",
+ "modified": "2024-12-01 15:34:36.635261",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Incoming Mail",
