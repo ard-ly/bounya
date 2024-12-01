@@ -14,8 +14,9 @@
   "incoming_message_date",
   "message_registration_date",
   "section_break_pajkj",
-  "from",
+  "transfer_type",
   "column_break_bzkj1",
+  "from",
   "to",
   "section_break_wmzuh",
   "message_subject",
@@ -50,19 +51,23 @@
    "unique": 1
   },
   {
+   "depends_on": "transfer_type",
    "fieldname": "from",
-   "fieldtype": "Data",
+   "fieldtype": "Dynamic Link",
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "From",
+   "options": "transfer_type",
    "reqd": 1
   },
   {
+   "depends_on": "transfer_type",
    "fieldname": "to",
-   "fieldtype": "Data",
+   "fieldtype": "Dynamic Link",
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "To",
+   "options": "transfer_type",
    "reqd": 1
   },
   {
@@ -109,12 +114,20 @@
    "fieldtype": "Data",
    "label": "Entity",
    "reqd": 1
+  },
+  {
+   "default": "Designation",
+   "fieldname": "transfer_type",
+   "fieldtype": "Link",
+   "label": "Transfer Type",
+   "options": "DocType",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-12-01 13:40:10.498689",
+ "modified": "2024-12-01 13:58:22.431971",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Incoming Mail",
