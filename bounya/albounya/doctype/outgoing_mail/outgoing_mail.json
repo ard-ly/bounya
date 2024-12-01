@@ -13,8 +13,9 @@
   "column_break_wi12n",
   "message_registration_date",
   "section_break_pajkj",
-  "from",
+  "transfer_type",
   "column_break_bzkj1",
+  "from",
   "to",
   "section_break_wmzuh",
   "message_subject",
@@ -47,11 +48,13 @@
    "fieldtype": "Section Break"
   },
   {
+   "depends_on": "transfer_type",
    "fieldname": "from",
-   "fieldtype": "Data",
+   "fieldtype": "Dynamic Link",
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "From",
+   "options": "transfer_type",
    "reqd": 1
   },
   {
@@ -59,11 +62,13 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "transfer_type",
    "fieldname": "to",
-   "fieldtype": "Data",
+   "fieldtype": "Dynamic Link",
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "To",
+   "options": "transfer_type",
    "reqd": 1
   },
   {
@@ -101,12 +106,20 @@
    "label": "Entity",
    "options": "Department",
    "reqd": 1
+  },
+  {
+   "default": "Designation",
+   "fieldname": "transfer_type",
+   "fieldtype": "Link",
+   "label": "Transfer Type",
+   "options": "DocType",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-12-01 13:40:06.277341",
+ "modified": "2024-12-01 13:57:01.265615",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Outgoing Mail",
