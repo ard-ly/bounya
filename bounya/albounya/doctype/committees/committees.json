@@ -1,0 +1,121 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-12-02 13:22:12.952160",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "main_info_section",
+  "committee_name",
+  "committee_type",
+  "column_break_e9pod",
+  "committees_status",
+  "decision",
+  "period_section",
+  "committee_from",
+  "column_break_fcpe7",
+  "committee_to",
+  "section_break_x5hb7",
+  "committee_members",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Committees",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "main_info_section",
+   "fieldtype": "Section Break",
+   "label": "Main Info"
+  },
+  {
+   "fieldname": "decision",
+   "fieldtype": "Link",
+   "label": "Decision",
+   "options": "Decisions"
+  },
+  {
+   "fieldname": "committee_name",
+   "fieldtype": "Data",
+   "label": "Committee Name"
+  },
+  {
+   "fieldname": "committee_type",
+   "fieldtype": "Data",
+   "label": "Committee Type"
+  },
+  {
+   "fieldname": "column_break_e9pod",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "committees_status",
+   "fieldtype": "Select",
+   "label": "Committees Status"
+  },
+  {
+   "fieldname": "period_section",
+   "fieldtype": "Section Break",
+   "label": "Period"
+  },
+  {
+   "fieldname": "committee_from",
+   "fieldtype": "Date",
+   "label": "Committee From"
+  },
+  {
+   "fieldname": "column_break_fcpe7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "committee_to",
+   "fieldtype": "Date",
+   "label": "Committee To"
+  },
+  {
+   "fieldname": "section_break_x5hb7",
+   "fieldtype": "Section Break",
+   "label": "Committee Members"
+  },
+  {
+   "fieldname": "committee_members",
+   "fieldtype": "Table",
+   "label": "Committee Members",
+   "options": "Committee Members"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2024-12-02 13:31:18.299387",
+ "modified_by": "Administrator",
+ "module": "Albounya",
+ "name": "Committees",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
