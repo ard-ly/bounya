@@ -25,8 +25,6 @@
   "message_subject",
   "section_break_y2dez",
   "notes",
-  "attachments_section",
-  "mail_attachments",
   "section_break_po46z",
   "copy_to",
   "column_break_9etdz",
@@ -158,17 +156,6 @@
    "read_only": 1
   },
   {
-   "fieldname": "attachments_section",
-   "fieldtype": "Section Break",
-   "label": "Attachments"
-  },
-  {
-   "fieldname": "mail_attachments",
-   "fieldtype": "Table",
-   "label": "Mail Attachments",
-   "options": "Mail Attachments"
-  },
-  {
    "fieldname": "section_break_po46z",
    "fieldtype": "Section Break"
   },
@@ -192,7 +179,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-12-01 16:01:43.522174",
+ "modified": "2024-12-02 11:40:21.328483",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Outgoing Mail",
