@@ -27,9 +27,11 @@
    "label": "From system"
   },
   {
+   "depends_on": "from_system",
    "fieldname": "employee",
    "fieldtype": "Link",
    "label": "Employee",
+   "mandatory_depends_on": "from_system",
    "options": "Employee"
   },
   {
@@ -41,7 +43,8 @@
    "fieldname": "member_name",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Member Name"
+   "label": "Member Name",
+   "reqd": 1
   },
   {
    "fieldname": "column_break_oozgx",
@@ -51,7 +54,8 @@
    "fieldname": "designation",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Designation"
+   "label": "Designation",
+   "reqd": 1
   },
   {
    "fieldname": "section_break_eqgf7",
@@ -61,7 +65,8 @@
    "fieldname": "email",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Email"
+   "label": "Email",
+   "reqd": 1
   },
   {
    "fieldname": "column_break_jixqx",
@@ -87,7 +92,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-12-02 13:38:38.142970",
+ "modified": "2024-12-02 13:45:54.663628",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Committee Members",
