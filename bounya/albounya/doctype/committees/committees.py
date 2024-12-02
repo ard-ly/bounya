@@ -39,7 +39,7 @@ class Committees(Document):
         hr_managers = frappe.get_all('Has Role', filters={'role': 'HR Manager', 'parenttype': 'User'}, fields=['parent'])
         
         hr_manager_emails = [
-            manager['parent'] 
+            manager['parent']
             for manager in hr_managers 
             if manager['parent'] not in blocked_users
         ]

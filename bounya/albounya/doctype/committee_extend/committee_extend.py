@@ -9,7 +9,7 @@ from frappe.model.document import Document
 class CommitteeExtend(Document):
     def on_submit(self):
         self.update_committee_dates()
-        # self.send_extend_notification()
+        self.send_extend_notification()
 
 
     @frappe.whitelist()
