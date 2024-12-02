@@ -40,19 +40,25 @@
   {
    "fieldname": "decision",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Decision",
-   "options": "Decisions"
+   "options": "Decisions",
+   "reqd": 1
   },
   {
    "fieldname": "committee_name",
    "fieldtype": "Data",
-   "label": "Committee Name"
+   "in_list_view": 1,
+   "label": "Committee Name",
+   "reqd": 1
   },
   {
    "fieldname": "committee_type",
    "fieldtype": "Link",
+   "in_list_view": 1,
    "label": "Committee Type",
-   "options": "Committee Type"
+   "options": "Committee Type",
+   "reqd": 1
   },
   {
    "fieldname": "column_break_e9pod",
@@ -61,7 +67,8 @@
   {
    "fieldname": "committees_status",
    "fieldtype": "Select",
-   "label": "Committees Status"
+   "label": "Committees Status",
+   "options": "New\nActive\nOutdated"
   },
   {
    "fieldname": "period_section",
@@ -71,7 +78,9 @@
   {
    "fieldname": "committee_from",
    "fieldtype": "Date",
-   "label": "Committee From"
+   "in_list_view": 1,
+   "label": "Committee From",
+   "reqd": 1
   },
   {
    "fieldname": "column_break_fcpe7",
@@ -80,7 +89,8 @@
   {
    "fieldname": "committee_to",
    "fieldtype": "Date",
-   "label": "Committee To"
+   "label": "Committee To",
+   "reqd": 1
   },
   {
    "fieldname": "section_break_x5hb7",
@@ -91,13 +101,14 @@
    "fieldname": "committee_members",
    "fieldtype": "Table",
    "label": "Committee Members",
-   "options": "Committee Members"
+   "options": "Committee Members",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-12-02 13:33:34.710151",
+ "modified": "2024-12-02 13:43:08.073401",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Committees",
