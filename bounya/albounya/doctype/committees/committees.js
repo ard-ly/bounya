@@ -12,12 +12,6 @@ frappe.ui.form.on("Committees", {
             });
         }
     },
-	decision(frm) {
-		if(cur_frm.doc.decision){
-            frm.set_value("decision_date",)
-            frm.set_value("decision_file",)
-        }
-    },
     validate(frm) {
         frm.events.validate_committee_dates(frm);
         frm.events.validate_committee_decision_dates(frm);
