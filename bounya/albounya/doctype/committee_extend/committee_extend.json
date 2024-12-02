@@ -1,0 +1,149 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-12-02 14:22:37.857992",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "main_info_section",
+  "committee",
+  "committee_type",
+  "committee_status",
+  "column_break_cdhbx",
+  "decision_number",
+  "decision_date",
+  "decision_file",
+  "period_section",
+  "committee_from",
+  "column_break_orhon",
+  "committee_to",
+  "extend_period_section",
+  "committee_extend_from",
+  "column_break_zz8ja",
+  "committee_extend_to"
+ ],
+ "fields": [
+  {
+   "fieldname": "committee",
+   "fieldtype": "Link",
+   "label": "Committee",
+   "options": "Committees",
+   "reqd": 1
+  },
+  {
+   "fieldname": "committee_type",
+   "fieldtype": "Link",
+   "label": "Committee Type",
+   "options": "Committee Type",
+   "read_only": 1
+  },
+  {
+   "fieldname": "committee_status",
+   "fieldtype": "Data",
+   "label": "Committee Status",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_cdhbx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "decision_number",
+   "fieldtype": "Link",
+   "label": "Decision Number",
+   "options": "Decisions",
+   "reqd": 1
+  },
+  {
+   "fetch_from": "decision_number.decision_file",
+   "fieldname": "decision_file",
+   "fieldtype": "Attach",
+   "label": "Decision File",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "decision_number.decision_date",
+   "fieldname": "decision_date",
+   "fieldtype": "Date",
+   "label": "Decision Date",
+   "read_only": 1
+  },
+  {
+   "fieldname": "main_info_section",
+   "fieldtype": "Section Break",
+   "label": "Main Info"
+  },
+  {
+   "fieldname": "period_section",
+   "fieldtype": "Section Break",
+   "label": "Period"
+  },
+  {
+   "fetch_from": "committee.committee_from",
+   "fieldname": "committee_from",
+   "fieldtype": "Date",
+   "label": "Committee From",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_orhon",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "committee.committee_to",
+   "fieldname": "committee_to",
+   "fieldtype": "Date",
+   "label": "Committee To",
+   "read_only": 1
+  },
+  {
+   "fieldname": "extend_period_section",
+   "fieldtype": "Section Break",
+   "label": "Extend Period"
+  },
+  {
+   "fieldname": "committee_extend_from",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Committee Extend From",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_zz8ja",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "committee_extend_to",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Committee Extend To",
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2024-12-02 14:30:36.261556",
+ "modified_by": "Administrator",
+ "module": "Albounya",
+ "name": "Committee Extend",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
