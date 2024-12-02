@@ -76,7 +76,8 @@
    "fieldname": "phone_number",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Phone Number"
+   "label": "Phone Number",
+   "reqd": 1
   },
   {
    "fieldname": "column_break_zbwy1",
@@ -92,7 +93,7 @@
  "index_web_pages_for_search": 1,
  "istable": 1,
  "links": [],
- "modified": "2024-12-02 13:45:54.663628",
+ "modified": "2024-12-02 14:33:10.785579",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Committee Members",
