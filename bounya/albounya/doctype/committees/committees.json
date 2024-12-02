@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
+ "autoname": "field:committee_name",
  "creation": "2024-12-02 13:22:12.952160",
  "default_view": "List",
  "doctype": "DocType",
@@ -45,7 +46,7 @@
   {
    "fieldname": "decision",
    "fieldtype": "Link",
-   "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Decision Number",
    "options": "Decisions",
    "reqd": 1
@@ -55,12 +56,14 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Committee Name",
-   "reqd": 1
+   "reqd": 1,
+   "unique": 1
   },
   {
    "fieldname": "committee_type",
    "fieldtype": "Link",
    "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Committee Type",
    "options": "Committee Type",
    "reqd": 1
@@ -88,6 +91,7 @@
   {
    "fieldname": "committee_to",
    "fieldtype": "Date",
+   "in_list_view": 1,
    "label": "Committee To",
    "reqd": 1
   },
@@ -106,6 +110,7 @@
   {
    "fieldname": "decision_section",
    "fieldtype": "Section Break",
+   "in_standard_filter": 1,
    "label": "Decision"
   },
   {
@@ -137,6 +142,8 @@
   {
    "fieldname": "committee_status",
    "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
    "label": "Committee Status",
    "options": "New\nActive\nOutdated",
    "read_only": 1
@@ -145,10 +152,11 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-12-02 14:04:15.130959",
+ "modified": "2024-12-02 14:54:12.842092",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Committees",
+ "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
   {
@@ -161,6 +169,7 @@
    "report": 1,
    "role": "System Manager",
    "share": 1,
+   "submit": 1,
    "write": 1
   }
  ],
