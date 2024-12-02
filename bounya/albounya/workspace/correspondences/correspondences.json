@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"id\":\"WaWBRN2lOL\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Correspondences</span>\",\"col\":12}},{\"id\":\"Xq_JpVxGzX\",\"type\":\"card\",\"data\":{\"card_name\":\"Correspondences\",\"col\":4}},{\"id\":\"lHkZDyMzsl\",\"type\":\"card\",\"data\":{\"card_name\":\"Correspondences\",\"col\":4}}]",
+ "content": "[{\"id\":\"WaWBRN2lOL\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Correspondences</span>\",\"col\":12}},{\"id\":\"Xq_JpVxGzX\",\"type\":\"card\",\"data\":{\"card_name\":\"Correspondences\",\"col\":4}},{\"id\":\"lHkZDyMzsl\",\"type\":\"card\",\"data\":{\"card_name\":\"Decisions and Committees\",\"col\":4}}]",
  "creation": "2024-11-30 13:29:14.964561",
  "custom_blocks": [],
  "docstatus": 0,
@@ -16,6 +16,35 @@
    "hidden": 0,
    "is_query_report": 0,
    "label": "Correspondences",
+   "link_count": 2,
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Card Break"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Incoming Mail",
+   "link_count": 0,
+   "link_to": "Incoming Mail",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Outgoing Mail",
+   "link_count": 0,
+   "link_to": "Outgoing Mail",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Decisions and Committees",
    "link_count": 3,
    "link_type": "DocType",
    "onboard": 0,
@@ -52,7 +81,7 @@
    "type": "Link"
   }
  ],
- "modified": "2024-12-02 15:07:05.255261",
+ "modified": "2024-12-02 15:09:18.931592",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Correspondences",
