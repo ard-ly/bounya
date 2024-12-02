@@ -8,8 +8,7 @@ from frappe.utils import getdate, nowdate
 
 class Committees(Document):
     def on_submit(self):
-        if not self.email_sent:
-            self.send_reward_notification()
+        self.send_reward_notification()
         self.change_committee_status()
 
 
@@ -45,14 +44,14 @@ class Committees(Document):
             if manager['parent'] not in blocked_users
         ]
         
-        reward_exists = any(item.reward for item in self.get('committee_table'))
+        reward_exists = any(item.reward for item in self.get('committee_members'))
 
         if hr_manager_emails and reward_exists:
 
             link = frappe.utils.get_url_to_form(self.doctype, self.name)
 
             table_rows = ''
-            for item in self.get('committee_table'):
+            for item in self.get('committee_members'):
                 table_rows += f"""
                 <tr>
                     <td>{item.idx}</td>
@@ -93,6 +92,5 @@ class Committees(Document):
                 delayed=False
             )
 
-            self.email_sent = 1
 
 
