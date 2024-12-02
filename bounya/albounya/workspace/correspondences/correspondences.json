@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"id\":\"WaWBRN2lOL\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Correspondences</span>\",\"col\":12}},{\"id\":\"Xq_JpVxGzX\",\"type\":\"card\",\"data\":{\"card_name\":\"Correspondences\",\"col\":4}}]",
+ "content": "[{\"id\":\"WaWBRN2lOL\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Correspondences</span>\",\"col\":12}},{\"id\":\"Xq_JpVxGzX\",\"type\":\"card\",\"data\":{\"card_name\":\"Correspondences\",\"col\":4}},{\"id\":\"lHkZDyMzsl\",\"type\":\"card\",\"data\":{\"card_name\":\"Correspondences\",\"col\":4}}]",
  "creation": "2024-11-30 13:29:14.964561",
  "custom_blocks": [],
  "docstatus": 0,
@@ -16,7 +16,7 @@
    "hidden": 0,
    "is_query_report": 0,
    "label": "Correspondences",
-   "link_count": 2,
+   "link_count": 3,
    "link_type": "DocType",
    "onboard": 0,
    "type": "Card Break"
@@ -24,9 +24,9 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Incoming Mail",
+   "label": "Decisions",
    "link_count": 0,
-   "link_to": "Incoming Mail",
+   "link_to": "Decisions",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
@@ -34,15 +34,25 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Outgoing Mail",
+   "label": "Committees",
    "link_count": 0,
-   "link_to": "Outgoing Mail",
+   "link_to": "Committees",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Committee Extend",
+   "link_count": 0,
+   "link_to": "Committee Extend",
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
   }
  ],
- "modified": "2024-11-30 14:00:19.302707",
+ "modified": "2024-12-02 15:07:05.255261",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Correspondences",
