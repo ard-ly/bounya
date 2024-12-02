@@ -8,8 +8,8 @@ from frappe.utils import getdate, nowdate
 
 class Committees(Document):
     def on_submit(self):
-        # if not self.email_sent:
-        #     self.send_reward_notification()
+        if not self.email_sent:
+            self.send_reward_notification()
         self.change_committee_status()
 
 
