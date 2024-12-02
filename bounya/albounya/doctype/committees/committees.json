@@ -50,8 +50,9 @@
   },
   {
    "fieldname": "committee_type",
-   "fieldtype": "Data",
-   "label": "Committee Type"
+   "fieldtype": "Link",
+   "label": "Committee Type",
+   "options": "Committee Type"
   },
   {
    "fieldname": "column_break_e9pod",
@@ -96,7 +97,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-12-02 13:31:18.299387",
+ "modified": "2024-12-02 13:33:34.710151",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Committees",
