@@ -16,6 +16,7 @@
   "reference_number",
   "column_break_wi12n",
   "message_registration_date",
+  "file_number",
   "section_break_pajkj",
   "transfer_type",
   "column_break_bzkj1",
@@ -174,12 +175,17 @@
   {
    "fieldname": "column_break_9etdz",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "file_number",
+   "fieldtype": "Data",
+   "label": "File Number"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-12-02 11:40:21.328483",
+ "modified": "2024-12-02 11:47:55.672758",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Outgoing Mail",
