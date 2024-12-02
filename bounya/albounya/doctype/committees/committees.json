@@ -12,7 +12,11 @@
   "committee_type",
   "column_break_e9pod",
   "committees_status",
+  "decision_section",
   "decision",
+  "column_break_knzmg",
+  "decision_date",
+  "decision_file",
   "period_section",
   "committee_from",
   "column_break_fcpe7",
@@ -41,7 +45,7 @@
    "fieldname": "decision",
    "fieldtype": "Link",
    "in_list_view": 1,
-   "label": "Decision",
+   "label": "Decision Number",
    "options": "Decisions",
    "reqd": 1
   },
@@ -68,7 +72,8 @@
    "fieldname": "committees_status",
    "fieldtype": "Select",
    "label": "Committees Status",
-   "options": "New\nActive\nOutdated"
+   "options": "New\nActive\nOutdated",
+   "read_only": 1
   },
   {
    "fieldname": "period_section",
@@ -103,12 +108,35 @@
    "label": "Committee Members",
    "options": "Committee Members",
    "reqd": 1
+  },
+  {
+   "fieldname": "decision_section",
+   "fieldtype": "Section Break",
+   "label": "Decision"
+  },
+  {
+   "fieldname": "column_break_knzmg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "decision.decision_date",
+   "fieldname": "decision_date",
+   "fieldtype": "Date",
+   "label": "Decision Date",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "decision.decision_file",
+   "fieldname": "decision_file",
+   "fieldtype": "Attach",
+   "label": "Decision File",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-12-02 13:43:08.073401",
+ "modified": "2024-12-02 13:53:36.965720",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Committees",
