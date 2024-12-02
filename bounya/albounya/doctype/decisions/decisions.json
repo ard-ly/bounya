@@ -24,8 +24,6 @@
   {
    "fieldname": "decision_number",
    "fieldtype": "Data",
-   "in_list_view": 1,
-   "in_standard_filter": 1,
    "label": "Decision Number",
    "reqd": 1,
    "unique": 1
@@ -102,7 +100,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-12-02 13:14:30.721594",
+ "modified": "2024-12-02 13:20:03.332749",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Decisions",
@@ -118,6 +116,19 @@
    "read": 1,
    "report": 1,
    "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Employee",
    "share": 1,
    "write": 1
   }
