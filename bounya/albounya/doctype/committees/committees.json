@@ -11,7 +11,8 @@
   "committee_name",
   "committee_type",
   "column_break_e9pod",
-  "committees_status",
+  "committee_status",
+  "email_sent",
   "decision_section",
   "decision",
   "column_break_knzmg",
@@ -69,13 +70,6 @@
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "committees_status",
-   "fieldtype": "Select",
-   "label": "Committees Status",
-   "options": "New\nActive\nOutdated",
-   "read_only": 1
-  },
-  {
    "fieldname": "period_section",
    "fieldtype": "Section Break",
    "label": "Period"
@@ -131,12 +125,27 @@
    "fieldtype": "Attach",
    "label": "Decision File",
    "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "email_sent",
+   "fieldtype": "Check",
+   "hidden": 1,
+   "label": "Email Sent",
+   "read_only": 1
+  },
+  {
+   "fieldname": "committee_status",
+   "fieldtype": "Select",
+   "label": "Committee Status",
+   "options": "New\nActive\nOutdated",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-12-02 13:53:36.965720",
+ "modified": "2024-12-02 14:04:15.130959",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Committees",

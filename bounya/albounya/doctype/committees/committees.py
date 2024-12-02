@@ -8,17 +8,10 @@ from frappe.utils import getdate, nowdate
 
 class Committees(Document):
     def on_submit(self):
-        if not self.email_sent:
-            self.send_reward_notification()
+        # if not self.email_sent:
+        #     self.send_reward_notification()
         self.change_committee_status()
-        self.add_committee_in_employee()
-        # self.add_custom_user_permission()
 
-
-    def on_cancel(self):
-        employee_committees = frappe.get_all('Employee Committees',filters={'committee_name': self.name},fields=['name'])
-        for record in employee_committees:
-            frappe.delete_doc('Employee Committees', record['name'])
 
 
     @frappe.whitelist()
@@ -38,45 +31,6 @@ class Committees(Document):
         else:
             self.committee_status = 'Outdated'
 
-
-    @frappe.whitelist()
-    def add_committee_in_employee(self):
-        current_date = getdate(nowdate())
-        start_date = getdate(self.committee_from)
-        end_date = getdate(self.committee_to)
-
-        for prosecutor in self.committee_table:
-            status = ''
-            if prosecutor.employee:
-                if not frappe.db.exists("Employee Committees", {"committee_name": self.name, "parent": prosecutor.employee}):
-                    doc = frappe.get_doc("Employee", prosecutor.employee)
-
-                    if start_date <= current_date <= end_date:
-                        status = 'Active'
-                    else:
-                        status = 'Outdated'
-
-                    doc.append('custom_employee_committees', {
-                        "committee_name": self.name,
-                        "committee_status": status
-                    })
-                    doc.flags.ignore_mandatory = True
-                    doc.save(ignore_permissions=True)
-
-
-    @frappe.whitelist()
-    def add_custom_user_permission(self):
-        for member in self.committee_table:
-            if member.from_system:
-                member_email = frappe.get_value("Employee", filters = {"name": member.employee}, fieldname = "user_id") or None
-
-                if member_email and not frappe.db.exists("Custom User Permission", {"applicable_for": 'Committees', "document": self.name, "user": member_email}):
-                    frappe.get_doc({
-                        "doctype":"Custom User Permission",
-                        "applicable_for": 'Committees',
-                        "document": self.name,
-                        "user": member_email
-                    }).insert(ignore_permissions=True)
 
 
 
@@ -104,7 +58,6 @@ class Committees(Document):
                     <td>{item.idx}</td>
                     <td>{item.member_name}</td>
                     <td>{item.designation}</td>
-                    <td>{item.adjective}</td>
                     <td>{item.email}</td>
                     <td>{item.phone_number}</td>
                 </tr>
@@ -117,11 +70,10 @@ class Committees(Document):
                     <thead>
                         <tr>
                             <th width="3%">م</th>
-                            <th width="20%">اسم العضو</th>
-                            <th width="20%">المسمى الوظيفي</th>
-                            <th width="20%">الصفة</th>
-                            <th width="20%">البريد الإلكتروني</th>
-                            <th width="20%">رقم الهاتف</th>
+                            <th width="25%">اسم العضو</th>
+                            <th width="25%">المسمى الوظيفي</th>
+                            <th width="25%">البريد الإلكتروني</th>
+                            <th width="25%">رقم الهاتف</th>
                         </tr>
                     </thead>
                     <tbody>

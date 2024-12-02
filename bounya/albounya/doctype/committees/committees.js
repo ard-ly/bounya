@@ -54,7 +54,7 @@ frappe.ui.form.on("Committees", {
 });
 
 
-frappe.ui.form.on("Committee Prosecutor","employee", function(frm, cdt, cdn) {
+frappe.ui.form.on("Committee Members","employee", function(frm, cdt, cdn) {
     var row = locals[cdt][cdn];
 
     if (row.employee) {
@@ -68,7 +68,6 @@ frappe.ui.form.on("Committee Prosecutor","employee", function(frm, cdt, cdn) {
                 if(r.message){
                     frappe.model.set_value(cdt, cdn, "member_name", r.message['employee_name']);
                     frappe.model.set_value(cdt, cdn, "designation", r.message['designation']);
-                    frappe.model.set_value(cdt, cdn, "adjective", r.message['designation']);
                     frappe.model.set_value(cdt, cdn, "email", r.message['prefered_email']);
                     frappe.model.set_value(cdt, cdn, "phone_number", r.message['cell_number']);
 
