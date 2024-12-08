@@ -146,7 +146,7 @@ jenv = {
 # Permissions evaluated in scripted ways
 
 permission_query_conditions = {
-    "*":"bounya.permission_query_condition_creator.get_permission_query_conditions"
+    "*":"bounya.permission_query_condition.get_permission_query_conditions"
 }
 
 # has_permission = {
