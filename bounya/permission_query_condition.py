@@ -13,6 +13,8 @@ def get_permission_query_conditions(user, doctype):
         return get_decisions_perm(user, doctype)
     elif doctype == "Committees":
         return get_committees_perm(user, doctype)
+    elif doctype == "Committee Extend":
+        return get_committees_extend_perm(user, doctype)
     
 
 
@@ -167,6 +169,37 @@ def get_committees_perm(user, doctype):
     return "name in ('{allowed_list}')".format(allowed_list="','".join(allowed_docs_tuple))
 
 
-   
+
+
+
+def get_committees_extend_perm(user, doctype):
+    allowed_docs_list = []
+    owned_docs = frappe.get_all(doctype, filters={"owner":frappe.session.user})
+    for owned_doc in owned_docs:
+        allowed_docs_list.append(owned_doc.name)
+
+
+    # Get documents shared with the user
+    shared_docs = frappe.get_all("DocShare",
+                             filters={"share_doctype": doctype},
+                             or_filters=[{"user": frappe.session.user}, {"user": ""}],
+                             fields=["share_name"])
+    for shared_doc in shared_docs:
+        allowed_docs_list.append(shared_doc.share_name)
+
+
+    allowed_committees_extend = ''
+    allowed_committees = get_committees_perm(user, "Committees")
+    if allowed_committees:
+        allowed_committees_extend = allowed_committees.replace('name', 'committee')
+
+
+    if frappe.session.user == "Administrator":
+        return
+
+    allowed_docs_tuple = tuple(allowed_docs_list)
+    return "name in ('{allowed_list}') or {allowed_committees_extend}".format(allowed_list="','".join(allowed_docs_tuple), allowed_committees_extend= allowed_committees_extend)
+
+
 
 
