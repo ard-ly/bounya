@@ -7,61 +7,110 @@ from frappe.utils import getdate, cstr
 
 
 def get_permission_query_conditions(user, doctype):
-    if doctype == "Incoming Mail":
-        return get_incoming_mail_perm(user)
-    elif doctype == "Committees":
-        return get_committees_perm(user)
+    if doctype in ["Incoming Mail", "Outgoing Mail"]:
+        return get_mail_perm(user, doctype)
     elif doctype == "Decisions":
-        return get_decisions_perm(user)
+        return get_decisions_perm(user, doctype)
+    elif doctype == "Committees":
+        return get_committees_perm(user, doctype)
+    
 
 
-def get_incoming_mail_perm(user, doctype):
-    allowed_docs = frappe.get_all("Custom User Permission",
-                                    filters={"applicable_for":doctype,
-                                             "user":frappe.session.user},
-                                    fields=["document"])
-
-    owned_docs = frappe.get_all(doctype,filters={"owner":frappe.session.user})
+def get_mail_perm(user, doctype):
+    allowed_docs_list = []
+    owned_docs = frappe.get_all(doctype, filters={"owner":frappe.session.user})
+    for owned_doc in owned_docs:
+        allowed_docs_list.append(owned_doc.name)
 
     # Get documents shared with the user
     shared_docs = frappe.get_all("DocShare",
                              filters={"share_doctype": doctype},
                              or_filters=[{"user": frappe.session.user}, {"user": ""}],
                              fields=["share_name"])
-
-    allowed_docs_list = []
-    for allowed_doc in allowed_docs:
-        allowed_docs_list.append(allowed_doc.document)
-
-    for owned_doc in owned_docs:
-        allowed_docs_list.append(owned_doc.name)
-
     for shared_doc in shared_docs:
         allowed_docs_list.append(shared_doc.share_name)
 
+
+    user_designation = frappe.get_value("Employee", filters = {"user_id": frappe.session.user}, fieldname = "designation") or None
+    if user_designation:
+        mail_designation_docs = frappe.get_all(doctype, filters={"from": user_designation})
+        for mail_designation_doc in mail_designation_docs:
+            allowed_docs_list.append(mail_designation_doc.name)
+
+        mail_designation_docs = frappe.get_all(doctype, filters={"to": user_designation})
+        for mail_designation_doc in mail_designation_docs:
+            allowed_docs_list.append(mail_designation_doc.name)
+
+
+    user_department = frappe.get_value("Employee", filters = {"user_id": frappe.session.user}, fieldname = "department") or None
+    if user_department:
+        mail_department_docs = frappe.get_all(doctype, filters={"from": user_department})
+        for mail_department_doc in mail_department_docs:
+            allowed_docs_list.append(mail_department_doc.name)
+
+        mail_department_docs = frappe.get_all(doctype, filters={"to": user_department})
+        for mail_department_doc in mail_department_docs:
+            allowed_docs_list.append(mail_department_doc.name)
+
+
+        copy_to_docs = frappe.get_all("Copy to Department",
+                                 filters={"parenttype": doctype, "department": user_department},
+                                 fields=["parent"])
+        for copy_to_doc in copy_to_docs:
+            allowed_docs_list.append(copy_to_doc.parent)
+
+
+        marginalize_docs = frappe.get_all("Marginalize Department",
+                                 filters={"parenttype": doctype, "department": user_department},
+                                 fields=["parent"])
+        for marginalize_doc in marginalize_docs:
+            allowed_docs_list.append(marginalize_doc.parent)
+
+    
     if frappe.session.user == "Administrator":
         return
-
-    emps = frappe.get_all("Employee",filters={"user_id":frappe.session.user})
-    if emps:
-        apps = frappe.get_all(doctype,filters={"employee":emps[0].name})
-        if apps:
-            for app in apps:
-                if app.name not in allowed_docs_list:
-                    allowed_docs_list.append(app.name)
 
     allowed_docs_tuple = tuple(allowed_docs_list)
     return "name in ('{allowed_list}')".format(allowed_list="','".join(allowed_docs_tuple))
 
 
-                
-def get_employee_perm(user):
-    doctype = "Employee"
-    allowed_docs = frappe.get_all("Custom User Permission",
-                                    filters={"applicable_for":doctype,
-                                             "user":frappe.session.user},
-                                    fields=["document"])
 
+
+def get_decisions_perm(user, doctype):
+    allowed_docs_list = []
+    owned_docs = frappe.get_all(doctype, filters={"owner":frappe.session.user})
+    for owned_doc in owned_docs:
+        allowed_docs_list.append(owned_doc.name)
+
+
+    # Get documents shared with the user
+    shared_docs = frappe.get_all("DocShare",
+                             filters={"share_doctype": doctype},
+                             or_filters=[{"user": frappe.session.user}, {"user": ""}],
+                             fields=["share_name"])
+    for shared_doc in shared_docs:
+        allowed_docs_list.append(shared_doc.share_name)
+
+
+
+    emp = frappe.get_value("Employee", filters={"user_id": frappe.session.user}, fieldname="name")
+    allowed_docs = frappe.get_all("Decisions",
+                                    filters={"employee_specific": 1, "employee": emp},
+                                    fields=["name"])
+    for allowed_doc in allowed_docs:
+        allowed_docs_list.append(allowed_doc.name)
+
+
+    # if frappe.session.user == "Administrator":
+    #     return
+    frappe.msgprint(str(allowed_docs_list))
+    allowed_docs_tuple = tuple(allowed_docs_list)
+    return "name in ('{allowed_list}')".format(allowed_list="','".join(allowed_docs_tuple))
+
+
+
+
+def get_employee_perm(user, doctype):
     owned_docs = frappe.get_all(doctype,filters={"owner":frappe.session.user})
 
     # Get documents shared with the user
@@ -71,8 +120,6 @@ def get_employee_perm(user):
                              fields=["share_name"])
 
     allowed_docs_list = []
-    for allowed_doc in allowed_docs:
-        allowed_docs_list.append(allowed_doc.document)
 
     for owned_doc in owned_docs:
         allowed_docs_list.append(owned_doc.name)
@@ -128,13 +175,7 @@ def get_employee_perm(user):
 
 
 
-def get_committees_perm(user):
-    doctype = "Committees"
-    allowed_docs = frappe.get_all("Custom User Permission",
-                                    filters={"applicable_for":doctype,
-                                             "user":frappe.session.user},
-                                    fields=["document"])
-
+def get_committees_perm(user, doctype):
     owned_docs = frappe.get_all(doctype,filters={"owner":frappe.session.user})
 
     # Get documents shared with the user
@@ -149,8 +190,6 @@ def get_committees_perm(user):
                                     fields=["parent"])
 
     allowed_docs_list = []
-    for allowed_doc in allowed_docs:
-        allowed_docs_list.append(allowed_doc.document)
 
     for owned_doc in owned_docs:
         allowed_docs_list.append(owned_doc.name)
@@ -170,36 +209,5 @@ def get_committees_perm(user):
 
 
    
-def get_decisions_perm(user):
-    doctype = "Decisions"
-    emp = frappe.get_value("Employee", filters={"user_id": frappe.session.user}, fieldname="name")
-
-    allowed_docs = frappe.get_all("Decisions",
-                                    filters={"employee_specific": 1, "employee": emp},
-                                    fields=["name"])
-
-    owned_docs = frappe.get_all(doctype,filters={"owner":frappe.session.user})
-
-    # Get documents shared with the user
-    shared_docs = frappe.get_all("DocShare",
-                             filters={"share_doctype": doctype},
-                             or_filters=[{"user": frappe.session.user}, {"user": ""}],
-                             fields=["share_name"])
-
-    allowed_docs_list = []
-    for allowed_doc in allowed_docs:
-        allowed_docs_list.append(allowed_doc.name)
-
-    for owned_doc in owned_docs:
-        allowed_docs_list.append(owned_doc.name)
-
-    for shared_doc in shared_docs:
-        allowed_docs_list.append(shared_doc.share_name)
-
-    if frappe.session.user == "Administrator":
-        return
-
-    allowed_docs_tuple = tuple(allowed_docs_list)
-    return "name in ('{allowed_list}')".format(allowed_list="','".join(allowed_docs_tuple))
 
 
