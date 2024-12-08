@@ -330,6 +330,7 @@ fixtures = [
         {"dt": "DocType Layout", "filters": [["name", "in", ["Employee"]]]},
         {"dt": "Translation"},
         {"dt": "Custom Field"},
+        {"dt": "Role"},
     ]
 
 #     {"dt": "Custom Field", "filters": [["module", "in", ["Albounya"]]]},

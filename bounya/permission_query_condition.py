@@ -77,6 +77,9 @@ def get_mail_perm(user, doctype):
     if frappe.session.user == "Administrator":
         return
 
+    if "Show All Mail" in frappe.get_roles(frappe.session.user):
+        return
+
     allowed_docs_tuple = tuple(allowed_docs_list)
     return "name in ('{allowed_list}')".format(allowed_list="','".join(allowed_docs_tuple))
 
@@ -130,7 +133,10 @@ def get_decisions_perm(user, doctype):
 
     if frappe.session.user == "Administrator":
         return
-    frappe.msgprint(str(allowed_docs_list))
+
+    if "Show All Decisions" in frappe.get_roles(frappe.session.user):
+        return
+
     allowed_docs_tuple = tuple(allowed_docs_list)
     return "name in ('{allowed_list}')".format(allowed_list="','".join(allowed_docs_tuple))
 
@@ -165,6 +171,9 @@ def get_committees_perm(user, doctype):
     if frappe.session.user == "Administrator":
         return
 
+    if "Show All Committees" in frappe.get_roles(frappe.session.user):
+        return
+
     allowed_docs_tuple = tuple(allowed_docs_list)
     return "name in ('{allowed_list}')".format(allowed_list="','".join(allowed_docs_tuple))
 
@@ -197,6 +206,9 @@ def get_committees_extend_perm(user, doctype):
     if frappe.session.user == "Administrator":
         return
 
+    if "Show All Committees" in frappe.get_roles(frappe.session.user):
+        return
+        
     allowed_docs_tuple = tuple(allowed_docs_list)
     return "name in ('{allowed_list}') or {allowed_committees_extend}".format(allowed_list="','".join(allowed_docs_tuple), allowed_committees_extend= allowed_committees_extend)
 
