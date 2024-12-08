@@ -42,31 +42,36 @@ def get_mail_perm(user, doctype):
             allowed_docs_list.append(mail_designation_doc.name)
 
 
-    user_department = frappe.get_value("Employee", filters = {"user_id": frappe.session.user}, fieldname = "department") or None
-    if user_department:
-        mail_department_docs = frappe.get_all(doctype, filters={"from": user_department})
-        for mail_department_doc in mail_department_docs:
-            allowed_docs_list.append(mail_department_doc.name)
 
-        mail_department_docs = frappe.get_all(doctype, filters={"to": user_department})
-        for mail_department_doc in mail_department_docs:
-            allowed_docs_list.append(mail_department_doc.name)
+    # Get Department Manager users
+    departments_managers = frappe.db.sql_list("select user_id from `tabEmployee` where status='Active' and name in (select custom_department_manager from `tabDepartment` where custom_department_manager !='')")
+    if frappe.session.user in departments_managers:
+        user_emp = frappe.get_value("Employee", filters = {"user_id": frappe.session.user}, fieldname = "name") or None
+        if user_emp:
+            department_docs = frappe.get_all('Department', filters={"custom_department_manager": user_emp}, fields=["name"])
+            for department_doc in department_docs:
+                if department_doc:
+                    mail_department_docs = frappe.get_all(doctype, filters={"from": department_doc.name})
+                    for mail_department_doc in mail_department_docs:
+                        allowed_docs_list.append(mail_department_doc.name)
+
+                    mail_department_docs = frappe.get_all(doctype, filters={"to": department_doc.name})
+                    for mail_department_doc in mail_department_docs:
+                        allowed_docs_list.append(mail_department_doc.name)
+
+                    copy_to_docs = frappe.get_all("Copy to Department",
+                                             filters={"parenttype": doctype, "department": department_doc.name},
+                                             fields=["parent"])
+                    for copy_to_doc in copy_to_docs:
+                        allowed_docs_list.append(copy_to_doc.parent)
+
+                    marginalize_docs = frappe.get_all("Marginalize Department",
+                                             filters={"parenttype": doctype, "department": department_doc.name},
+                                             fields=["parent"])
+                    for marginalize_doc in marginalize_docs:
+                        allowed_docs_list.append(marginalize_doc.parent)
 
 
-        copy_to_docs = frappe.get_all("Copy to Department",
-                                 filters={"parenttype": doctype, "department": user_department},
-                                 fields=["parent"])
-        for copy_to_doc in copy_to_docs:
-            allowed_docs_list.append(copy_to_doc.parent)
-
-
-        marginalize_docs = frappe.get_all("Marginalize Department",
-                                 filters={"parenttype": doctype, "department": user_department},
-                                 fields=["parent"])
-        for marginalize_doc in marginalize_docs:
-            allowed_docs_list.append(marginalize_doc.parent)
-
-    
     if frappe.session.user == "Administrator":
         return
 
@@ -92,17 +97,37 @@ def get_decisions_perm(user, doctype):
         allowed_docs_list.append(shared_doc.share_name)
 
 
+    # Get Department Manager users
+    departments_managers = frappe.db.sql_list("select user_id from `tabEmployee` where status='Active' and name in (select custom_department_manager from `tabDepartment` where custom_department_manager !='')")
+    if frappe.session.user in departments_managers:
+        user_emp = frappe.get_value("Employee", filters = {"user_id": frappe.session.user}, fieldname = "name") or None
+        if user_emp:
+            department_docs = frappe.get_all('Department', filters={"custom_department_manager": user_emp}, fields=["name"])
+            for department_doc in department_docs:
+                if department_doc:
+                    mail_department_docs = frappe.get_all(doctype, filters={"issuing_authority": department_doc.name})
+                    for mail_department_doc in mail_department_docs:
+                        allowed_docs_list.append(mail_department_doc.name)
 
-    emp = frappe.get_value("Employee", filters={"user_id": frappe.session.user}, fieldname="name")
-    allowed_docs = frappe.get_all("Decisions",
-                                    filters={"employee_specific": 1, "employee": emp},
-                                    fields=["name"])
-    for allowed_doc in allowed_docs:
-        allowed_docs_list.append(allowed_doc.name)
+
+    # General Decision
+    general_decision_docs = frappe.get_all(doctype, filters={"general_decision":1}, fields=["name"])
+    for general_decision_doc in general_decision_docs:
+        allowed_docs_list.append(general_decision_doc.name)
 
 
-    # if frappe.session.user == "Administrator":
-    #     return
+    # Specific Decision
+    user_emp = frappe.get_value("Employee", filters = {"user_id": frappe.session.user}, fieldname = "name") or None
+    if user_emp:
+        specific_decision_docs = frappe.get_all(doctype, filters={"general_decision": 0}, fields=["name"])
+        for specific_decision_doc in specific_decision_docs:
+            specific_employees = frappe.db.sql_list("select user_id from `tabEmployee` where name in (select employee from `tabCopy to Employee` where parenttype='{0}' and parent='{1}')".format(doctype, specific_decision_doc.name))
+            if frappe.session.user in specific_employees:
+                allowed_docs_list.append(specific_decision_doc.name)
+
+
+    if frappe.session.user == "Administrator":
+        return
     frappe.msgprint(str(allowed_docs_list))
     allowed_docs_tuple = tuple(allowed_docs_list)
     return "name in ('{allowed_list}')".format(allowed_list="','".join(allowed_docs_tuple))
@@ -110,93 +135,27 @@ def get_decisions_perm(user, doctype):
 
 
 
-def get_employee_perm(user, doctype):
-    owned_docs = frappe.get_all(doctype,filters={"owner":frappe.session.user})
-
-    # Get documents shared with the user
-    shared_docs = frappe.get_all("DocShare",
-                             filters={"share_doctype": doctype},
-                             or_filters=[{"user": frappe.session.user}, {"user": ""}],
-                             fields=["share_name"])
-
+def get_committees_perm(user, doctype):
     allowed_docs_list = []
-
+    owned_docs = frappe.get_all(doctype, filters={"owner":frappe.session.user})
     for owned_doc in owned_docs:
         allowed_docs_list.append(owned_doc.name)
 
-    for shared_doc in shared_docs:
-        allowed_docs_list.append(shared_doc.share_name)
-
-    # Get Department users
-    if frappe.session.user in frappe.db.sql_list("select user_id from `tabEmployee` where status='Active' and name in (select custom_department_manager from `tabDepartment` where custom_department_manager !='')"):
-        employee_department = frappe.get_value("Employee", filters={"user_id": frappe.session.user}, fieldname="department")
-
-        emps = frappe.get_all("Employee",filters={"department": employee_department})
-        if emps:
-            for emp in emps:
-                apps = frappe.get_all(doctype,filters={"name":emp.name})
-                if apps:
-                    for app in apps:
-                        if app.name not in allowed_docs_list:
-                            allowed_docs_list.append(app.name)
-
-        allowed_docs_tuple = tuple(allowed_docs_list)
-
-
-    # Get direct manager users
-    session_emp = frappe.get_value("Employee", filters={"user_id": frappe.session.user}, fieldname="name")
-    emps = frappe.get_all("Employee",filters={"reports_to": session_emp})
-    if emps:
-        for emp in emps:
-            apps = frappe.get_all(doctype,filters={"name":emp.name})
-            if apps:
-                for app in apps:
-                    if app.name not in allowed_docs_list:
-                        allowed_docs_list.append(app.name)
-
-    allowed_docs_tuple = tuple(allowed_docs_list)
-        
-
-
-    emps = frappe.get_all("Employee",filters={"user_id":frappe.session.user})
-    if emps:
-        apps = frappe.get_all(doctype,filters={"name":emps[0].name})
-        if apps:
-            for app in apps:
-                if app.name not in allowed_docs_list:
-                    allowed_docs_list.append(app.name)
-
-    allowed_docs_tuple = tuple(allowed_docs_list)
-
-    if frappe.session.user == "Administrator":
-        return
-
-    return "name in ('{allowed_list}')".format(allowed_list="','".join(allowed_docs_tuple))
-
-
-
-def get_committees_perm(user, doctype):
-    owned_docs = frappe.get_all(doctype,filters={"owner":frappe.session.user})
 
     # Get documents shared with the user
     shared_docs = frappe.get_all("DocShare",
                              filters={"share_doctype": doctype},
                              or_filters=[{"user": frappe.session.user}, {"user": ""}],
                              fields=["share_name"])
+    for shared_doc in shared_docs:
+        allowed_docs_list.append(shared_doc.share_name)
 
-    committee_members = frappe.get_all("Committee Prosecutor",
+
+
+    committee_members = frappe.get_all("Committee Members",
                                     filters={"parenttype":doctype,
                                              "email":frappe.session.user},
                                     fields=["parent"])
-
-    allowed_docs_list = []
-
-    for owned_doc in owned_docs:
-        allowed_docs_list.append(owned_doc.name)
-
-    for shared_doc in shared_docs:
-        allowed_docs_list.append(shared_doc.share_name)
-
     for member in committee_members:
         allowed_docs_list.append(member.parent)
 
