@@ -10,6 +10,14 @@ frappe.ui.form.on('Incoming Mail', {
                 }
             };
         });
+
+        frm.set_query('outgoing_mail', function () {
+            return {
+                filters: {
+                    docstatus: 1
+                }
+            };
+        });
         
 		frm.set_query('transfer_type', function () {
             return {
@@ -23,6 +31,10 @@ frappe.ui.form.on('Incoming Mail', {
 		frm.set_value("decision_number", )
 		frm.set_value("decision_date", )
 		frm.set_value("decision_file", )
+	},
+	outgoing_email_referral: function(frm) {
+		frm.set_value("outgoing_mail", )
+		frm.set_value("outgoing_message_subject", )
 	},
 	transfer_type: function(frm) {
 		frm.set_value("from", )
