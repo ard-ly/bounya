@@ -11,6 +11,11 @@ frappe.ui.form.on('Outgoing Mail', {
             };
         });
 	},
+	decision: function(frm) {
+		frm.set_value("decision_number", )
+		frm.set_value("decision_date", )
+		frm.set_value("decision_file", )
+	},
 	transfer_type: function(frm) {
 		frm.set_value("from", )
 		frm.set_value("to", )
