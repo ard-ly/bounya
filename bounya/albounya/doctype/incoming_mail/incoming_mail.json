@@ -243,6 +243,7 @@
    "read_only": 1
   },
   {
+   "allow_on_submit": 1,
    "default": "Draft",
    "fieldname": "status",
    "fieldtype": "Data",
@@ -254,7 +255,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-12-09 14:31:52.670353",
+ "modified": "2024-12-09 14:39:27.725533",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Incoming Mail",

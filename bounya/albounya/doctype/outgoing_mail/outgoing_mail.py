@@ -2,9 +2,15 @@
 # For license information, please see license.txt
 
 import frappe
+from frappe import _
 from frappe.model.document import Document
 
 class OutgoingMail(Document):
+    def on_submit(self):
+        message = _("Referred to {0}").format(self.referral_to)
+        self.status = message
+        self.db_set("status", self.status)
+
     def autoname(self):
         year = self.message_registration_date[:4]
         short_year = year[-2:]
