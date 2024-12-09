@@ -3,6 +3,14 @@
 
 frappe.ui.form.on('Outgoing Mail', {
 	onload: function(frm) {
+		frm.set_query('decision_number', function () {
+            return {
+                filters: {
+                    docstatus: 1
+                }
+            };
+        });
+
 		frm.set_query('transfer_type', function () {
             return {
                 filters: [
