@@ -2845,5 +2845,44 @@
   "name": "9f1fn964ob",
   "source_text": "Referral To",
   "translated_text": "\u0625\u062d\u0627\u0644\u0629 \u0625\u0644\u0649"
+ },
+ {
+  "context": null,
+  "contributed": 0,
+  "contribution_docname": null,
+  "contribution_status": "",
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "ar",
+  "modified": "2024-12-09 14:46:18.145944",
+  "name": "a0g50hlcoa",
+  "source_text": "Referred to {0}",
+  "translated_text": "\u062a\u0645 \u0625\u062d\u0627\u0644\u0629 \u0625\u0644\u0649 {0}"
+ },
+ {
+  "context": null,
+  "contributed": 0,
+  "contribution_docname": null,
+  "contribution_status": "",
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "ar",
+  "modified": "2024-12-09 15:57:41.059219",
+  "name": "baaiqcue1i",
+  "source_text": "Inbox",
+  "translated_text": "\u0631\u0633\u0627\u0644\u0629 \u0648\u0627\u0631\u062f\u0629"
+ },
+ {
+  "context": null,
+  "contributed": 0,
+  "contribution_docname": null,
+  "contribution_status": "",
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "ar",
+  "modified": "2024-12-09 15:59:11.869870",
+  "name": "bb6usi2hdl",
+  "source_text": "Incoming Messages",
+  "translated_text": "\u0627\u0644\u0631\u0633\u0627\u0626\u0644 \u0627\u0644\u0648\u0627\u0631\u062f\u0629"
  }
 ]
