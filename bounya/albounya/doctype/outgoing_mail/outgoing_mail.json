@@ -10,6 +10,11 @@
   "incoming_email_referral",
   "incoming_mail",
   "incoming_message_subject",
+  "column_break_j5wpw",
+  "decision",
+  "decision_number",
+  "decision_date",
+  "decision_file",
   "section_break_7o3q1",
   "entity",
   "correspondence_type",
@@ -194,12 +199,46 @@
    "label": "Referral To",
    "options": "Department",
    "reqd": 1
+  },
+  {
+   "fieldname": "column_break_j5wpw",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "decision",
+   "fieldtype": "Check",
+   "label": "Decision"
+  },
+  {
+   "depends_on": "decision",
+   "fieldname": "decision_number",
+   "fieldtype": "Link",
+   "label": "Decision Number",
+   "mandatory_depends_on": "decision",
+   "options": "Decisions"
+  },
+  {
+   "depends_on": "decision",
+   "fetch_from": "decision_number.decision_date",
+   "fieldname": "decision_date",
+   "fieldtype": "Date",
+   "label": "Decision Date",
+   "read_only": 1
+  },
+  {
+   "depends_on": "decision",
+   "fetch_from": "decision_number.decision_file",
+   "fieldname": "decision_file",
+   "fieldtype": "Attach",
+   "label": "Decision File",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-12-09 14:17:59.484055",
+ "modified": "2024-12-09 14:26:37.505304",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Outgoing Mail",
