@@ -25,6 +25,8 @@
   "to",
   "section_break_wmzuh",
   "message_subject",
+  "column_break_su2uv",
+  "referral_to",
   "section_break_y2dez",
   "notes",
   "section_break_jo9wr",
@@ -187,12 +189,24 @@
    "fieldname": "file_number",
    "fieldtype": "Data",
    "label": "File Number"
+  },
+  {
+   "fieldname": "column_break_su2uv",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "referral_to",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "Referral To",
+   "options": "Department",
+   "reqd": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-12-02 11:48:01.892898",
+ "modified": "2024-12-09 14:17:37.486444",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Incoming Mail",
