@@ -1,0 +1,283 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-12-09 15:58:15.317459",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "outgoing_email_referral",
+  "outgoing_mail",
+  "outgoing_message_subject",
+  "column_break_xudbp",
+  "decision",
+  "decision_number",
+  "decision_date",
+  "decision_file",
+  "section_break_rj7fv",
+  "entity",
+  "correspondence_type",
+  "reference_number",
+  "column_break_wi12n",
+  "status",
+  "incoming_message_date",
+  "message_registration_date",
+  "file_number",
+  "section_break_pajkj",
+  "transfer_type",
+  "column_break_bzkj1",
+  "from",
+  "to",
+  "section_break_wmzuh",
+  "message_subject",
+  "column_break_su2uv",
+  "referral_to",
+  "section_break_y2dez",
+  "notes",
+  "section_break_jo9wr",
+  "copy_to",
+  "column_break_ffvqo",
+  "marginalize",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "default": "0",
+   "fieldname": "outgoing_email_referral",
+   "fieldtype": "Check",
+   "label": "Outgoing Email Referral"
+  },
+  {
+   "depends_on": "outgoing_email_referral",
+   "fieldname": "outgoing_mail",
+   "fieldtype": "Link",
+   "label": "Outgoing Mail",
+   "mandatory_depends_on": "outgoing_email_referral",
+   "options": "Outgoing Mail"
+  },
+  {
+   "depends_on": "outgoing_email_referral",
+   "fetch_from": "outgoing_mail.message_subject",
+   "fieldname": "outgoing_message_subject",
+   "fieldtype": "Data",
+   "label": "Outgoing Message Subject",
+   "read_only": 1
+  },
+  {
+   "fieldname": "column_break_xudbp",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "decision",
+   "fieldtype": "Check",
+   "label": "Decision"
+  },
+  {
+   "depends_on": "decision",
+   "fieldname": "decision_number",
+   "fieldtype": "Link",
+   "label": "Decision Number",
+   "mandatory_depends_on": "decision",
+   "options": "Decisions"
+  },
+  {
+   "depends_on": "decision",
+   "fetch_from": "decision_number.decision_date",
+   "fieldname": "decision_date",
+   "fieldtype": "Date",
+   "label": "Decision Date",
+   "read_only": 1
+  },
+  {
+   "depends_on": "decision",
+   "fetch_from": "decision_number.decision_file",
+   "fieldname": "decision_file",
+   "fieldtype": "Attach",
+   "label": "Decision File",
+   "read_only": 1
+  },
+  {
+   "fieldname": "section_break_rj7fv",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "entity",
+   "fieldtype": "Data",
+   "label": "Entity",
+   "reqd": 1
+  },
+  {
+   "fieldname": "correspondence_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Correspondence Type",
+   "options": "\nInternal\nExternal",
+   "reqd": 1
+  },
+  {
+   "fieldname": "reference_number",
+   "fieldtype": "Data",
+   "label": "Reference Number",
+   "unique": 1
+  },
+  {
+   "fieldname": "column_break_wi12n",
+   "fieldtype": "Column Break"
+  },
+  {
+   "allow_on_submit": 1,
+   "default": "Draft",
+   "fieldname": "status",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Status",
+   "read_only": 1
+  },
+  {
+   "default": "Today",
+   "fieldname": "incoming_message_date",
+   "fieldtype": "Date",
+   "in_standard_filter": 1,
+   "label": "Incoming Message Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "message_registration_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Message Registration Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "file_number",
+   "fieldtype": "Data",
+   "label": "File Number"
+  },
+  {
+   "fieldname": "section_break_pajkj",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "Designation",
+   "fieldname": "transfer_type",
+   "fieldtype": "Link",
+   "label": "Transfer Type",
+   "options": "DocType",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_bzkj1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "transfer_type",
+   "fieldname": "from",
+   "fieldtype": "Dynamic Link",
+   "in_standard_filter": 1,
+   "label": "From",
+   "options": "transfer_type",
+   "reqd": 1
+  },
+  {
+   "depends_on": "transfer_type",
+   "fieldname": "to",
+   "fieldtype": "Dynamic Link",
+   "in_standard_filter": 1,
+   "label": "To",
+   "options": "transfer_type",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_wmzuh",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "message_subject",
+   "fieldtype": "Data",
+   "label": "Message Subject",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_su2uv",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "referral_to",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "Referral To",
+   "options": "Department",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_y2dez",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "notes",
+   "fieldtype": "Text Editor",
+   "label": "Notes"
+  },
+  {
+   "fieldname": "section_break_jo9wr",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "copy_to",
+   "fieldtype": "Table",
+   "label": "Copy to",
+   "options": "Copy to Department"
+  },
+  {
+   "fieldname": "column_break_ffvqo",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "marginalize",
+   "fieldtype": "Table",
+   "label": "Marginalize",
+   "options": "Marginalize Department"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Inbox",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2024-12-09 15:58:15.317459",
+ "modified_by": "Administrator",
+ "module": "Albounya",
+ "name": "Inbox",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "message_subject"
+}
