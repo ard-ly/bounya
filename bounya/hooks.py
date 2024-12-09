@@ -217,7 +217,10 @@ doc_events = {
 # ---------------
 
 scheduler_events = {
-
+    "daily": [
+        "bounya.api.send_committeesـreward_reminder_notification",
+        "bounya.api.check_outdated_committees"
+    ],
 	"monthly": [
 		"bounya.tasks.calculate_exp_yrears_in_employee",
         "bounya.tasks.calculate_tower_age"
