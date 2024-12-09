@@ -165,6 +165,7 @@
    "options": "Outgoing Mail"
   },
   {
+   "depends_on": "outgoing_email_referral",
    "fetch_from": "outgoing_mail.message_subject",
    "fieldname": "outgoing_message_subject",
    "fieldtype": "Data",
@@ -255,7 +256,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-12-09 14:39:27.725533",
+ "modified": "2024-12-09 14:50:35.108444",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Incoming Mail",
