@@ -577,6 +577,7 @@ def check_for_employee_external_advance(doc, method):
                     "custom_employee_salary_slip",
                     doc.name,
                 )
+                doc.validate()
             else:
                 print("in ad_list else",)
                 for ad in ad_list:
