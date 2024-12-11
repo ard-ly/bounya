@@ -2,7 +2,13 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on('Inbox', {
-	// refresh: function(frm) {
-
-	// }
+	onload: function(frm) {
+		frm.set_query('mail_type', function () {
+            return {
+                filters: [
+                    ['name', 'in', ['Incoming Mail', 'Outgoing Mail']]
+                ]
+            };
+        });
+    },
 });
