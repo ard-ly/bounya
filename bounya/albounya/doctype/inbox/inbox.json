@@ -7,15 +7,11 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
-  "outgoing_email_referral",
-  "outgoing_mail",
-  "outgoing_message_subject",
-  "column_break_xudbp",
-  "decision",
-  "decision_number",
-  "decision_date",
-  "decision_file",
+  "mail_type",
+  "mail_number",
   "section_break_rj7fv",
+  "referral_to",
+  "section_break_wfhm0",
   "entity",
   "correspondence_type",
   "reference_number",
@@ -24,15 +20,9 @@
   "incoming_message_date",
   "message_registration_date",
   "file_number",
-  "section_break_pajkj",
-  "transfer_type",
-  "column_break_bzkj1",
-  "from",
-  "to",
   "section_break_wmzuh",
   "message_subject",
   "column_break_su2uv",
-  "referral_to",
   "section_break_y2dez",
   "notes",
   "section_break_jo9wr",
@@ -42,62 +32,6 @@
   "amended_from"
  ],
  "fields": [
-  {
-   "default": "0",
-   "fieldname": "outgoing_email_referral",
-   "fieldtype": "Check",
-   "label": "Outgoing Email Referral"
-  },
-  {
-   "depends_on": "outgoing_email_referral",
-   "fieldname": "outgoing_mail",
-   "fieldtype": "Link",
-   "label": "Outgoing Mail",
-   "mandatory_depends_on": "outgoing_email_referral",
-   "options": "Outgoing Mail"
-  },
-  {
-   "depends_on": "outgoing_email_referral",
-   "fetch_from": "outgoing_mail.message_subject",
-   "fieldname": "outgoing_message_subject",
-   "fieldtype": "Data",
-   "label": "Outgoing Message Subject",
-   "read_only": 1
-  },
-  {
-   "fieldname": "column_break_xudbp",
-   "fieldtype": "Column Break"
-  },
-  {
-   "default": "0",
-   "fieldname": "decision",
-   "fieldtype": "Check",
-   "label": "Decision"
-  },
-  {
-   "depends_on": "decision",
-   "fieldname": "decision_number",
-   "fieldtype": "Link",
-   "label": "Decision Number",
-   "mandatory_depends_on": "decision",
-   "options": "Decisions"
-  },
-  {
-   "depends_on": "decision",
-   "fetch_from": "decision_number.decision_date",
-   "fieldname": "decision_date",
-   "fieldtype": "Date",
-   "label": "Decision Date",
-   "read_only": 1
-  },
-  {
-   "depends_on": "decision",
-   "fetch_from": "decision_number.decision_file",
-   "fieldname": "decision_file",
-   "fieldtype": "Attach",
-   "label": "Decision File",
-   "read_only": 1
-  },
   {
    "fieldname": "section_break_rj7fv",
    "fieldtype": "Section Break"
@@ -158,40 +92,6 @@
    "label": "File Number"
   },
   {
-   "fieldname": "section_break_pajkj",
-   "fieldtype": "Section Break"
-  },
-  {
-   "default": "Designation",
-   "fieldname": "transfer_type",
-   "fieldtype": "Link",
-   "label": "Transfer Type",
-   "options": "DocType",
-   "reqd": 1
-  },
-  {
-   "fieldname": "column_break_bzkj1",
-   "fieldtype": "Column Break"
-  },
-  {
-   "depends_on": "transfer_type",
-   "fieldname": "from",
-   "fieldtype": "Dynamic Link",
-   "in_standard_filter": 1,
-   "label": "From",
-   "options": "transfer_type",
-   "reqd": 1
-  },
-  {
-   "depends_on": "transfer_type",
-   "fieldname": "to",
-   "fieldtype": "Dynamic Link",
-   "in_standard_filter": 1,
-   "label": "To",
-   "options": "transfer_type",
-   "reqd": 1
-  },
-  {
    "fieldname": "section_break_wmzuh",
    "fieldtype": "Section Break"
   },
@@ -208,9 +108,8 @@
   {
    "fieldname": "referral_to",
    "fieldtype": "Link",
-   "in_standard_filter": 1,
    "label": "Referral To",
-   "options": "Department",
+   "options": "Employee",
    "reqd": 1
   },
   {
@@ -251,12 +150,30 @@
    "print_hide": 1,
    "read_only": 1,
    "search_index": 1
+  },
+  {
+   "fieldname": "mail_type",
+   "fieldtype": "Link",
+   "label": "Mail Type",
+   "options": "DocType",
+   "reqd": 1
+  },
+  {
+   "fieldname": "mail_number",
+   "fieldtype": "Dynamic Link",
+   "label": "Mail Number",
+   "options": "mail_type",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_wfhm0",
+   "fieldtype": "Section Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-12-09 15:58:15.317459",
+ "modified": "2024-12-10 11:44:51.118026",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Inbox",
