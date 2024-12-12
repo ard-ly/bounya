@@ -185,6 +185,12 @@ def get_committees_perm(user, doctype):
         allowed_docs_list.append(member.parent)
 
 
+    allowed_decisions = ''
+    user_decisions = get_decisions_perm(user, "Decisions")
+    if user_decisions:
+        allowed_decisions = user_decisions.replace('name', 'decision')
+
+
     if frappe.session.user == "Administrator":
         return
 
@@ -192,7 +198,7 @@ def get_committees_perm(user, doctype):
         return
 
     allowed_docs_tuple = tuple(allowed_docs_list)
-    return "name in ('{allowed_list}')".format(allowed_list="','".join(allowed_docs_tuple))
+    return "name in ('{allowed_list}') or {allowed_decisions}".format(allowed_list="','".join(allowed_docs_tuple), allowed_decisions= allowed_decisions)
 
 
 
