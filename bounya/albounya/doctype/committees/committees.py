@@ -8,9 +8,8 @@ from frappe.utils import getdate, nowdate
 
 class Committees(Document):
     def on_submit(self):
-        self.send_reward_notification()
         self.change_committee_status()
-
+        self.send_reward_notification()
 
 
     @frappe.whitelist()
@@ -25,29 +24,21 @@ class Committees(Document):
         start_date = getdate(self.committee_from)
         end_date = getdate(self.committee_to)
 
-        if start_date <= current_date <= end_date:
-            self.committee_status = 'Active'
+        if current_date >= end_date:
+            frappe.db.set_value(self.doctype, self.get('name'), "committee_status", 'Outdated')
+        elif start_date <= current_date <= end_date:
+            frappe.db.set_value(self.doctype, self.get('name'), "committee_status", 'Active')
         else:
-            self.committee_status = 'Outdated'
+            frappe.db.set_value(self.doctype, self.get('name'), "committee_status", 'New')
 
 
 
 
     @frappe.whitelist()
     def send_reward_notification(self):
-        blocked_users = ['Administrator']
-        hr_managers = frappe.get_all('Has Role', filters={'role': 'HR Manager', 'parenttype': 'User'}, fields=['parent'])
-        
-        hr_manager_emails = [
-            manager['parent']
-            for manager in hr_managers 
-            if manager['parent'] not in blocked_users
-        ]
-        
         reward_exists = any(item.reward for item in self.get('committee_members'))
 
-        if hr_manager_emails and reward_exists:
-
+        if reward_exists:
             link = frappe.utils.get_url_to_form(self.doctype, self.name)
 
             table_rows = ''
@@ -82,15 +73,43 @@ class Committees(Document):
             </div>
             """
 
-            subject = f"تشكيل لجنة جديدة: {self.name}"
-            frappe.sendmail(
-                recipients=hr_manager_emails,
-                subject=subject,
-                message=message,
-                reference_doctype=self.doctype,
-                reference_name=self.name,
-                delayed=False
-            )
+            recipients = []
+
+            for member in self.committee_members:
+                if member.email not in recipients:
+                    recipients.append(member.email)
+
+
+            decision = frappe.get_doc("Decisions", self.decision)
+            for copy_to_department in decision.copy_to:
+                department_manager = frappe.get_value("Department", filters = {"name": copy_to_department.department}, fieldname = "custom_department_manager") or None
+                if department_manager:
+                    employee_email = frappe.get_value("Employee", filters = {"name": department_manager}, fieldname = "user_id") or None
+                    if employee_email:
+                        if employee_email not in recipients:
+                            recipients.append(employee_email)
+
+
+            if len(recipients)>0:
+                for recipient in recipients:
+                    new_doc = frappe.new_doc("Notification Log")
+                    new_doc.from_user = frappe.session.user
+                    new_doc.for_user = recipient
+                    new_doc.type = "Share"
+                    new_doc.document_type = self.doctype
+                    new_doc.document_name = self.name
+                    new_doc.subject = f"تشكيل لجنة جديدة: {self.name}"
+                    new_doc.insert(ignore_permissions=True)
+
+                subject = f"تشكيل لجنة جديدة: {self.name}"
+                frappe.sendmail(
+                    recipients=recipients,
+                    subject=subject,
+                    message=message,
+                    reference_doctype=self.doctype,
+                    reference_name=self.name,
+                    delayed=False
+                )
 
 
 
