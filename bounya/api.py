@@ -5,7 +5,7 @@ from frappe import _, msgprint, throw
 from frappe.model.document import Document
 from frappe.model.mapper import get_mapped_doc
 from frappe.utils import cint, cstr, flt, today
-from frappe.utils.data import money_in_words
+from frappe.utils.data import money_in_words, getdate, nowdate
 from frappe.custom.doctype.property_setter.property_setter import make_property_setter
 
 import erpnext
@@ -187,10 +187,16 @@ def check_outdated_committees():
         start_date = getdate(committee.committee_from)
         end_date = getdate(committee.committee_to)
 
-        if not (start_date <= current_date <= end_date):
-            print(committee)
+        if current_date > end_date:
             frappe.db.sql("update `tabCommittees` set committee_status='Outdated' where name='{0}'".format(committee.name))
             frappe.db.commit()
+        elif start_date <= current_date <= end_date:
+            frappe.db.sql("update `tabCommittees` set committee_status='Active' where name='{0}'".format(committee.name))
+            frappe.db.commit()
+        else:
+            frappe.db.sql("update `tabCommittees` set committee_status='New' where name='{0}'".format(committee.name))
+            frappe.db.commit()
+
 
 
 

@@ -24,7 +24,7 @@ class Committees(Document):
         start_date = getdate(self.committee_from)
         end_date = getdate(self.committee_to)
 
-        if current_date >= end_date:
+        if current_date > end_date:
             frappe.db.set_value(self.doctype, self.get('name'), "committee_status", 'Outdated')
         elif start_date <= current_date <= end_date:
             frappe.db.set_value(self.doctype, self.get('name'), "committee_status", 'Active')
