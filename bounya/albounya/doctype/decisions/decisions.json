@@ -100,7 +100,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-12-02 13:20:03.332749",
+ "modified": "2024-12-12 14:32:27.294655",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Decisions",
@@ -128,9 +128,19 @@
    "print": 1,
    "read": 1,
    "report": 1,
-   "role": "Employee",
+   "role": "Department Manager",
    "share": 1,
+   "submit": 1,
    "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Employee",
+   "share": 1
   }
  ],
  "sort_field": "modified",
