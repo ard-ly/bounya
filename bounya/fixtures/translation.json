@@ -2949,5 +2949,31 @@
   "name": "oqg9inutgb",
   "source_text": "Department Manager",
   "translated_text": "\u0645\u062f\u064a\u0631 \u0625\u062f\u0627\u0631\u0629"
+ },
+ {
+  "context": null,
+  "contributed": 0,
+  "contribution_docname": null,
+  "contribution_status": "",
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "ar",
+  "modified": "2024-12-12 14:50:44.122797",
+  "name": "p6b925jh3j",
+  "source_text": "New General Decision",
+  "translated_text": "\u0642\u0631\u0627\u0631 \u0639\u0627\u0645 \u062c\u062f\u064a\u062f"
+ },
+ {
+  "context": null,
+  "contributed": 0,
+  "contribution_docname": null,
+  "contribution_status": "",
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "ar",
+  "modified": "2024-12-12 14:56:09.032557",
+  "name": "p9gqiou1kf",
+  "source_text": "New Decision",
+  "translated_text": "\u0642\u0631\u0627\u0631 \u062c\u062f\u064a\u062f"
  }
 ]
