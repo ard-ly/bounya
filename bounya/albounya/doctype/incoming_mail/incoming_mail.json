@@ -13,6 +13,7 @@
   "column_break_xudbp",
   "decision",
   "decision_number",
+  "decision_subject",
   "decision_date",
   "decision_file",
   "section_break_rj7fv",
@@ -251,12 +252,20 @@
    "in_list_view": 1,
    "label": "Status",
    "read_only": 1
+  },
+  {
+   "depends_on": "decision",
+   "fetch_from": "decision_number.decision_subject",
+   "fieldname": "decision_subject",
+   "fieldtype": "Data",
+   "label": "Decision Subject",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-12-12 14:30:39.289155",
+ "modified": "2024-12-12 15:12:21.659427",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Incoming Mail",

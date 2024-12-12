@@ -16,6 +16,7 @@
   "decision_section",
   "decision",
   "column_break_knzmg",
+  "decision_subject",
   "decision_date",
   "decision_file",
   "period_section",
@@ -117,6 +118,7 @@
    "fieldtype": "Column Break"
   },
   {
+   "depends_on": "decision",
    "fetch_from": "decision.decision_date",
    "fieldname": "decision_date",
    "fieldtype": "Date",
@@ -124,6 +126,7 @@
    "read_only": 1
   },
   {
+   "depends_on": "decision",
    "fetch_from": "decision.decision_file",
    "fieldname": "decision_file",
    "fieldtype": "Attach",
@@ -138,12 +141,20 @@
    "label": "Committee Status",
    "options": "New\nActive\nOutdated",
    "read_only": 1
+  },
+  {
+   "depends_on": "decision",
+   "fetch_from": "decision.decision_subject",
+   "fieldname": "decision_subject",
+   "fieldtype": "Data",
+   "label": "Decision Subject",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-12-12 15:09:21.828672",
+ "modified": "2024-12-12 15:11:59.492495",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Committees",
