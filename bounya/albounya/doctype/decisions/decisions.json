@@ -17,6 +17,8 @@
   "decision_subject",
   "circular_section",
   "general_decision",
+  "copy_to_employee",
+  "section_break_pcpwv",
   "copy_to",
   "amended_from"
  ],
@@ -64,11 +66,10 @@
    "label": "Circular"
   },
   {
-   "depends_on": "eval:!doc.general_decision",
    "fieldname": "copy_to",
    "fieldtype": "Table",
-   "label": "Specific Employees Circular",
-   "options": "Copy to Employee"
+   "label": "Copy to",
+   "options": "Copy to Department"
   },
   {
    "fieldname": "amended_from",
@@ -89,18 +90,29 @@
    "fieldtype": "Section Break"
   },
   {
-   "default": "1",
+   "default": "0",
    "fieldname": "general_decision",
    "fieldtype": "Check",
    "in_list_view": 1,
    "in_standard_filter": 1,
    "label": "General Decision"
+  },
+  {
+   "depends_on": "eval:!doc.general_decision",
+   "fieldname": "copy_to_employee",
+   "fieldtype": "Table",
+   "label": "Specific Employees Circular",
+   "options": "Copy to Employee"
+  },
+  {
+   "fieldname": "section_break_pcpwv",
+   "fieldtype": "Section Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-12-12 14:32:27.294655",
+ "modified": "2024-12-12 14:37:39.764335",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Decisions",

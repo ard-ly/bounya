@@ -133,6 +133,21 @@ def get_decisions_perm(user, doctype):
                 allowed_docs_list.append(specific_decision_doc.name)
 
 
+    # Get Department Manager users
+    departments_managers = frappe.db.sql_list("select user_id from `tabEmployee` where status='Active' and name in (select custom_department_manager from `tabDepartment` where custom_department_manager !='')")
+    if frappe.session.user in departments_managers:
+        user_emp = frappe.get_value("Employee", filters = {"user_id": frappe.session.user}, fieldname = "name") or None
+        if user_emp:
+            department_docs = frappe.get_all('Department', filters={"custom_department_manager": user_emp}, fields=["name"])
+            for department_doc in department_docs:
+                if department_doc:
+                    copy_to_docs = frappe.get_all("Copy to Department",
+                                             filters={"parenttype": doctype, "department": department_doc.name},
+                                             fields=["parent"])
+                    for copy_to_doc in copy_to_docs:
+                        allowed_docs_list.append(copy_to_doc.parent)
+
+
     if frappe.session.user == "Administrator":
         return
 
