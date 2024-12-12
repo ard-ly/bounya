@@ -3,6 +3,14 @@
 
 frappe.ui.form.on("Committees", {
     refresh(frm) {
+        frm.set_query('decision', function () {
+            return {
+                filters: {
+                    docstatus: 1
+                }
+            };
+        });
+        
         if(frm.doc.docstatus==1){
             frm.add_custom_button(__('Committee Extend'), () => {
                 frappe.route_options = {
