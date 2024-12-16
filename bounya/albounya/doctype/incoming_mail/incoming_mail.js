@@ -3,6 +3,38 @@
 
 frappe.ui.form.on('Incoming Mail', {
 	onload: function(frm) {
+		if(frm.doc.docstatus==0){
+			frappe.call({
+	            method: 'frappe.client.get_list',
+	            args: {
+	                doctype: 'Department',
+	                filters: { 'custom_is_office_of_the_chairman_of_the_board': 1 },
+	                fields: ['name']
+	            },
+	            callback: function (response) {
+	                if (response.message) {
+	                    let departments = response.message;
+	                    
+	                    let existingDepartments = [];
+			            $.each(frm.doc.copy_to || [], function (i, d) {
+			            	existingDepartments.push(d.department);
+						});
+
+	                    departments.forEach(dept => {
+	                        if (dept.name && !existingDepartments.includes(dept.name)) {
+	                            let newRow = frm.add_child('copy_to', {
+	                                department: dept.name
+	                            });
+	                        }
+	                    });
+
+	                    frm.refresh_field('copy_to');
+	                }
+	            }
+	        });
+	    }
+
+
 		frm.set_query('decision_number', function () {
             return {
                 filters: {
