@@ -265,7 +265,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-12-16 11:32:25.656059",
+ "modified": "2024-12-16 12:10:22.743949",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Incoming Mail",
@@ -305,7 +305,7 @@
    "print": 1,
    "read": 1,
    "report": 1,
-   "role": "Chair Manager",
+   "role": "Chairman Manager",
    "share": 1,
    "submit": 1,
    "write": 1

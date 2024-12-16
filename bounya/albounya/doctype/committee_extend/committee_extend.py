@@ -8,7 +8,7 @@ from frappe.model.document import Document
 
 class CommitteeExtend(Document):
     def after_insert(self):
-        allowed_users = frappe.db.sql_list("select parent from `tabHas Role` where role in ('General Manager', 'Chair Manager') and parenttype='User' and parent !='Administrator' group by parent")
+        allowed_users = frappe.db.sql_list("select parent from `tabHas Role` where role in ('General Manager', 'Chairman Manager') and parenttype='User' and parent !='Administrator' group by parent")
         for allowed_user in allowed_users:
             if allowed_user:
                 new_doc = frappe.new_doc("Notification Log")

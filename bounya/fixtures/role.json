@@ -904,9 +904,9 @@
   "home_page": null,
   "is_custom": 0,
   "modified": "2024-12-16 11:30:43.125449",
-  "name": "Chair Manager",
+  "name": "Chairman Manager",
   "restrict_to_domain": null,
-  "role_name": "Chair Manager",
+  "role_name": "Chairman Manager",
   "two_factor_auth": 0
  },
  {

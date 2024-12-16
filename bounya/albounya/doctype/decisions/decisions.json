@@ -112,7 +112,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-12-16 11:36:39.890272",
+ "modified": "2024-12-16 12:09:25.523461",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Decisions",
@@ -140,7 +140,7 @@
    "print": 1,
    "read": 1,
    "report": 1,
-   "role": "Chair Manager",
+   "role": "Chairman Manager",
    "share": 1,
    "submit": 1,
    "write": 1
