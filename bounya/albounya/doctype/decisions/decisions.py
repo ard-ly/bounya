@@ -6,6 +6,30 @@ from frappe import _
 from frappe.model.document import Document
 
 class Decisions(Document):
+    def after_insert(self):
+        allowed_users = frappe.db.sql_list("select parent from `tabHas Role` where role in ('General Manager', 'Chair Manager') and parenttype='User' and parent !='Administrator' group by parent")
+        for allowed_user in allowed_users:
+            if allowed_user:
+                new_doc = frappe.new_doc("Notification Log")
+                new_doc.from_user = frappe.session.user
+                new_doc.for_user = allowed_user
+                new_doc.type = "Share"
+                new_doc.document_type = self.doctype
+                new_doc.document_name = self.name
+                new_doc.subject = "يوجد قرار جديد بحاجة للاعتماد."
+                new_doc.insert(ignore_permissions=True)
+
+                inbox_url = frappe.utils.data.get_url_to_form(self.doctype, self.name)
+                mesg = "<p> You have a new Decision,<br> please check the decision and submit<br> <b><a href='{0}'>Go to Decision</a></b>".format(inbox_url)
+                frappe.sendmail(
+                  recipients=allowed_user,
+                  subject="قرار جديد",
+                  message= mesg,
+                  now=1,
+                  retry=3
+                )
+
+
     def on_submit(self):
         self.send_decisions_notification()
 
