@@ -7,7 +7,30 @@ from frappe.model.document import Document
 
 class IncomingMail(Document):
     def after_insert(self):
-        pass
+        department_manager = frappe.get_value("Department", filters = {"name": self.referral_to}, fieldname = "custom_department_manager") or None
+        if department_manager:
+            department_managerـuser = frappe.get_value("Employee", filters = {"name": department_manager}, fieldname = "user_id") or None
+            if department_managerـuser:
+                new_doc = frappe.new_doc("Notification Log")
+                new_doc.from_user = frappe.session.user
+                new_doc.for_user = department_managerـuser
+                new_doc.type = "Share"
+                new_doc.document_type = self.doctype
+                new_doc.document_name = self.name
+                new_doc.subject = "يوجد بريد وارد جديد بحاجة للاعتماد."
+                new_doc.insert(ignore_permissions=True)
+
+                inbox_url = frappe.utils.data.get_url_to_form(self.doctype, self.name)
+                mesg = "<p> You have a new Incoming mail,<br> please check the mail and submit<br> <b><a href='{0}'>Go to Mail</a></b>".format(inbox_url)
+                frappe.sendmail(
+                  recipients=department_managerـuser,
+                  subject="بريد وارد جديد",
+                  message= mesg,
+                  now=1,
+                  retry=3
+                )
+
+
     def on_submit(self):
         message = _("Referred to {0}").format(self.referral_to)
         self.status = message
