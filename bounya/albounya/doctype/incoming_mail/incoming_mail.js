@@ -8,7 +8,7 @@ frappe.ui.form.on('Incoming Mail', {
 	            method: 'frappe.client.get_list',
 	            args: {
 	                doctype: 'Department',
-	                filters: { 'custom_is_office_of_the_chairman_of_the_board': 1 },
+	                filters: { 'custom_is_board_of_directors': 1 },
 	                fields: ['name']
 	            },
 	            callback: function (response) {
