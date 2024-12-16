@@ -6,6 +6,8 @@ from frappe import _
 from frappe.model.document import Document
 
 class IncomingMail(Document):
+    def after_insert(self):
+        pass
     def on_submit(self):
         message = _("Referred to {0}").format(self.referral_to)
         self.status = message
