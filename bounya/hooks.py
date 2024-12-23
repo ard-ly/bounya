@@ -145,10 +145,10 @@ jenv = {
 # -----------
 # Permissions evaluated in scripted ways
 
-# permission_query_conditions = {
-# 	"Event": "frappe.desk.doctype.event.event.get_permission_query_conditions",
-# }
-#
+permission_query_conditions = {
+    "*":"bounya.permission_query_condition.get_permission_query_conditions"
+}
+
 # has_permission = {
 # 	"Event": "frappe.desk.doctype.event.event.has_permission",
 # }
@@ -217,7 +217,10 @@ doc_events = {
 # ---------------
 
 scheduler_events = {
-
+    "daily": [
+        "bounya.api.send_committeesـreward_reminder_notification",
+        "bounya.api.check_outdated_committees"
+    ],
 	"monthly": [
 		"bounya.tasks.calculate_exp_yrears_in_employee",
         "bounya.tasks.calculate_tower_age"
@@ -327,7 +330,11 @@ ignore_links_on_delete = ["Department", "Salary Slip", "Additional Salary" , "Em
 #     ]}
 # ]
 fixtures = [
-    {"dt": "DocType Layout", "filters": [["name", "in", ["Employee"]]]},]
+        {"dt": "DocType Layout", "filters": [["name", "in", ["Employee"]]]},
+        {"dt": "Translation"},
+        {"dt": "Custom Field"},
+        {"dt": "Role"},
+    ]
 
 #     {"dt": "Custom Field", "filters": [["module", "in", ["Albounya"]]]},
 #     {"dt": "DocType Layout", "filters": [["name", "in", ["Employee"]]]},

@@ -5,7 +5,7 @@ from frappe import _, msgprint, throw
 from frappe.model.document import Document
 from frappe.model.mapper import get_mapped_doc
 from frappe.utils import cint, cstr, flt, today
-from frappe.utils.data import money_in_words
+from frappe.utils.data import money_in_words, getdate, nowdate
 from frappe.custom.doctype.property_setter.property_setter import make_property_setter
 
 import erpnext
@@ -94,6 +94,112 @@ import re
 # this code work in employee fileds for bank branches
 
 
+
+@frappe.whitelist()
+def send_committeesـreward_reminder_notification():
+    current_date = getdate(nowdate())
+
+    all_committees = frappe.get_all(
+        'Committees',
+        filters={
+            'docstatus': 1,
+            'committee_from': ['<=', current_date],
+            'committee_to': ['>=', current_date]
+        },
+        fields=['name']
+    )
+    committees_with_reward = []
+
+    for committee in all_committees:
+        doc = frappe.get_doc('Committees', committee.name)
+        
+        if any(item.reward for item in doc.get('committee_members')):
+            committees_with_reward.append(committee)
+    
+    for committee in committees_with_reward:
+        doc = frappe.get_doc('Committees', committee.name)
+
+        blocked_users = ['Administrator']
+        hr_managers = frappe.get_all('Has Role', filters={'role': 'HR Manager', 'parenttype': 'User'}, fields=['parent'])
+        
+        hr_manager_emails = [
+            manager['parent'] 
+            for manager in hr_managers 
+            if manager['parent'] not in blocked_users
+        ]
+
+        committee_from_date = getdate(doc.committee_from)
+        
+        if hr_manager_emails and current_date.day == committee_from_date.day:
+
+            link = frappe.utils.get_url_to_form(doc.doctype, doc.name)
+
+            table_rows = ''
+            for item in doc.get('committee_members'):
+                table_rows += f"""
+                <tr>
+                    <td>{item.idx}</td>
+                    <td>{item.member_name}</td>
+                    <td>{item.designation}</td>
+                    <td>{item.email}</td>
+                    <td>{item.phone_number}</td>
+                </tr>
+                """
+
+            message = f"""
+            <div style='direction: rtl; text-align: right;'>
+                تذكير بمكافآت اللجنة: <a href='{link}'>{doc.name}</a>, للأعضاء التاليين:<br><br>
+                <table border="1" class="text-center" style="border-collapse: collapse; width: 70%;">
+                    <thead>
+                        <tr>
+                            <th width="3%">م</th>
+                            <th width="20%">اسم العضو</th>
+                            <th width="20%">المسمى الوظيفي</th>
+                            <th width="20%">البريد الإلكتروني</th>
+                            <th width="20%">رقم الهاتف</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {table_rows}
+                    </tbody>
+                </table>
+            </div>
+            """
+
+            subject = f"تذكير: مكافآت لجنة : {doc.name}"
+            frappe.sendmail(
+                recipients=hr_manager_emails,
+                subject=subject,
+                message=message,
+                reference_doctype=doc.doctype,
+                reference_name=doc.name,
+                delayed=False
+            )
+            print(doc.name)
+
+
+
+@frappe.whitelist()
+def check_outdated_committees():
+    committees = frappe.get_all('Committees', filters={'committee_status': ['!=', 'Outdated']}, fields=['name', 'committee_from', 'committee_to', 'committee_status'])
+    for committee in committees:
+        current_date = getdate(nowdate())
+        start_date = getdate(committee.committee_from)
+        end_date = getdate(committee.committee_to)
+
+        if current_date > end_date:
+            frappe.db.sql("update `tabCommittees` set committee_status='Outdated' where name='{0}'".format(committee.name))
+            frappe.db.commit()
+        elif start_date <= current_date <= end_date:
+            frappe.db.sql("update `tabCommittees` set committee_status='Active' where name='{0}'".format(committee.name))
+            frappe.db.commit()
+        else:
+            frappe.db.sql("update `tabCommittees` set committee_status='New' where name='{0}'".format(committee.name))
+            frappe.db.commit()
+
+
+
+
 @frappe.whitelist()
 def get_salary_components(doc):
     components = []
@@ -132,7 +238,7 @@ def fetch_bank_branch_list(doctype, txt, searchfield, start, page_len, filters):
         SELECT branch_name
         FROM `tabEmployee Bank Branch`
         WHERE parent = %(bank_name)s
-		and `branch_name` LIKE %(txt)s
+        and `branch_name` LIKE %(txt)s
         """.format(
             key=searchfield
         ),
@@ -153,7 +259,7 @@ def fetch_branchs_office_list(doctype, txt, searchfield, start, page_len, filter
         SELECT office_name
         FROM `tabBranches Offices`
         WHERE parent = %(branch)s
-		and `office_name` LIKE %(txt)s
+        and `office_name` LIKE %(txt)s
         """.format(
             key=searchfield
         ),
@@ -921,7 +1027,7 @@ def get_qualification(qualification_template):
 @frappe.whitelist()
 def send_qualification_notification(doc_name, status):
     users = frappe.db.sql(
-			f""" SELECT DISTINCT parent FROM `tabHas Role` WHERE role = 'Tower Management' AND parenttype = 'User' AND parent != 'Administrator' """, as_dict=True)
+            f""" SELECT DISTINCT parent FROM `tabHas Role` WHERE role = 'Tower Management' AND parenttype = 'User' AND parent != 'Administrator' """, as_dict=True)
     if users:
         for user in users:
             new_doc = frappe.new_doc("Notification Log")
@@ -1058,7 +1164,7 @@ def update_realty_available_area_on_cancel(doc, method):
 @frappe.whitelist()
 def send_opportunity_notification(doc_name):
     users = frappe.db.sql(
-			f""" SELECT DISTINCT parent FROM `tabHas Role` WHERE (role = 'Sales Manager' or role = 'Commercial Management') AND parenttype = 'User' AND parent != 'Administrator' """, as_dict=True)
+            f""" SELECT DISTINCT parent FROM `tabHas Role` WHERE (role = 'Sales Manager' or role = 'Commercial Management') AND parenttype = 'User' AND parent != 'Administrator' """, as_dict=True)
     if users:
         for user in users:
             new_doc = frappe.new_doc("Notification Log")
@@ -1075,7 +1181,7 @@ def send_opportunity_notification(doc_name):
 @frappe.whitelist()
 def send_quotation_notification(doc_name):
     users = frappe.db.sql(
-			f""" SELECT DISTINCT parent FROM `tabHas Role` WHERE (role = 'Sales Manager' or role = 'Commercial Management' or role ='Contracts Unit Employee') AND parenttype = 'User' AND parent != 'Administrator' """, as_dict=True)
+            f""" SELECT DISTINCT parent FROM `tabHas Role` WHERE (role = 'Sales Manager' or role = 'Commercial Management' or role ='Contracts Unit Employee') AND parenttype = 'User' AND parent != 'Administrator' """, as_dict=True)
     if users:
         for user in users:
             new_doc = frappe.new_doc("Notification Log")
@@ -1093,7 +1199,7 @@ def send_quotation_notification(doc_name):
 @frappe.whitelist()
 def send_so_notification(doc_name):
     users = frappe.db.sql(
-			f""" SELECT DISTINCT parent FROM `tabHas Role` WHERE (role = 'Sales Manager' or role = 'Commercial Management' or role ='Contracts Unit Employee' or role = 'General Management') AND parenttype = 'User' AND parent != 'Administrator' """, as_dict=True)
+            f""" SELECT DISTINCT parent FROM `tabHas Role` WHERE (role = 'Sales Manager' or role = 'Commercial Management' or role ='Contracts Unit Employee' or role = 'General Management') AND parenttype = 'User' AND parent != 'Administrator' """, as_dict=True)
     if users:
         for user in users:
             new_doc = frappe.new_doc("Notification Log")
@@ -1111,7 +1217,7 @@ def send_so_notification(doc_name):
 @frappe.whitelist()
 def send_contract_notification(doc_name):
     users = frappe.db.sql(
-			f""" SELECT DISTINCT parent FROM `tabHas Role` WHERE (role = 'Sales Manager' or role = 'Commercial Management' or role ='Contracts Unit Employee' or role = 'Technical Management') AND parenttype = 'User' AND parent != 'Administrator' """, as_dict=True)
+            f""" SELECT DISTINCT parent FROM `tabHas Role` WHERE (role = 'Sales Manager' or role = 'Commercial Management' or role ='Contracts Unit Employee' or role = 'Technical Management') AND parenttype = 'User' AND parent != 'Administrator' """, as_dict=True)
     if users:
         for user in users:
             new_doc = frappe.new_doc("Notification Log")

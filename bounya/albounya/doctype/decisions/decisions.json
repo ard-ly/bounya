@@ -1,0 +1,199 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:decision_number",
+ "creation": "2024-12-02 13:00:27.714719",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "decision_number",
+  "issuing_authority",
+  "column_break_givxz",
+  "decision_date",
+  "decision_file",
+  "section_break_iltkx",
+  "decision_subject",
+  "circular_section",
+  "general_decision",
+  "copy_to_employee",
+  "section_break_pcpwv",
+  "copy_to",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "decision_number",
+   "fieldtype": "Data",
+   "label": "Decision Number",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "issuing_authority",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Issuing Authority",
+   "options": "Department",
+   "reqd": 1
+  },
+  {
+   "default": "Today",
+   "fieldname": "decision_date",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Decision Date",
+   "reqd": 1
+  },
+  {
+   "fieldname": "decision_file",
+   "fieldtype": "Attach",
+   "label": "Decision File",
+   "reqd": 1
+  },
+  {
+   "fieldname": "decision_subject",
+   "fieldtype": "Data",
+   "label": "Decision Subject",
+   "reqd": 1
+  },
+  {
+   "fieldname": "circular_section",
+   "fieldtype": "Section Break",
+   "label": "Circular"
+  },
+  {
+   "fieldname": "copy_to",
+   "fieldtype": "Table",
+   "label": "Copy to",
+   "options": "Copy to Department"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Decisions",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "column_break_givxz",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_iltkx",
+   "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "general_decision",
+   "fieldtype": "Check",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "General Decision"
+  },
+  {
+   "depends_on": "eval:!doc.general_decision",
+   "fieldname": "copy_to_employee",
+   "fieldtype": "Table",
+   "label": "Specific Employees Circular",
+   "options": "Copy to Employee"
+  },
+  {
+   "fieldname": "section_break_pcpwv",
+   "fieldtype": "Section Break"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2024-12-16 12:09:25.523461",
+ "modified_by": "Administrator",
+ "module": "Albounya",
+ "name": "Decisions",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Chairman Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "General Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Department Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Office Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Employee",
+   "share": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "title_field": "decision_subject"
+}

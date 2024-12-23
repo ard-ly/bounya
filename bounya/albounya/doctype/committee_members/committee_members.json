@@ -1,0 +1,105 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "creation": "2024-12-02 13:28:16.898351",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "from_system",
+  "employee",
+  "main_info_section",
+  "member_name",
+  "column_break_oozgx",
+  "designation",
+  "section_break_eqgf7",
+  "email",
+  "column_break_jixqx",
+  "phone_number",
+  "column_break_zbwy1",
+  "reward"
+ ],
+ "fields": [
+  {
+   "default": "0",
+   "fieldname": "from_system",
+   "fieldtype": "Check",
+   "label": "From system"
+  },
+  {
+   "depends_on": "from_system",
+   "fieldname": "employee",
+   "fieldtype": "Link",
+   "label": "Employee",
+   "mandatory_depends_on": "from_system",
+   "options": "Employee"
+  },
+  {
+   "fieldname": "main_info_section",
+   "fieldtype": "Section Break",
+   "label": "Main Info"
+  },
+  {
+   "fieldname": "member_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Member Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_oozgx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "designation",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Designation",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_eqgf7",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Email",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_jixqx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "phone_number",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Phone Number",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_zbwy1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "1",
+   "fieldname": "reward",
+   "fieldtype": "Check",
+   "label": "Reward"
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2024-12-02 14:33:10.785579",
+ "modified_by": "Administrator",
+ "module": "Albounya",
+ "name": "Committee Members",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}

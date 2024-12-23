@@ -1,0 +1,240 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:committee_name",
+ "creation": "2024-12-02 13:22:12.952160",
+ "default_view": "List",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "main_info_section",
+  "committee_name",
+  "committee_type",
+  "column_break_e9pod",
+  "committee_status",
+  "decision_section",
+  "decision",
+  "column_break_knzmg",
+  "decision_subject",
+  "decision_date",
+  "decision_file",
+  "period_section",
+  "committee_from",
+  "column_break_fcpe7",
+  "committee_to",
+  "section_break_x5hb7",
+  "committee_members",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Committees",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "fieldname": "main_info_section",
+   "fieldtype": "Section Break",
+   "label": "Main Info"
+  },
+  {
+   "fieldname": "decision",
+   "fieldtype": "Link",
+   "in_standard_filter": 1,
+   "label": "Decision Number",
+   "options": "Decisions",
+   "reqd": 1
+  },
+  {
+   "fieldname": "committee_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Committee Name",
+   "reqd": 1,
+   "unique": 1
+  },
+  {
+   "fieldname": "committee_type",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Committee Type",
+   "options": "Committee Type",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_e9pod",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "period_section",
+   "fieldtype": "Section Break",
+   "label": "Period"
+  },
+  {
+   "fieldname": "committee_from",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Committee From",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_fcpe7",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "committee_to",
+   "fieldtype": "Date",
+   "in_list_view": 1,
+   "label": "Committee To",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_x5hb7",
+   "fieldtype": "Section Break",
+   "label": "Committee Members"
+  },
+  {
+   "fieldname": "committee_members",
+   "fieldtype": "Table",
+   "label": "Committee Members",
+   "options": "Committee Members",
+   "reqd": 1
+  },
+  {
+   "fieldname": "decision_section",
+   "fieldtype": "Section Break",
+   "in_standard_filter": 1,
+   "label": "Decision"
+  },
+  {
+   "fieldname": "column_break_knzmg",
+   "fieldtype": "Column Break"
+  },
+  {
+   "depends_on": "decision",
+   "fetch_from": "decision.decision_date",
+   "fieldname": "decision_date",
+   "fieldtype": "Date",
+   "label": "Decision Date",
+   "read_only": 1
+  },
+  {
+   "depends_on": "decision",
+   "fetch_from": "decision.decision_file",
+   "fieldname": "decision_file",
+   "fieldtype": "Attach",
+   "label": "Decision File",
+   "read_only": 1
+  },
+  {
+   "fieldname": "committee_status",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "in_standard_filter": 1,
+   "label": "Committee Status",
+   "options": "New\nActive\nOutdated",
+   "read_only": 1
+  },
+  {
+   "depends_on": "decision",
+   "fetch_from": "decision.decision_subject",
+   "fieldname": "decision_subject",
+   "fieldtype": "Data",
+   "label": "Decision Subject",
+   "read_only": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "is_submittable": 1,
+ "links": [],
+ "modified": "2024-12-16 12:09:36.880693",
+ "modified_by": "Administrator",
+ "module": "Albounya",
+ "name": "Committees",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Chairman Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "General Manager",
+   "share": 1,
+   "submit": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Department Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Office Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "Employee",
+   "share": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
