@@ -38,9 +38,10 @@
   "section_break_y2dez",
   "notes",
   "section_break_jo9wr",
-  "copy_to",
-  "column_break_ffvqo",
   "marginalize",
+  "section_break_trej3",
+  "copy_to",
+  "column_break_sqcmr",
   "amended_from"
  ],
  "fields": [
@@ -185,16 +186,6 @@
    "options": "Copy to Department"
   },
   {
-   "fieldname": "marginalize",
-   "fieldtype": "Table",
-   "label": "Marginalize",
-   "options": "Marginalize Department"
-  },
-  {
-   "fieldname": "column_break_ffvqo",
-   "fieldtype": "Column Break"
-  },
-  {
    "fieldname": "file_number",
    "fieldtype": "Data",
    "label": "File Number"
@@ -261,12 +252,25 @@
    "fieldtype": "Data",
    "label": "Decision Subject",
    "read_only": 1
+  },
+  {
+   "fieldname": "section_break_trej3",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "marginalize",
+   "fieldtype": "Text Editor",
+   "label": "Marginalize"
+  },
+  {
+   "fieldname": "column_break_sqcmr",
+   "fieldtype": "Column Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-12-26 11:46:52.761970",
+ "modified": "2024-12-26 12:00:00.206062",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Incoming Mail",
