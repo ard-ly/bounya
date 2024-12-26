@@ -1,6 +1,6 @@
 {
  "charts": [],
- "content": "[{\"id\":\"WaWBRN2lOL\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Correspondences</span>\",\"col\":12}},{\"id\":\"Xq_JpVxGzX\",\"type\":\"card\",\"data\":{\"card_name\":\"Correspondences\",\"col\":4}},{\"id\":\"lHkZDyMzsl\",\"type\":\"card\",\"data\":{\"card_name\":\"Decisions and Committees\",\"col\":4}},{\"id\":\"a6heRsj0u8\",\"type\":\"card\",\"data\":{\"card_name\":\"Incoming Messages\",\"col\":4}}]",
+ "content": "[{\"id\":\"WaWBRN2lOL\",\"type\":\"header\",\"data\":{\"text\":\"<span class=\\\"h4\\\">Correspondences</span>\",\"col\":12}},{\"id\":\"Xq_JpVxGzX\",\"type\":\"card\",\"data\":{\"card_name\":\"Correspondences\",\"col\":4}},{\"id\":\"lHkZDyMzsl\",\"type\":\"card\",\"data\":{\"card_name\":\"Decisions and Committees\",\"col\":4}},{\"id\":\"a6heRsj0u8\",\"type\":\"card\",\"data\":{\"card_name\":\"Tools\",\"col\":4}}]",
  "creation": "2024-11-30 13:29:14.964561",
  "custom_blocks": [],
  "docstatus": 0,
@@ -83,8 +83,8 @@
   {
    "hidden": 0,
    "is_query_report": 0,
-   "label": "Incoming Messages",
-   "link_count": 1,
+   "label": "Tools",
+   "link_count": 2,
    "link_type": "DocType",
    "onboard": 0,
    "type": "Card Break"
@@ -98,9 +98,19 @@
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Mail Import",
+   "link_count": 0,
+   "link_to": "Mail Import",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
   }
  ],
- "modified": "2024-12-09 15:59:34.714526",
+ "modified": "2024-12-26 13:57:27.720182",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Correspondences",

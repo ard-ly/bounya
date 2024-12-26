@@ -8,6 +8,13 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "previous_decision_referral",
+  "previous_decision_number",
+  "column_break_hbohw",
+  "previous_decision_subject",
+  "previous_decision_date",
+  "previous_decision_file",
+  "section_break_xbvqd",
   "decision_number",
   "issuing_authority",
   "column_break_givxz",
@@ -107,12 +114,55 @@
   {
    "fieldname": "section_break_pcpwv",
    "fieldtype": "Section Break"
+  },
+  {
+   "default": "0",
+   "fieldname": "previous_decision_referral",
+   "fieldtype": "Check",
+   "label": "Previous Decision Referral"
+  },
+  {
+   "depends_on": "previous_decision_referral",
+   "fieldname": "previous_decision_number",
+   "fieldtype": "Link",
+   "label": "Decision Number",
+   "mandatory_depends_on": "previous_decision_referral",
+   "options": "Decisions"
+  },
+  {
+   "fieldname": "section_break_xbvqd",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_hbohw",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fetch_from": "previous_decision_number.decision_subject",
+   "fieldname": "previous_decision_subject",
+   "fieldtype": "Data",
+   "label": "Decision Subject",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "previous_decision_number.decision_date",
+   "fieldname": "previous_decision_date",
+   "fieldtype": "Date",
+   "label": "Decision Date",
+   "read_only": 1
+  },
+  {
+   "fetch_from": "previous_decision_number.decision_file",
+   "fieldname": "previous_decision_file",
+   "fieldtype": "Attach",
+   "label": "Decision File",
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-12-16 12:09:25.523461",
+ "modified": "2024-12-26 11:55:59.498278",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Decisions",

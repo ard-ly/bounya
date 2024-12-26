@@ -540,10 +540,10 @@
   "docstatus": 0,
   "doctype": "Translation",
   "language": "ar",
-  "modified": "2024-09-26 11:59:27.223639",
+  "modified": "2024-12-26 11:57:58.796276",
   "name": "3279f72161",
   "source_text": "Correspondence",
-  "translated_text": "\u0645\u0631\u0627\u0633\u0644\u0629"
+  "translated_text": "\u0627\u0644\u0623\u0631\u0634\u0641\u0629 \u0648\u0625\u062f\u0627\u0631\u0629 \u0627\u0644\u0645\u062d\u062a\u0648\u0649"
  },
  {
   "context": null,
@@ -1957,10 +1957,10 @@
   "docstatus": 0,
   "doctype": "Translation",
   "language": "ar",
-  "modified": "2024-11-30 13:33:13.954141",
+  "modified": "2024-12-26 11:57:34.781296",
   "name": "rbu3tshf9c",
   "source_text": "Correspondences",
-  "translated_text": "\u0627\u0644\u0645\u0631\u0627\u0633\u0644\u0627\u062a"
+  "translated_text": "\u0627\u0644\u0623\u0631\u0634\u0641\u0629 \u0648\u0625\u062f\u0627\u0631\u0629 \u0627\u0644\u0645\u062d\u062a\u0648\u0649"
  },
  {
   "context": null,
@@ -2113,10 +2113,10 @@
   "docstatus": 0,
   "doctype": "Translation",
   "language": "ar",
-  "modified": "2024-12-01 14:14:55.788336",
+  "modified": "2024-12-26 11:57:51.221698",
   "name": "mg3t9ud791",
   "source_text": "Correspondence Type",
-  "translated_text": "\u0646\u0648\u0639 \u0627\u0644\u0645\u0631\u0627\u0633\u0644\u0629"
+  "translated_text": "\u0646\u0648\u0639 \u0627\u0644\u0623\u0631\u0634\u0641\u0629"
  },
  {
   "context": null,
@@ -2802,10 +2802,10 @@
   "docstatus": 0,
   "doctype": "Translation",
   "language": "ar",
-  "modified": "2024-12-08 15:15:32.487099",
+  "modified": "2024-12-26 11:57:20.916040",
   "name": "g5sc0bl7ko",
   "source_text": "Show All Mail",
-  "translated_text": "\u0639\u0631\u0636 \u062c\u0645\u064a\u0639 \u0627\u0644\u0645\u0631\u0627\u0633\u0644\u0627\u062a"
+  "translated_text": "\u0639\u0631\u0636 \u062c\u0645\u064a\u0639 \u0627\u0644\u0623\u0631\u0634\u0641\u0629"
  },
  {
   "context": null,
@@ -3040,5 +3040,135 @@
   "name": "vpqg7a674f",
   "source_text": "Is Board of Directors",
   "translated_text": "\u0647\u0648 \u0645\u062c\u0644\u0633 \u0627\u0644\u0625\u062f\u0627\u0631\u0629"
+ },
+ {
+  "context": null,
+  "contributed": 0,
+  "contribution_docname": null,
+  "contribution_status": "",
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "ar",
+  "modified": "2024-12-26 11:49:43.478409",
+  "name": "70pbg7hgam",
+  "source_text": "Previous Decision Referral",
+  "translated_text": "\u0625\u0644\u062d\u0627\u0642 \u0628\u0642\u0631\u0627\u0631 \u0633\u0627\u0628\u0642"
+ },
+ {
+  "context": null,
+  "contributed": 0,
+  "contribution_docname": null,
+  "contribution_status": "",
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "ar",
+  "modified": "2024-12-26 13:48:12.535301",
+  "name": "966tkpkhnb",
+  "source_text": "Tools",
+  "translated_text": "\u0623\u062f\u0648\u0627\u062a"
+ },
+ {
+  "context": null,
+  "contributed": 0,
+  "contribution_docname": null,
+  "contribution_status": "",
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "ar",
+  "modified": "2024-12-26 13:51:02.354806",
+  "name": "97s022np7c",
+  "source_text": "Mail Import",
+  "translated_text": "\u0627\u0633\u062a\u064a\u0631\u0627\u062f \u0627\u0644\u0628\u0631\u064a\u062f"
+ },
+ {
+  "context": null,
+  "contributed": 0,
+  "contribution_docname": null,
+  "contribution_status": "",
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "ar",
+  "modified": "2024-12-26 13:55:35.744728",
+  "name": "9ahd6r5f3v",
+  "source_text": "Download this template, and enter the Mail data in it. Please enter your data after the first row.",
+  "translated_text": "\u0642\u0645 \u0628\u062a\u0646\u0632\u064a\u0644 \u0647\u0630\u0627 \u0627\u0644\u0646\u0645\u0648\u0630\u062c \u0648\u0623\u062f\u062e\u0644 \u0628\u064a\u0627\u0646\u0627\u062a \u0627\u0644\u0628\u0631\u064a\u062f \u0641\u064a\u0647. \u064a\u0631\u062c\u0649 \u0625\u062f\u062e\u0627\u0644 \u0628\u064a\u0627\u0646\u0627\u062a\u0643 \u0628\u0639\u062f \u0627\u0644\u0635\u0641 \u0627\u0644\u0623\u0648\u0644."
+ },
+ {
+  "context": null,
+  "contributed": 0,
+  "contribution_docname": null,
+  "contribution_status": "",
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "ar",
+  "modified": "2024-12-26 13:56:10.657672",
+  "name": "9asakcue1c",
+  "source_text": "Please upload the file after filling it out from here.",
+  "translated_text": "\u064a\u0631\u062c\u0649 \u0631\u0641\u0639 \u0627\u0644\u0645\u0644\u0641 \u0628\u0639\u062f \u062a\u0639\u0628\u0626\u062a\u0647 \u0645\u0646 \u0647\u0646\u0627."
+ },
+ {
+  "context": null,
+  "contributed": 0,
+  "contribution_docname": null,
+  "contribution_status": "",
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "ar",
+  "modified": "2024-12-26 13:56:34.558170",
+  "name": "9b3ps5vbi7",
+  "source_text": "Click here to add your data.",
+  "translated_text": "\u0627\u0636\u063a\u0637 \u0647\u0646\u0627 \u0644\u0625\u0636\u0627\u0641\u0629 \u0628\u064a\u0627\u0646\u0627\u062a\u0643."
+ },
+ {
+  "context": null,
+  "contributed": 0,
+  "contribution_docname": null,
+  "contribution_status": "",
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "ar",
+  "modified": "2024-12-26 14:01:36.585644",
+  "name": "9e2542m8g8",
+  "source_text": "Download Template",
+  "translated_text": "\u062a\u0646\u0632\u064a\u0644 \u0627\u0644\u0642\u0627\u0644\u0628"
+ },
+ {
+  "context": null,
+  "contributed": 0,
+  "contribution_docname": null,
+  "contribution_status": "",
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "ar",
+  "modified": "2024-12-26 14:01:49.148526",
+  "name": "9e638pb1e2",
+  "source_text": "Attach File",
+  "translated_text": "\u0625\u0631\u0641\u0627\u0642 \u0645\u0644\u0641"
+ },
+ {
+  "context": null,
+  "contributed": 0,
+  "contribution_docname": null,
+  "contribution_status": "",
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "ar",
+  "modified": "2024-12-26 14:02:10.544583",
+  "name": "9ecpbpk9v6",
+  "source_text": "Get Data",
+  "translated_text": "\u0631\u0641\u0639 \u0627\u0644\u0628\u064a\u0627\u0646\u0627\u062a"
+ },
+ {
+  "context": null,
+  "contributed": 0,
+  "contribution_docname": null,
+  "contribution_status": "",
+  "docstatus": 0,
+  "doctype": "Translation",
+  "language": "ar",
+  "modified": "2024-12-26 14:02:44.070488",
+  "name": "9en8aojdrp",
+  "source_text": "Output",
+  "translated_text": "\u0627\u0644\u0645\u062e\u0631\u062c"
  }
 ]

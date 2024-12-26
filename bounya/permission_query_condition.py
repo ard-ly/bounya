@@ -69,11 +69,11 @@ def get_mail_perm(user, doctype):
                     for copy_to_doc in copy_to_docs:
                         allowed_docs_list.append(copy_to_doc.parent)
 
-                    marginalize_docs = frappe.get_all("Marginalize Department",
-                                             filters={"parenttype": doctype, "department": department_doc.name},
-                                             fields=["parent"])
-                    for marginalize_doc in marginalize_docs:
-                        allowed_docs_list.append(marginalize_doc.parent)
+                    # marginalize_docs = frappe.get_all("Marginalize Department",
+                    #                          filters={"parenttype": doctype, "department": department_doc.name},
+                    #                          fields=["parent"])
+                    # for marginalize_doc in marginalize_docs:
+                    #     allowed_docs_list.append(marginalize_doc.parent)
 
 
     if frappe.session.user == "Administrator":

@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "allow_import": 1,
  "allow_rename": 1,
  "creation": "2024-11-30 13:48:03.412355",
  "default_view": "List",
@@ -36,9 +37,10 @@
   "section_break_y2dez",
   "notes",
   "section_break_po46z",
+  "marginalize",
+  "section_break_2mdyc",
   "copy_to",
   "column_break_9etdz",
-  "marginalize",
   "amended_from"
  ],
  "fields": [
@@ -178,9 +180,8 @@
   },
   {
    "fieldname": "marginalize",
-   "fieldtype": "Table",
-   "label": "Marginalize",
-   "options": "Marginalize Department"
+   "fieldtype": "Text Editor",
+   "label": "Marginalize"
   },
   {
    "fieldname": "column_break_9etdz",
@@ -253,22 +254,29 @@
    "fieldtype": "Data",
    "label": "Decision Subject",
    "read_only": 1
+  },
+  {
+   "fieldname": "section_break_2mdyc",
+   "fieldtype": "Section Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-12-16 12:10:36.186557",
+ "modified": "2024-12-26 12:00:36.794444",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Outgoing Mail",
  "owner": "Administrator",
  "permissions": [
   {
+   "amend": 1,
+   "cancel": 1,
    "create": 1,
    "delete": 1,
    "email": 1,
    "export": 1,
+   "import": 1,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -278,10 +286,13 @@
    "write": 1
   },
   {
+   "amend": 1,
+   "cancel": 1,
    "create": 1,
    "delete": 1,
    "email": 1,
    "export": 1,
+   "import": 1,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -291,10 +302,13 @@
    "write": 1
   },
   {
+   "amend": 1,
+   "cancel": 1,
    "create": 1,
    "delete": 1,
    "email": 1,
    "export": 1,
+   "import": 1,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -304,10 +318,13 @@
    "write": 1
   },
   {
+   "amend": 1,
+   "cancel": 1,
    "create": 1,
    "delete": 1,
    "email": 1,
    "export": 1,
+   "import": 1,
    "print": 1,
    "read": 1,
    "report": 1,
