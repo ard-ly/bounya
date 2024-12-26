@@ -84,7 +84,7 @@
    "hidden": 0,
    "is_query_report": 0,
    "label": "Tools",
-   "link_count": 1,
+   "link_count": 2,
    "link_type": "DocType",
    "onboard": 0,
    "type": "Card Break"
@@ -98,9 +98,19 @@
    "link_type": "DocType",
    "onboard": 0,
    "type": "Link"
+  },
+  {
+   "hidden": 0,
+   "is_query_report": 0,
+   "label": "Mail Import",
+   "link_count": 0,
+   "link_to": "Mail Import",
+   "link_type": "DocType",
+   "onboard": 0,
+   "type": "Link"
   }
  ],
- "modified": "2024-12-26 13:48:21.469490",
+ "modified": "2024-12-26 13:57:27.720182",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Correspondences",
