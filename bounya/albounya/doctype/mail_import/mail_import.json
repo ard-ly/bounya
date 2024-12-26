@@ -7,6 +7,8 @@
  "editable_grid": 1,
  "engine": "InnoDB",
  "field_order": [
+  "mail_type",
+  "section_break_kokpu",
   "download_template",
   "attach_file",
   "get_data",
@@ -42,12 +44,24 @@
    "fieldtype": "Code",
    "label": "Output",
    "read_only": 1
+  },
+  {
+   "fieldname": "mail_type",
+   "fieldtype": "Select",
+   "in_list_view": 1,
+   "label": "Mail Type",
+   "options": "\nIncoming Mail\nOutgoing Mail",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_kokpu",
+   "fieldtype": "Section Break"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2024-12-26 13:56:23.742608",
+ "modified": "2024-12-26 14:01:00.920541",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Mail Import",
@@ -60,6 +74,56 @@
    "print": 1,
    "read": 1,
    "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Department Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "General Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Chairman Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Show All Mail",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "Office Manager",
    "share": 1,
    "write": 1
   }
