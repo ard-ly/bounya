@@ -239,14 +239,14 @@ def notification_end_contract_duration():
                 hr_notification_users = frappe.get_all('Has Role', filters={'role': 'HR Notification', 'parent': ['!=', 'Administrator']}, fields=['parent'])
                 if hr_notification_users and days_left>0:
                     for user in hr_notification_users:
-                        print(f"""Employee {emp.name} will end his contract after {days_left} days""")
+                        print(f"""Employee {emp.name}, will end his contract after {days_left} days""")
                         new_doc = frappe.new_doc("Notification Log")
                         new_doc.from_user = frappe.session.user
                         new_doc.for_user = user.parent
                         new_doc.type = "Share"
                         new_doc.document_type = "Employee"
                         new_doc.document_name = emp.name
-                        new_doc.subject = f"""Employee {emp.name} will end his contract after {days_left} days"""
+                        new_doc.subject = f"""Employee {emp.name}, will end his contract after {days_left} days"""
                         new_doc.insert(ignore_permissions=True)
 
            
@@ -274,17 +274,58 @@ def notification_reaching_retirement_age():
                 hr_notification_users = frappe.get_all('Has Role', filters={'role': 'HR Notification', 'parent': ['!=', 'Administrator']}, fields=['parent'])
                 if hr_notification_users and days_left>0:
                     for user in hr_notification_users:
-                        print(f"""Employee {emp.name} will reach age of retirement after {days_left} days""")
+                        print(f"""Employee {emp.name}, will reach age of retirement after {days_left} days""")
                         new_doc = frappe.new_doc("Notification Log")
                         new_doc.from_user = frappe.session.user
                         new_doc.for_user = user.parent
                         new_doc.type = "Share"
                         new_doc.document_type = "Employee"
                         new_doc.document_name = emp.name
-                        new_doc.subject = f"""Employee {emp.name} will reach age of retirement after {days_left} days"""
+                        new_doc.subject = f"""Employee {emp.name}, will reach age of retirement after {days_left} days"""
                         new_doc.insert(ignore_permissions=True)     
 
 
+
+@frappe.whitelist()
+def notification_employee_promotion():
+    employees = frappe.get_all(
+        'Employee', 
+        filters={
+            'status': ['=', 'Active']
+        }, 
+        fields=['name', 'date_of_joining']
+    )
+
+    for emp in employees:
+        if emp.date_of_joining:
+            notification_send_date = []
+            
+            emp_joining_year = getdate(emp.date_of_joining).year
+            
+            if getdate(nowdate()).month > getdate(emp.date_of_joining).month or (getdate(nowdate()).month == getdate(emp.date_of_joining).month and getdate(nowdate()).day > getdate(emp.date_of_joining).day):
+                emp_joining_year += 1            
+            next_promotion_date = getdate(f"{emp_joining_year}-{getdate(emp.date_of_joining).month:02d}-{getdate(emp.date_of_joining).day:02d}")
+
+            days_left = (getdate(next_promotion_date) - getdate(nowdate())).days
+
+            notification_send_date.append(add_months(next_promotion_date, -1)) if add_months(next_promotion_date, -1) > getdate(nowdate()) else None
+            notification_send_date.append(add_days(next_promotion_date, -7)) if add_days(next_promotion_date, -7) > getdate(nowdate()) else None
+
+            if getdate(nowdate()) in notification_send_date:
+                hr_notification_users = frappe.get_all('Has Role', filters={'role': 'HR Notification', 'parent': ['!=', 'Administrator']}, fields=['parent'])
+                if hr_notification_users and days_left>0:
+                    for user in hr_notification_users:
+                        print(f"""Employee {emp.name}, next promotion after {days_left} days""")
+                        new_doc = frappe.new_doc("Notification Log")
+                        new_doc.from_user = frappe.session.user
+                        new_doc.for_user = user.parent
+                        new_doc.type = "Share"
+                        new_doc.document_type = "Employee"
+                        new_doc.document_name = emp.name
+                        new_doc.subject = f"""Employee {emp.name}, next promotion after {days_left} days"""
+                        new_doc.insert(ignore_permissions=True)
+
+           
 
 
 @frappe.whitelist()
