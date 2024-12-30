@@ -169,6 +169,9 @@ override_doctype_class = {
 
 
 doc_events = {
+    "Leave Application": {
+        "on_submit": "bounya.api.update_employee_status",
+    },
     "Material Request": {
         "validate": "bounya.api.check_custom_has_assets",
     },
@@ -219,7 +222,10 @@ doc_events = {
 scheduler_events = {
     "daily": [
         "bounya.api.send_committeesـreward_reminder_notification",
-        "bounya.api.check_outdated_committees"
+        "bounya.api.notification_end_contract_duration",
+        "bounya.api.notification_reaching_retirement_age",
+        "bounya.api.notification_employee_promotion",
+        "bounya.api.notification_end_leave_application"
     ],
 	"monthly": [
 		"bounya.tasks.calculate_exp_yrears_in_employee",
