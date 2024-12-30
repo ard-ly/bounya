@@ -5,7 +5,7 @@ from frappe import _, msgprint, throw
 from frappe.model.document import Document
 from frappe.model.mapper import get_mapped_doc
 from frappe.utils import cint, cstr, flt, today
-from frappe.utils.data import money_in_words, getdate, nowdate
+from frappe.utils.data import money_in_words, getdate, nowdate, add_days, add_months, add_years
 from frappe.custom.doctype.property_setter.property_setter import make_property_setter
 
 import erpnext
@@ -205,6 +205,51 @@ def check_outdated_committees():
         else:
             frappe.db.sql("update `tabCommittees` set committee_status='New' where name='{0}'".format(committee.name))
             frappe.db.commit()
+
+
+
+@frappe.whitelist()
+def notification_end_contract_duration():
+    employees = frappe.get_all(
+        'Employee', 
+        filters={
+            'status': ['=', 'Active'], 
+            'custom_contract_type': ['=', 'محدد المدة']
+        }, 
+        fields=['name', 'custom_contract_duration', 'date_of_joining']
+    )
+
+    for emp in employees:
+        if emp.custom_contract_duration:
+            notification_send_date = []
+            
+            if emp.custom_contract_duration=='سنة':
+                contract_end_date = add_years(emp.date_of_joining, 1)
+            elif emp.custom_contract_duration=='ستة أشهر':
+                contract_end_date = add_months(emp.date_of_joining, 6)
+            else:
+                contract_end_date = emp.date_of_joining
+
+            days_left = (getdate(contract_end_date) - getdate(nowdate())).days
+
+            notification_send_date.append(add_months(contract_end_date, -1)) if add_months(contract_end_date, -1) > getdate(nowdate()) else None
+            notification_send_date.append(add_days(contract_end_date, -7)) if add_days(contract_end_date, -7) > getdate(nowdate()) else None
+
+            if getdate(nowdate()) in notification_send_date:
+                hr_notification_users = frappe.get_all('Has Role', filters={'role': 'HR Notification', 'parent': ['!=', 'Administrator']}, fields=['parent'])
+                if hr_notification_users:
+                    for user in hr_notification_users:
+                        print(f"""Employee {emp.name} will end his contract after {days_left} days""")
+                        new_doc = frappe.new_doc("Notification Log")
+                        new_doc.from_user = frappe.session.user
+                        new_doc.for_user = user.parent
+                        new_doc.type = "Share"
+                        new_doc.document_type = "Employee"
+                        new_doc.document_name = emp.name
+                        new_doc.subject = f"""Employee {emp.name} will end his contract after {days_left} days"""
+                        new_doc.insert(ignore_permissions=True)
+
+                
 
 
 
