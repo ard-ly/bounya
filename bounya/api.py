@@ -327,6 +327,36 @@ def notification_employee_promotion():
 
            
 
+@frappe.whitelist()
+def notification_end_leave_application():
+    leaves = frappe.get_all(
+        'Leave Application', 
+        filters={
+            'docstatus': ['=', 1]
+        }, 
+        fields=['name', 'employee', 'to_date']
+    )
+
+    for leave in leaves:
+        if leave.to_date:
+            return_date = getdate(add_days(leave.to_date, 1))
+
+            if getdate(nowdate()) == getdate(return_date):
+                hr_notification_users = frappe.get_all('Has Role', filters={'role': 'HR Notification', 'parent': ['!=', 'Administrator']}, fields=['parent'])
+                if hr_notification_users:
+                    for user in hr_notification_users:
+                        print(f"Employee {leave.employee} has completed their leave and is returning to work today.")
+                        new_doc = frappe.new_doc("Notification Log")
+                        new_doc.from_user = frappe.session.user
+                        new_doc.for_user = user.parent
+                        new_doc.type = "Share"
+                        new_doc.document_type = "Leave Application"
+                        new_doc.document_name = leave.name
+                        new_doc.subject = f"Employee {leave.employee} has completed their leave and is returning to work today."
+                        new_doc.insert(ignore_permissions=True)
+
+           
+
 
 @frappe.whitelist()
 def get_salary_components(doc):

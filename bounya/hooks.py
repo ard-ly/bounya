@@ -224,7 +224,8 @@ scheduler_events = {
         "bounya.api.send_committeesـreward_reminder_notification",
         "bounya.api.notification_end_contract_duration",
         "bounya.api.notification_reaching_retirement_age",
-        "bounya.api.notification_employee_promotion"
+        "bounya.api.notification_employee_promotion",
+        "bounya.api.notification_end_leave_application"
     ],
 	"monthly": [
 		"bounya.tasks.calculate_exp_yrears_in_employee",
