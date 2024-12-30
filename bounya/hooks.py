@@ -169,6 +169,9 @@ override_doctype_class = {
 
 
 doc_events = {
+    "Leave Application": {
+        "on_submit": "bounya.api.update_employee_status",
+    },
     "Material Request": {
         "validate": "bounya.api.check_custom_has_assets",
     },

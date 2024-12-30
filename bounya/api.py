@@ -95,6 +95,15 @@ import re
 
 
 
+def update_employee_status(doc, method):
+    if doc.leave_type=='إجازة بدون مرتب':
+        emp = frappe.get_doc("Employee", doc.employee)
+        emp.status='Suspended'
+        emp.custom_stop_resune='إجازة بدون مرتب'
+        emp.flags.ignore_mandatory = True
+        emp.save(ignore_permissions=True)
+
+
 @frappe.whitelist()
 def send_committeesـreward_reminder_notification():
     current_date = getdate(nowdate())
