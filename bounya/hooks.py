@@ -340,6 +340,7 @@ fixtures = [
         {"dt": "Translation"},
         {"dt": "Custom Field"},
         {"dt": "Role"},
+        {"dt": "Property Setter", "filters": [["module", "in", ["Albounya"]]]},
     ]
 
 #     {"dt": "Custom Field", "filters": [["module", "in", ["Albounya"]]]},
