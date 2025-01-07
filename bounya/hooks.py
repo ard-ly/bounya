@@ -207,6 +207,9 @@ doc_events = {
         "on_submit": "bounya.api.update_realty_available_area_on_submit",
         "on_cancel": "bounya.api.update_realty_available_area_on_cancel",
     },
+    "Employee": {
+        "validate": "bounya.api.update_retirement_date",
+    },
 }
 
 # doc_events = {

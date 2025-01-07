@@ -95,6 +95,26 @@ import re
 
 
 
+@frappe.whitelist()
+def update_retirement_date(doc, method):
+    retirement_age = 0.0
+
+    retirement_age_male = flt(frappe.db.get_single_value("HR Settings", "retirement_age")) or 0.0
+    retirement_age_female = flt(frappe.db.get_single_value("HR Settings", "custom_retirement_age_female")) or 0.0
+
+    if doc.gender=='Male' and retirement_age_male>0:
+        retirement_age = retirement_age_male
+    elif doc.gender=='Female' and retirement_age_female>0:
+        retirement_age = retirement_age_female
+
+    retirement_date = add_years(doc.date_of_birth, retirement_age)
+
+    if getdate(doc.date_of_retirement)!=getdate(retirement_date):
+        doc.date_of_retirement = getdate(retirement_date)
+        print(f"* update date of retirement for employee: {doc.name}")
+
+
+
 def update_employee_status(doc, method):
     if doc.leave_type=='إجازة بدون مرتب':
         emp = frappe.get_doc("Employee", doc.employee)
