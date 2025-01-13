@@ -35,15 +35,15 @@ def get_mail_perm(user, doctype):
         allowed_docs_list.append(shared_doc.share_name)
 
 
-    user_designation = frappe.get_value("Employee", filters = {"user_id": frappe.session.user}, fieldname = "designation") or None
-    if user_designation:
-        mail_designation_docs = frappe.get_all(doctype, filters={"from": user_designation})
-        for mail_designation_doc in mail_designation_docs:
-            allowed_docs_list.append(mail_designation_doc.name)
+    # user_designation = frappe.get_value("Employee", filters = {"user_id": frappe.session.user}, fieldname = "designation") or None
+    # if user_designation:
+    #     mail_designation_docs = frappe.get_all(doctype, filters={"from": user_designation})
+    #     for mail_designation_doc in mail_designation_docs:
+    #         allowed_docs_list.append(mail_designation_doc.name)
 
-        mail_designation_docs = frappe.get_all(doctype, filters={"to": user_designation})
-        for mail_designation_doc in mail_designation_docs:
-            allowed_docs_list.append(mail_designation_doc.name)
+    #     mail_designation_docs = frappe.get_all(doctype, filters={"to": user_designation})
+    #     for mail_designation_doc in mail_designation_docs:
+    #         allowed_docs_list.append(mail_designation_doc.name)
 
 
 

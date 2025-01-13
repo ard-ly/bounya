@@ -51,13 +51,6 @@ frappe.ui.form.on('Outgoing Mail', {
             };
         });
 
-		frm.set_query('transfer_type', function () {
-            return {
-                filters: [
-                    ['name', 'in', ['Designation', 'Department']]
-                ]
-            };
-        });
 	},
 	decision: function(frm) {
 		frm.set_value("decision_number", )
@@ -67,9 +60,5 @@ frappe.ui.form.on('Outgoing Mail', {
 	incoming_email_referral: function(frm) {
 		frm.set_value("incoming_mail", )
 		frm.set_value("incoming_message_subject", )
-	},
-	transfer_type: function(frm) {
-		frm.set_value("from", )
-		frm.set_value("to", )
 	}
 });
