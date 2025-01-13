@@ -27,9 +27,8 @@
   "message_registration_date",
   "file_number",
   "section_break_pajkj",
-  "transfer_type",
-  "column_break_bzkj1",
   "from",
+  "column_break_bzkj1",
   "to",
   "section_break_wmzuh",
   "message_subject",
@@ -70,21 +69,19 @@
    "unique": 1
   },
   {
-   "depends_on": "transfer_type",
    "fieldname": "from",
-   "fieldtype": "Dynamic Link",
+   "fieldtype": "Link",
    "in_standard_filter": 1,
    "label": "From",
-   "options": "transfer_type",
+   "options": "Department",
    "reqd": 1
   },
   {
-   "depends_on": "transfer_type",
    "fieldname": "to",
-   "fieldtype": "Dynamic Link",
+   "fieldtype": "Link",
    "in_standard_filter": 1,
    "label": "To",
-   "options": "transfer_type",
+   "options": "Department",
    "reqd": 1
   },
   {
@@ -130,14 +127,6 @@
    "fieldname": "entity",
    "fieldtype": "Data",
    "label": "Entity",
-   "reqd": 1
-  },
-  {
-   "default": "Designation",
-   "fieldname": "transfer_type",
-   "fieldtype": "Link",
-   "label": "Transfer Type",
-   "options": "DocType",
    "reqd": 1
   },
   {
@@ -259,8 +248,9 @@
   },
   {
    "fieldname": "marginalize",
-   "fieldtype": "Text Editor",
-   "label": "Marginalize"
+   "fieldtype": "Table",
+   "label": "Marginalize",
+   "options": "Marginalize User"
   },
   {
    "fieldname": "column_break_sqcmr",
@@ -270,7 +260,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-12-26 12:00:00.206062",
+ "modified": "2025-01-13 13:15:03.977685",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Incoming Mail",
@@ -293,10 +283,7 @@
    "write": 1
   },
   {
-   "amend": 1,
-   "cancel": 1,
    "create": 1,
-   "delete": 1,
    "email": 1,
    "export": 1,
    "import": 1,
@@ -309,10 +296,7 @@
    "write": 1
   },
   {
-   "amend": 1,
-   "cancel": 1,
    "create": 1,
-   "delete": 1,
    "email": 1,
    "export": 1,
    "import": 1,
@@ -325,10 +309,7 @@
    "write": 1
   },
   {
-   "amend": 1,
-   "cancel": 1,
    "create": 1,
-   "delete": 1,
    "email": 1,
    "export": 1,
    "import": 1,
@@ -342,7 +323,6 @@
   },
   {
    "create": 1,
-   "delete": 1,
    "email": 1,
    "export": 1,
    "print": 1,
@@ -355,7 +335,6 @@
   },
   {
    "create": 1,
-   "delete": 1,
    "email": 1,
    "export": 1,
    "print": 1,

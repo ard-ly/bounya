@@ -1,0 +1,34 @@
+[
+ {
+  "default_value": null,
+  "doc_type": "HR Settings",
+  "docstatus": 0,
+  "doctype": "Property Setter",
+  "doctype_or_field": "DocField",
+  "field_name": "retirement_age",
+  "is_system_generated": 0,
+  "modified": "2025-01-07 11:24:58.046679",
+  "module": "Albounya",
+  "name": "HR Settings-retirement_age-label",
+  "property": "label",
+  "property_type": "Data",
+  "row_name": null,
+  "value": "Retirement Age Male(In Years)"
+ },
+ {
+  "default_value": null,
+  "doc_type": "HR Settings",
+  "docstatus": 0,
+  "doctype": "Property Setter",
+  "doctype_or_field": "DocField",
+  "field_name": "custom_retirement_age_female",
+  "is_system_generated": 0,
+  "modified": "2025-01-07 11:23:04.805040",
+  "module": "Albounya",
+  "name": "HR Settings-custom_retirement_age_female-label",
+  "property": "label",
+  "property_type": "Data",
+  "row_name": null,
+  "value": "Retirement Age Female(In Years)"
+ }
+]
