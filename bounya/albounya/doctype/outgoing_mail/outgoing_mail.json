@@ -252,7 +252,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-01-13 13:00:54.100287",
+ "modified": "2025-01-13 13:03:52.682542",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Outgoing Mail",
@@ -275,10 +275,7 @@
    "write": 1
   },
   {
-   "amend": 1,
-   "cancel": 1,
    "create": 1,
-   "delete": 1,
    "email": 1,
    "export": 1,
    "import": 1,
@@ -291,10 +288,7 @@
    "write": 1
   },
   {
-   "amend": 1,
-   "cancel": 1,
    "create": 1,
-   "delete": 1,
    "email": 1,
    "export": 1,
    "import": 1,
@@ -307,10 +301,7 @@
    "write": 1
   },
   {
-   "amend": 1,
-   "cancel": 1,
    "create": 1,
-   "delete": 1,
    "email": 1,
    "export": 1,
    "import": 1,
@@ -323,8 +314,6 @@
    "write": 1
   },
   {
-   "create": 1,
-   "delete": 1,
    "email": 1,
    "export": 1,
    "print": 1,
@@ -337,7 +326,6 @@
   },
   {
    "create": 1,
-   "delete": 1,
    "email": 1,
    "export": 1,
    "print": 1,
