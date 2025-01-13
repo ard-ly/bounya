@@ -2,6 +2,12 @@
 // For license information, please see license.txt
 
 frappe.ui.form.on('Outgoing Mail', {
+	refresh: function(frm) {
+		if (frm.doc.docstatus === 1) {
+            frm.page.sidebar.find('.attachments-actions').hide(); // Hide the "Add Attachment" button
+            frm.page.sidebar.find('.attachment-row .btn .remove-btn').hide(); // Hide the delete icon for attachments
+        }
+	},
 	onload: function(frm) {
 		if(frm.doc.docstatus==0){
 			frappe.call({
