@@ -22,19 +22,7 @@ def get_permission_query_conditions(user, doctype):
 
 def get_mail_perm(user, doctype):
     allowed_docs_list = []
-    owned_docs = frappe.get_all(doctype, filters={"owner":frappe.session.user})
-    for owned_doc in owned_docs:
-        allowed_docs_list.append(owned_doc.name)
-
-    # Get documents shared with the user
-    shared_docs = frappe.get_all("DocShare",
-                             filters={"share_doctype": doctype},
-                             or_filters=[{"user": frappe.session.user}, {"user": ""}],
-                             fields=["share_name"])
-    for shared_doc in shared_docs:
-        allowed_docs_list.append(shared_doc.share_name)
-
-
+    
     # user_designation = frappe.get_value("Employee", filters = {"user_id": frappe.session.user}, fieldname = "designation") or None
     # if user_designation:
     #     mail_designation_docs = frappe.get_all(doctype, filters={"from": user_designation})
@@ -44,7 +32,6 @@ def get_mail_perm(user, doctype):
     #     mail_designation_docs = frappe.get_all(doctype, filters={"to": user_designation})
     #     for mail_designation_doc in mail_designation_docs:
     #         allowed_docs_list.append(mail_designation_doc.name)
-
 
 
     # Get Department Manager users
@@ -76,6 +63,7 @@ def get_mail_perm(user, doctype):
                     #     allowed_docs_list.append(marginalize_doc.parent)
 
 
+
     if "General Manager" in frappe.get_roles(frappe.session.user):
         # Get all employees who are assigned the "Chairman Manager" role
         chairman_employees = frappe.get_all(
@@ -89,27 +77,47 @@ def get_mail_perm(user, doctype):
         all_departments = frappe.get_all("Department", fields=["name", "custom_department_manager"])
 
         # Filter departments to exclude those managed by a Chairman Manager
-        filtered_departments = [
+        excluded_departments = [
             dept["name"]
             for dept in all_departments
-            if dept.get("custom_department_manager") not in chairman_employee_names
+            if dept.get("custom_department_manager") in chairman_employee_names
         ]
 
-        for department in filtered_departments:
-            if department:
-                mail_department_docs = frappe.get_all(doctype, filters={"from": department})
-                for mail_department_doc in mail_department_docs:
-                    allowed_docs_list.append(mail_department_doc.name)
+        # Collect all documents for the specified doctype
+        all_documents = frappe.get_all(doctype, fields=["name", "from", "to"])
 
-                mail_department_docs = frappe.get_all(doctype, filters={"to": department})
-                for mail_department_doc in mail_department_docs:
-                    allowed_docs_list.append(mail_department_doc.name)
+        # Initialize the allowed docs list
+        allowed_docs_list = []
 
-                copy_to_docs = frappe.get_all("Copy to Department",
-                                         filters={"parenttype": doctype, "department": department},
-                                         fields=["parent"])
-                for copy_to_doc in copy_to_docs:
-                    allowed_docs_list.append(copy_to_doc.parent)
+        for doc in all_documents:
+            if doc.get("from") not in excluded_departments and doc.get("to") not in excluded_departments:
+                allowed_docs_list.append(doc["name"])
+
+        # Include documents from the "Copy to Department" table
+        copy_to_docs = frappe.get_all(
+            "Copy to Department",
+            filters={"parenttype": doctype, "department": ["not in", excluded_departments]},
+            fields=["parent"]
+        )
+        allowed_docs_list.extend([doc["parent"] for doc in copy_to_docs])
+
+        # Remove duplicates (if any)
+        allowed_docs_list = list(set(allowed_docs_list))
+
+
+
+
+    owned_docs = frappe.get_all(doctype, filters={"owner":frappe.session.user})
+    for owned_doc in owned_docs:
+        allowed_docs_list.append(owned_doc.name)
+
+    # Get documents shared with the user
+    shared_docs = frappe.get_all("DocShare",
+                             filters={"share_doctype": doctype},
+                             or_filters=[{"user": frappe.session.user}, {"user": ""}],
+                             fields=["share_name"])
+    for shared_doc in shared_docs:
+        allowed_docs_list.append(shared_doc.share_name)
 
 
 
@@ -131,19 +139,6 @@ def get_mail_perm(user, doctype):
 
 def get_decisions_perm(user, doctype):
     allowed_docs_list = []
-    owned_docs = frappe.get_all(doctype, filters={"owner":frappe.session.user})
-    for owned_doc in owned_docs:
-        allowed_docs_list.append(owned_doc.name)
-
-
-    # Get documents shared with the user
-    shared_docs = frappe.get_all("DocShare",
-                             filters={"share_doctype": doctype},
-                             or_filters=[{"user": frappe.session.user}, {"user": ""}],
-                             fields=["share_name"])
-    for shared_doc in shared_docs:
-        allowed_docs_list.append(shared_doc.share_name)
-
 
     # Get Department Manager users
     departments_managers = frappe.db.sql_list("select user_id from `tabEmployee` where status='Active' and name in (select custom_department_manager from `tabDepartment` where custom_department_manager !='')")
@@ -189,20 +184,39 @@ def get_decisions_perm(user, doctype):
                         allowed_docs_list.append(copy_to_doc.parent)
 
 
-    if frappe.session.user == "Administrator":
-        return
-
-    if "Show All Decisions" in frappe.get_roles(frappe.session.user):
-        return
-
-    allowed_docs_tuple = tuple(allowed_docs_list)
-    return "name in ('{allowed_list}')".format(allowed_list="','".join(allowed_docs_tuple))
 
 
+    if "General Manager" in frappe.get_roles(frappe.session.user):
+        # Get all employees who are assigned the "Chairman Manager" role
+        chairman_employees = frappe.get_all(
+            "Employee",
+            filters={"user_id": ["in", frappe.get_all("Has Role", filters={"role": "Chairman Manager"}, pluck="parent")]},
+            fields=["name"]
+        )
+        chairman_employee_names = [ce["name"] for ce in chairman_employees]
+
+        # Get all departments
+        all_departments = frappe.get_all("Department", fields=["name", "custom_department_manager"])
+
+        # Filter departments to exclude those managed by a Chairman Manager
+        excluded_departments = [
+            dept["name"]
+            for dept in all_departments
+            if dept.get("custom_department_manager") in chairman_employee_names
+        ]
+
+        # Filter documents based on excluded departments and `issuing_authority`
+        department_docs = frappe.get_all(
+            doctype,
+            filters={"issuing_authority": ["not in", excluded_departments]},
+            fields=["name"]
+        )
+        for doc in department_docs:
+            allowed_docs_list.append(doc["name"])
 
 
-def get_committees_perm(user, doctype):
-    allowed_docs_list = []
+
+
     owned_docs = frappe.get_all(doctype, filters={"owner":frappe.session.user})
     for owned_doc in owned_docs:
         allowed_docs_list.append(owned_doc.name)
@@ -217,6 +231,25 @@ def get_committees_perm(user, doctype):
         allowed_docs_list.append(shared_doc.share_name)
 
 
+
+    if frappe.session.user == "Administrator":
+        return
+
+    if "Show All Decisions" in frappe.get_roles(frappe.session.user):
+        return
+
+    if "Chairman Manager" in frappe.get_roles(frappe.session.user):
+        return
+
+    allowed_docs_tuple = tuple(allowed_docs_list)
+    return "name in ('{allowed_list}')".format(allowed_list="','".join(allowed_docs_tuple))
+
+
+
+
+def get_committees_perm(user, doctype):
+    allowed_docs_list = []
+    
 
     committee_members = frappe.get_all("Committee Members",
                                     filters={"parenttype":doctype,
@@ -232,10 +265,27 @@ def get_committees_perm(user, doctype):
         allowed_decisions = user_decisions.replace('name', 'decision')
 
 
+    owned_docs = frappe.get_all(doctype, filters={"owner":frappe.session.user})
+    for owned_doc in owned_docs:
+        allowed_docs_list.append(owned_doc.name)
+
+
+    # Get documents shared with the user
+    shared_docs = frappe.get_all("DocShare",
+                             filters={"share_doctype": doctype},
+                             or_filters=[{"user": frappe.session.user}, {"user": ""}],
+                             fields=["share_name"])
+    for shared_doc in shared_docs:
+        allowed_docs_list.append(shared_doc.share_name)
+
+
     if frappe.session.user == "Administrator":
         return
 
     if "Show All Committees" in frappe.get_roles(frappe.session.user):
+        return
+
+    if "Chairman Manager" in frappe.get_roles(frappe.session.user):
         return
 
     allowed_docs_tuple = tuple(allowed_docs_list)
@@ -247,6 +297,14 @@ def get_committees_perm(user, doctype):
 
 def get_committees_extend_perm(user, doctype):
     allowed_docs_list = []
+    
+
+    allowed_committees_extend = ''
+    allowed_committees = get_committees_perm(user, "Committees")
+    if allowed_committees:
+        allowed_committees_extend = allowed_committees.replace('name', 'committee')
+
+
     owned_docs = frappe.get_all(doctype, filters={"owner":frappe.session.user})
     for owned_doc in owned_docs:
         allowed_docs_list.append(owned_doc.name)
@@ -261,16 +319,13 @@ def get_committees_extend_perm(user, doctype):
         allowed_docs_list.append(shared_doc.share_name)
 
 
-    allowed_committees_extend = ''
-    allowed_committees = get_committees_perm(user, "Committees")
-    if allowed_committees:
-        allowed_committees_extend = allowed_committees.replace('name', 'committee')
-
-
     if frappe.session.user == "Administrator":
         return
 
     if "Show All Committees" in frappe.get_roles(frappe.session.user):
+        return
+
+    if "Chairman Manager" in frappe.get_roles(frappe.session.user):
         return
         
     allowed_docs_tuple = tuple(allowed_docs_list)
@@ -281,6 +336,14 @@ def get_committees_extend_perm(user, doctype):
 
 def get_inbox_perm(user, doctype):
     allowed_docs_list = []
+
+    # Get Department Manager users
+    user_department_manager = []
+    user_emp = frappe.get_value("Employee", filters = {"user_id": frappe.session.user}, fieldname = "name") or None
+    if user_emp:
+        users_department = frappe.db.sql_list("select name from `tabDepartment` where custom_department_manager='{0}'".format(user_emp))
+        
+
     owned_docs = frappe.get_all(doctype, filters={"owner":frappe.session.user})
     for owned_doc in owned_docs:
         allowed_docs_list.append(owned_doc.name)
@@ -294,18 +357,14 @@ def get_inbox_perm(user, doctype):
     for shared_doc in shared_docs:
         allowed_docs_list.append(shared_doc.share_name)
 
-
-    # Get Department Manager users
-    user_department_manager = []
-    user_emp = frappe.get_value("Employee", filters = {"user_id": frappe.session.user}, fieldname = "name") or None
-    if user_emp:
-        users_department = frappe.db.sql_list("select name from `tabDepartment` where custom_department_manager='{0}'".format(user_emp))
         
-
     if frappe.session.user == "Administrator":
         return
 
     if "Show All Mail" in frappe.get_roles(frappe.session.user):
+        return
+
+    if "Chairman Manager" in frappe.get_roles(frappe.session.user):
         return
 
     allowed_docs_tuple = tuple(allowed_docs_list)
