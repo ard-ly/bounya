@@ -76,11 +76,52 @@ def get_mail_perm(user, doctype):
                     #     allowed_docs_list.append(marginalize_doc.parent)
 
 
+    if "General Manager" in frappe.get_roles(frappe.session.user):
+        # Get all employees who are assigned the "Chairman Manager" role
+        chairman_employees = frappe.get_all(
+            "Employee",
+            filters={"user_id": ["in", frappe.get_all("Has Role", filters={"role": "Chairman Manager"}, pluck="parent")]},
+            fields=["name"]
+        )
+        chairman_employee_names = [ce["name"] for ce in chairman_employees]
+
+        # Get all departments
+        all_departments = frappe.get_all("Department", fields=["name", "custom_department_manager"])
+
+        # Filter departments to exclude those managed by a Chairman Manager
+        filtered_departments = [
+            dept["name"]
+            for dept in all_departments
+            if dept.get("custom_department_manager") not in chairman_employee_names
+        ]
+
+        for department in filtered_departments:
+            if department:
+                mail_department_docs = frappe.get_all(doctype, filters={"from": department})
+                for mail_department_doc in mail_department_docs:
+                    allowed_docs_list.append(mail_department_doc.name)
+
+                mail_department_docs = frappe.get_all(doctype, filters={"to": department})
+                for mail_department_doc in mail_department_docs:
+                    allowed_docs_list.append(mail_department_doc.name)
+
+                copy_to_docs = frappe.get_all("Copy to Department",
+                                         filters={"parenttype": doctype, "department": department},
+                                         fields=["parent"])
+                for copy_to_doc in copy_to_docs:
+                    allowed_docs_list.append(copy_to_doc.parent)
+
+
+
     if frappe.session.user == "Administrator":
         return
 
     if "Show All Mail" in frappe.get_roles(frappe.session.user):
         return
+
+    if "Chairman Manager" in frappe.get_roles(frappe.session.user):
+        return
+
 
     allowed_docs_tuple = tuple(allowed_docs_list)
     return "name in ('{allowed_list}')".format(allowed_list="','".join(allowed_docs_tuple))
