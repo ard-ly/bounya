@@ -343,6 +343,7 @@ fixtures = [
         {"dt": "Translation"},
         {"dt": "Custom Field"},
         {"dt": "Role"},
+        {"dt": "Custom DocPerm"},
         {"dt": "Property Setter", "filters": [["module", "in", ["Albounya"]]]},
     ]
 
