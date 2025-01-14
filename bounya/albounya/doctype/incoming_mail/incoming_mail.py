@@ -4,6 +4,7 @@
 import frappe
 from frappe import _
 from frappe.model.document import Document
+import datetime
 
 class IncomingMail(Document):
     def after_insert(self):
@@ -39,7 +40,12 @@ class IncomingMail(Document):
         self.create_inbox()
 
     def autoname(self):
-        year = self.message_registration_date[:4]
+        # Ensure `message_registration_date` is in string format
+        if isinstance(self.message_registration_date, datetime.date):
+            year = self.message_registration_date.strftime("%Y")  # Convert to string and extract year
+        else:
+            year = str(self.message_registration_date)[:4]
+
         short_year = year[-2:]
         
         count = frappe.db.count(
@@ -50,9 +56,7 @@ class IncomingMail(Document):
         )
         
         sequence_number = count + 1
-        
         formatted_sequence = f"{sequence_number:04d}"
-        
         self.name = f"{short_year}-{formatted_sequence}"
 
         
