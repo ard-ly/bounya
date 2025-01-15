@@ -11,7 +11,7 @@ frappe.ui.form.on("Committees", {
             };
         });
         
-        if(frm.doc.docstatus==1){
+        if(frm.doc.docstatus==1 && frappe.user.has_role('Legal Management')){
             frm.add_custom_button(__('Committee Extend'), () => {
                 frappe.route_options = {
                     "committee": frm.doc.name
