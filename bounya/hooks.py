@@ -344,6 +344,8 @@ fixtures = [
         {"dt": "Custom Field"},
         {"dt": "Role"},
         {"dt": "Custom DocPerm"},
+        {"dt": "Workflow"},
+        {"dt": "Workflow State"},
         {"dt": "Property Setter", "filters": [["module", "in", ["Albounya"]]]},
     ]
 
