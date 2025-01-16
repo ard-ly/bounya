@@ -216,6 +216,11 @@ def get_decisions_perm(user, doctype):
 
 
 
+    if "Office Manager" in frappe.get_roles(frappe.session.user):
+        if frappe.session.user in get_chairman_and_general_office_managers_users():
+            return
+
+
 
     owned_docs = frappe.get_all(doctype, filters={"owner":frappe.session.user})
     for owned_doc in owned_docs:
@@ -265,6 +270,11 @@ def get_committees_perm(user, doctype):
         allowed_decisions = user_decisions.replace('name', 'decision')
 
 
+    if "Office Manager" in frappe.get_roles(frappe.session.user):
+        if frappe.session.user in get_chairman_and_general_office_managers_users():
+            return
+
+
     owned_docs = frappe.get_all(doctype, filters={"owner":frappe.session.user})
     for owned_doc in owned_docs:
         allowed_docs_list.append(owned_doc.name)
@@ -305,6 +315,11 @@ def get_committees_extend_perm(user, doctype):
         allowed_committees_extend = allowed_committees.replace('name', 'committee')
 
 
+    if "Office Manager" in frappe.get_roles(frappe.session.user):
+        if frappe.session.user in get_chairman_and_general_office_managers_users():
+            return
+
+            
     owned_docs = frappe.get_all(doctype, filters={"owner":frappe.session.user})
     for owned_doc in owned_docs:
         allowed_docs_list.append(owned_doc.name)
@@ -369,6 +384,32 @@ def get_inbox_perm(user, doctype):
 
     allowed_docs_tuple = tuple(allowed_docs_list)
     return "name in ('{allowed_list}') or referral_to in ('{users_department}') ".format(allowed_list="','".join(allowed_docs_tuple), users_department= "','".join(users_department))
+
+
+
+
+def get_chairman_and_general_office_managers_users():
+    office_manager_users = []
+
+    chairman_general_managers_employees = frappe.get_all(
+            "Employee",
+            filters={"user_id": ["in", frappe.get_all("Has Role", filters={"role": ["in", ['Chairman Manager', 'General Manager']]}, pluck="parent")]},
+            fields=["name", "user_id"]
+        )
+
+    for chairman_general_manager_employee in chairman_general_managers_employees:
+        chairman_general_managers_departments = frappe.get_all(
+            "Department",
+            filters={"custom_department_manager": chairman_general_manager_employee.name, "disabled": 0},
+            fields=["name", "custom_office_manager"]
+        )
+        for chairman_general_managers_department in chairman_general_managers_departments:
+            if chairman_general_managers_department.custom_office_manager:
+                office_manager_user = frappe.get_value("Employee", filters = {"name": chairman_general_managers_department.custom_office_manager}, fieldname = "user_id") or None
+                if office_manager_user and office_manager_user not in office_manager_users:
+                    office_manager_users.append(office_manager_user)
+    
+    return office_manager_users
 
 
 
