@@ -448,9 +448,9 @@ def send_workflow_notification(doctype, document, workflow_state):
     if doctype=='Decisions':
         msg = "<p> You have a new Decision,<br> please check the decision and submit<br> <b><a href='{0}'>Go to Decision</a></b>".format(inbox_url)
     elif doctype=='Committees':
-        mesg = "<p> You have a new Committee,<br> please check the committee and submit<br> <b><a href='{0}'>Go to Committee</a></b>".format(inbox_url)
+        msg = "<p> You have a new Committee,<br> please check the committee and submit<br> <b><a href='{0}'>Go to Committee</a></b>".format(inbox_url)
     elif doctype=='Committee Extend':
-        mesg = "<p> You have a new Committee Extend,<br> please check the committee extend and submit<br> <b><a href='{0}'>Go to Committee Extend</a></b>".format(inbox_url)
+        msg = "<p> You have a new Committee Extend,<br> please check the committee extend and submit<br> <b><a href='{0}'>Go to Committee Extend</a></b>".format(inbox_url)
 
 
     for allowed_user in allowed_users:

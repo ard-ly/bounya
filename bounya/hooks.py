@@ -169,6 +169,9 @@ override_doctype_class = {
 
 
 doc_events = {
+    "*": {
+        "on_cancel": "bounya.api.on_cancel_update_workflow_state"
+    },
     "Leave Application": {
         "on_submit": "bounya.api.update_employee_status",
     },
