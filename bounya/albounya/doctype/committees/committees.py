@@ -4,33 +4,14 @@
 import frappe
 from frappe.model.document import Document
 from frappe.utils import getdate, nowdate
+from bounya.permission_query_condition import send_workflow_notification
 
 
 class Committees(Document):
-    def after_insert(self):
-        allowed_users = frappe.db.sql_list("select parent from `tabHas Role` where role in ('General Manager', 'Chairman Manager') and parenttype='User' and parent !='Administrator' group by parent")
-        for allowed_user in allowed_users:
-            if allowed_user:
-                new_doc = frappe.new_doc("Notification Log")
-                new_doc.from_user = frappe.session.user
-                new_doc.for_user = allowed_user
-                new_doc.type = "Share"
-                new_doc.document_type = self.doctype
-                new_doc.document_name = self.name
-                new_doc.subject = "يوجد لجنة جديدة بحاجة للاعتماد."
-                new_doc.insert(ignore_permissions=True)
+    def validate(self):
+        send_workflow_notification(self.doctype, self.name, self.workflow_state)
 
-                inbox_url = frappe.utils.data.get_url_to_form(self.doctype, self.name)
-                mesg = "<p> You have a new Committee,<br> please check the committee and submit<br> <b><a href='{0}'>Go to Committee</a></b>".format(inbox_url)
-                frappe.sendmail(
-                  recipients=allowed_user,
-                  subject="لجنة جديدة",
-                  message= mesg,
-                  now=1,
-                  retry=3
-                )
-
-
+        
     def on_submit(self):
         self.change_committee_status()
         self.send_reward_notification()

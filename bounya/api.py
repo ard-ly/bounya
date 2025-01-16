@@ -95,6 +95,22 @@ import re
 
 
 
+def on_cancel_update_workflow_state(doc, method):
+    target_doctypes = ["Decisions", "Committees", "Committee Extend"]
+
+    if doc.doctype in target_doctypes:
+        try:
+            # Ensure "Cancel" state exists in the workflow
+            if "Canceled" in [state["workflow_state_name"] for state in frappe.get_all("Workflow State", fields=["workflow_state_name"])]:
+                frappe.db.set_value(doc.doctype, doc.name, "workflow_state", "Canceled")
+                frappe.db.commit()
+                doc.reload()
+        except Exception as e:
+            frappe.log_error(message=str(e), title="Error Updating Workflow State")
+
+
+
+
 @frappe.whitelist()
 def update_retirement_date(doc, method):
     retirement_age = 0.0

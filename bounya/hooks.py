@@ -169,6 +169,9 @@ override_doctype_class = {
 
 
 doc_events = {
+    "*": {
+        "on_cancel": "bounya.api.on_cancel_update_workflow_state"
+    },
     "Leave Application": {
         "on_submit": "bounya.api.update_employee_status",
     },
@@ -344,6 +347,8 @@ fixtures = [
         {"dt": "Custom Field"},
         {"dt": "Role"},
         {"dt": "Custom DocPerm"},
+        {"dt": "Workflow"},
+        {"dt": "Workflow State"},
         {"dt": "Property Setter", "filters": [["module", "in", ["Albounya"]]]},
     ]
 

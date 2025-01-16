@@ -216,6 +216,11 @@ def get_decisions_perm(user, doctype):
 
 
 
+    if "Office Manager" in frappe.get_roles(frappe.session.user):
+        if frappe.session.user in get_chairman_and_general_office_managers_users():
+            return
+
+
 
     owned_docs = frappe.get_all(doctype, filters={"owner":frappe.session.user})
     for owned_doc in owned_docs:
@@ -265,6 +270,11 @@ def get_committees_perm(user, doctype):
         allowed_decisions = user_decisions.replace('name', 'decision')
 
 
+    if "Office Manager" in frappe.get_roles(frappe.session.user):
+        if frappe.session.user in get_chairman_and_general_office_managers_users():
+            return
+
+
     owned_docs = frappe.get_all(doctype, filters={"owner":frappe.session.user})
     for owned_doc in owned_docs:
         allowed_docs_list.append(owned_doc.name)
@@ -303,6 +313,11 @@ def get_committees_extend_perm(user, doctype):
     allowed_committees = get_committees_perm(user, "Committees")
     if allowed_committees:
         allowed_committees_extend = allowed_committees.replace('name', 'committee')
+
+
+    if "Office Manager" in frappe.get_roles(frappe.session.user):
+        if frappe.session.user in get_chairman_and_general_office_managers_users():
+            return
 
 
     owned_docs = frappe.get_all(doctype, filters={"owner":frappe.session.user})
@@ -369,6 +384,102 @@ def get_inbox_perm(user, doctype):
 
     allowed_docs_tuple = tuple(allowed_docs_list)
     return "name in ('{allowed_list}') or referral_to in ('{users_department}') ".format(allowed_list="','".join(allowed_docs_tuple), users_department= "','".join(users_department))
+
+
+
+
+def get_chairman_and_general_office_managers_users():
+    office_manager_users = []
+
+    chairman_general_managers_employees = frappe.get_all(
+            "Employee",
+            filters={"user_id": ["in", frappe.get_all("Has Role", filters={"role": ["in", ['Chairman Manager', 'General Manager']]}, pluck="parent")]},
+            fields=["name", "user_id"]
+        )
+
+    for chairman_general_manager_employee in chairman_general_managers_employees:
+        chairman_general_managers_departments = frappe.get_all(
+            "Department",
+            filters={"custom_department_manager": chairman_general_manager_employee.name, "disabled": 0},
+            fields=["name", "custom_office_manager"]
+        )
+        for chairman_general_managers_department in chairman_general_managers_departments:
+            if chairman_general_managers_department.custom_office_manager:
+                office_manager_user = frappe.get_value("Employee", filters = {"name": chairman_general_managers_department.custom_office_manager}, fieldname = "user_id") or None
+                if office_manager_user and office_manager_user not in office_manager_users:
+                    office_manager_users.append(office_manager_user)
+    
+    return office_manager_users
+
+
+
+def send_workflow_notification(doctype, document, workflow_state):
+    allowed_users = []
+    notification_subject = ''
+    email_subject = ''
+    msg = ''
+
+    if workflow_state == 'Create By Legal Management':
+        allowed_users = get_chairman_and_general_office_managers_users()
+        if doctype=='Decisions':
+            notification_subject = "يوجد قرار جديد بحاجة للمراجعة."
+            email_subject = "مراجعة قرار"
+        elif doctype=='Committees':
+            notification_subject = "يوجد لجنة جديدة بحاجة للمراجعة."
+            email_subject = "مراجعة لجنة"
+        elif doctype=='Committee Extend':
+            notification_subject = "يوجد طلب تمديد لجنة جديد بحاجة للمراجعة."
+            email_subject = "مراجعة تمديد لجنة"
+
+    elif workflow_state == 'Approved By Office Manager':
+        allowed_users = frappe.db.sql_list("select parent from `tabHas Role` where role in ('General Manager', 'Chairman Manager') and parenttype='User' and parent !='Administrator' group by parent")
+        if doctype=='Decisions':
+            notification_subject = "يوجد قرار بحاجة للاعتماد."
+            email_subject = "اعتماد قرار"
+        elif doctype=='Committees':
+            notification_subject = "يوجد لجنة جديدة بحاجة للاعتماد."
+            email_subject = "اعتماد لجنة"
+        elif doctype=='Committee Extend':
+            notification_subject = "يوجد طلب تمديد لجنة جديد بحاجة للاعتماد."
+            email_subject = "اعتماد تمديد لجنة"
+
+
+    inbox_url = frappe.utils.data.get_url_to_form(doctype, document)
+    if doctype=='Decisions':
+        msg = "<p> You have a new Decision,<br> please check the decision and submit<br> <b><a href='{0}'>Go to Decision</a></b>".format(inbox_url)
+    elif doctype=='Committees':
+        msg = "<p> You have a new Committee,<br> please check the committee and submit<br> <b><a href='{0}'>Go to Committee</a></b>".format(inbox_url)
+    elif doctype=='Committee Extend':
+        msg = "<p> You have a new Committee Extend,<br> please check the committee extend and submit<br> <b><a href='{0}'>Go to Committee Extend</a></b>".format(inbox_url)
+
+
+    for allowed_user in allowed_users:
+        if allowed_user:
+            try:
+                new_doc = frappe.new_doc("Notification Log")
+                new_doc.from_user = frappe.session.user
+                new_doc.for_user = allowed_user
+                new_doc.type = "Share"
+                new_doc.document_type = doctype
+                new_doc.document_name = document
+                new_doc.subject = notification_subject
+                new_doc.insert(ignore_permissions=True)
+
+                frappe.sendmail(
+                  recipients=allowed_user,
+                  subject=email_subject,
+                  message= msg,
+                  now=1,
+                  retry=3
+                )
+            except Exception as e:
+                # Log errors for each user separately
+                frappe.log_error(
+                    message=f"Error sending workflow notification to user {allowed_user}: {str(e)}",
+                    title="Workflow Notification Error"
+                )
+
+
 
 
 
