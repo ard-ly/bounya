@@ -37,39 +37,3 @@ def update_employee_retirement_date():
             print(f"* update date of retirement for employee: {doc.name}")
 
 
-
-def increase_employee_monthly_leave_balance():
-    annual_leave = frappe.get_value("Leave Type", filters = {"custom_is_annual_leave": 1}, fieldname = "name") or None
-
-    if annual_leave:
-        emps = frappe.get_all("Employee",filters = {"status": "Active"}, fields = ["name", "date_of_birth"])
-        for emp in emps:
-            allocation = frappe.db.sql(f"select name from `tabLeave Allocation` where leave_type='{annual_leave}' and employee='{emp.name}' and '{nowdate()}' between from_date and to_date order by to_date desc limit 1", as_dict=True)
-            if allocation:
-                allocation_name = allocation[0].get("name")
-
-                monthly_leave_balance = 2.5
-
-                employee_age = int(get_age(emp.date_of_birth))
-
-                if employee_age>50:
-                    monthly_leave_balance = 3.75
-                    
-                print(employee_age)
-                
-                # doc = frappe.get_doc('Leave Allocation', allocation_name)
-                # leave_balance = doc.new_leaves_allocated + 2.5
-                # doc.new_leaves_allocated = leave_balance
-                # doc.total_leaves_allocated = doc.unused_leaves+leave_balance
-                # doc.save()
-
-                # print("Increase monthly leave balance for employee: {0}".format(emp.name))
-
-
-
-# Get age of inserted date
-def get_age(dob):
-    today = date.today()
-    return today.year - dob.year - ((today.month, today.day) < (dob.month, dob.day))
-
-
