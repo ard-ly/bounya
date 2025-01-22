@@ -270,9 +270,9 @@ def get_committees_perm(user, doctype):
         allowed_decisions = user_decisions.replace('name', 'decision')
 
 
-    if "Office Manager" in frappe.get_roles(frappe.session.user):
-        if frappe.session.user in get_chairman_and_general_office_managers_users():
-            return
+    # if "Office Manager" in frappe.get_roles(frappe.session.user):
+    #     if frappe.session.user in get_chairman_and_general_office_managers_users():
+    #         return
 
 
     owned_docs = frappe.get_all(doctype, filters={"owner":frappe.session.user})
@@ -315,9 +315,9 @@ def get_committees_extend_perm(user, doctype):
         allowed_committees_extend = allowed_committees.replace('name', 'committee')
 
 
-    if "Office Manager" in frappe.get_roles(frappe.session.user):
-        if frappe.session.user in get_chairman_and_general_office_managers_users():
-            return
+    # if "Office Manager" in frappe.get_roles(frappe.session.user):
+    #     if frappe.session.user in get_chairman_and_general_office_managers_users():
+    #         return
 
 
     owned_docs = frappe.get_all(doctype, filters={"owner":frappe.session.user})
@@ -424,33 +424,17 @@ def send_workflow_notification(doctype, document, workflow_state):
         if doctype=='Decisions':
             notification_subject = "يوجد قرار جديد بحاجة للمراجعة."
             email_subject = "مراجعة قرار"
-        elif doctype=='Committees':
-            notification_subject = "يوجد لجنة جديدة بحاجة للمراجعة."
-            email_subject = "مراجعة لجنة"
-        elif doctype=='Committee Extend':
-            notification_subject = "يوجد طلب تمديد لجنة جديد بحاجة للمراجعة."
-            email_subject = "مراجعة تمديد لجنة"
 
     elif workflow_state == 'Approved By Office Manager':
         allowed_users = frappe.db.sql_list("select parent from `tabHas Role` where role in ('General Manager', 'Chairman Manager') and parenttype='User' and parent !='Administrator' group by parent")
         if doctype=='Decisions':
             notification_subject = "يوجد قرار بحاجة للاعتماد."
             email_subject = "اعتماد قرار"
-        elif doctype=='Committees':
-            notification_subject = "يوجد لجنة جديدة بحاجة للاعتماد."
-            email_subject = "اعتماد لجنة"
-        elif doctype=='Committee Extend':
-            notification_subject = "يوجد طلب تمديد لجنة جديد بحاجة للاعتماد."
-            email_subject = "اعتماد تمديد لجنة"
 
 
     inbox_url = frappe.utils.data.get_url_to_form(doctype, document)
     if doctype=='Decisions':
         msg = "<p> You have a new Decision,<br> please check the decision and submit<br> <b><a href='{0}'>Go to Decision</a></b>".format(inbox_url)
-    elif doctype=='Committees':
-        msg = "<p> You have a new Committee,<br> please check the committee and submit<br> <b><a href='{0}'>Go to Committee</a></b>".format(inbox_url)
-    elif doctype=='Committee Extend':
-        msg = "<p> You have a new Committee Extend,<br> please check the committee extend and submit<br> <b><a href='{0}'>Go to Committee Extend</a></b>".format(inbox_url)
 
 
     for allowed_user in allowed_users:

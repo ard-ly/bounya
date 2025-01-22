@@ -140,7 +140,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-01-15 15:18:14.278345",
+ "modified": "2025-01-22 14:58:59.475229",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Committee Extend",
@@ -161,6 +161,7 @@
    "write": 1
   },
   {
+   "create": 1,
    "email": 1,
    "export": 1,
    "print": 1,
@@ -172,6 +173,7 @@
    "write": 1
   },
   {
+   "create": 1,
    "email": 1,
    "export": 1,
    "print": 1,
@@ -179,17 +181,7 @@
    "report": 1,
    "role": "Office Manager",
    "share": 1,
-   "write": 1
-  },
-  {
-   "create": 1,
-   "email": 1,
-   "export": 1,
-   "print": 1,
-   "read": 1,
-   "report": 1,
-   "role": "Legal Management",
-   "share": 1,
+   "submit": 1,
    "write": 1
   },
   {
