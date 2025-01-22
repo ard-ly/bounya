@@ -388,29 +388,6 @@ def get_inbox_perm(user, doctype):
 
 
 
-def get_chairman_and_general_office_managers_users():
-    office_manager_users = []
-
-    chairman_general_managers_employees = frappe.get_all(
-            "Employee",
-            filters={"user_id": ["in", frappe.get_all("Has Role", filters={"role": ["in", ['Chairman Manager', 'General Manager']]}, pluck="parent")]},
-            fields=["name", "user_id"]
-        )
-
-    for chairman_general_manager_employee in chairman_general_managers_employees:
-        chairman_general_managers_departments = frappe.get_all(
-            "Department",
-            filters={"custom_department_manager": chairman_general_manager_employee.name, "disabled": 0},
-            fields=["name", "custom_office_manager"]
-        )
-        for chairman_general_managers_department in chairman_general_managers_departments:
-            if chairman_general_managers_department.custom_office_manager:
-                office_manager_user = frappe.get_value("Employee", filters = {"name": chairman_general_managers_department.custom_office_manager}, fieldname = "user_id") or None
-                if office_manager_user and office_manager_user not in office_manager_users:
-                    office_manager_users.append(office_manager_user)
-    
-    return office_manager_users
-
 
 
 def send_workflow_notification(doctype, document, workflow_state):
@@ -463,6 +440,31 @@ def send_workflow_notification(doctype, document, workflow_state):
                     title="Workflow Notification Error"
                 )
 
+
+
+
+def get_chairman_and_general_office_managers_users():
+    office_manager_users = []
+
+    chairman_general_managers_employees = frappe.get_all(
+            "Employee",
+            filters={"user_id": ["in", frappe.get_all("Has Role", filters={"role": ["in", ['Chairman Manager', 'General Manager']]}, pluck="parent")]},
+            fields=["name", "user_id"]
+        )
+
+    for chairman_general_manager_employee in chairman_general_managers_employees:
+        chairman_general_managers_departments = frappe.get_all(
+            "Department",
+            filters={"custom_department_manager": chairman_general_manager_employee.name, "disabled": 0},
+            fields=["name", "custom_office_manager"]
+        )
+        for chairman_general_managers_department in chairman_general_managers_departments:
+            if chairman_general_managers_department.custom_office_manager:
+                office_manager_user = frappe.get_value("Employee", filters = {"name": chairman_general_managers_department.custom_office_manager}, fieldname = "user_id") or None
+                if office_manager_user and office_manager_user not in office_manager_users:
+                    office_manager_users.append(office_manager_user)
+    
+    return office_manager_users
 
 
 

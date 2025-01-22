@@ -1,7 +1,6 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "field:decision_number",
  "creation": "2024-12-02 13:00:27.714719",
  "default_view": "List",
  "doctype": "DocType",
@@ -34,7 +33,7 @@
    "fieldname": "decision_number",
    "fieldtype": "Data",
    "label": "Decision Number",
-   "reqd": 1,
+   "read_only": 1,
    "unique": 1
   },
   {
@@ -162,11 +161,10 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-01-22 10:52:17.599915",
+ "modified": "2025-01-22 15:20:17.445825",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Decisions",
- "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
   {
