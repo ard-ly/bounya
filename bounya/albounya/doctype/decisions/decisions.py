@@ -7,6 +7,25 @@ from frappe.model.document import Document
 from bounya.permission_query_condition import send_workflow_notification
 
 class Decisions(Document):
+    def autoname(self):
+        # Ensure `message_registration_date` is in string format
+        if isinstance(self.message_registration_date, datetime.date):
+            year = self.message_registration_date.strftime("%Y")  # Convert to string and extract year
+        else:
+            year = str(self.message_registration_date)[:4]
+
+        short_year = year[-2:]
+        count = frappe.db.count(
+            'Outgoing Mail',
+            filters={
+                'name': ['like', f"{short_year}-%"]
+            }
+        )
+        sequence_number = count + 1
+        formatted_sequence = f"{sequence_number:04d}"
+        self.name = f"{short_year}-{formatted_sequence}"
+
+
     def validate(self):
         send_workflow_notification(self.doctype, self.name, self.workflow_state)
 
