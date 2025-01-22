@@ -96,11 +96,11 @@ class Committees(Document):
 
 
             if len(recipients)>0:
-                for recipient in self.committee_members:
-                    if recipient.from_system:
+                for recipient in recipients:
+                    if frappe.db.exists("User", {"name": recipient}):
                         new_doc = frappe.new_doc("Notification Log")
                         new_doc.from_user = frappe.session.user
-                        new_doc.for_user = recipient.email
+                        new_doc.for_user = recipient
                         new_doc.type = "Share"
                         new_doc.document_type = self.doctype
                         new_doc.document_name = self.name
