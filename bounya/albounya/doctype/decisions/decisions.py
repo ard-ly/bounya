@@ -7,6 +7,27 @@ from frappe.model.document import Document
 from bounya.permission_query_condition import send_workflow_notification
 
 class Decisions(Document):
+    def autoname(self):
+        prefix = ''
+        if self.issuing_authority=='المدير العام':
+            prefix = 'GM'
+        elif self.issuing_authority=='مجلس الإدارة':
+            prefix = 'BD'
+        elif self.issuing_authority=='رئيس مجلس الإدارة':
+            prefix = 'CB'
+
+        count = frappe.db.count(
+            'Decisions',
+            filters={
+                'name': ['like', f"{prefix}%"]
+            }
+        )
+        sequence_number = count + 1
+        formatted_sequence = f"{sequence_number:05d}"
+        self.name = f"{prefix}-{formatted_sequence}"
+        self.decision_number = f"{prefix}-{formatted_sequence}"
+
+
     def validate(self):
         send_workflow_notification(self.doctype, self.name, self.workflow_state)
 

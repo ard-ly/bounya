@@ -8,8 +8,8 @@ from bounya.permission_query_condition import send_workflow_notification
 
 
 class Committees(Document):
-    def validate(self):
-        send_workflow_notification(self.doctype, self.name, self.workflow_state)
+    # def validate(self):
+    #     send_workflow_notification(self.doctype, self.name, self.workflow_state)
 
         
     def on_submit(self):

@@ -101,6 +101,16 @@ frappe.ui.form.on('Incoming Mail', {
 	outgoing_email_referral: function(frm) {
 		frm.set_value("outgoing_mail", )
 		frm.set_value("outgoing_message_subject", )
+	},
+	entity: function(frm) {
+		if(frm.doc.entity && !frm.doc.from){
+			frm.set_value("from", frm.doc.entity)
+		}
+	},
+	to: function(frm) {
+		if(frm.doc.to && !frm.doc.referral_to){
+			frm.set_value("referral_to", frm.doc.to)
+		}
 	}
 });
 

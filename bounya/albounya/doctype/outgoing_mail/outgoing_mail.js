@@ -75,6 +75,18 @@ frappe.ui.form.on('Outgoing Mail', {
 	        });
 	    }
 
+	    if(!frm.doc.entity){
+	    	frappe.call({
+		        method: "get_session_office_manager_user_entity",
+		        doc: cur_frm.doc,
+		        callback: function(r) {
+		        	if(r.message){
+		        		frm.set_value("entity", r.message)
+		        	}
+		        }
+		    });
+	    }
+
 
 		frm.set_query('decision_number', function () {
             return {
@@ -101,6 +113,16 @@ frappe.ui.form.on('Outgoing Mail', {
 	incoming_email_referral: function(frm) {
 		frm.set_value("incoming_mail", )
 		frm.set_value("incoming_message_subject", )
+	},
+	entity: function(frm) {
+		if(frm.doc.entity && !frm.doc.from){
+			frm.set_value("from", frm.doc.entity)
+		}
+	},
+	to: function(frm) {
+		if(frm.doc.to && !frm.doc.referral_to){
+			frm.set_value("referral_to", frm.doc.to)
+		}
 	}
 });
 
