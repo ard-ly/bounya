@@ -75,6 +75,18 @@ frappe.ui.form.on('Outgoing Mail', {
 	        });
 	    }
 
+	    if(!frm.doc.entity){
+	    	frappe.call({
+		        method: "get_session_office_manager_user_entity",
+		        doc: cur_frm.doc,
+		        callback: function(r) {
+		        	if(r.message){
+		        		frm.set_value("entity", r.message)
+		        	}
+		        }
+		    });
+	    }
+
 
 		frm.set_query('decision_number', function () {
             return {

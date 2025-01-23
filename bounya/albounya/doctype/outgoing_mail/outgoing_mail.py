@@ -92,3 +92,13 @@ class OutgoingMail(Document):
                 frappe.db.commit()
 
 
+    @frappe.whitelist()
+    def get_session_office_manager_user_entity(self):
+        office_manager_department = None
+
+        session_emp = frappe.get_value("Employee", filters = {"user_id": frappe.session.user}, fieldname = "name") or None
+        if session_emp:
+            office_manager_department = frappe.get_value("Department", filters = {"custom_office_manager": session_emp}, fieldname = "name") or None
+
+        return office_manager_department
+
