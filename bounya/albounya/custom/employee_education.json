@@ -71,7 +71,11 @@
    "_comments": null,
    "_liked_by": null,
    "_user_tags": null,
+<<<<<<< Updated upstream
    "creation": "2024-09-09 03:06:17.832419",
+=======
+   "creation": "2024-12-10 19:56:26.538821",
+>>>>>>> Stashed changes
    "default_value": null,
    "doc_type": "Employee Education",
    "docstatus": 0,
@@ -79,7 +83,11 @@
    "field_name": "class_per",
    "idx": 0,
    "is_system_generated": 0,
+<<<<<<< Updated upstream
    "modified": "2024-11-12 12:34:45.516577",
+=======
+   "modified": "2024-10-22 13:08:32.665559",
+>>>>>>> Stashed changes
    "modified_by": "Administrator",
    "module": null,
    "name": "Employee Education-class_per-label",
@@ -94,7 +102,11 @@
    "_comments": null,
    "_liked_by": null,
    "_user_tags": null,
+<<<<<<< Updated upstream
    "creation": "2024-09-09 03:06:48.252747",
+=======
+   "creation": "2024-12-10 19:56:26.512448",
+>>>>>>> Stashed changes
    "default_value": null,
    "doc_type": "Employee Education",
    "docstatus": 0,
@@ -102,7 +114,11 @@
    "field_name": null,
    "idx": 0,
    "is_system_generated": 0,
+<<<<<<< Updated upstream
    "modified": "2024-11-12 12:34:45.544970",
+=======
+   "modified": "2024-10-22 13:08:32.644472",
+>>>>>>> Stashed changes
    "modified_by": "Administrator",
    "module": null,
    "name": "Employee Education-main-field_order",
@@ -117,7 +133,11 @@
    "_comments": null,
    "_liked_by": null,
    "_user_tags": null,
+<<<<<<< Updated upstream
    "creation": "2024-09-09 03:06:17.860303",
+=======
+   "creation": "2024-12-10 19:56:26.487214",
+>>>>>>> Stashed changes
    "default_value": null,
    "doc_type": "Employee Education",
    "docstatus": 0,
@@ -125,7 +145,11 @@
    "field_name": "maj_opt_subj",
    "idx": 0,
    "is_system_generated": 0,
+<<<<<<< Updated upstream
    "modified": "2024-11-12 12:34:45.530585",
+=======
+   "modified": "2024-10-22 13:08:32.620218",
+>>>>>>> Stashed changes
    "modified_by": "Administrator",
    "module": null,
    "name": "Employee Education-maj_opt_subj-label",
@@ -140,7 +164,11 @@
    "_comments": null,
    "_liked_by": null,
    "_user_tags": null,
+<<<<<<< Updated upstream
    "creation": "2024-09-09 03:06:17.766612",
+=======
+   "creation": "2024-12-10 19:56:26.459805",
+>>>>>>> Stashed changes
    "default_value": null,
    "doc_type": "Employee Education",
    "docstatus": 0,
@@ -148,7 +176,11 @@
    "field_name": "qualification",
    "idx": 0,
    "is_system_generated": 0,
+<<<<<<< Updated upstream
    "modified": "2024-11-12 12:34:45.491484",
+=======
+   "modified": "2024-10-22 13:08:32.596360",
+>>>>>>> Stashed changes
    "modified_by": "Administrator",
    "module": null,
    "name": "Employee Education-qualification-label",
@@ -163,7 +195,11 @@
    "_comments": null,
    "_liked_by": null,
    "_user_tags": null,
+<<<<<<< Updated upstream
    "creation": "2024-09-09 03:06:17.735867",
+=======
+   "creation": "2024-12-10 19:56:26.432854",
+>>>>>>> Stashed changes
    "default_value": null,
    "doc_type": "Employee Education",
    "docstatus": 0,
@@ -171,7 +207,11 @@
    "field_name": "school_univ",
    "idx": 0,
    "is_system_generated": 0,
+<<<<<<< Updated upstream
    "modified": "2024-11-12 12:34:45.476383",
+=======
+   "modified": "2024-10-22 13:08:32.570657",
+>>>>>>> Stashed changes
    "modified_by": "Administrator",
    "module": null,
    "name": "Employee Education-school_univ-label",
@@ -186,7 +226,11 @@
    "_comments": null,
    "_liked_by": null,
    "_user_tags": null,
+<<<<<<< Updated upstream
    "creation": "2024-09-09 03:06:17.800263",
+=======
+   "creation": "2024-12-10 19:56:26.405952",
+>>>>>>> Stashed changes
    "default_value": null,
    "doc_type": "Employee Education",
    "docstatus": 0,
@@ -194,7 +238,11 @@
    "field_name": "year_of_passing",
    "idx": 0,
    "is_system_generated": 0,
+<<<<<<< Updated upstream
    "modified": "2024-11-12 12:34:45.503553",
+=======
+   "modified": "2024-10-22 13:08:32.538704",
+>>>>>>> Stashed changes
    "modified_by": "Administrator",
    "module": null,
    "name": "Employee Education-year_of_passing-label",

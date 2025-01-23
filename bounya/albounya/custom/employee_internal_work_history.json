@@ -11,7 +11,11 @@
    "collapsible": 0,
    "collapsible_depends_on": null,
    "columns": 0,
+<<<<<<< Updated upstream
    "creation": "2024-09-09 01:30:07.428306",
+=======
+   "creation": "2024-12-10 19:56:49.945411",
+>>>>>>> Stashed changes
    "default": null,
    "depends_on": null,
    "description": null,
@@ -133,7 +137,11 @@
    "collapsible": 0,
    "collapsible_depends_on": null,
    "columns": 0,
+<<<<<<< Updated upstream
    "creation": "2024-04-28 08:24:18.758735",
+=======
+   "creation": "2024-12-10 19:56:56.417344",
+>>>>>>> Stashed changes
    "default": null,
    "depends_on": null,
    "description": null,
@@ -193,7 +201,7 @@
    "_comments": null,
    "_liked_by": null,
    "_user_tags": null,
-   "creation": "2024-09-09 03:08:04.073244",
+   "creation": "2024-12-10 19:56:26.565716",
    "default_value": null,
    "doc_type": "Employee Internal Work History",
    "docstatus": 0,
@@ -201,7 +209,11 @@
    "field_name": null,
    "idx": 0,
    "is_system_generated": 0,
+<<<<<<< Updated upstream
    "modified": "2024-11-12 12:34:46.477835",
+=======
+   "modified": "2024-10-22 13:08:33.997412",
+>>>>>>> Stashed changes
    "modified_by": "Administrator",
    "module": null,
    "name": "Employee Internal Work History-main-field_order",

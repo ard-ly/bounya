@@ -11,7 +11,11 @@
    "collapsible": 0,
    "collapsible_depends_on": null,
    "columns": 0,
+<<<<<<< Updated upstream
    "creation": "2024-04-24 14:16:08.972888",
+=======
+   "creation": "2024-12-10 19:56:52.394982",
+>>>>>>> Stashed changes
    "default": null,
    "depends_on": null,
    "description": null,
@@ -25,7 +29,11 @@
    "hide_border": 0,
    "hide_days": 0,
    "hide_seconds": 0,
+<<<<<<< Updated upstream
    "idx": 4,
+=======
+   "idx": 2,
+>>>>>>> Stashed changes
    "ignore_user_permissions": 0,
    "ignore_xss_filter": 0,
    "in_global_search": 0,
@@ -72,7 +80,11 @@
    "collapsible": 0,
    "collapsible_depends_on": null,
    "columns": 0,
+<<<<<<< Updated upstream
    "creation": "2024-04-24 14:20:39.060692",
+=======
+   "creation": "2024-12-10 19:56:54.065464",
+>>>>>>> Stashed changes
    "default": null,
    "depends_on": null,
    "description": null,
@@ -86,7 +98,11 @@
    "hide_border": 0,
    "hide_days": 0,
    "hide_seconds": 0,
+<<<<<<< Updated upstream
    "idx": 9,
+=======
+   "idx": 3,
+>>>>>>> Stashed changes
    "ignore_user_permissions": 0,
    "ignore_xss_filter": 0,
    "in_global_search": 0,
@@ -193,7 +209,7 @@
    "_comments": null,
    "_liked_by": null,
    "_user_tags": null,
-   "creation": "2024-04-25 10:26:43.104105",
+   "creation": "2024-12-10 19:56:25.413655",
    "default_value": null,
    "doc_type": "Employee External Work History",
    "docstatus": 0,
@@ -201,7 +217,11 @@
    "field_name": null,
    "idx": 0,
    "is_system_generated": 0,
+<<<<<<< Updated upstream
    "modified": "2024-11-12 12:34:44.741092",
+=======
+   "modified": "2024-10-22 13:08:31.402023",
+>>>>>>> Stashed changes
    "modified_by": "Administrator",
    "module": null,
    "name": "Employee External Work History-main-field_order",
