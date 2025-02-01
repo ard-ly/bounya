@@ -1,5 +1,6 @@
 {
  "actions": [],
+ "allow_import": 1,
  "allow_rename": 1,
  "creation": "2024-12-02 13:00:27.714719",
  "default_view": "List",
@@ -161,7 +162,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-01-22 15:20:17.445825",
+ "modified": "2025-02-01 13:43:11.264217",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Decisions",
@@ -172,6 +173,7 @@
    "delete": 1,
    "email": 1,
    "export": 1,
+   "import": 1,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -181,8 +183,10 @@
    "write": 1
   },
   {
+   "create": 1,
    "email": 1,
    "export": 1,
+   "import": 1,
    "print": 1,
    "read": 1,
    "report": 1,
@@ -192,12 +196,14 @@
    "write": 1
   },
   {
+   "create": 1,
    "email": 1,
    "export": 1,
+   "import": 1,
    "print": 1,
    "read": 1,
    "report": 1,
-   "role": "Office Manager",
+   "role": "General Manager",
    "share": 1,
    "write": 1
   },
@@ -218,8 +224,9 @@
    "print": 1,
    "read": 1,
    "report": 1,
-   "role": "Department Manager",
-   "share": 1
+   "role": "Office Manager",
+   "share": 1,
+   "write": 1
   },
   {
    "email": 1,
@@ -227,7 +234,7 @@
    "print": 1,
    "read": 1,
    "report": 1,
-   "role": "General Manager",
+   "role": "Department Manager",
    "share": 1
   },
   {
