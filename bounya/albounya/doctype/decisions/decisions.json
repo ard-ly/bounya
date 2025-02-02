@@ -125,7 +125,7 @@
    "depends_on": "previous_decision_referral",
    "fieldname": "previous_decision_number",
    "fieldtype": "Link",
-   "label": "Decision Number",
+   "label": "Previous Decision Number",
    "mandatory_depends_on": "previous_decision_referral",
    "options": "Decisions"
   },
@@ -141,28 +141,28 @@
    "fetch_from": "previous_decision_number.decision_subject",
    "fieldname": "previous_decision_subject",
    "fieldtype": "Data",
-   "label": "Decision Subject",
+   "label": "Previous Decision Subject",
    "read_only": 1
   },
   {
    "fetch_from": "previous_decision_number.decision_date",
    "fieldname": "previous_decision_date",
    "fieldtype": "Date",
-   "label": "Decision Date",
+   "label": "Previous Decision Date",
    "read_only": 1
   },
   {
    "fetch_from": "previous_decision_number.decision_file",
    "fieldname": "previous_decision_file",
    "fieldtype": "Attach",
-   "label": "Decision File",
+   "label": "Previous Decision File",
    "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-02-01 13:43:11.264217",
+ "modified": "2025-02-02 13:18:30.304020",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Decisions",
