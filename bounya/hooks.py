@@ -350,6 +350,7 @@ fixtures = [
         {"dt": "Workflow"},
         {"dt": "Workflow State"},
         {"dt": "Property Setter", "filters": [["module", "in", ["Albounya"]]]},
+        {"dt": "Client Script", "filters": [["module", "in", ["Albounya"]]]},
     ]
 
 #     {"dt": "Custom Field", "filters": [["module", "in", ["Albounya"]]]},
