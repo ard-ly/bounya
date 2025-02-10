@@ -339,7 +339,7 @@ def notification_employee_promotion():
             emp_joining_year = getdate(emp.date_of_joining).year
             
             if getdate(nowdate()).month > getdate(emp.date_of_joining).month or (getdate(nowdate()).month == getdate(emp.date_of_joining).month and getdate(nowdate()).day > getdate(emp.date_of_joining).day):
-                emp_joining_year += 1            
+                emp_joining_year += 1
             next_promotion_date = getdate(f"{emp_joining_year}-{getdate(emp.date_of_joining).month:02d}-{getdate(emp.date_of_joining).day:02d}")
 
             days_left = (getdate(next_promotion_date) - getdate(nowdate())).days
