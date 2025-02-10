@@ -977,7 +977,8 @@ def update_external_advance_on_cancel(doc, method):
             # cancel Additional Salary.
             ad_doc = frappe.get_doc(
                 "Additional Salary", repay_doc.additional_salary)
-            ad_doc.cancel()
+            if ad_doc.docstatus==1:
+                ad_doc.cancel()
 
 
 # Salary Component validate event.
