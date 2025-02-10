@@ -34,7 +34,7 @@ app_include_js = [
 doctype_js = {
     "Salary Structure": "public/js/salary_structure.js",
     "Salary Structure Assignment": "public/js/salary_structure_assignment.js",
-    "Employee": "public/js/employee.js",
+    # "Employee": "public/js/employee.js",
     "Material Request": "public/js/material_request.js",
     "Additional Salary": "public/js/additional-salary.js",
     "Appraisal": "public/js/appraisal.js",
