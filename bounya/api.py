@@ -329,24 +329,42 @@ def notification_employee_promotion():
         filters={
             'status': ['=', 'Active']
         }, 
-        fields=['name', 'date_of_joining']
+        fields=['name', 'date_of_joining', 'custom_contract_type']
     )
 
     for emp in employees:
-        if emp.date_of_joining:
-            notification_send_date = []
-            
-            emp_joining_year = getdate(emp.date_of_joining).year
-            
-            if getdate(nowdate()).month > getdate(emp.date_of_joining).month or (getdate(nowdate()).month == getdate(emp.date_of_joining).month and getdate(nowdate()).day > getdate(emp.date_of_joining).day):
-                emp_joining_year += 1
-            next_promotion_date = getdate(f"{emp_joining_year}-{getdate(emp.date_of_joining).month:02d}-{getdate(emp.date_of_joining).day:02d}")
+        promotion_period_years = 0
+        notification_send_date = []
+
+        hr_settings = frappe.get_single("HR Settings")
+        if hr_settings.custom_employee_promotion_settings:
+            for row in hr_settings.custom_employee_promotion_settings:
+                if row.contract_type == emp.custom_contract_type:
+                    promotion_period_years = row.promotion_after_years
+                    break
+
+        if emp.custom_contract_type and promotion_period_years>0:
+            previous_promotion_date = getdate(emp.date_of_joining)
+
+            last_employee_promotion_entry = frappe.db.sql("""
+                SELECT promotion_date 
+                FROM `tabEmployee Promotion` 
+                WHERE employee = %s AND docstatus = 1
+                ORDER BY promotion_date DESC
+                LIMIT 1
+            """, (emp.name), as_dict=True)
+            if last_employee_promotion_entry:
+                previous_promotion_date = last_employee_promotion_entry[0].promotion_date
+
+            next_promotion_date = add_years(getdate(previous_promotion_date), promotion_period_years)
 
             days_left = (getdate(next_promotion_date) - getdate(nowdate())).days
 
+            # print("Emp: "+str(emp.name) +', Years: '+str(promotion_period_years)+', Previous: '+str(previous_promotion_date)+', Next: '+str(next_promotion_date))
+
             notification_send_date.append(add_months(next_promotion_date, -1)) if add_months(next_promotion_date, -1) > getdate(nowdate()) else None
             notification_send_date.append(add_days(next_promotion_date, -7)) if add_days(next_promotion_date, -7) > getdate(nowdate()) else None
-
+            
             if getdate(nowdate()) in notification_send_date:
                 hr_notification_users = frappe.get_all('Has Role', filters={'role': 'HR Notification', 'parent': ['!=', 'Administrator']}, fields=['parent'])
                 if hr_notification_users and days_left>0:
@@ -391,7 +409,7 @@ def notification_end_leave_application():
                         new_doc.subject = f"Employee {leave.employee} has completed their leave and is returning to work today."
                         new_doc.insert(ignore_permissions=True)
 
-           
+
 
 
 @frappe.whitelist()
