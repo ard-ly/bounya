@@ -5,7 +5,7 @@
 from __future__ import unicode_literals
 import frappe
 from frappe import _
-from frappe.utils import formatdate, getdate, flt, add_days, add_months, get_last_day, date_diff, nowdate
+from frappe.utils import formatdate, getdate, flt, add_days, add_months, get_last_day, date_diff, nowdate, add_years
 from datetime import datetime, date
 import datetime
 
@@ -19,9 +19,9 @@ def get_columns(filters):
         _("Employee") + ":Link/Employee:150",
         _("Employee Name") + "::200",
         _("Date of Joining") + ":Date:150",
-        _("Retirement Age") + "::150",
-        _("Retirement Date") + ":Date:150",
-        _("Days Remaining") + "::150"
+        _("Last Promotion Date") + ":Date:150",
+        _("Next Promotion Date") + ":Date:150",
+        _("Late Promotion Days") + "::150"
         ]
 
 
@@ -36,25 +36,47 @@ def get_conditions(filters):
 def get_data(filters):
     data = []
     conditions = get_conditions(filters)
-    li_list=frappe.db.sql("""select employee, employee_name, date_of_joining, gender, date_of_retirement from `tabEmployee` where status='Active' {0} order by date_of_birth asc""".format(conditions), as_dict=1)
+    li_list=frappe.db.sql("""select employee, employee_name, date_of_joining, custom_contract_type from `tabEmployee` where status='Active' {0} order by date_of_joining desc""".format(conditions), as_dict=1)
     
     for emp in li_list:
-        retirement_age = 65 
-        if emp.gender == 'Male':
-            retirement_age = frappe.db.get_value("HR Settings", "HR Settings", "retirement_age")
-        elif emp.gender == 'Female':
-            retirement_age = frappe.db.get_value("HR Settings", "HR Settings", "custom_retirement_age_female")
+        promotion_period_years = 0
+        late_days = 0
 
-        days_remaining = date_diff(getdate(emp.date_of_retirement), getdate(nowdate))
+        hr_settings = frappe.get_single("HR Settings")
+        if hr_settings.custom_employee_promotion_settings:
+            for row in hr_settings.custom_employee_promotion_settings:
+                if row.contract_type == emp.custom_contract_type:
+                    promotion_period_years = row.promotion_after_years
+                    break
 
-        if days_remaining>0 and days_remaining<=90:
+        if emp.custom_contract_type and promotion_period_years>0:
+            previous_promotion_date = getdate(emp.date_of_joining)
+
+            last_employee_promotion_entry = frappe.db.sql("""
+                SELECT promotion_date 
+                FROM `tabEmployee Promotion` 
+                WHERE employee = %s AND docstatus = 1
+                ORDER BY promotion_date DESC
+                LIMIT 1
+            """, (emp.employee), as_dict=True)
+            if last_employee_promotion_entry:
+                previous_promotion_date = last_employee_promotion_entry[0].promotion_date
+
+            next_promotion_date = add_years(getdate(previous_promotion_date), promotion_period_years)
+
+            days_left = (getdate(next_promotion_date) - getdate(nowdate())).days
+
+            remaining_days = date_diff(getdate(next_promotion_date), getdate(nowdate))
+            if remaining_days < 0:
+                late_days = abs(remaining_days)
+                
             row = [
                 emp.employee,
                 emp.employee_name,
                 emp.date_of_joining,
-                retirement_age,
-                emp.date_of_retirement,
-                days_remaining
+                previous_promotion_date,
+                next_promotion_date,
+                late_days
             ]
 
             data.append(row)
