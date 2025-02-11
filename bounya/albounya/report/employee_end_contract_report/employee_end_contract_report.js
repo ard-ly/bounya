@@ -4,6 +4,11 @@
 
 frappe.query_reports["Employee End Contract Report"] = {
 	"filters": [
-
+		{
+			label: __("Employee"),
+			fieldname: "employee",
+			fieldtype: "Link",
+			options: "Employee",
+		}
 	]
 };
