@@ -386,7 +386,8 @@ def notification_end_leave_application():
     leaves = frappe.get_all(
         'Leave Application', 
         filters={
-            'docstatus': ['=', 1]
+            'docstatus': ['=', 1],
+            'leave_type': 'اجازة بدون مرتب'
         }, 
         fields=['name', 'employee', 'to_date']
     )
