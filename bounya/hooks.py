@@ -344,7 +344,6 @@ ignore_links_on_delete = ["Department", "Salary Slip", "Additional Salary" , "Em
 fixtures = [
         {"dt": "Translation"},
         # {"dt": "Custom Field"},
-        {"dt": "Role"},
         {"dt": "Workflow"},
         {"dt": "Workflow State"},
         {"dt": "Client Script", "filters": [["module", "in", ["Albounya"]]]},
