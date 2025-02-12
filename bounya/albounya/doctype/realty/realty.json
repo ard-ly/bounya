@@ -112,8 +112,7 @@
    "depends_on": "eval:doc.realty_type != \"A Land Plot\"",
    "fieldname": "build_up_date",
    "fieldtype": "Date",
-   "label": "Build up Date",
-   "mandatory_depends_on": "eval:doc.realty_type != \"A Land Plot\""
+   "label": "Build up Date"
   },
   {
    "depends_on": "eval:doc.realty_type == 'Building'",
@@ -443,8 +442,7 @@
    "depends_on": "eval:doc.realty_type == \"A Land Plot\"",
    "fieldname": "purchase_date",
    "fieldtype": "Date",
-   "label": "Purchase Date",
-   "mandatory_depends_on": "eval:doc.realty_type == \"A Land Plot\""
+   "label": "Purchase Date"
   },
   {
    "fetch_from": "branch.custom_branch_no",
@@ -471,8 +469,7 @@
   {
    "fieldname": "realty_name",
    "fieldtype": "Data",
-   "label": "Realty Name",
-   "reqd": 1
+   "label": "Realty Name"
   },
   {
    "fetch_from": "location.location_no",
@@ -486,7 +483,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-11-12 13:02:00.255450",
+ "modified": "2025-02-12 12:01:11.879425",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Realty",

@@ -37,8 +37,7 @@
    "fieldname": "name1",
    "fieldtype": "Data",
    "in_list_view": 1,
-   "label": "Building Name",
-   "reqd": 1
+   "label": "Building Name"
   },
   {
    "fieldname": "serial_number",
@@ -179,7 +178,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-10-08 14:38:08.756347",
+ "modified": "2025-02-12 12:02:07.152885",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Buildings",

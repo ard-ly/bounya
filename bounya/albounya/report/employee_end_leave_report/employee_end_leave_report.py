@@ -37,7 +37,7 @@ def get_conditions(filters):
 def get_data(filters):
     data = []
     conditions = get_conditions(filters)
-    li_list=frappe.db.sql("""select employee, employee_name, leave_type, from_date, to_date from `tabLeave Application` where docstatus=1 {0} order by creation desc""".format(conditions), as_dict=1)
+    li_list=frappe.db.sql("""select employee, employee_name, leave_type, from_date, to_date from `tabLeave Application` where docstatus=1 and leave_type='اجازة بدون مرتب' {0} order by creation desc""".format(conditions), as_dict=1)
     
     for leave in li_list:
         return_date = getdate(add_days(leave.to_date, 1))
