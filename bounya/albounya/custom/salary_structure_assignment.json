@@ -505,7 +505,7 @@
    "description": null,
    "docstatus": 0,
    "dt": "Salary Structure Assignment",
-   "fetch_from": "employee.custom_dependent",
+   "fetch_from": "employee.custom_dependent_",
    "fetch_if_empty": 0,
    "fieldname": "custom_dependent",
    "fieldtype": "Int",
