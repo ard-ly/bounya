@@ -604,43 +604,43 @@ def check_custom_has_assets(doc, method):
 @frappe.whitelist()
 def create_external_work_history(doc, method):
     try:
-        if doc.custom_created_by_monthly_promotion == 1:
-            work_history = frappe.new_doc("Employee Internal Work History")
-            work_history.parent = doc.employee
-            work_history.from_date = doc.promotion_date
-            work_history.department = doc.department
-            work_history.parentfield = "internal_work_history"
-            work_history.parenttype = "Employee"
-            for row in doc.promotion_details:
-                if row.property == "Grade":
-                    work_history.custom_grade = row.new
+        # if doc.custom_created_by_monthly_promotion == 1:
+        work_history = frappe.new_doc("Employee Internal Work History")
+        work_history.parent = doc.employee
+        work_history.from_date = doc.promotion_date
+        work_history.department = doc.department
+        work_history.parentfield = "internal_work_history"
+        work_history.parenttype = "Employee"
+        for row in doc.promotion_details:
+            if row.property == "Grade":
+                work_history.custom_grade = row.new
 
-                if row.property == "Designation":
-                    work_history.designation = row.new
-                else:
-                    work_history.designation = doc.custom_currennt_designation
+            if row.property == "Designation":
+                work_history.designation = row.new
+            else:
+                work_history.designation = doc.custom_currennt_designation
 
-                if row.property == "Dependent":
-                    work_history.custom_dependent = row.new
+            if row.property == "Dependent":
+                work_history.custom_dependent = row.new
 
-                if row.property == "Branch":
-                    work_history.branch = row.new
-                else:
-                    work_history.branch = doc.custom_branch
+            if row.property == "Branch":
+                work_history.branch = row.new
+            else:
+                work_history.branch = doc.custom_branch
 
-            work_history.insert(ignore_permissions=True)
-            frappe.db.set_value(
-                "Employee Promotion",
-                doc.name,
-                "custom_internal_work_history",
-                work_history.name,
-            )
-            frappe.db.set_value(
-                "Employee",
-                doc.employee,
-                "custom_last_promotion_date",
-                doc.promotion_date,
-            )
+        work_history.insert(ignore_permissions=True)
+        frappe.db.set_value(
+            "Employee Promotion",
+            doc.name,
+            "custom_internal_work_history",
+            work_history.name,
+        )
+        frappe.db.set_value(
+            "Employee",
+            doc.employee,
+            "custom_last_promotion_date",
+            doc.promotion_date,
+        )
 
     except Exception as e:
         frappe.log_error("Error while creating Employee Internal Work History")
