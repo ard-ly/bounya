@@ -31,20 +31,20 @@ frappe.ui.form.on('Realty', {
 	},
 	
 	onload: function(frm) {
-		frm.set_query("building", function() {
-			return {
-				filters: {
-					"docstatus": 1,
-				}
-			};
-		});
-		frm.set_query("towers", function() {
-			return {
-				filters: {
-					"docstatus": 1,
-				}
-			};
-		});
+		// frm.set_query("building", function() {
+		// 	return {
+		// 		filters: {
+		// 			"docstatus": 1,
+		// 		}
+		// 	};
+		// });
+		// frm.set_query("towers", function() {
+		// 	return {
+		// 		filters: {
+		// 			"docstatus": 1,
+		// 		}
+		// 	};
+		// });
 		
 
 	},
