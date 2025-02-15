@@ -191,6 +191,7 @@ doc_events = {
         "validate": "bounya.api.check_for_employee_external_advance",
         "on_submit": "bounya.api.update_external_advance_on_submit",
         "on_cancel": "bounya.api.update_external_advance_on_cancel",
+        "on_trash": "bounya.api.update_external_advance_on_trach",
     },
     # "Salary Component": {
     #     "validate": "bounya.api.update_component_order",

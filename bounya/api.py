@@ -95,6 +95,58 @@ import re
 
 
 
+
+
+@frappe.whitelist()
+def fix_external_advance():
+    emp_loans = frappe.db.sql_list("select name from `tabEmployee External Loans` where docstatus=1")
+    for emp_loan in  emp_loans:
+        print('**'+str(emp_loan)+'**')
+
+        eea_doc = frappe.get_doc("Employee External Loans", emp_loan)
+
+        new_paid = sum(row.amount for row in eea_doc.repayment_schedule if row.status == "Submitted")
+        new_remain = eea_doc.advance_amount - new_paid
+        print(new_paid)
+        print(new_remain)
+
+        if eea_doc.paid_amount!=new_paid or eea_doc.remaining_amount!=new_remain:
+            print("- Updated")
+            frappe.db.set_value(
+                "Employee External Loans",
+                eea_doc.name,
+                {
+                    "paid_amount": new_paid,
+                    "remaining_amount": new_remain,
+                },
+            )
+
+            # update Employee External Loans status.
+            if new_remain == 0:
+                frappe.db.set_value(
+                    "Employee External Loans", eea_doc.name, "status", "Paid"
+                )
+            else:
+                frappe.db.set_value(
+                    "Employee External Loans", eea_doc.name, "status", "Unpaid"
+                )
+
+
+
+
+@frappe.whitelist()
+def remove_not_existing_salary_slip():
+    repay_list = frappe.get_all("External Loans Repayment", filters={"parenttype": 'Employee External Loans'}, fields=["name", "salary_slip"])
+    if repay_list:
+        for row in repay_list:
+            if not frappe.db.exists("Salary Slip", row.salary_slip):
+                print("Salary Slip: "+str(row.salary_slip))
+                frappe.delete_doc("External Loans Repayment", row.name, force=True)
+
+
+
+
+
 def on_cancel_update_workflow_state(doc, method):
     target_doctypes = ["Decisions", "Committees", "Committee Extend"]
 
@@ -846,6 +898,13 @@ def check_for_employee_external_advance(doc, method):
             filters={"parent": eea_doc.name, "salary_slip": doc.name},
         )
 
+        # Check if the salary slip already exists in the repayment_schedule
+        existing_repayment = frappe.get_all(
+            "External Loans Repayment",
+            filters={"salary_slip": doc.name, "parent": eea_doc.name},
+            fields=["name"]
+        )
+
         if not repay_list:
             # check if Additional Salary already exists.
             ad_list = frappe.get_all(
@@ -878,42 +937,45 @@ def check_for_employee_external_advance(doc, method):
                 new_ad.insert(ignore_permissions=True)
                 new_ad.submit()
 
-                # add row in External Loans Repayment.
-                new_repayment_row = frappe.new_doc("External Loans Repayment")
-                new_repayment_row.salary_slip = doc.name
-                new_repayment_row.additional_salary = new_ad.name
-                new_repayment_row.status = doc.status
-                new_repayment_row.amount = new_ad.amount
-                new_repayment_row.parent = eea_doc.name
-                new_repayment_row.parentfield = "repayment_schedule"
-                new_repayment_row.parenttype = "Employee External Loans"
-                new_repayment_row.insert(ignore_permissions=True)
-                print(new_repayment_row.name)
-
-                frappe.db.set_value(
-                    "Additional Salary",
-                    new_ad.name,
-                    "custom_employee_salary_slip",
-                    doc.name,
-                )
-                doc.validate()
-            else:
-                print("in ad_list else",)
-                for ad in ad_list:
-                    # ad_doc = frappe.get_doc("Employee External Loans", ad.custom_employee_external_loans)
-                    ad_doc = frappe.get_doc("Additional Salary", ad.name)
-                    # new row in External Loans Repayment.
-                    new_repayment_row = frappe.new_doc(
-                        "External Loans Repayment")
+                
+                if not existing_repayment:
+                    # add row in External Loans Repayment.
+                    new_repayment_row = frappe.new_doc("External Loans Repayment")
                     new_repayment_row.salary_slip = doc.name
-                    new_repayment_row.additional_salary = ad_doc.name
+                    new_repayment_row.additional_salary = new_ad.name
                     new_repayment_row.status = doc.status
-                    new_repayment_row.amount = ad_doc.amount
+                    new_repayment_row.amount = new_ad.amount
                     new_repayment_row.parent = eea_doc.name
                     new_repayment_row.parentfield = "repayment_schedule"
                     new_repayment_row.parenttype = "Employee External Loans"
                     new_repayment_row.insert(ignore_permissions=True)
                     print(new_repayment_row.name)
+
+                    frappe.db.set_value(
+                        "Additional Salary",
+                        new_ad.name,
+                        "custom_employee_salary_slip",
+                        doc.name,
+                    )
+                doc.validate()
+            else:
+                print("in ad_list else",)
+                for ad in ad_list:
+                    if not existing_repayment:
+                        # ad_doc = frappe.get_doc("Employee External Loans", ad.custom_employee_external_loans)
+                        ad_doc = frappe.get_doc("Additional Salary", ad.name)
+                        # new row in External Loans Repayment.
+                        new_repayment_row = frappe.new_doc(
+                            "External Loans Repayment")
+                        new_repayment_row.salary_slip = doc.name
+                        new_repayment_row.additional_salary = ad_doc.name
+                        new_repayment_row.status = doc.status
+                        new_repayment_row.amount = ad_doc.amount
+                        new_repayment_row.parent = eea_doc.name
+                        new_repayment_row.parentfield = "repayment_schedule"
+                        new_repayment_row.parenttype = "Employee External Loans"
+                        new_repayment_row.insert(ignore_permissions=True)
+                        print(new_repayment_row.name)
 
 
 # Salary Slip on_submit event.
@@ -998,6 +1060,30 @@ def update_external_advance_on_cancel(doc, method):
                 "Additional Salary", repay_doc.additional_salary)
             if ad_doc.docstatus==1:
                 ad_doc.cancel()
+
+
+
+
+# Salary Slip on_cancel event.
+@frappe.whitelist()
+def update_external_advance_on_trach(doc, method):
+    repay_list = frappe.get_all(
+        "External Loans Repayment", filters={"salary_slip": doc.name}, fields=["name", "additional_salary"]
+    )
+    if repay_list:
+        for row in repay_list:
+            # remove row from External Loans Repayment.
+            frappe.delete_doc("External Loans Repayment", row.name, force=True)
+
+            # remove Additional Salary.
+            if row.additional_salary and frappe.db.exists("Additional Salary", row.additional_salary):
+                ad_doc = frappe.get_doc("Additional Salary", row.additional_salary)
+                if ad_doc.docstatus==1:
+                    ad_doc.cancel()
+                ad_doc.delete()
+
+        frappe.db.commit()
+
 
 
 # Salary Component validate event.
