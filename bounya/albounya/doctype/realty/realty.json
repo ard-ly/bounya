@@ -1,7 +1,8 @@
 {
  "actions": [],
+ "allow_import": 1,
  "allow_rename": 1,
- "autoname": "format:{branch}-{office_no}-{location_no}-{realty_no}",
+ "autoname": "format:{realty_no}",
  "creation": "2024-06-19 10:29:36.204267",
  "default_view": "List",
  "doctype": "DocType",
@@ -318,7 +319,7 @@
    "fieldtype": "Select",
    "in_standard_filter": 1,
    "label": "Legal status of the property",
-   "options": "\nunregistered\nHaving an issue\nLack of ownership documents"
+   "options": "\nregistered\nunregistered\nHaving an issue\nLack of ownership documents"
   },
   {
    "fieldname": "column_break_b6kmr",
@@ -476,14 +477,13 @@
    "fieldname": "location_no",
    "fieldtype": "Data",
    "label": "Location No",
-   "read_only": 1,
-   "reqd": 1
+   "read_only": 1
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2025-02-12 12:01:11.879425",
+ "modified": "2025-02-15 12:28:01.836235",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Realty",

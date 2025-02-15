@@ -1,7 +1,8 @@
 {
  "actions": [],
+ "allow_import": 1,
  "allow_rename": 1,
- "autoname": "format:{location_name}-{location_no}",
+ "autoname": "field:location_name",
  "creation": "2024-10-07 08:59:12.179695",
  "default_view": "List",
  "doctype": "DocType",
@@ -44,15 +45,13 @@
    "fieldname": "longitude",
    "fieldtype": "Float",
    "label": "Longitude",
-   "precision": "6",
-   "reqd": 1
+   "precision": "6"
   },
   {
    "fieldname": "latitude",
    "fieldtype": "Float",
    "label": "Latitude",
-   "precision": "6",
-   "reqd": 1
+   "precision": "6"
   },
   {
    "fieldname": "location_coordinates",
@@ -62,11 +61,11 @@
  ],
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-10-07 09:12:24.033905",
+ "modified": "2025-02-15 12:29:54.526512",
  "modified_by": "Administrator",
  "module": "Albounya",
  "name": "Realty Location",
- "naming_rule": "Expression",
+ "naming_rule": "By fieldname",
  "owner": "Administrator",
  "permissions": [
   {
