@@ -107,8 +107,6 @@ def fix_external_advance():
 
         new_paid = sum(row.amount for row in eea_doc.repayment_schedule if row.status == "Submitted")
         new_remain = eea_doc.advance_amount - new_paid
-        print(new_paid)
-        print(new_remain)
 
         if eea_doc.paid_amount!=new_paid or eea_doc.remaining_amount!=new_remain:
             print("- Updated")
@@ -134,14 +132,41 @@ def fix_external_advance():
 
 
 
+
+
 @frappe.whitelist()
-def remove_not_existing_salary_slip():
-    repay_list = frappe.get_all("External Loans Repayment", filters={"parenttype": 'Employee External Loans'}, fields=["name", "salary_slip"])
-    if repay_list:
-        for row in repay_list:
-            if not frappe.db.exists("Salary Slip", row.salary_slip):
-                print("Salary Slip: "+str(row.salary_slip))
-                frappe.delete_doc("External Loans Repayment", row.name, force=True)
+def remove_duplicated_not_existing_salary_slip():
+    # Get all Employee External Loans documents
+    emp_loans = frappe.get_all("Employee External Loans", fields=["name"])
+
+    for loan in emp_loans:
+        # Get all repayment schedule entries for this loan
+        repayment_entries = frappe.get_all(
+            "External Loans Repayment",
+            filters={"parent": loan.name},
+            fields=["name", "salary_slip", "status"]
+        )
+
+        salary_slip_map = {}  # Dictionary to track first occurrence of each salary slip
+
+        for row in repayment_entries:
+            if not row.salary_slip or not frappe.db.exists("Salary Slip", row.salary_slip):
+                # If Salary Slip does not exist, mark as "Cancelled"
+                frappe.db.set_value("External Loans Repayment", row.name, "status", "Cancelled")
+                print(f"Cancelled missing Salary Slip: {row.salary_slip}")
+
+            elif row.salary_slip in salary_slip_map:
+                # If duplicate Salary Slip, mark as "Cancelled"
+                frappe.db.set_value("External Loans Repayment", row.name, "status", "Cancelled")
+                print(f"Cancelled duplicate: {row.salary_slip}")
+
+            else:
+                # Keep the first occurrence of each Salary Slip
+                salary_slip_map[row.salary_slip] = row.name
+
+    frappe.db.commit()  # Save changes to the database
+
+
 
 
 
