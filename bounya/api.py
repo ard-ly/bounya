@@ -1099,7 +1099,8 @@ def update_external_advance_on_trach(doc, method):
     if repay_list:
         for row in repay_list:
             # remove row from External Loans Repayment.
-            frappe.delete_doc("External Loans Repayment", row.name, force=True)
+            # frappe.delete_doc("External Loans Repayment", row.name, force=True)
+            frappe.db.set_value("External Loans Repayment", row.name, "status", "Cancelled")
 
             # remove Additional Salary.
             if row.additional_salary and frappe.db.exists("Additional Salary", row.additional_salary):
