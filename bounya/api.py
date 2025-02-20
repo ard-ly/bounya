@@ -944,23 +944,24 @@ def check_for_employee_external_advance(doc, method):
             if not ad_list:
                 print("in not ad_list")
                 # create Additional Salary.
-                new_ad = frappe.new_doc("Additional Salary")
-                new_ad.employee = eea_doc.employee
-                new_ad.employee_name = eea_doc.employee_name
-                new_ad.department = eea_doc.department
-                new_ad.company = eea_doc.company
-                new_ad.payroll_date = doc.start_date
-                new_ad.custom_month = doc.custom_month
-                new_ad.salary_component = eea_doc.salary_component
-                new_ad.custom_employee_external_loans = eea_doc.name
+                if not frappe.db.exists("Additional Salary", {"employee": eea_doc.employee, "payroll_date": doc.start_date, "salary_component": eea_doc.salary_component}):
+                    new_ad = frappe.new_doc("Additional Salary")
+                    new_ad.employee = eea_doc.employee
+                    new_ad.employee_name = eea_doc.employee_name
+                    new_ad.department = eea_doc.department
+                    new_ad.company = eea_doc.company
+                    new_ad.payroll_date = doc.start_date
+                    new_ad.custom_month = doc.custom_month
+                    new_ad.salary_component = eea_doc.salary_component
+                    new_ad.custom_employee_external_loans = eea_doc.name
 
-                if eea_doc.remaining_amount < eea_doc.monthly_repayment_amount:
-                    new_ad.amount = eea_doc.remaining_amount
-                else:
-                    new_ad.amount = eea_doc.monthly_repayment_amount
+                    if eea_doc.remaining_amount < eea_doc.monthly_repayment_amount:
+                        new_ad.amount = eea_doc.remaining_amount
+                    else:
+                        new_ad.amount = eea_doc.monthly_repayment_amount
 
-                new_ad.insert(ignore_permissions=True)
-                new_ad.submit()
+                    new_ad.insert(ignore_permissions=True)
+                    new_ad.submit()
 
                 
                 # if not existing_repayment:
