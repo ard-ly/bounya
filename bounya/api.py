@@ -944,7 +944,7 @@ def check_for_employee_external_advance(doc, method):
             if not ad_list:
                 print("in not ad_list")
                 # create Additional Salary.
-                if not frappe.db.exists("Additional Salary", {"employee": eea_doc.employee, "payroll_date": doc.start_date, "salary_component": eea_doc.salary_component}):
+                if not frappe.db.exists("Additional Salary", {"employee": eea_doc.employee, "payroll_date": doc.start_date, "salary_component": eea_doc.salary_component, "docstatus": 1}):
                     new_ad = frappe.new_doc("Additional Salary")
                     new_ad.employee = eea_doc.employee
                     new_ad.employee_name = eea_doc.employee_name
