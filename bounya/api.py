@@ -143,7 +143,7 @@ def remove_not_existing_salary_slip_or_additional_salary():
         repayment_entries = frappe.get_all(
             "External Loans Repayment",
             filters={"parent": loan.name},
-            fields=["name", "salary_slip", "status"]
+            fields=["name", "salary_slip","additional_salary", "status"]
         )
 
         for row in repayment_entries:
@@ -158,6 +158,37 @@ def remove_not_existing_salary_slip_or_additional_salary():
                 print(f"Cancelled missing Additional Salary: {row.additional_salary}")
 
     frappe.db.commit()  # Save changes to the database
+
+
+    emp_loans = frappe.db.sql_list("select name from `tabEmployee External Loans` where docstatus=1")
+    for emp_loan in  emp_loans:
+        print('**'+str(emp_loan)+'**')
+
+        eea_doc = frappe.get_doc("Employee External Loans", emp_loan)
+
+        new_paid = sum(row.amount for row in eea_doc.repayment_schedule if row.status == "Submitted")
+        new_remain = eea_doc.advance_amount - new_paid
+
+        if eea_doc.paid_amount!=new_paid or eea_doc.remaining_amount!=new_remain:
+            print("- Updated")
+            frappe.db.set_value(
+                "Employee External Loans",
+                eea_doc.name,
+                {
+                    "paid_amount": new_paid,
+                    "remaining_amount": new_remain,
+                },
+            )
+
+            # update Employee External Loans status.
+            if new_remain == 0:
+                frappe.db.set_value(
+                    "Employee External Loans", eea_doc.name, "status", "Paid"
+                )
+            else:
+                frappe.db.set_value(
+                    "Employee External Loans", eea_doc.name, "status", "Unpaid"
+                )
 
 
 
