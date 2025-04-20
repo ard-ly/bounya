@@ -148,12 +148,18 @@ def remove_not_existing_salary_slip_or_additional_salary():
 
         for row in repayment_entries:
             if not row.salary_slip or not frappe.db.exists("Salary Slip", row.salary_slip):
+                repayment_doc = frappe.get_doc("External Loans Repayment", row.name)
+                if repayment_doc.docstatus == 1:
+                    repayment_doc.cancel()
                 # If Salary Slip does not exist, mark as "Cancelled"
                 # frappe.db.set_value("External Loans Repayment", row.name, "status", "Cancelled")
                 frappe.delete_doc("External Loans Repayment", row.name, force=True)
                 print(f"Cancelled missing Salary Slip: {row.salary_slip}")
 
             if not row.additional_salary or not frappe.db.exists("Additional Salary", row.additional_salary):
+                repayment_doc = frappe.get_doc("External Loans Repayment", row.name)
+                if repayment_doc.docstatus == 1:
+                    repayment_doc.cancel()
                 # If Additional Salary does not exist, mark as "Cancelled"
                 # frappe.db.set_value("External Loans Repayment", row.name, "status", "Cancelled")
                 frappe.delete_doc("External Loans Repayment", row.name, force=True)
