@@ -133,6 +133,34 @@ def fix_external_advance():
 
 
 
+@frappe.whitelist()
+def remove_not_existing_salary_slip_or_additional_salary():
+    # Get all Employee External Loans documents
+    emp_loans = frappe.get_all("Employee External Loans", fields=["name"])
+
+    for loan in emp_loans:
+        # Get all repayment schedule entries for this loan
+        repayment_entries = frappe.get_all(
+            "External Loans Repayment",
+            filters={"parent": loan.name},
+            fields=["name", "salary_slip", "status"]
+        )
+
+        for row in repayment_entries:
+            if not row.salary_slip or not frappe.db.exists("Salary Slip", row.salary_slip):
+                # If Salary Slip does not exist, mark as "Cancelled"
+                frappe.db.set_value("External Loans Repayment", row.name, "status", "Cancelled")
+                print(f"Cancelled missing Salary Slip: {row.salary_slip}")
+
+            if not row.additional_salary or not frappe.db.exists("Additional Salary", row.additional_salary):
+                # If Additional Salary does not exist, mark as "Cancelled"
+                frappe.db.set_value("External Loans Repayment", row.name, "status", "Cancelled")
+                print(f"Cancelled missing Additional Salary: {row.additional_salary}")
+
+    frappe.db.commit()  # Save changes to the database
+
+
+
 
 @frappe.whitelist()
 def remove_duplicated_not_existing_salary_slip():
