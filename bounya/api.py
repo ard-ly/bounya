@@ -1033,6 +1033,12 @@ def check_for_employee_external_advance(doc, method):
                 
                     # if not existing_repayment:
                     # add row in External Loans Repayment.
+                    # Avoid duplicate External Loans Repayment entries
+                    if not frappe.db.exists("External Loans Repayment", {
+                        "salary_slip": doc.name,
+                        "parent": eea_doc.name,
+                        "additional_salary": new_ad.name
+                    }):
                     new_repayment_row = frappe.new_doc("External Loans Repayment")
                     new_repayment_row.salary_slip = doc.name
                     new_repayment_row.additional_salary = new_ad.name
