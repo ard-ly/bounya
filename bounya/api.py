@@ -156,7 +156,7 @@ def remove_not_existing_salary_slip_or_additional_salary():
                 frappe.delete_doc("External Loans Repayment", row.name, force=True)
                 print(f"Cancelled missing Salary Slip: {row.salary_slip}")
 
-            if not row.additional_salary or not frappe.db.exists("Additional Salary", row.additional_salary):
+            elif not row.additional_salary or not frappe.db.exists("Additional Salary", row.additional_salary):
                 repayment_doc = frappe.get_doc("External Loans Repayment", row.name)
                 if repayment_doc.docstatus == 1:
                     repayment_doc.cancel()
